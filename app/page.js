@@ -412,7 +412,6 @@ function showScrollableTitles(){
         trigger:'.home-project-slider',
         start:'top 5%',
         end:'bottom 95%',
-        markers:true,
         onEnter:()=>{showPagin()},
         onLeave:()=>{hidePagin()},
         onEnterBack:()=>{showPagin()},

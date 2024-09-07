@@ -226,8 +226,6 @@ export default  function Ideas(){
         <>  
             <LightTheme/>
             <NavbarIntroPage heading={'Research'}/>
-        <h1>Ideas page Changes Test</h1>
-
         <div class="project-heads">
             <div class="head-anim-control">
                 <div class="head-anim"></div>
