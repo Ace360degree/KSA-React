@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect } from "react";
+import '../../projects.css';
+import gsap from "gsap";
 
 export default function ProjectClock() {
 
@@ -9,7 +11,7 @@ export default function ProjectClock() {
     const clockIndicatorBox = document.querySelector('.clock-indicator-box');
     const clockDots = clockIndicatorBox.querySelectorAll('.clock-indicator');
     const clockDotsLength = clockDots.length;
-    
+
     // Set the rotation for each dot
     const numToDivide = 360 / clockDotsLength;
     clockDots.forEach((dot, index) => {
@@ -26,6 +28,38 @@ export default function ProjectClock() {
       smallIndicator.style.transform = `rotate(${i}deg)`;
       smallIndicatorBox.appendChild(smallIndicator);
     }
+
+    // Animate the second hand using GSAP
+    const secondsHand = document.querySelector('#seconds-clock');
+    
+    const animateSecondsHand = () => {
+      gsap.to(secondsHand, {
+        rotate: "+=360",   // Incrementally rotate the second hand by 360 degrees
+        duration: 60,      // Complete the rotation in 60 seconds
+        ease: "linear",    // Use a linear easing for smooth rotation
+        repeat: -1         // Infinite repeat for continuous rotation
+      });
+    };
+
+    animateSecondsHand();
+
+    // Timeline for adding and removing the active class to each clock indicator
+    const timeline = gsap.timeline({ repeat: -1 }); // Repeat infinitely
+    
+    // Add `active` class to each clock indicator in a staggered manner every 5 seconds
+    timeline.to(clockDots, {
+      className: "+=active", // Add the active class
+      stagger: 5, // Apply this to each element every 5 seconds
+      duration: 1, // Duration of the effect on each indicator
+      onComplete: function() {
+        // Remove `active` class after 5 seconds to simulate toggle effect
+        gsap.to(clockDots, {
+          className: "-=active", 
+          delay: 5 // Wait 5 seconds before removing `active`
+        });
+      }
+    });
+
   }, []);
 
   return (

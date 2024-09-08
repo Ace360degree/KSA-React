@@ -1,9 +1,31 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectBoxes() {
   const projectScrollerRef = useRef(null);
   const projectItemsRef = useRef([]);
+
+
+  const [projects,setProjects] = useState([]);
+
+  useEffect(()=>{
+
+    async function getProjectsAPI(){
+
+      const fetchProjects = await fetch('/api/get-projects',{method:'GET',headers: {'Content-Type': 'application/json',}});
+      const getProjects = await (fetchProjects.json());
+      
+      setProjects(getProjects.projects);
+      console.log(projects)
+    }
+
+    getProjectsAPI();
+
+  },[]);
+
+
 
   useEffect(() => {
     const projectBoxItems = projectItemsRef.current;
@@ -146,6 +168,8 @@ export default function ProjectBoxes() {
   }, []);
 
   return (
+    <>
+
     <div className="position-relative">
       <div className="filter-box-control">
         <div className="filter-box">
@@ -159,32 +183,56 @@ export default function ProjectBoxes() {
 
       <div id="projects-Scroller" ref={projectScrollerRef}>
         <div className="projects-main">
-          {[
-            { title: "Vistas Enclosure", filter: "residental", img: "https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2014/12/17/1/Teresa-Ryback_Contemporary-West-Coast-Exterior.jpg.rend.hgtvcom.1280.1280.suffix/1418836105562.jpeg" },
-            { title: "Sai Samast", filter: "commercial", img: "https://img.freepik.com/premium-photo/rows-balconies-corner-urban-building_294094-123.jpg" },
-            { title: "Mindspace", filter: "commercial", img: "https://images.adsttc.com/media/images/5df0/f70c/3312/fd16/7900/0716/newsletter/Vasiliy_Khurtin.jpg?1576072963" },
-            { title: "Bivab Heights", filter: "institution", img: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg" },
-          ].map((project, index) => (
+          
+          {projects.map((project,index)=>(
             <div
-              key={project.title}
+              key={project.projectid}
               className="projects-items active"
-              data-filter={project.filter}
+              data-filter={project.category}
               ref={(el) => (projectItemsRef.current[index] = el)}
             >
               <div className="projects-items-controls">
                 <div className="project-image-wrap">
                   <div className="wrap-box"></div>
-                  <img src={project.img} alt={project.title} />
+                  <Link href={'/expertise/test'}>
+                  <Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}}  src={`${process.env.NEXT_PUBLIC_SITE_URL+project.project_image}`} alt={project.project_name} />
+                  </Link>
                 </div>
                 <div className="project-item-content">
-                  <h6>Where communities bridge the sky</h6>
-                  <h4>{project.title}</h4>
+                  <h6>{project.description}</h6>
+                  <h4>{project.project_name}</h4>
                 </div>
               </div>
             </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
+
+    <div className="user-clock projects-clock">
+        <div className="user-clock-control">
+          <div className="user-hands user-clock-hour" style={{ opacity: '0' }}>
+            <span></span>
+          </div>
+          <div
+            id="seconds-clock"
+            className="user-hands user-clock-seconds project-hands clock-paused"
+          >
+            <span></span>
+          </div>
+        </div>
+
+        <div className="clock-indicator-box">
+          {/* Rendering 12 clock indicators */}
+          {Array.from({ length: 12 }).map((_, index) => (
+            <div key={index} className="clock-indicator"></div>
+          ))}
+        </div>
+
+        <div className="clock-smallindicator-box"></div>
+      </div>
+
+   </>
+          
   );
 }
