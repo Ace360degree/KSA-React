@@ -553,7 +553,7 @@ function showScrollableTitles(){
                             <h2>CLUSTER A</h2>
                             <h4>GREEN FACADE, VIBRANT SPACE. LIVE THE CASCADED DIFFERENCE</h4>
                         </div>
-                        <img src="<?= base_url('images/projects/CLUSTER A/1721027308_30d8bcf16e0ca25a1ed5.jpg')?>"/>
+                        <img src="./images/home-projects/1.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping">
@@ -561,7 +561,7 @@ function showScrollableTitles(){
                             <h2>VU_T_SCHOOL</h2>
                             <h4>ARCHITECTURE MEETS EDUCATION : A SCHOOL REIMAGINED</h4>
                         </div>
-                        <img src="<?= base_url('images/projects/vu-School.jpg')?>"/>
+                        <img src="./images/home-projects/2.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -569,7 +569,7 @@ function showScrollableTitles(){
                             <h2>BEVAB HEIGHTS</h2>
                             <h4>TWISTING LUXURY: REDEFINING THE SKYLINE</h4>
                         </div>
-                        <img src="<?= base_url('images/projects/BIVAB HEIGHTS/1722415093_283501dbe206078126b4.jpg')?>"/>
+                        <img src="./images/home-projects/3.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -577,7 +577,7 @@ function showScrollableTitles(){
                             <h2>VAULT</h2>
                             <h4>THE ART OF HOSPITALITY, REDEFINED</h4>
                         </div>
-                        <img src="<?= base_url('images/projects/VAULT/1721042026_23c8dfea63c6a4a7c12a.jpg')?>"/>
+                        <img src="./images/home-projects/4.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -585,7 +585,7 @@ function showScrollableTitles(){
                             <h2>LIVINE PARK</h2>
                             <h4>A PINNACLE OF MODERN LUXURY</h4>
                         </div>
-                        <img src="<?= base_url('images/projects/LIVINE PARK/1721039082_96ea9568709663ba7f6b.jpg')?>"/>
+                        <img src="./images/home-projects/5.jpg"/>
                     </div>
             </div>
 

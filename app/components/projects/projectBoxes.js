@@ -7,7 +7,7 @@ export default function ProjectBoxes() {
   const projectScrollerRef = useRef(null);
   const projectItemsRef = useRef([]);
 
-
+  const [categories,setCategories] = useState([]);
   const [projects,setProjects] = useState([]);
 
   useEffect(()=>{
@@ -19,6 +19,8 @@ export default function ProjectBoxes() {
       
       setProjects(getProjects.projects);
       console.log(projects)
+
+      setCategories(getProjects.categories);
     }
 
     getProjectsAPI();
@@ -26,18 +28,51 @@ export default function ProjectBoxes() {
   },[]);
 
 
+  const filterChange = (filter,target)=>{
+    activateFilters(target);
+    if(filter=='All'){
+      showAllFilter();
+    }
+    else{
+      hideAllElements();
+      showFilteredItems(filter);
+    }
+  }
 
-  useEffect(() => {
-    const projectBoxItems = projectItemsRef.current;
-    
-    projectBoxItems.forEach((box) => {
-      const dataURL = box.getAttribute('data-url');
-      if (dataURL) {
-        box.addEventListener('click', () => {
-          window.location.href = dataURL;
-        });
+  let projectsItemsAll = document.querySelectorAll('.projects-items');
+  let filterItemsAll = document.querySelectorAll('.filter-box li');
+
+  const activateFilters = (target) =>{
+    filterItemsAll.forEach((fil)=>{ 
+      fil.classList.remove('selected');
+    })
+    target.classList.add('selected');
+  }
+
+  const showAllFilter = ()=>{
+    projectsItemsAll.forEach((elem)=>{
+      elem.classList.add('active');
+    });
+  }
+
+  const hideAllElements=()=>{
+    projectsItemsAll.forEach((elem)=>{
+      elem.classList.remove('active');
+    });
+  }
+
+  const showFilteredItems = (filter)=>{
+    projectsItemsAll.forEach((elem)=>{
+      if(elem.getAttribute('data-filter')==filter){
+        elem.classList.add('active');
       }
     });
+  }
+
+
+
+
+  useEffect(() => {
 
     const windowHeight = window.innerHeight / 2;
     let lastScrollPos = undefined;
@@ -111,7 +146,10 @@ export default function ProjectBoxes() {
   }, []);
 
   useEffect(() => {
+
+    
     let scrollerIndex = 0;
+
 
     const smoothScroll = (targetY, duration) => {
       const startY = window.scrollY;
@@ -141,7 +179,7 @@ export default function ProjectBoxes() {
     };
 
     const initProjects = () => {
-      const allProjects = projectItemsRef.current;
+      const allProjects = document.querySelectorAll('.projects-items.active');
       if (!allProjects.length) return;
 
       const currProject = allProjects[scrollerIndex] || allProjects[0];
@@ -149,6 +187,8 @@ export default function ProjectBoxes() {
         smoothScroll(currProject.offsetTop - 100, 100);
       }
     };
+
+
 
     const rotateSecondsHandsNormal = () => {
       const secondsClock = document.getElementById('seconds-clock');
@@ -162,6 +202,25 @@ export default function ProjectBoxes() {
     initProjects();
     const clockInterval = setInterval(rotateSecondsHandsNormal, 5000);
 
+    function updateScrollerIndex() {
+      const allProjects = document.querySelectorAll('.projects-items.active');
+      const scrollPosition = window.scrollY; // Current scroll position
+  
+      // Loop through all projects to find the currently visible one
+      allProjects.forEach((project, index) => {
+          const projectOffsetTop = project.offsetTop;
+          const projectHeight = project.offsetHeight;
+  
+          // Check if the current scroll position is within the bounds of the project
+          if (scrollPosition >= projectOffsetTop - 100 && scrollPosition < projectOffsetTop + projectHeight - 100) {
+              scrollerIndex = index; // Update scrollerIndex to the current project
+          }
+      });
+  }
+  
+  // Add scroll event listener
+  window.addEventListener('scroll', updateScrollerIndex);
+
     return () => {
       clearInterval(clockInterval);
     };
@@ -173,9 +232,10 @@ export default function ProjectBoxes() {
     <div className="position-relative">
       <div className="filter-box-control">
         <div className="filter-box">
-          {["Residental", "Commercial", "UrbanDesign + Planning", "Institution", "Hospitality", "Interior"].map((filter) => (
-            <li key={filter} data-filter={filter.toLowerCase()}>
-              {filter}
+          <li data-filer="All"  onClick={(e)=>{filterChange('All',e.currentTarget)}}>All</li>
+          {categories.map((filter,index) => (
+            <li key={index} data-filter={filter.category} onClick={(e)=>{filterChange(filter.category,e.currentTarget)}}>
+              {filter.category}
             </li>
           ))}
         </div>
@@ -194,7 +254,7 @@ export default function ProjectBoxes() {
               <div className="projects-items-controls">
                 <div className="project-image-wrap">
                   <div className="wrap-box"></div>
-                  <Link href={'/expertise/test'}>
+                  <Link href={`/expertise-info?slug=${project.url_slug}`}>
                   <Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}}  src={`${process.env.NEXT_PUBLIC_SITE_URL+project.project_image}`} alt={project.project_name} />
                   </Link>
                 </div>
@@ -211,7 +271,7 @@ export default function ProjectBoxes() {
 
     <div className="user-clock projects-clock">
         <div className="user-clock-control">
-          <div className="user-hands user-clock-hour" style={{ opacity: '0' }}>
+          <div className="user-hands user-clock-hour" style={{ opacity:'0'}}>
             <span></span>
           </div>
           <div

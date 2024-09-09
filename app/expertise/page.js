@@ -10,7 +10,7 @@ export default function Expertise(){
     return(<>
         
         <LightTheme/>
-        <NavbarIntroPage/>
+        <NavbarIntroPage heading={'Expertise'}/>
 
         <ProjectClock/>
         <ProjectBoxes/>
