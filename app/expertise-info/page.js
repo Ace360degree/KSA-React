@@ -6,7 +6,7 @@ import { param } from "jquery";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-export default function projectInfo(){
+export default function ProjectInfo(){
 
     const params = useSearchParams();
     const urlParams = params.get('slug');
