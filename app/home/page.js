@@ -1,9 +1,12 @@
 'use client';
 import { useEffect } from "react";
-import HomeMenu from "../components/homeMenu/homeMenu";
+import dynamic from "next/dynamic";
+// import HomeMenu from "../components/homeMenu/homeMenu";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 
-
+const HomeMenu = dynamic(() => import("../components/homeMenu/homeMenu"), {
+    ssr: false,
+})
 
 export default function HomePage(){
 

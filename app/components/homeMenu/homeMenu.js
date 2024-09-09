@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef } from "react";
 import UserClock from "../commons/userClock";
 import Link from "next/link";
