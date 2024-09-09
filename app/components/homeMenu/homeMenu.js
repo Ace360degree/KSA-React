@@ -35,9 +35,8 @@ export default function HomeMenu() {
         function hoverTitleAnimation(){
                 
                 intervalId = setInterval(function(){
-                    titles.innerHTML = titlesArray[textNum]
+                    titles.innerHTML = titlesArray[textNum];
                     textNum = (textNum + 1) % titlesArray.length;
-                    
                 },600);
         }
         
