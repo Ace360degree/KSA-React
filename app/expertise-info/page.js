@@ -1,31 +1,27 @@
 'use client'
-
 import LightTheme from "@/app/components/body/lightTheme";
 import NavbarIntroPage from "@/app/components/NavbarIntroPage";
-import { param } from "jquery";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 export default function ProjectInfo(){
 
-    const params = useSearchParams();
-    const urlParams = params.get('slug');
+    // const params = useSearchParams();
+    // const urlParams = params.get('slug');
 
-    useEffect(()=>{
+    // useEffect(()=>{
         
-        async function getcurrentProject(){
-            const reqBody = JSON.stringify({'slug':urlParams});
-            const fetchProject = await fetch('api/get-projects/getsingle',{method:'POST',body:reqBody,headers: {
-                'Content-Type': 'application/json',
-              },})
-            const getProject = await (fetchProject.json());
+    //     async function getcurrentProject(){
+    //         const reqBody = JSON.stringify({'slug':urlParams});
+    //         const fetchProject = await fetch('api/get-projects/getsingle',{method:'POST',body:reqBody,headers: {
+    //             'Content-Type': 'application/json',
+    //           },})
+    //         const getProject = await (fetchProject.json());
 
-            console.log(getProject);
-        }
+    //         console.log(getProject);
+    //     }
 
-        getcurrentProject();
+    //     getcurrentProject();
         
-    },[])
+    // },[])
 
     return (
         <>  
