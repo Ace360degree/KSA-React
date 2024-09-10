@@ -6,14 +6,19 @@ import dynamic from 'next/dynamic'
 
 const HomeComponent = dynamic(() => import('./components/home/homeComponent'), {
     ssr: false,
-  })
-  
+  }) 
+
 export default function Home() {
-
-
   
+  const [loading,setLoading] = useState(false);
+
+  useEffect(()=>{
+
+  },[])
+
   return (
     <>
+        
         <HomeComponent/>
     </>
   );

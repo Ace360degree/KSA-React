@@ -4,6 +4,9 @@ import UserClock from "../commons/userClock";
 import Link from "next/link";
 
 export default function HomeMenu() {
+
+  const menuLinksRef = useRef([]);
+
   useEffect(() => {
     const updateClock = () => {
       const hoursHand = document.querySelectorAll(".user-clock-hour");
@@ -88,33 +91,60 @@ export default function HomeMenu() {
       }
     }
 
-    const menuLinks = document.querySelectorAll('.menu-link-li');
+    // const menuLinks = document.querySelectorAll('.menu-link-li');
 
-    const linkHover = (link)=>{
-      dimMenus();
-      // removeCurrentDim(link);
-    }
-
-    const linkOut = ()=>{
+    const linkHover = (index) => {
+      dimMenus(index);
+    };
+  
+    const linkOut = () => {
       dimMenusReset();
-    }
-    
-
-    const dimMenus = ()=>{
-      menuLinks.forEach((link)=>{
-        link.classList.add('dim');
-      })
-    }
-
-    const dimMenusReset = ()=>{
-      menuLinks.forEach((link)=>{
+    };
+  
+    const dimMenus = (hoveredIndex) => {
+      menuLinksRef.current.forEach((link, index) => {
+        if (index !== hoveredIndex) {
+          link.classList.add('dim');
+        }
+      });
+    };
+  
+    const dimMenusReset = () => {
+      menuLinksRef.current.forEach((link) => {
         link.classList.remove('dim');
-      })
-    }
+      });
+    };
+
+
+    useEffect(()=>{
+
+      const menuScreens = document.querySelectorAll('.menu-screen');
+
+      menuScreens.forEach((menu)=>{
+        menu.addEventListener('click',()=>{
+          let dataTargetofMenu = menu.getAttribute('data-target');
+          menu.querySelectorAll('.menu-link li').forEach((link)=>{link.classList.remove('active')});
+          menu.classList.remove('active');
+          document.querySelector(dataTargetofMenu).classList.remove('active');
+        
+          checkNow();
+        })
+      });
+
+      function checkNow(){
+        let anyMenuActive = Array.from(document.querySelectorAll('.menu-screen')).some(menu => menu.classList.contains('active'));
+        let TitlesBox = document.querySelector('.home-content-control');
+        // Toggle hide class on TitlesBox only if no menu screen is active
+        if (!anyMenuActive) {
+            TitlesBox.classList.remove('hide');
+        } else {
+            TitlesBox.classList.add('hide');
+        }
+      }
+
+
+    },[])
     
-    const removeCurrentDim =(elm)=>{
-      elm.classList.remove('dim');
-    }
   
 
 
@@ -177,10 +207,10 @@ export default function HomeMenu() {
           data-target="#leftmenutrigger"
         >
           <div className="menu-link">
-              <li className="menu-link-li" onMouseEnter={(e)=>{linkHover(e.currentTarget)}} onMouseLeave={linkOut}>
+              <li className="menu-link-li" onMouseEnter={()=>{linkHover()}} onMouseLeave={linkOut} ref={(el) => (menuLinksRef.current[0] = el)}>
                 <Link href={'/about'}><span>About</span></Link>
               </li>
-              <li className="menu-link-li" onMouseEnter={(e)=>{linkHover(e.currentTarget)}}  onMouseLeave={linkOut}>
+              <li className="menu-link-li" onMouseEnter={()=>{linkHover()}}  onMouseLeave={linkOut} ref={(el) => (menuLinksRef.current[1] = el)}>
               <Link href={'/contact'}><span>Contact</span></Link>
               </li>
           </div>
@@ -190,10 +220,10 @@ export default function HomeMenu() {
           id="rightMenu"
           data-target="#rightmenutrigger">
           <div className="menu-link">
-              <li className="menu-link-li" onMouseEnter={(e)=>{linkHover(e.currentTarget)}} onMouseLeave={linkOut}>
+              <li className="menu-link-li" onMouseEnter={()=>{linkHover()}} onMouseLeave={linkOut} ref={(el) => (menuLinksRef.current[2] = el)}>
               <Link href={'/expertise'}><span>Expertise</span></Link>
               </li>
-              <li className="menu-link-li" onMouseEnter={(e)=>{linkHover(e.currentTarget)}} onMouseLeave={linkOut}>
+              <li className="menu-link-li" onMouseEnter={()=>{linkHover()}} onMouseLeave={linkOut} ref={(el) => (menuLinksRef.current[3] = el)}>
               <Link href={'/ideas'}><span>Ideas</span></Link>
               </li>
           </div>

@@ -39,12 +39,15 @@ export default function HomeComponent(){
     const mainBody = document.querySelector('body');
     const ProjectSlider = document.querySelector('.home-project-slider');
     const projectGridViewer = document.querySelector('.home-grid-viewer');
-    const slidesImageBoxes = ProjectSlider.querySelectorAll('.home-slides-box');
     
     const secondTitleBox = document.getElementById('second-title');
     const secondTitleTexts = secondTitleBox.querySelectorAll('.intro-title-text');
     
     const homeSLidesItem = document.querySelectorAll('.home-slider-item');
+
+
+    navbar.classList.remove('active');
+
     
     homeSLidesItem.forEach(function(item,index){
         item.style.zIndex = 2 +index;
