@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import $ from 'jquery';
 import 'jquery-scrollify';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 
 export default function HomeComponent(){
@@ -26,7 +27,10 @@ export default function HomeComponent(){
     let windowWidth = window.screen.width;
 
   useEffect(()=>{
-    window.scrollTo(0, 0)
+    
+    gsap.to(window, {
+        scrollTo: {y: 0, autoKill: false},
+    });
 
     gsap.ticker.lagSmoothing(false);
     
@@ -50,6 +54,7 @@ export default function HomeComponent(){
 
     navbar.classList.remove('active');
     document.querySelector('body').classList.add('loading');
+    document.querySelector('body').classList.remove('dark');
     
     homeSLidesItem.forEach(function(item,index){
         item.style.zIndex = 2 +index;
