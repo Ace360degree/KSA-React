@@ -26,6 +26,8 @@ export default function HomeComponent(){
     let windowWidth = window.screen.width;
 
   useEffect(()=>{
+    window.scrollTo(0, 0)
+
     gsap.ticker.lagSmoothing(false);
     
     document.getElementById('clock').classList.remove('d-none');
@@ -47,7 +49,7 @@ export default function HomeComponent(){
 
 
     navbar.classList.remove('active');
-
+    document.querySelector('body').classList.add('loading');
     
     homeSLidesItem.forEach(function(item,index){
         item.style.zIndex = 2 +index;
@@ -565,7 +567,7 @@ function showScrollableTitles(){
                             <h2>VU_T_SCHOOL</h2>
                             <h4>ARCHITECTURE MEETS EDUCATION : A SCHOOL REIMAGINED</h4>
                         </div>
-                        <img src="/images/home-projects/2.jpg"/>
+                        <img src="/images/home/2.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -573,7 +575,7 @@ function showScrollableTitles(){
                             <h2>BEVAB HEIGHTS</h2>
                             <h4>TWISTING LUXURY: REDEFINING THE SKYLINE</h4>
                         </div>
-                        <img src="./images/home-projects/3.jpg"/>
+                        <img src="/images/home/3.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -581,7 +583,7 @@ function showScrollableTitles(){
                             <h2>VAULT</h2>
                             <h4>THE ART OF HOSPITALITY, REDEFINED</h4>
                         </div>
-                        <img src="./images/home-projects/4.jpg"/>
+                        <img src="./images/home/4.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -589,7 +591,7 @@ function showScrollableTitles(){
                             <h2>LIVINE PARK</h2>
                             <h4>A PINNACLE OF MODERN LUXURY</h4>
                         </div>
-                        <img src="./images/home-projects/5.jpg"/>
+                        <img src="./images/home/5.jpg"/>
                     </div>
             </div>
 
