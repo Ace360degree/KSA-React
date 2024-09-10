@@ -554,7 +554,7 @@ function showScrollableTitles(){
                             <h2>CLUSTER A</h2>
                             <h4>GREEN FACADE, VIBRANT SPACE. LIVE THE CASCADED DIFFERENCE</h4>
                         </div>
-                        <img src="./images/home-projects/1.jpg"/>
+                        <img src="/images/home/1.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping">
@@ -562,7 +562,7 @@ function showScrollableTitles(){
                             <h2>VU_T_SCHOOL</h2>
                             <h4>ARCHITECTURE MEETS EDUCATION : A SCHOOL REIMAGINED</h4>
                         </div>
-                        <img src="./images/home-projects/2.jpg"/>
+                        <img src="/images/home-projects/2.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
