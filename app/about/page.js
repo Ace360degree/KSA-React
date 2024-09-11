@@ -4,14 +4,18 @@ import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useRouter } from 'next/navigation';
+
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { Router } from "next/router";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function About(){
 
-    gsap.registerPlugin(ScrollTrigger);
     gsap.defaults({inherit:false});
 
     const aboutSection = useRef(null);
+    const mainBanner = useRef(null);
 
     function scrollSmoothTo() {
         if (aboutSection.current) {
@@ -22,10 +26,7 @@ export default function About(){
         }
     }
 
-    // Ensure the page starts at the top when loaded
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);  // This ensures it runs only once when the page is loaded
+
 
     useEffect(() => {
         let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
@@ -121,7 +122,6 @@ export default function About(){
 
         return () => ctx.revert();
     }, []);
-        
 
 
 
@@ -135,7 +135,7 @@ export default function About(){
             <li className="filter-trigger" id="disciplineTrigger" data-target="#discipline">Discipline</li>
         </ul>
      
-        <div className="target-section active overflow-hidden" id="culture">
+        <div className="target-section active overflow-hidden" ref={mainBanner} id="culture">
             
             <div className="full-section px-4" id="about-intro">
                 <div className=" text-uppercase">
