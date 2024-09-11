@@ -12,82 +12,60 @@ export default function About(){
     gsap.defaults({inherit:false});
 
     const aboutSection = useRef(null);
+
     function scrollSmoothTo() {
         if (aboutSection.current) {
             aboutSection.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-        }
-      }
-
-    useEffect(()=>{
-
-        let animationPageTitleSpans =document.querySelectorAll('.page-title-animation span');
-    
-    
-    animationPageTitleSpans.forEach(function(title,index){
-        let pageTitleAnimation = gsap.timeline({ delay: index * 0.6 });
-        
-        pageTitleAnimation.fromTo(title,
-                {rotateX:"-90",opacity:1},
-                {rotateX:"0", delay:0.4,duration:0.4,}
-        );
-                
-        pageTitleAnimation.to(title,{height:"auto",y:"0", delay:0.3,duration:0.4}) 
-    })
-
-    gsap.fromTo('.about-intro-sub',{
-        y:100,
-        opacity:0,
-    },{
-        y:0,
-        opacity:1,
-        delay:2.5,
-        duration:0.6,
-    });
-        
-        document.querySelectorAll('.about-anim-banner').forEach(function(title,index){
-        
-            let AboutBannerTl= gsap.timeline({delay:index*1});
-            AboutBannerTl.fromTo(title,
-            {
-                rotateX:"-90",
-                y:"40px",
-            },
-            {
-                rotateX:0,
-                Y:"40px",
-                duration:0.4,
+                behavior: 'smooth',
+                block: 'start',
             });
-            
-            AboutBannerTl.to(title,{y:0,delay:0.2,duration:0.3});
-            
+        }
+    }
+
+    // Ensure the page starts at the top when loaded
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);  // This ensures it runs only once when the page is loaded
+
+    useEffect(() => {
+        let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
+
+        animationPageTitleSpans.forEach(function(title, index) {
+            let pageTitleAnimation = gsap.timeline({ delay: index * 0.6 });
+
+            pageTitleAnimation.fromTo(title, {rotateX: "-90", opacity: 1}, {rotateX: "0", delay: 0.4, duration: 0.4});
+            pageTitleAnimation.to(title, {height: "auto", y: "0", delay: 0.3, duration: 0.4});
         });
-        
-       setTimeout(()=>{
-        document.querySelector('.scrollbanner').classList.add('active');
-       },2000)
-        
-        
-        let AboutAnimeTextElem = document.querySelector('.about-anim-text')
+
+        gsap.fromTo('.about-intro-sub', {y: 100, opacity: 0}, {y: 0, opacity: 1, delay: 2.5, duration: 0.6});
+
+        document.querySelectorAll('.about-anim-banner').forEach(function(title, index) {
+            let AboutBannerTl = gsap.timeline({delay: index * 1});
+            AboutBannerTl.fromTo(title, {rotateX: "-90", y: "40px"}, {rotateX: 0, y: "40px", duration: 0.4});
+            AboutBannerTl.to(title, {y: 0, delay: 0.2, duration: 0.3});
+        });
+
+        setTimeout(() => {
+            document.querySelector('.scrollbanner').classList.add('active');
+        }, 2000);
+
+        let AboutAnimeTextElem = document.querySelector('.about-anim-text');
         let aboutAnimTitles = AboutAnimeTextElem.getAttribute('data-titles');
         let aboutAnimArray = aboutAnimTitles.split(',');
-        let currentIndex =0;
-        
+        let currentIndex = 0;
+
         // Function to change the text
         function changeText() {
             AboutAnimeTextElem.textContent = aboutAnimArray[currentIndex];
             currentIndex = (currentIndex + 1) % aboutAnimArray.length; // Loop back to the start if reached the end
         }
-        
+
         // Call the function initially
         changeText();
-        
+
         // Set interval to change text every 0.5 seconds
         let intervalId = setInterval(changeText, 500);
-        
-        
+
         // Create a timeline for the animation
         let timeline = gsap.timeline({
             scrollTrigger: {
@@ -95,63 +73,57 @@ export default function About(){
                 start: "top 80%",
                 end: "top 30%",
                 scrub: true,
-                // markers: true, // Uncomment for debugging
             }
         });
-        
-            let Abouttimeline = gsap.timeline();
-            Abouttimeline.fromTo('.about-item',
-                    { y: "100%", opacity: 0 },  // Starting state
-                    { y: "0", opacity: 1, duration: 1.5, ease: "power3.out", stagger: 0.05}  // Ending state with stagger
-            );
-    
-    
-        
-        // About Top Content
-        
-        function resetTargetSections(){
-            document.querySelectorAll('.target-section').forEach(function(obj){
+
+        let Abouttimeline = gsap.timeline();
+        Abouttimeline.fromTo('.about-item', {y: "100%", opacity: 0}, {y: "0", opacity: 1, duration: 1.5, ease: "power3.out", stagger: 0.05});
+
+        function resetTargetSections() {
+            document.querySelectorAll('.target-section').forEach(function(obj) {
                 obj.classList.remove('active');
             });
         }
-        
-        document.querySelectorAll('.filter-trigger').forEach(function(menu){
-            menu.addEventListener('click', function(e){
-                 let targetTabs = menu.getAttribute('data-target'); 
-                 resetTargetSections();
-                 document.querySelector(targetTabs).classList.add('active');
-                 Abouttimeline.restart();
-                 document.querySelectorAll('.filter-trigger').forEach(function(itemMenu){itemMenu.classList.remove('active');})
-                 menu.classList.add('active');
+
+        document.querySelectorAll('.filter-trigger').forEach(function(menu) {
+            menu.addEventListener('click', function(e) {
+                let targetTabs = menu.getAttribute('data-target');
+                resetTargetSections();
+                document.querySelector(targetTabs).classList.add('active');
+                Abouttimeline.restart();
+                document.querySelectorAll('.filter-trigger').forEach(function(itemMenu) {
+                    itemMenu.classList.remove('active');
+                });
+                menu.classList.add('active');
+                gsap.to(window, {scrollTo: {y: 0, autoKill: false}});
             });
         });
- 
 
-    },[]);
+    }, []);
 
-
-    useEffect(()=>{
+    useEffect(() => {
         let ctx = gsap.context(() => {
             // Play Second Animation
             let ksaAbout2TL = gsap.timeline();
-            ksaAbout2TL.to('.ab-2-head',{duration:1,scale:1})
-                       .to('.about-para',{duration:1,opacity:1,scale:1.1})
-                       .to(ksaAbout2TL,{delay:0.5})
-            
+            ksaAbout2TL.to('.ab-2-head', {duration: 1, scale: 1})
+                .to('.about-para', {duration: 1, opacity: 1, scale: 1.1})
+                .to(ksaAbout2TL, {delay: 0.5});
+
             ScrollTrigger.create({
-                scrub:true,
-                trigger:'#ksa-about',
-                start:"top top",
-                end:"+=1000",
-                pin:true,
-                animation:ksaAbout2TL,
-            })
-            
+                scrub: true,
+                trigger: '#ksa-about',
+                start: "top top",
+                end: "+=1000",
+                pin: true,
+                animation: ksaAbout2TL,
             });
-            
-            return () => ctx.revert(); 
-            // ctx.revert();
-    },[])
+        });
+
+        return () => ctx.revert();
+    }, []);
+        
+
+
 
     return(
         <>

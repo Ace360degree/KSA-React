@@ -1,7 +1,9 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic'
+import HomeLoader from './components/home/homeLoader';
 // import HomeComponent from './components/home/homeComponent';
+import { useVisitedStore } from './states/store';
 
 
 const HomeComponent = dynamic(() => import('./components/home/homeComponent'), {
@@ -10,16 +12,14 @@ const HomeComponent = dynamic(() => import('./components/home/homeComponent'), {
 
 export default function Home() {
   
-  const [loading,setLoading] = useState(false);
+  const { visited } = useVisitedStore();
 
-  useEffect(()=>{
-
-  },[])
 
   return (
     <>
-        
-        <HomeComponent/>
+        {visited? <HomeComponent/>: 
+        <HomeLoader/>
+        }
     </>
   );
 }

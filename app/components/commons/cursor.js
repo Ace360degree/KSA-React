@@ -1,15 +1,14 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import gsap from "gsap";
-import { TweenMax } from "gsap/gsap-core";
-
+import gsap from 'gsap';
 
 export default function CursorAudio() {
-  const audioRef = useRef(null); // Use ref to access audio element
-  const playSVGRef = useRef(null); // Use ref for play SVG icon
-  const pauseSVGRef = useRef(null); // Use ref for pause SVG icon
-  const bigCursorRef = useRef(null); // Use ref for big cursor
-  const smCursorRef = useRef(null); // Use ref for small cursor
+
+  const audioRef = useRef(null); // Ref to access the audio element
+  const playSVGRef = useRef(null); // Ref for play SVG icon
+  const pauseSVGRef = useRef(null); // Ref for pause SVG icon
+  const bigCursorRef = useRef(null); // Ref for big cursor
+  const smCursorRef = useRef(null); // Ref for small cursor
 
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
 
@@ -25,37 +24,50 @@ export default function CursorAudio() {
     }
   };
 
+  // Function to request fullscreen
+  const requestFullscreen = () => {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+      document.documentElement.msRequestFullscreen();
+    }
+  };
+
   useEffect(() => {
     const mainAudio = audioRef.current;
 
-    function playAudioConditionByDefault() {
-      let playAttempt = setInterval(() => {
-        mainAudio
-          .play()
-          .then(() => {
-            setIsPlaying(true);
-            clearInterval(playAttempt);
-          })
-          .catch((error) => {
-            console.log('Unable to play the audio, User has not interacted yet.');
-          });
-      }, 1000);
-    }
+    // Function to play audio conditionally
+    const playAudioConditionByInteraction = () => {
+      mainAudio.play().then(() => {
+        setIsPlaying(true);
+      }).catch((error) => {
+        console.log('Unable to play the audio, User has not interacted yet.');
+      });
+    };
 
-    document.addEventListener('DOMContentLoaded', playAudioConditionByDefault);
+    // Set up an event listener to play audio on user interaction
+    const handleUserInteraction = () => {
+      playAudioConditionByInteraction();
+      requestFullscreen(); // Request fullscreen on user interaction
+      document.removeEventListener('click', handleUserInteraction); // Remove listener once audio starts
+    };
+
+    document.addEventListener('click', handleUserInteraction); // Set up listener on document click
 
     return () => {
-      document.removeEventListener('DOMContentLoaded', playAudioConditionByDefault);
+      document.removeEventListener('click', handleUserInteraction);
     };
   }, []);
 
   useEffect(() => {
     const bigCursor = bigCursorRef.current;
     const smCursor = smCursorRef.current;
-    let posX = 0,
-      posY = 0;
-    let mouseX = 0,
-      mouseY = 0;
+    let posX = 0, posY = 0;
+    let mouseX = 0, mouseY = 0;
 
     // Animation loop for cursor movement
     gsap.to({}, 0.016, {
@@ -86,8 +98,7 @@ export default function CursorAudio() {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      const cursorIsPointer =
-        window.getComputedStyle(e.target).cursor ===
+      const cursorIsPointer = window.getComputedStyle(e.target).cursor ===
         'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/yiH2YIAAAAASUVORK5CYII="), pointer';
 
       if (cursorIsPointer) {
