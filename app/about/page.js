@@ -6,10 +6,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-
 export default function About(){
 
     gsap.registerPlugin(ScrollTrigger);
+    gsap.defaults({inherit:false});
 
     const aboutSection = useRef(null);
     function scrollSmoothTo() {

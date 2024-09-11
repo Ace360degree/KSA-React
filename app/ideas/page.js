@@ -203,7 +203,9 @@ export default  function Ideas(){
 
         });
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+        } 
 
     });
 

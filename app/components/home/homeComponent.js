@@ -588,7 +588,7 @@ function showScrollableTitles(){
                             <h2>VAULT</h2>
                             <h4>THE ART OF HOSPITALITY, REDEFINED</h4>
                         </div>
-                        <img src="./images/home/4.jpg"/>
+                        <img src="/images/home/4.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -596,7 +596,7 @@ function showScrollableTitles(){
                             <h2>LIVINE PARK</h2>
                             <h4>A PINNACLE OF MODERN LUXURY</h4>
                         </div>
-                        <img src="./images/home/5.jpg"/>
+                        <img src="/images/home/5.jpg"/>
                     </div>
             </div>
 
