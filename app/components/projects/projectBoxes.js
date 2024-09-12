@@ -7,12 +7,13 @@ import Link from "next/link";
 export default function ProjectBoxes() {
   const projectScrollerRef = useRef(null);
   const projectItemsRef = useRef([]);
+  const clockIndicators = useRef([]);
+  const [indiIndex,setIndiIndex] = useState(0);
 
   const [categories,setCategories] = useState([]);
   const [projects,setProjects] = useState([]);
 
   useEffect(()=>{
-
     async function getProjectsAPI(){
 
       const fetchProjects = await fetch('/api/get-projects',{method:'GET',headers: {'Content-Type': 'application/json',}});
@@ -151,7 +152,6 @@ export default function ProjectBoxes() {
     
     let scrollerIndex = 0;
 
-
     const smoothScroll = (targetY, duration) => {
       const startY = window.scrollY;
       const diff = targetY - startY;
@@ -189,8 +189,17 @@ export default function ProjectBoxes() {
       }
     };
 
+    let indicatorIndex = 0;
+    function indicatorAnimation(){
+      clockIndicators.current.forEach((indi)=>{
+          indi.classList.remove('active');
+      })
+      clockIndicators.current[indicatorIndex].classList.add('active');
+       indicatorIndex = (indicatorIndex+1) % clockIndicators.current.length;
+    }
 
-
+    indicatorAnimation();
+    
     const rotateSecondsHandsNormal = () => {
       const secondsClock = document.getElementById('seconds-clock');
       if (secondsClock) {
@@ -198,8 +207,8 @@ export default function ProjectBoxes() {
       }
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       initProjects();
+      indicatorAnimation();
     };
-
     initProjects();
     const clockInterval = setInterval(rotateSecondsHandsNormal, 5000);
 
@@ -226,6 +235,10 @@ export default function ProjectBoxes() {
       clearInterval(clockInterval);
     };
   }, []);
+
+
+
+
 
   return (
     <>
@@ -286,7 +299,7 @@ export default function ProjectBoxes() {
         <div className="clock-indicator-box">
           {/* Rendering 12 clock indicators */}
           {Array.from({ length: 12 }).map((_, index) => (
-            <div key={index} className="clock-indicator"></div>
+            <div key={index} className="clock-indicator" ref={(el)=>(clockIndicators.current[index] = el)} style={{transform:`rotate(${index*30}deg)`}}></div>
           ))}
         </div>
 

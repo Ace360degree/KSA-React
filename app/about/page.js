@@ -4,10 +4,11 @@ import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { useRouter } from 'next/navigation';
-
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { Router } from "next/router";
+import $ from "jquery";
+import  "jquery-scrollify";
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About(){
@@ -123,6 +124,11 @@ export default function About(){
         return () => ctx.revert();
     }, []);
 
+
+    useEffect(()=>{
+        // $.scrollify.destroy();
+        $.scrollify.move(0);
+    },[])
 
 
     return(

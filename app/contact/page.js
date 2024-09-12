@@ -10,7 +10,8 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import Link from "next/link";
-
+import "jquery-scrollify";
+import $ from "jquery";
 
 
 
@@ -60,6 +61,11 @@ export default function Contact(){
                 })
             })    
 
+    },[])
+
+    useEffect(()=>{
+        // $.scrollify.destroy();
+        $.scrollify.move(0);
     },[])
 
     return(

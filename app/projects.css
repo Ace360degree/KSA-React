@@ -18,3 +18,18 @@
   /* Increased transition duration for smoother effect */
   transition: transform 0.6s ease;
 }
+
+#projectClockHour span {
+  height: 362px;
+}
+
+@media screen and (min-width:2400px){
+  #projectClockHour span {
+      height: 775px !important;
+      width: 4px;
+  }
+  .clock-indicator.active{
+      height:810px !important;
+      width:10px !important;
+  }
+}
