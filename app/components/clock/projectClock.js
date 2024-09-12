@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import '../../projects.css';
 import gsap from "gsap";
 
 export default function ProjectClock() {
+  const clockIndicators = useRef([]);
 
   useEffect(() => {
     // Select clock indicator box and clock dots
@@ -31,7 +32,7 @@ export default function ProjectClock() {
 
     // Animate the second hand using GSAP
     const secondsHand = document.querySelector('#seconds-clock');
-    
+
     const animateSecondsHand = () => {
       gsap.to(secondsHand, {
         rotate: "+=360",   // Incrementally rotate the second hand by 360 degrees
@@ -43,24 +44,81 @@ export default function ProjectClock() {
 
     animateSecondsHand();
 
-    // Timeline for adding and removing the active class to each clock indicator
-    const timeline = gsap.timeline({ repeat: -1 }); // Repeat infinitely
-    
-    // Add `active` class to each clock indicator in a staggered manner every 5 seconds
-    timeline.to(clockDots, {
-      className: "+=active", // Add the active class
-      stagger: 5, // Apply this to each element every 5 seconds
-      duration: 1, // Duration of the effect on each indicator
-      onComplete: function() {
-        // Remove `active` class after 5 seconds to simulate toggle effect
-        gsap.to(clockDots, {
-          className: "-=active", 
-          delay: 5 // Wait 5 seconds before removing `active`
-        });
-      }
-    });
-
   }, []);
+
+  useEffect(() => {
+    const checkOverlap = () => {
+      const highlightElement = (element, color = 'red') => {
+        const rect = element.getBoundingClientRect();
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.left = `${rect.left}px`;
+        overlay.style.top = `${rect.top}px`;
+        overlay.style.width = `${rect.width}px`;
+        overlay.style.height = `${rect.height}px`;
+        overlay.style.border = `2px solid ${color}`;
+        overlay.style.pointerEvents = 'none';  // So it doesn't interfere with interactions
+        overlay.style.zIndex = '10000';  // Make sure it's on top of everything
+        document.body.appendChild(overlay);
+    
+        console.log('Bounding Client Rect:', rect);
+    
+        // Optionally remove the overlay after a few seconds
+        setTimeout(() => {
+          document.body.removeChild(overlay);
+        }, 3000);
+      };
+    
+      const secondsClockBound = document.getElementById('clock-bound-box');
+      if (secondsClockBound) {
+        highlightElement(secondsClockBound);
+      }
+
+      const secondsClock = document.getElementById('clock-bound-box');
+      const indicators = clockIndicators.current;
+  
+      if (!secondsClock || !indicators.length) return;
+  
+      // Get bounding box of the rotating seconds hand
+      const secondsClockRect = secondsClock.getBoundingClientRect();
+  
+      indicators.forEach((indicator) => {
+        // Get the bounding box of the span inside each clock-indicator
+        const spanElement = indicator;
+        if (!spanElement) return;
+  
+        const spanRect = spanElement.getBoundingClientRect();
+  
+        // Collision detection with a 1px offset
+        const offset = 1; // 1px offset for detection
+  
+        const isOverlapping = !(
+          secondsClockRect.right < spanRect.left - offset ||
+          secondsClockRect.left > spanRect.right + offset ||
+          secondsClockRect.bottom < spanRect.top - offset ||
+          secondsClockRect.top > spanRect.bottom + offset
+        );
+  
+        if (isOverlapping) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    };
+  
+    // Use requestAnimationFrame for smoother updates
+    const handleScroll = () => {
+      requestAnimationFrame(checkOverlap);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
 
   return (
     <>
@@ -74,13 +132,18 @@ export default function ProjectClock() {
             className="user-hands user-clock-seconds project-hands clock-paused"
           >
             <span></span>
+            <em id="clock-bound-box"></em>
           </div>
         </div>
 
         <div className="clock-indicator-box">
           {/* Rendering 12 clock indicators */}
           {Array.from({ length: 12 }).map((_, index) => (
-            <div key={index} className="clock-indicator"></div>
+            <div key={index} className="clock-indicator">
+              <span >
+                <em ref={(el)=>(clockIndicators.current[index] = el)}></em>
+              </span>
+            </div>
           ))}
         </div>
 

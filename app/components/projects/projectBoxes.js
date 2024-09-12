@@ -7,7 +7,6 @@ import Link from "next/link";
 export default function ProjectBoxes() {
   const projectScrollerRef = useRef(null);
   const projectItemsRef = useRef([]);
-  const clockIndicators = useRef([]);
   const [indiIndex,setIndiIndex] = useState(0);
 
   const [categories,setCategories] = useState([]);
@@ -189,14 +188,14 @@ export default function ProjectBoxes() {
       }
     };
 
-    let indicatorIndex = 0;
-    function indicatorAnimation(){
-      clockIndicators.current.forEach((indi)=>{
-          indi.classList.remove('active');
-      })
-      clockIndicators.current[indicatorIndex].classList.add('active');
-       indicatorIndex = (indicatorIndex+1) % clockIndicators.current.length;
-    }
+    // let indicatorIndex = 0;
+    // function indicatorAnimation(){
+    //   clockIndicators.current.forEach((indi)=>{
+    //       indi.classList.remove('active');
+    //   })
+    //   clockIndicators.current[indicatorIndex].classList.add('active');
+    //    indicatorIndex = (indicatorIndex+1) % clockIndicators.current.length;
+    // }
 
     // indicatorAnimation();
     
@@ -237,52 +236,7 @@ export default function ProjectBoxes() {
   }, []);
 
 
-  useEffect(() => {
-    const checkOverlap = () => {
-      const secondsClock = document.getElementById('seconds-clock').querySelector('span');
-      const indicators = clockIndicators.current;
-  
-      if (!secondsClock || !indicators.length) return;
-  
-      // Get bounding box of the rotating seconds hand
-      const secondsClockRect = secondsClock.getBoundingClientRect();
-  
-      indicators.forEach((indicator) => {
-        // Get the bounding box of the span inside each clock-indicator
-        const spanElement = indicator.querySelector('span');
-        if (!spanElement) return;
-  
-        const spanRect = spanElement.getBoundingClientRect();
-  
-        // Collision detection with a 1px offset
-        const offset = 1; // 1px offset for detection
-  
-        const isOverlapping = !(
-          secondsClockRect.right < spanRect.left - offset ||
-          secondsClockRect.left > spanRect.right + offset ||
-          secondsClockRect.bottom < spanRect.top - offset ||
-          secondsClockRect.top > spanRect.bottom + offset
-        );
-  
-        if (isOverlapping) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
-    };
-  
-    // Use requestAnimationFrame for smoother updates
-    const handleScroll = () => {
-      requestAnimationFrame(checkOverlap);
-    };
-  
-    window.addEventListener('scroll', handleScroll);
-  
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+
   
   
   
@@ -293,7 +247,7 @@ export default function ProjectBoxes() {
   return (
     <>
 
-    <div className="position-relative">
+    <div className="position-relative d-none">
       <div className="filter-box-control">
         <div className="filter-box">
           <li data-filer="All"  onClick={(e)=>{filterChange('All',e.currentTarget)}}>All</li>
@@ -333,28 +287,6 @@ export default function ProjectBoxes() {
       </div>
     </div>
 
-    <div className="user-clock projects-clock">
-        <div className="user-clock-control">
-          <div className="user-hands user-clock-hour" style={{ opacity:'0'}}>
-            <span></span>
-          </div>
-          <div
-            id="seconds-clock"
-            className="user-hands user-clock-seconds project-hands"
-          >
-            <span></span>
-          </div>
-        </div>
-
-        <div className="clock-indicator-box">
-          {/* Rendering 12 clock indicators */}
-          {Array.from({ length: 12 }).map((_, index) => (
-            <div key={index} className="clock-indicator" ref={(el)=>(clockIndicators.current[index] = el)} style={{transform:`rotate(${index*30}deg)`}}><span></span></div>
-          ))}
-        </div>
-
-        <div className="clock-smallindicator-box"></div>
-      </div>
 
    </>
           
