@@ -1443,10 +1443,10 @@ body.dark .user-hands span{
 }
 
 
-.user-clock-seconds{
+/* .user-clock-seconds{
   -webkit-animation: clockSecondTurn 60s linear infinite;
           animation: clockSecondTurn 60s linear infinite;
-}
+} */
 
 bdoy.dark .user-hands span{
   background:var(--clock-bg-dark);
@@ -1541,7 +1541,7 @@ bdoy.dark .user-hands span{
   height:400px;
 }
 
-.clock-indicator::before{
+.clock-indicator span{
   content:"";
   position:absolute;
   top:0;
@@ -1552,13 +1552,13 @@ bdoy.dark .user-hands span{
   transition: all 0.3s ease;
 }
 
-.clock-indicator.active::before{
+.clock-indicator.active span{
   outline: 2px solid #7d7d7d;
   border-radius: 10px;
   background: transparent;
 }
 
-body.dark .clock-indicator::before{
+body.dark .clock-indicator span{
   background:var(--body-bg-light);
 }
 

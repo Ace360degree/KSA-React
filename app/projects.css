@@ -1,5 +1,5 @@
 #seconds-clock{
-    transition:all 5s linear;
+    transition:none;
 }
 
 @property --speed {

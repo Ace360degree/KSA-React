@@ -198,7 +198,7 @@ export default function ProjectBoxes() {
        indicatorIndex = (indicatorIndex+1) % clockIndicators.current.length;
     }
 
-    indicatorAnimation();
+    // indicatorAnimation();
     
     const rotateSecondsHandsNormal = () => {
       const secondsClock = document.getElementById('seconds-clock');
@@ -207,7 +207,7 @@ export default function ProjectBoxes() {
       }
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       initProjects();
-      indicatorAnimation();
+      // indicatorAnimation();
     };
     initProjects();
     const clockInterval = setInterval(rotateSecondsHandsNormal, 5000);
@@ -237,6 +237,56 @@ export default function ProjectBoxes() {
   }, []);
 
 
+  useEffect(() => {
+    const checkOverlap = () => {
+      const secondsClock = document.getElementById('seconds-clock').querySelector('span');
+      const indicators = clockIndicators.current;
+  
+      if (!secondsClock || !indicators.length) return;
+  
+      // Get bounding box of the rotating seconds hand
+      const secondsClockRect = secondsClock.getBoundingClientRect();
+  
+      indicators.forEach((indicator) => {
+        // Get the bounding box of the span inside each clock-indicator
+        const spanElement = indicator.querySelector('span');
+        if (!spanElement) return;
+  
+        const spanRect = spanElement.getBoundingClientRect();
+  
+        // Collision detection with a 1px offset
+        const offset = 1; // 1px offset for detection
+  
+        const isOverlapping = !(
+          secondsClockRect.right < spanRect.left - offset ||
+          secondsClockRect.left > spanRect.right + offset ||
+          secondsClockRect.bottom < spanRect.top - offset ||
+          secondsClockRect.top > spanRect.bottom + offset
+        );
+  
+        if (isOverlapping) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    };
+  
+    // Use requestAnimationFrame for smoother updates
+    const handleScroll = () => {
+      requestAnimationFrame(checkOverlap);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
+  
+  
+  
 
 
 
@@ -290,7 +340,7 @@ export default function ProjectBoxes() {
           </div>
           <div
             id="seconds-clock"
-            className="user-hands user-clock-seconds project-hands clock-paused"
+            className="user-hands user-clock-seconds project-hands"
           >
             <span></span>
           </div>
@@ -299,7 +349,7 @@ export default function ProjectBoxes() {
         <div className="clock-indicator-box">
           {/* Rendering 12 clock indicators */}
           {Array.from({ length: 12 }).map((_, index) => (
-            <div key={index} className="clock-indicator" ref={(el)=>(clockIndicators.current[index] = el)} style={{transform:`rotate(${index*30}deg)`}}></div>
+            <div key={index} className="clock-indicator" ref={(el)=>(clockIndicators.current[index] = el)} style={{transform:`rotate(${index*30}deg)`}}><span></span></div>
           ))}
         </div>
 
