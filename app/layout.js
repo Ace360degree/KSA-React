@@ -2,7 +2,7 @@ import Head from "next/head";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CursorAudio from "./components/commons/cursor";
-import { LayoutGroup } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 
 
@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
       </Head> 
       <body className="">
         <CursorAudio/>
-        {children}
+        <AnimatePresence mode="wait">
+          {children}
+        </AnimatePresence>
       </body>
     </html>
   );

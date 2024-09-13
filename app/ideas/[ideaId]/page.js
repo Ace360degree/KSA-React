@@ -9,11 +9,9 @@ import $ from "jquery";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import 'slick-carousel';
-import { usePathname } from "next/navigation";
 
 
 export default function IdeasPage(){
-    
     useEffect(()=>{
 
     const sliderCursor = document.querySelector('.slider-cursor');
@@ -134,7 +132,8 @@ export default function IdeasPage(){
               $('.project-images-slider').slick('unslick');
             }
           };
-    },[]);    
+    },[]); 
+    
 
     return(<>
         <NavbarIntroPage heading={'Research'}/>
@@ -147,7 +146,7 @@ export default function IdeasPage(){
             <div className="project-images-slider">
                 
                 <div className="ideas-inner-section">
-                    <motion.img className="ideas-section-img" src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg" />
+                    <motion.img initial={{scale:2}} animate={{scale:1}} transition={{ease:'linear',duration:1}} className="ideas-section-img" src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg" />
                     <div className="row mt-3 align-items-center">
                         <div className="col-md-6">
                             <h2 className="ideas-inner-title">Test Title</h2>

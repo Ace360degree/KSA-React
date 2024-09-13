@@ -7,14 +7,19 @@ import gsap from "gsap";
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import IdeasImage from "../components/ideas/zoomImage";
+import {motion , AnimatePresence} from 'framer-motion';
+import { useRouter } from "next/navigation";
+import { useVisitedIdeasStore } from "../states/store/ideasStore";
 
 gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
 
+
 export default  function Ideas(){
 
+    const {visited } = useVisitedIdeasStore();
+    alert(visited);
 
+    const router = useRouter();
 
     const [ideas, setIdeas] = useState([]);
 
@@ -239,9 +244,24 @@ export default  function Ideas(){
     },[])
 
 
+        
+    const handleImageClick = async (slug) => {
+        // Scale up the image before routing
+        const imgElement = document.querySelector(`.ideas-img-${slug}`);
+        await gsap.to(imgElement, {
+            scale: 2,
+            duration: 0.9,
+            ease: 'power3.inOut',
+        });
+        // Navigate to the next page after the animation
+        router.push(`/ideas/${slug}`);
+    };
+
+
 
     return(
         <>  
+        <AnimatePresence mode="wait">
             <LightTheme/>
             <NavbarIntroPage heading={'Research'}/>
         <div class="project-heads">
@@ -274,12 +294,14 @@ export default  function Ideas(){
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover"></div>
-                                            <Link href={`/ideas/${idea.url_slug}`} >
-                                            <IdeasImage
-                                                src={process.env.NEXT_PUBLIC_SITE_URL + idea.image}
+                                            {/* <Link href={`/ideas/${idea.url_slug}`} > */}
+                                            <img
+                                                className={`ideas-thumbnail ideas-img-${idea.url_slug}`}
+                                                src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg"
                                                 alt={idea.title}
+                                                onClick={() => handleImageClick(idea.url_slug)}
                                             />
-                                            </Link>
+                                            {/* </Link> */}
                                         </div>
                                         <h5 className="title-tohide">{idea.description}</h5>
                                         <h2 className="title-tohide">{idea.title}</h2>
@@ -290,7 +312,7 @@ export default  function Ideas(){
             
         </div>
         </div>
-
+        </AnimatePresence>
 
         </>
     )
