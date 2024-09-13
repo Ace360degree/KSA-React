@@ -1443,10 +1443,10 @@ body.dark .user-hands span{
 }
 
 
-/* .user-clock-seconds{
+.user-clock-seconds{
   -webkit-animation: clockSecondTurn 60s linear infinite;
           animation: clockSecondTurn 60s linear infinite;
-} */
+}
 
 bdoy.dark .user-hands span{
   background:var(--clock-bg-dark);
@@ -1555,10 +1555,14 @@ bdoy.dark .user-hands span{
 }
 
 .clock-indicator span em{
-  height:60px;
+  height:40px;
   display: block;
-  width:80px;
-  background:black
+  width:8px;
+  background:black;
+  position:absolute;
+  top:0;
+  left: -4px;
+  visibility: hidden;
 }
 
 .clock-indicator span em.active{
@@ -1566,13 +1570,14 @@ bdoy.dark .user-hands span{
 }
 
 #clock-bound-box{
-  height: 100px;
+  width: 4px;
+  height: 20px;
   display:block;
   position: absolute;
-  left: -50px;
-  bottom: 309px;
-  width: 100px;
+  left: -2px;
+  bottom: 370px;
   background: grey;
+  visibility: hidden;
 }
 
 

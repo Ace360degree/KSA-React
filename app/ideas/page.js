@@ -7,8 +7,14 @@ import gsap from "gsap";
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import IdeasImage from "../components/ideas/zoomImage";
+
+gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
 
 export default  function Ideas(){
+
+
 
     const [ideas, setIdeas] = useState([]);
 
@@ -28,8 +34,6 @@ export default  function Ideas(){
     
             fetchIdeasAPI();
         }, []);
-
-    gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
     
     useEffect(()=>{
         
@@ -178,7 +182,7 @@ export default  function Ideas(){
         snap: (v, self) => gsap.utils.snap([0, self.end, ...triggers.map(t => t.start + innerHeight)], self.scroll()) / self.end
     });
     
-    ScrollTrigger.normalizeScroll(true);
+    // ScrollTrigger.normalizeScroll(true);
     
     // Handle scrolling to the current item if itemId is present
     let url_string = window.location.href; 
@@ -236,8 +240,6 @@ export default  function Ideas(){
 
 
 
-
-
     return(
         <>  
             <LightTheme/>
@@ -273,10 +275,7 @@ export default  function Ideas(){
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover"></div>
                                             <Link href={`/ideas/${idea.url_slug}`} >
-                                            <Image
-                                                height={500}
-                                                width={800}
-                                                className="ideas-thumbnail"
+                                            <IdeasImage
                                                 src={process.env.NEXT_PUBLIC_SITE_URL + idea.image}
                                                 alt={idea.title}
                                             />

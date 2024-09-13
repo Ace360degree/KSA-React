@@ -6,6 +6,7 @@ import gsap from "gsap";
 
 export default function ProjectClock() {
   const clockIndicators = useRef([]);
+  const clockMainIndicators = useRef([]);
 
   useEffect(() => {
     // Select clock indicator box and clock dots
@@ -31,49 +32,48 @@ export default function ProjectClock() {
     }
 
     // Animate the second hand using GSAP
-    const secondsHand = document.querySelector('#seconds-clock');
+    // const secondsHand = document.querySelector('#seconds-clock');
 
-    const animateSecondsHand = () => {
-      gsap.to(secondsHand, {
-        rotate: "+=360",   // Incrementally rotate the second hand by 360 degrees
-        duration: 60,      // Complete the rotation in 60 seconds
-        ease: "linear",    // Use a linear easing for smooth rotation
-        repeat: -1         // Infinite repeat for continuous rotation
-      });
-    };
+    // const animateSecondsHand = () => {
+    //   gsap.to(secondsHand, {
+    //     rotate: "+=360",   // Incrementally rotate the second hand by 360 degrees
+    //     duration: 60,      // Complete the rotation in 60 seconds
+    //     ease: "linear",    // Use a linear easing for smooth rotation
+    //     repeat: -1,         // Infinite repeat for continuous rotation
+    //   });
+    // };
 
-    animateSecondsHand();
+    // animateSecondsHand();
 
   }, []);
 
+  const usermainClockRef = useRef(null);
+  let scrollerClockIndex = 0;
+
+  useEffect(()=>{
+    const handleWheel = (e) => {
+      const scrollSpeedFactor = 0.03; 
+
+      const rotationClock = e.deltaY * scrollSpeedFactor;
+      scrollerClockIndex += rotationClock;
+      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
+    };
+
+    // Add wheel event listener
+    window.addEventListener('wheel', handleWheel);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+
+  },[]);
+
+
+  let tabIndex = 0;
+
   useEffect(() => {
     const checkOverlap = () => {
-      const highlightElement = (element, color = 'red') => {
-        const rect = element.getBoundingClientRect();
-        const overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.left = `${rect.left}px`;
-        overlay.style.top = `${rect.top}px`;
-        overlay.style.width = `${rect.width}px`;
-        overlay.style.height = `${rect.height}px`;
-        overlay.style.border = `2px solid ${color}`;
-        overlay.style.pointerEvents = 'none';  // So it doesn't interfere with interactions
-        overlay.style.zIndex = '10000';  // Make sure it's on top of everything
-        document.body.appendChild(overlay);
-    
-        console.log('Bounding Client Rect:', rect);
-    
-        // Optionally remove the overlay after a few seconds
-        setTimeout(() => {
-          document.body.removeChild(overlay);
-        }, 3000);
-      };
-    
-      const secondsClockBound = document.getElementById('clock-bound-box');
-      if (secondsClockBound) {
-        highlightElement(secondsClockBound);
-      }
-
       const secondsClock = document.getElementById('clock-bound-box');
       const indicators = clockIndicators.current;
   
@@ -82,9 +82,10 @@ export default function ProjectClock() {
       // Get bounding box of the rotating seconds hand
       const secondsClockRect = secondsClock.getBoundingClientRect();
   
-      indicators.forEach((indicator) => {
+      indicators.forEach((indicator,index) => {
         // Get the bounding box of the span inside each clock-indicator
         const spanElement = indicator;
+        const spanParent = clockMainIndicators.current[index];
         if (!spanElement) return;
   
         const spanRect = spanElement.getBoundingClientRect();
@@ -100,36 +101,48 @@ export default function ProjectClock() {
         );
   
         if (isOverlapping) {
-          indicator.classList.add('active');
+          tabIndex=index;
+          spanParent.classList.add('active');
         } else {
-          indicator.classList.remove('active');
+          spanParent.classList.remove('active');
         }
+
+        clockMainIndicators.current[tabIndex].classList.add('active');
       });
     };
   
     // Use requestAnimationFrame for smoother updates
-    const handleScroll = () => {
+    const handleUpdate = () => {
       requestAnimationFrame(checkOverlap);
     };
-  
-    window.addEventListener('scroll', handleScroll);
-  
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+
+    handleUpdate();
+    const intervalId = setInterval(handleUpdate, 100);
+
+    return () => clearInterval(intervalId);
+
+    
   }, []);
+
+  const secondsClock = useRef(null);
+  useEffect(()=>{
+    if(secondsClock.current){
+      secondsClock.current.classList.remove('clock-paused');
+    }
+  },[])
   
 
   return (
     <>
-      <div className="user-clock projects-clock">
-        <div className="user-clock-control">
+      <div className="user-clock projects-clock" >
+        <div className="user-clock-control" ref={usermainClockRef} style={{transition:'all 0.3s ease'}}>
           <div className="user-hands user-clock-hour" style={{ opacity: '0' }}>
             <span></span>
           </div>
           <div
             id="seconds-clock"
             className="user-hands user-clock-seconds project-hands clock-paused"
+            ref={secondsClock}
           >
             <span></span>
             <em id="clock-bound-box"></em>
@@ -139,9 +152,9 @@ export default function ProjectClock() {
         <div className="clock-indicator-box">
           {/* Rendering 12 clock indicators */}
           {Array.from({ length: 12 }).map((_, index) => (
-            <div key={index} className="clock-indicator">
+            <div key={index} className="clock-indicator" ref={(el)=>(clockMainIndicators.current[index]=el)}>
               <span >
-                <em ref={(el)=>(clockIndicators.current[index] = el)}></em>
+                <em  ref={(el)=>(clockIndicators.current[index] = el)}></em>
               </span>
             </div>
           ))}

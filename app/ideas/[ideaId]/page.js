@@ -3,15 +3,17 @@ import NavbarIntroPage from "@/app/components/NavbarIntroPage";
 import Link from "next/link";
 import { useEffect } from "react";
 import { FaXmark } from "react-icons/fa6";
+import {motion} from 'framer-motion';
 import { TweenMax } from "gsap/all";
 import $ from "jquery";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import 'slick-carousel';
+import { usePathname } from "next/navigation";
 
 
 export default function IdeasPage(){
-
+    
     useEffect(()=>{
 
     const sliderCursor = document.querySelector('.slider-cursor');
@@ -145,7 +147,7 @@ export default function IdeasPage(){
             <div className="project-images-slider">
                 
                 <div className="ideas-inner-section">
-                    <img className="ideas-section-img" src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg" />
+                    <motion.img className="ideas-section-img" src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg" />
                     <div className="row mt-3 align-items-center">
                         <div className="col-md-6">
                             <h2 className="ideas-inner-title">Test Title</h2>

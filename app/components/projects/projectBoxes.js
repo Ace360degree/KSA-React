@@ -200,10 +200,10 @@ export default function ProjectBoxes() {
     // indicatorAnimation();
     
     const rotateSecondsHandsNormal = () => {
-      const secondsClock = document.getElementById('seconds-clock');
-      if (secondsClock) {
-        secondsClock.style.transform = `rotate(${(scrollerIndex + 1) * 30}deg)`;
-      }
+      // const secondsClock = document.getElementById('seconds-clock');
+      // if (secondsClock) {
+      //   secondsClock.style.transform = `rotate(${(scrollerIndex + 1) * 30}deg)`;
+      // }
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       initProjects();
       // indicatorAnimation();
@@ -236,18 +236,10 @@ export default function ProjectBoxes() {
   }, []);
 
 
-
-  
-  
-  
-  
-
-
-
   return (
     <>
 
-    <div className="position-relative d-none">
+    <div className="position-relative">
       <div className="filter-box-control">
         <div className="filter-box">
           <li data-filer="All"  onClick={(e)=>{filterChange('All',e.currentTarget)}}>All</li>
