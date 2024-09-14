@@ -1,8 +1,9 @@
 
 const mysql = require('mysql2/promise');
 
+
 // Create a connection pool
-const pool = mysql.createPool({
+export const pool = mysql.createPool({
   host: '162.215.254.94',
   user: 'clients_ksauser',
   password: 'MyOEZ8qjlh()',
@@ -12,4 +13,4 @@ const pool = mysql.createPool({
 });
 
 // Export the pool to be used in other modules
-module.exports = pool;
+// module.exports = pool;

@@ -1,4 +1,4 @@
-import pool,{query} from "../db";
+import { pool } from "../db";
 
 export async function GET(){
 

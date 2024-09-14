@@ -3111,6 +3111,13 @@ body.dark .filter-box-control{
   perspective: 1000px;
 }
 
+.snap-parent-ideas{
+  transform-style: preserve-3d;
+  transform-origin: center;
+   opacity:1;
+}
+
+
 .snap-parent-anim{
   /*transform:translateY(-100%) scale(1.8);*/
   transform-style: preserve-3d;
@@ -3124,6 +3131,7 @@ body.dark .filter-box-control{
 }
 
 
+
 .scale-up-idea{
   transform: rotateX(20deg);
   perspective:50px;
@@ -3133,6 +3141,10 @@ body.dark .filter-box-control{
   animation:rotateThatBox 5s 0s ease forwards;
 }
 
+.scale-up-idea.visited{
+  transform: rotateX(0);
+  animation: none;
+}
 
 .ideas-scroll-section{
   position:relative;

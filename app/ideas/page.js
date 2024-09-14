@@ -16,8 +16,8 @@ gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
 
 export default  function Ideas(){
 
-    const {visited } = useVisitedIdeasStore();
-    alert(visited);
+    const {visited,setIdeasVisited } = useVisitedIdeasStore();
+    console.log(visited);
 
     const router = useRouter();
 
@@ -31,7 +31,7 @@ export default  function Ideas(){
                     if (!response.ok) throw new Error('Failed to fetch ideas');
                     const data = await response.json();
                     setIdeas(data);
-                    setIsLoaded(true); // Mark content as loaded
+                    //setIsLoaded(true); // Mark content as loaded
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -42,6 +42,7 @@ export default  function Ideas(){
     
     useEffect(()=>{
         
+        if(!visited){
         let projectHeadTitles = document.querySelectorAll('.project-head-title');
         
         projectHeadTitles.forEach(function(title,index){
@@ -111,10 +112,11 @@ export default  function Ideas(){
         
         setTimeout(function(){
             document.querySelector('.project-heads').style.display='none';
+
         },2000)
         
     }, 5000);
-
+    }
     },[])
 
     useEffect(()=>{
@@ -222,6 +224,7 @@ export default  function Ideas(){
     useEffect(()=>{
             setTimeout(function(){
                 
+                if(!visited){
                 document.querySelectorAll('.ideas-cover').forEach((obj,index)=>{
                     obj.classList.add('active');
                 })
@@ -235,9 +238,9 @@ export default  function Ideas(){
                 setTimeout(function(){
                      document.querySelectorAll('.ideas-cover').forEach((obj,index)=>{
                         obj.classList.remove('active');
-                    })
+                    });
                 },5000)
-                
+                }
         
             },5500);    
             
@@ -249,7 +252,7 @@ export default  function Ideas(){
         // Scale up the image before routing
         const imgElement = document.querySelector(`.ideas-img-${slug}`);
         await gsap.to(imgElement, {
-            scale: 2,
+            scale: 0.6,
             duration: 0.9,
             ease: 'power3.inOut',
         });
@@ -258,12 +261,20 @@ export default  function Ideas(){
     };
 
 
+    useEffect(()=>{
+        setTimeout(function(){
+            setIdeasVisited();
+            console.log(visited);
+        },10000);
+    },[])
+
+
 
     return(
         <>  
-        <AnimatePresence mode="wait">
             <LightTheme/>
             <NavbarIntroPage heading={'Research'}/>
+        {visited? '':    
         <div class="project-heads">
             <div class="head-anim-control">
                 <div class="head-anim"></div>
@@ -272,6 +283,7 @@ export default  function Ideas(){
             <h2 class="project-head-title sm-text-title">That makes us</h2>
             <h2 class="project-head-title lg-text-title"><i>Awe</i></h2>
         </div>
+        } 
         
         <div class="filter-launch"><i class="fa-solid fa-ellipsis"></i></div>          
        <div class="filter-box-control">
@@ -285,12 +297,12 @@ export default  function Ideas(){
            </div>
        </div>
 
-        <div class="snap-perspective">
-        <div class="snap-parent-anim">
+        <div className="snap-perspective">
+        <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
         {ideas.map((idea, index) => (
                             <div className="snap-section filter-main-box active" key={index} data-filter="">
-                                <div className="scale-up-idea">
+                                <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover"></div>
@@ -312,8 +324,6 @@ export default  function Ideas(){
             
         </div>
         </div>
-        </AnimatePresence>
-
         </>
     )
 

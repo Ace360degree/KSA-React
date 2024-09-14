@@ -1,26 +1,69 @@
+import { NextResponse } from 'next/server';
 import { pool } from '../../db';
 
-export async function POST(request) {
+export async function GET(req) {
     try {
-        // Parse the JSON body of the request
-        const reqBody = await request.json();
-        const slug = reqBody.slug;
+        // Extract URL slug from the query parameters
+        const params = req.nextUrl.searchParams;
+        const urlSlug = params.get('id');
 
-        // Check if slug is provided
-        if (!slug) {
-            return new Response(JSON.stringify({ error: 'Slug is required' }), { status: 400 });
+        if (!urlSlug) {
+            return new Response(JSON.stringify({ error: 'URL slug is required' }), { status: 400 });
         }
 
-        // Use parameterized query to prevent SQL injection
-        const [rows] = await pool.query(`SELECT * FROM projects WHERE url_slug = ?`, [slug]);
+        // Query to fetch the project details
+        const [projectRows] = await pool.query(
+            'SELECT * FROM projects_beta WHERE url_slug = ?',
+            [urlSlug]
+        );
 
-        // Check if the project was found
-        if (rows.length === 0) {
+        if (projectRows.length === 0) {
             return new Response(JSON.stringify({ error: 'Project not found' }), { status: 404 });
         }
 
-        // Return the found project
-        return new Response(JSON.stringify(rows[0]), { status: 200 });
+        const project = projectRows[0];
+
+        // Query to fetch tabs (sections) related to the project
+        const [tabsRows] = await pool.query(
+            'SELECT * FROM projects_sections WHERE project_id = ?',
+            [project.id]
+        );
+
+        // Query to fetch attributes related to the project
+        const [attributesRows] = await pool.query(
+            'SELECT * FROM projects_attributes WHERE project_id = ?',
+            [project.id]
+        );
+
+        // Query to fetch highlights points related to the project
+        const [pointsRows] = await pool.query(
+            'SELECT * FROM project_highlights_points WHERE project_id = ?',
+            [project.id]
+        );
+
+        // Initialize slides array
+        const slidesData = [];
+
+        // Fetch slides for each tab
+        for (const tab of tabsRows) {
+            const [slidesRows] = await pool.query(
+                'SELECT * FROM projects_slides WHERE project_id = ? AND section_id = ?',
+                [project.id, tab.id]
+            );
+            slidesData.push({ section_id: tab.id, slides: slidesRows });
+        }
+
+        // Assemble the final data object
+        const data = {
+            project,
+            tabs: tabsRows,
+            attributes: attributesRows,
+            points: pointsRows,
+            slides: slidesData,
+        };
+
+        // Return the JSON response
+        return NextResponse.json(data, { status: 200 });
     } catch (error) {
         // Handle errors
         console.error(error);
