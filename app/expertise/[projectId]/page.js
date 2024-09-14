@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProjectSection from "../projectsSection";
 
+
 export default function ProjectInfo(){
 
     const pathfull = usePathname();
@@ -28,6 +29,9 @@ export default function ProjectInfo(){
 
         fetchProjectsApi();
     },[])
+
+
+
 
 
     return (
