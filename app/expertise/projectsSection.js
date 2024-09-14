@@ -63,7 +63,7 @@ export default function ProjectSection({section,slides}){
                     {slides.slides.length!=0 ?
                     <div className="project-info-section position-relative">
                         {slides.slides.map((slide,index)=>(
-                        <img className="project-slider-img" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+                        <img key={index} className="project-slider-img" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
                         ))}    
                     </div>
                     
