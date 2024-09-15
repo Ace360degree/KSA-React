@@ -46,111 +46,7 @@ export default function IdeasPage(){
     },[])
 
 
-    useEffect(()=>{
 
-    const sliderCursor = document.querySelector('.slider-cursor');
-    const sliderIcon = document.querySelector('.slider-cursor-icon');
-    var posX = 0,
-        posY = 0;
-    
-    var mouseX = 0,
-        mouseY = 0;
-    
-    TweenMax.to({}, 0.016, {
-      repeat: -1,
-      onRepeat: function() {
-        posX += (mouseX - posX) / 8;
-        posY += (mouseY - posY) / 8;
-        
-        TweenMax.set(sliderCursor, {
-            css: {    
-            left: posX - 24,
-            top: posY - 24
-            }
-        });
-        
-        TweenMax.set(sliderIcon, {
-            css: {    
-            left: mouseX - 12,
-            top: mouseY - 12,
-            }
-        });
-      }
-    });
-    
-    document.addEventListener("mousemove", function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-        function onEnterShow(){
-            document.querySelector('.cursor-lg').classList.add('hide-cs');
-           document.querySelector('.cursor-sm').classList.add('hide-cs');
-           
-           document.querySelector('.slider-cursor').classList.add('show-cursor');
-           document.querySelector('.slider-cursor-icon').classList.add('show-cursor');
-        }
-        
-        function onLeaveHide(){
-            document.querySelector('.cursor-lg').classList.remove('hide-cs');
-           document.querySelector('.cursor-sm').classList.remove('hide-cs');
-           
-           document.querySelector('.slider-cursor').classList.remove('show-cursor');
-           document.querySelector('.slider-cursor-icon').classList.remove('show-cursor');
-        }
-        
-        
-      //   Left Side
-        document.querySelector('.images-slider-left').addEventListener('mouseenter',()=>{
-           onEnterShow();
-           document.querySelector('.slider-cursor-icon').classList.add('fa-angle-left');
-        });
-        
-        document.querySelector('.images-slider-left').addEventListener('mouseleave',()=>{
-           onLeaveHide();
-           document.querySelector('.slider-cursor-icon').classList.remove('fa-angle-left');
-        });
-        
-        
-      //   Right Side
-        document.querySelector('.images-slider-right').addEventListener('mouseenter',()=>{
-           onEnterShow();
-           document.querySelector('.slider-cursor-icon').classList.add('fa-angle-right');
-        });
-        
-        document.querySelector('.images-slider-right').addEventListener('mouseleave',()=>{
-           onLeaveHide();
-           document.querySelector('.slider-cursor-icon').classList.remove('fa-angle-right');
-        });
-        
-        document.querySelector('.images-slider-left').addEventListener('mousemove',()=>{
-            if(document.querySelector('.images-slider-left').classList.contains('slick-disabled')){
-                document.querySelector('.slider-cursor').classList.add('inactive');
-                document.querySelector('.slider-cursor-icon').classList.add('inactive');
-            }
-        })
-        
-        document.querySelector('.images-slider-left').addEventListener('mouseleave',()=>{
-            if(document.querySelector('.images-slider-left').classList.contains('slick-disabled')){
-                document.querySelector('.slider-cursor').classList.remove('inactive');
-                document.querySelector('.slider-cursor-icon').classList.remove('inactive');
-            }
-        })
-      
-        document.querySelector('.images-slider-right').addEventListener('mousemove',()=>{
-            if(document.querySelector('.images-slider-right').classList.contains('slick-disabled')){
-                document.querySelector('.slider-cursor').classList.add('inactive');
-                document.querySelector('.slider-cursor-icon').classList.add('inactive');
-            }
-        })
-        
-        document.querySelector('.images-slider-right').addEventListener('mouseleave',()=>{
-            if(document.querySelector('.images-slider-right').classList.contains('slick-disabled')){
-                document.querySelector('.slider-cursor').classList.remove('inactive');
-                document.querySelector('.slider-cursor-icon').classList.remove('inactive');
-            }
-        })
-    },[]);
 
 
     
@@ -167,10 +63,7 @@ export default function IdeasPage(){
 
     return(<>
         <NavbarIntroPage heading={'Research'}/>
-        {/* Slider Cursor */}
-        <div className="slider-cursor"></div>
-        <i className="slider-cursor-icon fa-solid"></i>
-        {/* Slider Cursor */}
+        
 
         <div className="project-info-section position-relative">
             <div className="project-images-slider">
@@ -179,7 +72,7 @@ export default function IdeasPage(){
                
                 <div className="ideas-inner-section">
                     {redirected?
-                    <motion.img initial={{scale:0.8,y:100}} animate={{scale:1,y:0}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+paramImage} />
+                    <motion.img initial={{scale:0.8, y:100}} animate={{scale:1,y:0}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+paramImage} />
                     : 
                     <motion.img initial={{scale:0.8}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+idea.image} />
                     }

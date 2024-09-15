@@ -252,8 +252,8 @@ export default  function Ideas(){
         // Scale up the image before routing
         // const imgElement = document.querySelector(`.ideas-img-${slug}`);
         // await gsap.to(imgElement, {
-        //     scale: 0.6,
-        //     duration: 0.9,
+        //     scale: 1.06,
+        //     duration: 0.2,
         //     ease: 'power3.inOut',
         // });
         // Navigate to the next page after the animation
