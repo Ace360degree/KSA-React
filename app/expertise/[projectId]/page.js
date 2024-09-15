@@ -1,16 +1,15 @@
 'use client'
 import LightTheme from "@/app/components/body/lightTheme";
 import NavbarIntroPage from "@/app/components/NavbarIntroPage";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProjectSection from "../projectsSection";
 
 
 export default function ProjectInfo(){
 
-    const pathfull = usePathname();
-    const parts = pathfull.split('/');
-    const lastValue = parts.pop() || '';
+    const pathfull = useParams();
+    const projectSlug  = pathfull.projectId;
     const [loading,setLoading] =useState([]);
     const [sections,setSections] = useState([]);
     const [project,setProject] = useState([]);
@@ -37,7 +36,7 @@ export default function ProjectInfo(){
     return (
         <>  
             <LightTheme/>
-            <NavbarIntroPage heading={'Expertise'} subheading={lastValue}/>
+            <NavbarIntroPage heading={'Expertise'} subheading={projectSlug}/>
 
             <div class="project-banner">
                <div class="project-title"><h2>Test Products</h2>

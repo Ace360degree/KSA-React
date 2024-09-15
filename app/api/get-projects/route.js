@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { pool } from "../db";
 
 export async function GET(){
@@ -12,7 +13,7 @@ export async function GET(){
     const projects = rows[0];  // First query result
     const categories = rows[1];  // Second query result
 
-    return Response.json({projects, categories});
+    return NextResponse.json({projects, categories});
 
 
 }

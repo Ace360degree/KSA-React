@@ -2734,6 +2734,7 @@ body.dark .filter-box-control{
 }
 
 .ideas-section-img{
+  display: block;
   max-width: 100%;
   height: auto;
   min-height: 64vh;
@@ -3929,8 +3930,8 @@ body.dark .filter-box-control{
 
 
 .splide__arrow{
-  height: 100% !important;
-  width: 100% !important;
+  height: 30% !important;
+  width: 30% !important;
   border-radius: 0 !important;
   opacity: 0 !important;
   cursor: var(--pointer) !important;

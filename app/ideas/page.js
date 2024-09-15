@@ -248,16 +248,16 @@ export default  function Ideas(){
 
 
         
-    const handleImageClick = async (slug) => {
+    const handleImageClick = async (slug,id,image) => {
         // Scale up the image before routing
-        const imgElement = document.querySelector(`.ideas-img-${slug}`);
-        await gsap.to(imgElement, {
-            scale: 0.6,
-            duration: 0.9,
-            ease: 'power3.inOut',
-        });
+        // const imgElement = document.querySelector(`.ideas-img-${slug}`);
+        // await gsap.to(imgElement, {
+        //     scale: 0.6,
+        //     duration: 0.9,
+        //     ease: 'power3.inOut',
+        // });
         // Navigate to the next page after the animation
-        router.push(`/ideas/${slug}`);
+        router.push(`/ideas/${slug}?id=${id}&image=${image}`);
     };
 
 
@@ -309,9 +309,9 @@ export default  function Ideas(){
                                             {/* <Link href={`/ideas/${idea.url_slug}`} > */}
                                             <img
                                                 className={`ideas-thumbnail ideas-img-${idea.url_slug}`}
-                                                src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg"
+                                                src={process.env.NEXT_PUBLIC_SITE_URL+idea.image}
                                                 alt={idea.title}
-                                                onClick={() => handleImageClick(idea.url_slug)}
+                                                onClick={() => handleImageClick(idea.url_slug,idea.id,idea.image)}
                                             />
                                             {/* </Link> */}
                                         </div>

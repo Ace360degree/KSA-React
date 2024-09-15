@@ -1,7 +1,6 @@
 
 const mysql = require('mysql2/promise');
 
-
 // Create a connection pool
 export const pool = mysql.createPool({
   host: '162.215.254.94',

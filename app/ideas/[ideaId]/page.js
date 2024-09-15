@@ -1,17 +1,51 @@
 'use client';
 import NavbarIntroPage from "@/app/components/NavbarIntroPage";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import {motion} from 'framer-motion';
 import { TweenMax } from "gsap/all";
-import $ from "jquery";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import 'slick-carousel';
+import { useParams, useSearchParams } from "next/navigation";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css'; // Import Splide styles
+
+
 
 
 export default function IdeasPage(){
+    const params = useParams()
+    const ideasSlug = params.ideaId; 
+    const [idea,setIdea] = useState([]);
+    const [ideaSections,setIdeasSections] = useState([]);
+    const [paramImage,setParamImage] =  useState('');
+    const [redirected,setDirected] = useState(false);
+
+    const Searchparams = useSearchParams();
+    const paramImageQuery = Searchparams.get('image')
+    
+
+    useEffect(()=>{
+        if(paramImageQuery){
+            setDirected(true);
+            setParamImage(paramImageQuery);
+        }
+    },[])
+
+
+    useEffect(()=>{
+
+        const fetchIdeasAPI =async()=>{
+            const getchIdeas = await fetch(`/api/get-ideas/getsingle?id=${ideasSlug}`);
+            const getIdeas = await (getchIdeas.json());
+            setIdea(getIdeas.idea);
+            setIdeasSections(getIdeas.ideasContent);
+        }
+
+        fetchIdeasAPI();
+
+    },[])
+
+
     useEffect(()=>{
 
     const sliderCursor = document.querySelector('.slider-cursor');
@@ -119,20 +153,16 @@ export default function IdeasPage(){
     },[]);
 
 
-    useEffect(() => {
-        $('.project-images-slider').slick({
-          slidesToShow: 1,
-          infinite: false,
-          prevArrow: $('.images-slider-left'),
-          nextArrow: $('.images-slider-right'),
-        });
-
-        return () => {
-            if ($('.project-images-slider').slick('getSlick')) {
-              $('.project-images-slider').slick('unslick');
-            }
-          };
-    },[]); 
+    
+    let SliderSettings= {
+        rewind: false,
+        autoplay:true,
+        perPage   : 1,
+        autoplay  : true,
+        interval:4000,
+        pagination: false,
+        arrows    : true,
+}
     
 
     return(<>
@@ -144,32 +174,45 @@ export default function IdeasPage(){
 
         <div className="project-info-section position-relative">
             <div className="project-images-slider">
-                
+                <Splide options={SliderSettings} >
+                    <SplideSlide>
+               
                 <div className="ideas-inner-section">
-                    <motion.img initial={{scale:0.6}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.5}} className="ideas-section-img" src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg" />
+                    {redirected?
+                    <motion.img initial={{scale:0.8,y:100}} animate={{scale:1,y:0}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+paramImage} />
+                    : 
+                    <motion.img initial={{scale:0.8}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+idea.image} />
+                    }
                     <div className="row mt-3 align-items-center">
                         <div className="col-md-6">
-                            <h2 className="ideas-inner-title">Test Title</h2>
+                            <h2 className="ideas-inner-title">{idea.title}</h2>
                         </div>
                         <div className="col-md-6">
-                            <p className="ideas-inner-content">Text Content</p>
+                            <p className="ideas-inner-content">{idea.description}</p>
                         </div>
                     </div>
                 </div>
+                </SplideSlide>
                 
-                <div className="ideas-inner-section">
-                    <img className="ideas-section-img" src="https://www.equinoxindia.com/wp-content/uploads/images/commercial-real-estate-projects.jpg" />
+                {ideaSections.map((ideas,index)=>(
+                <SplideSlide key={index}>   
+                <div className="ideas-inner-section" >
+                    <img className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+ideas.image} />
                     <div className="row mt-3 align-items-center">
                         <div className="col-md-6">
-                            <h2 className="ideas-inner-title">Test Title</h2>
+                            <h2 className="ideas-inner-title">{ideas.title}</h2>
                         </div>
                         <div className="col-md-6">
-                            <p className="ideas-inner-content">Content Title</p>
+                            <p className="ideas-inner-content">{ideas.description}</p>
                         </div>
                     </div>
                     
                     
                 </div>
+                </SplideSlide> 
+                ))}
+
+                </Splide>
                  
             </div>
             <div className="images-slider-left slider-img-nav"></div>
