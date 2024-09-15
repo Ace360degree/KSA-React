@@ -3,9 +3,6 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 // import HomeMenu from "../components/homeMenu/homeMenu";
 import NavbarIntroPage from "../components/NavbarIntroPage";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import 'slick-carousel';
 
 const HomeMenu = dynamic(() => import("../components/homeMenu/homeMenu"), {
     ssr: false,
@@ -21,6 +18,7 @@ export default function HomePage(){
 
     return(
         <>
+            {/* <h1>Hello</h1> */}
             <NavbarIntroPage/>
             <HomeMenu/>
         </>
