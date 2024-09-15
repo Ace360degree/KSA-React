@@ -64,32 +64,30 @@ export default function SliderCursor(){
         }
             
       
-        let rightArrow = document.querySelector('.splide__arrow--prev');    
-        let leftArrow = document.querySelector('.splide__arrow--next');
-        
-      if(rightArrow){
-      //   Left Side
-      rightArrow.addEventListener('mouseenter',function(){
-        onEnterShow();
-        setArrowIcon('right'); 
-      });
-      rightArrow.addEventListener('mouseleave',function(){
-        onLeaveHide();
-        setArrowIcon('right');
-      });
+        let rightArrows = document.querySelectorAll('.splide__arrow--prev');    
+        let leftArrows = document.querySelectorAll('.splide__arrow--next');
 
-      //   Right Side
-      leftArrow.addEventListener('mouseenter',function(){
-        setArrowIcon('left');
-        onEnterShow();
-      });
-      leftArrow.addEventListener('mouseleave',function(){
-        setArrowIcon('left');
-        onLeaveHide();
-      });
+        rightArrows.forEach((rightArrow) => {
+          rightArrow.addEventListener('mouseenter', function() {
+            onEnterShow();
+            setArrowIcon('right'); 
+          });
+          rightArrow.addEventListener('mouseleave', function() {
+            onLeaveHide();
+            setArrowIcon('right');
+          });
+        });
 
-        }  
-
+        leftArrows.forEach((leftArrow) => {
+          leftArrow.addEventListener('mouseenter', function() {
+            onEnterShow();
+            setArrowIcon('left');
+          });
+          leftArrow.addEventListener('mouseleave', function() {
+            onLeaveHide();
+            setArrowIcon('left');
+          });
+        });
 
     },[]);
 

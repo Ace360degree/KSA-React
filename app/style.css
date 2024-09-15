@@ -3942,3 +3942,7 @@ body.dark .filter-box-control{
   cursor: var(--pointer) !important;
 }
 
+.project-info-image .splide , .project-info-image .splide__track{
+  height: 100% !important;
+}
+

@@ -8,7 +8,11 @@ import { TweenMax } from "gsap/all";
 import { useParams, useSearchParams } from "next/navigation";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css'; // Import Splide styles
+import dynamic from "next/dynamic";
 
+const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
+    ssr: false,
+  }) 
 
 
 
@@ -63,7 +67,7 @@ export default function IdeasPage(){
 
     return(<>
         <NavbarIntroPage heading={'Research'}/>
-        
+        <SliderCursor/>
 
         <div className="project-info-section position-relative">
             <div className="project-images-slider">

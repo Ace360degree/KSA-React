@@ -2,14 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { TweenMax } from 'gsap/all';
-import dynamic from 'next/dynamic';
-
-
-const SliderCursor = dynamic(() => import('./sliderCursor'), {
-  ssr: false,
-}) 
-
-
 
 
 export default function CursorAudio() {
@@ -161,7 +153,6 @@ export default function CursorAudio() {
       <div className="cursor-lg" ref={bigCursorRef}></div>
       <div className="cursor-sm" ref={smCursorRef}></div>
 
-      <SliderCursor/>
     </>
   );
 }
