@@ -84,7 +84,7 @@ export default function ProjectEssencials({essecials,points}){
                                     <div class="row g-5 padding-points">
                                         {/* Loop for Points Counter  */}
                                         {points.map((point,index)=>(
-                                        <div class="col-md-6 col-6">
+                                        <div class="col-md-6 col-6" key={index}>
                                             <div class="project-info-highlights">
                                                 <h2><span class="fx-counter" data-number={point.number}>0</span>{point.number_title}</h2>
                                                 <h4>{point.title}</h4>
