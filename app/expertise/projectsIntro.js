@@ -79,7 +79,9 @@ export default function ProjectIntro(){
         
         setTimeout(function(){
             document.querySelector('.project-heads').style.display='none';
-            setVisited();
+            setTimeout(()=>{
+                setVisited();
+            },2000)
         },2000)
         
     }, 5000); 

@@ -3,14 +3,19 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
+import { BsThreeDots } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
+
+
 
 export default function ProjectBoxes() {
   const projectScrollerRef = useRef(null);
   const projectItemsRef = useRef([]);
   const [indiIndex,setIndiIndex] = useState(0);
-
+  const [selectedFilter, setSelectedFilter] = useState('All');
   const [categories,setCategories] = useState([]);
   const [projects,setProjects] = useState([]);
+  const [mobileFilter,setMobileFilter] =useState(false);
 
   useEffect(()=>{
     async function getProjectsAPI(){
@@ -29,46 +34,18 @@ export default function ProjectBoxes() {
   },[]);
 
 
-  const filterChange = (filter,target)=>{
-    activateFilters(target);
-    if(filter=='All'){
-      showAllFilter();
-    }
-    else{
-      hideAllElements();
-      showFilteredItems(filter);
-    }
-  }
 
-  let projectsItemsAll = document.querySelectorAll('.projects-items');
-  let filterItemsAll = document.querySelectorAll('.filter-box li');
+  const filteredProjects = selectedFilter === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === selectedFilter);
 
-  const activateFilters = (target) =>{
-    filterItemsAll.forEach((fil)=>{ 
-      fil.classList.remove('selected');
-    })
-    target.classList.add('selected');
-  }
 
-  const showAllFilter = ()=>{
-    projectsItemsAll.forEach((elem)=>{
-      elem.classList.add('active');
-    });
-  }
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+  };
 
-  const hideAllElements=()=>{
-    projectsItemsAll.forEach((elem)=>{
-      elem.classList.remove('active');
-    });
-  }
 
-  const showFilteredItems = (filter)=>{
-    projectsItemsAll.forEach((elem)=>{
-      if(elem.getAttribute('data-filter')==filter){
-        elem.classList.add('active');
-      }
-    });
-  }
+
 
 
 
@@ -235,16 +212,22 @@ export default function ProjectBoxes() {
     };
   }, []);
 
+  const toggleMobileFilter = () =>{
+    setMobileFilter(!mobileFilter);
+  }
+
 
   return (
     <>
-
+    <div class="filter-launch" onClick={toggleMobileFilter}>
+      {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
+    </div>
     <div className="position-relative">
-      <div className="filter-box-control">
-        <div className="filter-box">
-          <li data-filer="All"  onClick={(e)=>{filterChange('All',e.currentTarget)}}>All</li>
+      <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
+        <div className="filter-box signifier">
+          <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() => handleFilterChange('All')}>All</li>
           {categories.map((filter,index) => (
-            <li key={index} data-filter={filter.category} onClick={(e)=>{filterChange(filter.category,e.currentTarget)}}>
+            <li key={index}  className={selectedFilter === filter.category ? 'selected' : ''} data-filter={filter.category} onClick={() => handleFilterChange(filter.category)}>
               {filter.category}
             </li>
           ))}
@@ -254,7 +237,7 @@ export default function ProjectBoxes() {
       <div id="projects-Scroller" ref={projectScrollerRef}>
         <div className="projects-main">
           
-          {projects.map((project,index)=>(
+          {filteredProjects.map((project,index)=>(
             <div
               key={project.projectid}
               className="projects-items active"

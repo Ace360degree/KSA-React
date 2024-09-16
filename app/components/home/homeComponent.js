@@ -58,14 +58,6 @@ export default function HomeComponent(){
     homeSLidesItem.forEach(function(item,index){
         item.style.zIndex = 2 +index;
     });
-    
-    function showNavbar(){
-        navbar.classList.add('active');
-    }
-    
-    function hideLogoClock(){
-        LogoClock.classList.add('hide');
-    }
    
     
     function showTitleAnimation(){
@@ -123,11 +115,11 @@ export default function HomeComponent(){
                 },1500);
                 document.querySelector('body').classList.remove('loading');    
                     
-                },3000);
+                },1000);
 
     }
     
-    // showTitleAnimation();
+    showTitleAnimation();
 
       
                 // hide Scoll Indicator on Scroll
@@ -255,27 +247,7 @@ export default function HomeComponent(){
    
    
 
-    let titleTime = 0;
-    setTimeout(function(){
-        // After Animation Add Dark Color to Body
-        // mainBody.classList.add('dark');
-        
-        
-        setTimeout(function(){
-            // With some delay Show Title (BIL)
-            showTitleAnimation()
-            return;
-            setTimeout(function(){
-               
-                // hide the Animated Logo                   
-                hideLogoClock();
-        
-            },1500)
-            
-        },100);
-        
-    },titleTime);
-    
+
   },[])
 
 
@@ -395,7 +367,7 @@ function showScrollableTitles(){
       setHeights: true,
       overflowScroll: true,
       updateHash: false,
-      touchScroll: false,
+      touchScroll: true,
     });
 
 

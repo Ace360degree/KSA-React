@@ -1932,7 +1932,7 @@ body.dark .clock-indicator span{
   width: 100%;
   max-width: 850px;
   margin: auto;
-  padding-top: 18px;
+  padding-top: 22px;
   z-index: 1000;
   background: white;
 }
@@ -1968,7 +1968,7 @@ body.dark .filter-box-control{
      -moz-user-select:none;
       -ms-user-select:none;
           user-select:none;
-  /*font-style: italic;*/
+  font-style: italic;
   /*letter-spacing: 2px;*/
 }
 .filter-box li.selected{

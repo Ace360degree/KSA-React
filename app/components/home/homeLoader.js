@@ -41,7 +41,7 @@ export default function HomeLoader(){
                 document.querySelector('body').classList.add('dark');
                 setShowTitle(true);
                 
-            },1000);
+            },2000);
 
         },10000);
         
