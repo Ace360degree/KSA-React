@@ -34,7 +34,6 @@ export default function HomeComponent(){
 
     gsap.ticker.lagSmoothing(false);
     
-    document.getElementById('clock').classList.remove('d-none');
 
 // Function for Each Section has been Delared
     const navbar = document.getElementById('navbar');
@@ -54,7 +53,7 @@ export default function HomeComponent(){
 
     navbar.classList.remove('active');
     document.querySelector('body').classList.add('loading');
-    document.querySelector('body').classList.remove('dark');
+    document.querySelector('body').classList.add('dark');
     
     homeSLidesItem.forEach(function(item,index){
         item.style.zIndex = 2 +index;
@@ -71,21 +70,9 @@ export default function HomeComponent(){
     
     function showTitleAnimation(){
         TitleCard.classList.add('active');
-        
-        gsap.fromTo('.home-title-grad',{
-            background:'conic-gradient(from 45deg, black 0%, transparent 0%)',
-        },{
-            background:'conic-gradient(from 45deg, black 100%, transparent 100%)',
-            duration:2.5,
-            ease: "power3.inOut",
-            delay:0,
-        });
-        
-        
-        
                 setTimeout(function(){
                      document.querySelector('body').classList.add('dark');
-                     document.querySelector('body').classList.remove('loading');
+                     document.querySelector('body').classList.add('loading');
                     
                             
                     document.querySelectorAll('.intro-txbx').forEach(function(intro, index) {
@@ -268,7 +255,7 @@ export default function HomeComponent(){
    
    
 
-    let titleTime = 7000;
+    let titleTime = 0;
     setTimeout(function(){
         // After Animation Add Dark Color to Body
         // mainBody.classList.add('dark');
@@ -494,15 +481,7 @@ function showScrollableTitles(){
             <div className="home-snapping">
                 <div className="home-banner-box">
                 
-            <div id="clock" className="d-none" >
-                <div className="clock-bg"></div>
-                <div className="clock-dot">
-                    <div className="line primary-line"><div className="clock-title">KSA</div></div>
-                    <div className="line extended-line minute-line"></div>
-                    <div className="line extended-line hour-line"></div>
-                    <div className="line extended-line bottom-line"></div>
-                </div>
-            </div>
+            
             
             
             <div id="home-title" >

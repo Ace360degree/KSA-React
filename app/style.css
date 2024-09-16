@@ -687,6 +687,7 @@ body.dark .clock-dot{
 }
 
 .clock-title{
+  text-align: left;
   color:var(--body-text-light);
   font-size: 26px;
   letter-spacing: 3px;

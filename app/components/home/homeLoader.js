@@ -2,10 +2,13 @@
 import { useEffect, useRef, useState } from 'react';
 import '../../loader.css';
 import { useVisitedStore } from '@/app/states/store';
+import gsap from 'gsap/all';
 
 export default function HomeLoader(){
 
     const { visited, setVisited } = useVisitedStore();
+    const [showTitle, setShowTitle] = useState(false);
+    const homeGrad = useRef(null);
 
     const[spinning,setSpinning] = useState(true);
 
@@ -17,7 +20,31 @@ export default function HomeLoader(){
         setTimeout(()=>{
             setSpinning(false);
         },1000);
+    },[])
 
+    useEffect(()=>{
+
+        setTimeout(()=>{
+            if(homeGrad.current){
+        
+                gsap.fromTo(homeGrad.current,{
+                    background:'conic-gradient(from 45deg, black 0%, transparent 0%)',
+                },{
+                    background:'conic-gradient(from 45deg, black 100%, transparent 100%)',
+                    duration:2.5,
+                    ease: "power3.inOut",
+                    delay:0,
+                });
+            }
+
+            setTimeout(()=>{
+                document.querySelector('body').classList.add('dark');
+                setShowTitle(true);
+                
+            },1000);
+
+        },10000);
+        
     },[])
 
  
@@ -34,7 +61,23 @@ export default function HomeLoader(){
                     </div>
                 </div>
                  :
-                <h4 className='loader-text'>Click anywhere to Continue</h4>
+                <>
+                <div id="clock" >
+                <div className="clock-bg"></div>
+                <div className="clock-dot">
+                    <div className="line primary-line"><div className="clock-title">KSA</div></div>
+                    <div className="line extended-line minute-line"></div>
+                    <div className="line extended-line hour-line"></div>
+                    <div className="line extended-line bottom-line"></div>
+                </div>
+                </div>
+                <div className="home-title-grad" ref={homeGrad}></div>
+                {showTitle?
+                    <h4 className="loader-text">Click anywhere to Continue</h4>
+                :
+                    ''   
+                }
+                </>
                 }
             </div>
         </>
