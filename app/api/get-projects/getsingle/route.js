@@ -13,9 +13,13 @@ export async function GET(req) {
 
         // Query to fetch the project details
         const [projectRows] = await pool.query(
-            'SELECT * FROM projects_beta WHERE url_slug = ?',
+            `SELECT pb.*, c.category 
+             FROM projects_beta pb
+             LEFT JOIN categories c ON pb.category = c.id
+             WHERE pb.url_slug = ?`,
             [urlSlug]
         );
+        
 
         if (projectRows.length === 0) {
             return new Response(JSON.stringify({ error: 'Project not found' }), { status: 404 });

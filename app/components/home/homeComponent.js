@@ -381,7 +381,7 @@ function showScrollableTitles(){
      ScrollTrigger.create({
         trigger: '#second-title',
         start: 'top top',
-        end: totalDurationSecondTitle,
+        end: "+=2000s",
         pin: true,
         pinSpacing:true,
      });

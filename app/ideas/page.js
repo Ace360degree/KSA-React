@@ -265,7 +265,7 @@ export default  function Ideas(){
         setTimeout(function(){
             setIdeasVisited();
             console.log(visited);
-        },10000);
+        },20000);
     },[])
 
 

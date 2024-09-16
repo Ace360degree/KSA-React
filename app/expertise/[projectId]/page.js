@@ -5,9 +5,12 @@ import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProjectSection from "../projectsSection";
 import dynamic from "next/dynamic";
-// import SliderCursor from "@/app/components/commons/sliderCursor";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
+    ssr: false,
+  }) 
+
+  const ProjectEssencials = dynamic(() => import("../projectsEssecials"), {
     ssr: false,
   }) 
 
@@ -22,6 +25,8 @@ export default function ProjectInfo(){
     const [sections,setSections] = useState([]);
     const [project,setProject] = useState([]);
     const [slides,setSlides] = useState([]);
+    const [essecials,setEssenscials] = useState([]);
+    const [points,setPoints] = useState([]);
  
     useEffect(()=>{
         const fetchProjectsApi = async()=>{
@@ -31,6 +36,8 @@ export default function ProjectInfo(){
             setProject(getProjects.project);
             setSections(getProjects.tabs);
             setSlides(getProjects.slides);
+            setEssenscials(getProjects.attributes);
+            setPoints(getProjects.points);
             setLoading(false);
         }
 
@@ -44,16 +51,21 @@ export default function ProjectInfo(){
     return (
         <>  
             <LightTheme/>
-            <NavbarIntroPage heading={'Expertise'} subheading={projectSlug}/>
+            
 
-            {loading? "": 
+            {loading? "":
+            <> 
             <SliderCursor/>
+            <NavbarIntroPage heading={'Expertise'} subheading={project.category}/>
+            </>
             }
             <div class="project-banner">
                <div class="project-title"><h2>{project.project_name}</h2>
                <h4 class="fw-light m-0"></h4>{project.description}</div>
                 <img class="project-image-hero" src={process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail} />
             </div>
+
+            <ProjectEssencials essecials={essecials} points={points} />
 
             {sections.map((section,index)=>(
                 <ProjectSection section={section}  key={index} slides={slides[index]}/>
