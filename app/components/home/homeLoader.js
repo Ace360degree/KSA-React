@@ -23,7 +23,7 @@ export default function HomeLoader(){
     },[])
 
     useEffect(()=>{
-
+        document.querySelector('body').classList.remove('dark');
         setTimeout(()=>{
             if(homeGrad.current){
         

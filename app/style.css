@@ -3013,7 +3013,7 @@ body.dark .filter-box-control{
 
 .ideas-item h2{
   font-size:36px;
-  font-weight:300;
+  font-weight:400;
   text-transform:uppercase;
   margin-bottom:0;
 }
@@ -3048,13 +3048,13 @@ body.dark .filter-box-control{
 }
 
 .ideas-inner-title{
-      font-size: 4vw;
+  font-size: 3rem;
   font-weight: 400;
   text-transform: uppercase;
 }
 
 .ideas-inner-content{
-  font-size:1.2vw;
+  font-size:1.2rem;
 }
 
 .project-image-wrap{
@@ -3902,6 +3902,14 @@ body.dark .filter-box-control{
   }
   .scrollbanner{
       bottom: 8vh;
+  }
+  .ideas-section-img{
+    max-height: auto;
+    min-height: auto;
+    margin-top: 6rem;
+  }
+  .ideas-inner-section {
+    padding: 2rem;
   }
 }
 
