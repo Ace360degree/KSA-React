@@ -11,6 +11,7 @@ export default function CursorAudio() {
   const pauseSVGRef = useRef(null); // Ref for pause SVG icon
   const bigCursorRef = useRef(null); // Ref for big cursor
   const smCursorRef = useRef(null); // Ref for small cursor
+  const [isTouchscreen, setIsTouchscreen] = useState(false);
 
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
 
@@ -118,6 +119,22 @@ export default function CursorAudio() {
   }, []);
 
 
+  useEffect(() => {
+    // Method 1: Using matchMedia
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    
+    // Method 2: Check for touch events
+    const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice || hasTouchSupport) {
+      setIsTouchscreen(true);
+    } else {
+      setIsTouchscreen(false);
+    }
+
+  }, []);
+
+
 
 
   return (
@@ -150,8 +167,12 @@ export default function CursorAudio() {
         </svg>
       </div>
 
+      {isTouchscreen?"":
+      <>
       <div className="cursor-lg" ref={bigCursorRef}></div>
       <div className="cursor-sm" ref={smCursorRef}></div>
+      </>
+      }
 
     </>
   );
