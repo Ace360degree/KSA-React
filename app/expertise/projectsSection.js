@@ -4,11 +4,12 @@ import '@splidejs/react-splide/css'; // Import Splide styles
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap/all';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import ProjectEssencials from './projectsEssecials';
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectSection({ section, slides }) {
+export default function ProjectSection({ section, slides,essecials,points }) {
 
   const InfoSection = useRef(null);
 
@@ -49,13 +50,13 @@ export default function ProjectSection({ section, slides }) {
     return (
       <div className="project-info-section my-1 project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
-          <div className="col-md-7">
+          <div className="col-md-4 col-lg-7">
             <div className="project-image-info p-4">
               <h2>{section.section_title}</h2>
               <h4>{section.content}</h4>
             </div>
           </div>
-          <div className="col-md-5">
+          <div className="col-md-8 col-lg-5">
             <div className="project-info-image">
               <img src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Project" />
             </div>
@@ -67,13 +68,13 @@ export default function ProjectSection({ section, slides }) {
     return (
       <div className="project-info-section my-1 project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
-          <div className="col-md-7">
+          <div className="col-md-4 col-lg-7">
             <div className="project-image-info p-4">
               <h2>{section.section_title}</h2>
               <h4>{section.content}</h4>
             </div>
           </div>
-          <div className="col-md-5">
+          <div className="col-md-8 col-lg-5">
             <div className="project-info-image">
               <Splide options={SliderSettings}>
                 {slides.slides.map((slide, index) => (
@@ -105,5 +106,10 @@ export default function ProjectSection({ section, slides }) {
         </Splide>
       </div>
     ) : null;
+  }
+  else if (section.section_type == 5) {
+    return (
+      <ProjectEssencials essecials={essecials} points={points} />
+    );
   }
 }

@@ -570,7 +570,7 @@ body.dark #navbar{
 }
 
 .hero-title{
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -1013,8 +1013,8 @@ body.dark .extended-line::before{
 
 
 .intro-sm-title{
-  font-size: 5vw;
-  line-height: 5vw;
+  font-size: 5rem;
+  line-height: 5rem;
   font-family:'Oswald';
   letter-spacing:10px;
   color:#c1c1c1;
@@ -1024,8 +1024,8 @@ body.dark .extended-line::before{
 
 .intro-lg-title{
   color:white;
-  font-size: 6vw;
-  line-height: 6vw;
+  font-size: 6rem;
+  line-height: 6rem;
 }
 
 .intro-txbx {
@@ -1107,7 +1107,7 @@ body.dark .extended-line::before{
 }
 
 #quote-texts{
-  font-size:4.5vw;
+  font-size:4.5rem;
   opacity: 0;
   -webkit-transform:translateY(100%);
       -ms-transform:translateY(100%);
@@ -1115,7 +1115,7 @@ body.dark .extended-line::before{
 }
 
 #we-do{
-  font-size:6vw;
+  font-size:6.5rem;
   opacity: 0;
   letter-spacing: 6px;
   -webkit-transform:translateY(100%);
@@ -1131,7 +1131,7 @@ body.dark .extended-line::before{
 
 
 #they-say{
-  font-size:6vw;
+  font-size:6rem;
   opacity: 0;
   -webkit-transform:translateY(100%);
       -ms-transform:translateY(100%);
@@ -2158,6 +2158,7 @@ body.dark .filter-box-control{
           transform:scale(1.5);
 }
 
+
 .project-title h2{
    font-size: 4.5rem;
   font-weight: 300;
@@ -2299,8 +2300,8 @@ body.dark .filter-box-control{
 
 
 .page-title-animation{
-  font-size:6vw;
-  line-height:6vw;
+  font-size:6rem;
+  line-height:6rem;
   margin:0;
   text-align:center;
 }
@@ -2317,7 +2318,7 @@ body.dark .filter-box-control{
 }
 
 .about-intro-sub{
-  font-size:2vw;
+  font-size:1.4rem;
 }
 
 
@@ -3012,14 +3013,14 @@ body.dark .filter-box-control{
 
 
 .ideas-item h2{
-  font-size:36px;
+  font-size:40px;
   font-weight:400;
   text-transform:uppercase;
   margin-bottom:0;
 }
 
 .ideas-item h5{
-  font-size:16px;
+  font-size:18px;
   font-weight:500;
   margin:0;
   margin-top:16px;
@@ -3672,6 +3673,54 @@ body.dark .filter-box-control{
 
 }
 
+@media screen and (max-width:1100px){
+  .intro-lg-title {
+    margin-bottom: 0.6rem;
+  }
+  .about-intro-sub {
+    font-size: 2.4rem;
+  }
+  .ab-2-head {
+    font-size: 2rem;
+  }
+  .about-item{
+    max-width: 24%;
+  }
+  .about-anim-text {
+    font-size: 5rem;
+  }
+  .contact-form-box{
+    max-width: 750px;
+  }
+  .form-row label{
+    font-size: 28px;
+  }
+  .theme-input{
+    font-size: 32px;
+  }
+  .btn-theme{
+    font-size: 24px;
+  }
+  .footer-icon{
+    height: 40px;
+    width: 40px;
+  }
+  .footer-brand{
+    font-size: 2rem;
+  }
+  .follow-us-text{
+    font-size: 1.6rem;
+  }
+  .project-image-wrap{
+    max-width: 380px;
+  }
+
+  .filter-box{
+    gap:20px;
+  }
+}
+
+
 
 
 /*Mobile Responsive*/
@@ -3683,13 +3732,45 @@ body.dark .filter-box-control{
               flex-direction: column;
       padding:5rem 0;
   }
+  .top-section-filter{
+    top: 26px;
+    font-size: 12px;
+    gap: 16px;
+  }
+  .theme-input {
+    font-size: 16px;
+  }
+  .form-row label {
+    font-size: 18px;
+  }
+  .btn-theme {
+    font-size: 14px;
+  }
+  .footer-brand {
+    font-size: 1.5rem;
+  }
+  .follow-us-text {
+    font-size: 1.2rem;
+  }
+  .footer-icon {
+    height: 26px;
+    width: 30px;
+  }
+  .contact-menu{
+    top:24px;
+    gap:14px;
+  }
+  .contact-menu li{
+    font-size:16px;
+  }
   .intro-lg-title{
-      font-size: 14vw;
-      line-height: 14vw;
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+    margin-bottom: 0.2rem;
   }
   .intro-sm-title {
-      font-size: 10vw;
-      line-height: 10vw;
+      font-size: 3rem;
+      line-height: 3rem;
   }
   .mobile-to-life{
       line-height:6vw !important;
@@ -3699,7 +3780,7 @@ body.dark .filter-box-control{
       line-height: 9vw;
   }
   .about-intro-sub {
-      font-size: 6vw;
+      font-size: 1.4rem;
   }
   .ab-2-head {
       font-size: 6vw;
@@ -3821,6 +3902,9 @@ body.dark .filter-box-control{
       height: 194px;
       opacity: 0.1;
   }
+  #clock-bound-box{
+    width: 175px;
+  }
   .clock-indicator.active{
       height: 196px;
   }
@@ -3844,13 +3928,13 @@ body.dark .filter-box-control{
       white-space:nowrap;
   }
   #they-say{
-      font-size:12vw;
+      font-size:4rem;
   }
   #quote-texts {
-      font-size: 9vw;
+      font-size: 2rem;
   }
   #we-do {
-      font-size: 12vw;
+      font-size: 3.5rem;
       letter-spacing: 4px;
   }
   
@@ -3911,6 +3995,12 @@ body.dark .filter-box-control{
   .ideas-inner-section {
     padding: 2rem;
   }
+
+  .page-title-animation{
+    font-size:3rem;
+    line-height:3rem;
+  }
+
 }
 
 
@@ -3920,6 +4010,16 @@ body.dark .filter-box-control{
           -ms-transform: scale(1.2);
               transform: scale(1.2);
   }
+
+  .clock-indicator span ,.clock-indicator span em{
+    height: 82px;
+  }
+
+  #clock-bound-box{
+    height: 80px;
+    bottom: 720px;
+  }
+
   .scrollbanner{
       width: 2px;
       height: 80px;
@@ -4199,7 +4299,7 @@ body.dark .filter-box-control{
       max-height:120px;
   }
   .hero-title {
-      font-size: 10rem;
+      font-size: 8rem;
       width:auto;
   }
   .hero-sub {
@@ -4412,6 +4512,8 @@ body.dark .filter-box-control{
       padding-left: 10rem;
   }
 }
+
+
 
 
 .splide__arrow{

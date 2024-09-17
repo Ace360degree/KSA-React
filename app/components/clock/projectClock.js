@@ -48,88 +48,105 @@ export default function ProjectClock() {
   }, []);
 
   const usermainClockRef = useRef(null);
-  let scrollerClockIndex = 0;
+let scrollerClockIndex = 0;
+let touchStartY = 0;
 
-  useEffect(()=>{
-    const handleWheel = (e) => {
-      const scrollSpeedFactor = 0.03; 
+useEffect(() => {
+  const scrollSpeedFactor = 0.03; 
 
-      const rotationClock = e.deltaY * scrollSpeedFactor;
-      scrollerClockIndex += rotationClock;
-      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
-    };
+  const handleWheel = (e) => {
+    const rotationClock = e.deltaY * scrollSpeedFactor;
+    scrollerClockIndex += rotationClock;
+    usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
+  };
 
-    // Add wheel event listener
-    window.addEventListener('wheel', handleWheel);
+  const handleTouchStart = (e) => {
+    touchStartY = e.touches[0].clientY;
+  };
 
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
+  const handleTouchMove = (e) => {
+    const touchMoveY = e.touches[0].clientY;
+    const deltaY = touchStartY - touchMoveY;
+    const rotationClock = deltaY * scrollSpeedFactor;
+    scrollerClockIndex += rotationClock;
+    usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;
+    touchStartY = touchMoveY;  // Update touchStartY for continuous rotation
+  };
 
-  },[]);
+  // Add wheel and touch event listeners
+  window.addEventListener('wheel', handleWheel);
+  window.addEventListener('touchstart', handleTouchStart);
+  window.addEventListener('touchmove', handleTouchMove);
 
+  // Cleanup the event listeners on component unmount
+  return () => {
+    window.removeEventListener('wheel', handleWheel);
+    window.removeEventListener('touchstart', handleTouchStart);
+    window.removeEventListener('touchmove', handleTouchMove);
+  };
 
-  let tabIndex = 0;
+}, []);
 
-  useEffect(() => {
-    const checkOverlap = () => {
-      const secondsClock = document.getElementById('clock-bound-box');
-      const indicators = clockIndicators.current;
-  
-      if (!secondsClock || !indicators.length) return;
-  
-      // Get bounding box of the rotating seconds hand
-      const secondsClockRect = secondsClock.getBoundingClientRect();
-  
-      indicators.forEach((indicator,index) => {
-        // Get the bounding box of the span inside each clock-indicator
-        const spanElement = indicator;
-        const spanParent = clockMainIndicators.current[index];
-        if (!spanElement) return;
-  
-        const spanRect = spanElement.getBoundingClientRect();
-  
-        // Collision detection with a 1px offset
-        const offset = 1; // 1px offset for detection
-  
-        const isOverlapping = !(
-          secondsClockRect.right < spanRect.left - offset ||
-          secondsClockRect.left > spanRect.right + offset ||
-          secondsClockRect.bottom < spanRect.top - offset ||
-          secondsClockRect.top > spanRect.bottom + offset
-        );
-  
-        if (isOverlapping) {
-          tabIndex=index;
-          spanParent.classList.add('active');
-        } else {
-          spanParent.classList.remove('active');
-        }
+let tabIndex = 0;
 
-        clockMainIndicators.current[tabIndex].classList.add('active');
-      });
-    };
-  
-    // Use requestAnimationFrame for smoother updates
-    const handleUpdate = () => {
-      requestAnimationFrame(checkOverlap);
-    };
+useEffect(() => {
+  const checkOverlap = () => {
+    const secondsClock = document.getElementById('clock-bound-box');
+    const indicators = clockIndicators.current;
 
-    handleUpdate();
-    const intervalId = setInterval(handleUpdate, 100);
+    if (!secondsClock || !indicators.length) return;
 
-    return () => clearInterval(intervalId);
+    // Get bounding box of the rotating seconds hand
+    const secondsClockRect = secondsClock.getBoundingClientRect();
 
-    
-  }, []);
+    indicators.forEach((indicator, index) => {
+      // Get the bounding box of the span inside each clock-indicator
+      const spanElement = indicator;
+      const spanParent = clockMainIndicators.current[index];
+      if (!spanElement) return;
 
-  const secondsClock = useRef(null);
-  useEffect(()=>{
-    if(secondsClock.current){
-      secondsClock.current.classList.remove('clock-paused');
-    }
-  },[])
+      const spanRect = spanElement.getBoundingClientRect();
+
+      // Collision detection with a 1px offset
+      const offset = 1; // 1px offset for detection
+
+      const isOverlapping = !(
+        secondsClockRect.right < spanRect.left - offset ||
+        secondsClockRect.left > spanRect.right + offset ||
+        secondsClockRect.bottom < spanRect.top - offset ||
+        secondsClockRect.top > spanRect.bottom + offset
+      );
+
+      if (isOverlapping) {
+        tabIndex = index;
+        spanParent.classList.add('active');
+      } else {
+        spanParent.classList.remove('active');
+      }
+
+      clockMainIndicators.current[tabIndex].classList.add('active');
+    });
+  };
+
+  // Use requestAnimationFrame for smoother updates
+  const handleUpdate = () => {
+    requestAnimationFrame(checkOverlap);
+  };
+
+  handleUpdate();
+  const intervalId = setInterval(handleUpdate, 100);
+
+  return () => clearInterval(intervalId);
+
+}, []);
+
+const secondsClock = useRef(null);
+useEffect(() => {
+  if (secondsClock.current) {
+    secondsClock.current.classList.remove('clock-paused');
+  }
+}, []);
+
   
 
   return (

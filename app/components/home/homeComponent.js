@@ -259,12 +259,12 @@ export default function HomeComponent(){
     let quoteTextFontSize;
     let theySayFontSize;
     if (window.innerWidth >= 992) {
-        quoteTextFontSize = '3.8vw';
-        theySayFontSize = '5vw';
+        quoteTextFontSize = '3.8rem';
+        theySayFontSize = '5rem';
     }
     if (window.innerWidth <= 992) {
-        quoteTextFontSize = '7vw';
-        theySayFontSize = '10vw';
+        quoteTextFontSize = '1.8rem';
+        theySayFontSize = '2rem';
     }
 
 function showScrollableTitles(){

@@ -29,7 +29,7 @@ export async function GET(req) {
 
         // Query to fetch tabs (sections) related to the project
         const [tabsRows] = await pool.query(
-            'SELECT * FROM projects_sections WHERE project_id = ?',
+            'SELECT * FROM projects_sections WHERE project_id = ? ORDER BY sequence ASC',
             [project.id]
         );
 
