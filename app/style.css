@@ -3082,6 +3082,7 @@ body.dark .filter-box-control{
   -webkit-transition:all 1.5s ease;
   -o-transition:all 1.5s ease;
   transition:all 1.5s ease;
+  /* min-height: 100vh; */
 }
 
 .ideas-img-section{
@@ -3571,6 +3572,12 @@ body.dark .filter-box-control{
   padding:4.5rem;
 }
 
+.project-anima-opacity{
+  opacity:1;
+}
+
+
+
 .idea-page-scroller{
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3669,7 +3676,7 @@ body.dark .filter-box-control{
 
 @media screen and (min-width:992px){
   .project-title {
-      left: 62px;
+      left: 24px;
   }
 
 }

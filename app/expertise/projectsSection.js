@@ -1,10 +1,11 @@
 'use client';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css'; // Import Splide styles
-import { useEffect, useRef } from 'react';
+import { useEffect,useState, useRef } from 'react';
 import gsap from 'gsap/all';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import ProjectEssencials from './projectsEssecials';
+import Image from 'next/image';
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,12 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ProjectSection({ section, slides,essecials,points }) {
 
   const InfoSection = useRef(null);
+
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0
+  });
+
 
   useEffect(() => {
     if (InfoSection.current) {
@@ -28,7 +35,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
             trigger: InfoSection.current, // Use the reference element for trigger
             scrub: true,
             start: "top 100%", // Adjust the start position for better control
-            end: "top 80%",
+            end: "top 90%",
             // markers: true, // Enable markers for debugging if needed
           }
         }
@@ -58,7 +65,9 @@ export default function ProjectSection({ section, slides,essecials,points }) {
           </div>
           <div className="col-md-8 col-lg-5">
             <div className="project-info-image">
-              <img src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Project" />
+              {windowSize.width <= 750 && section.section_image_mobile!='' ? 
+              <Image height={500} width={500}  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Flowers"/>
+              : <Image height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Flowers"/> } 
             </div>
           </div>
         </div>
@@ -79,7 +88,10 @@ export default function ProjectSection({ section, slides,essecials,points }) {
               <Splide options={SliderSettings}>
                 {slides.slides.map((slide, index) => (
                   <SplideSlide key={index}>
-                    <img src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="Project" />
+                    {windowSize.width <= 750 && slide.mobile!='' ? 
+                    <Image height={500} width={500} style={{width:'100%',height:'100%'}}  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="Flowers"/>
+                    : <Image height={500} width={500} style={{width:'100%',height:'100%'}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="Flowers"/> 
+                    }
                   </SplideSlide>
                 ))}
               </Splide>
@@ -90,8 +102,11 @@ export default function ProjectSection({ section, slides,essecials,points }) {
     );
   } else if (section.section_type == 3) {
     return (
-      <div className="project-info-section position-relative" ref={InfoSection}>
-        <img className="project-slider-img" src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Project" />
+      <div className="project-info-section position-relative" style={{minHeight:'100vh'}} ref={InfoSection}>
+        {windowSize.width <= 750 && section.section_image_mobile!='' ? 
+            <Image height={500} width={500}  style={{width:'100%',height:'auto'}} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Flowers"/>
+            : <Image height={500} width={500} style={{width:'100%',height:'auto'}} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Flowers"/> 
+        }
       </div>
     );
   } else if (section.section_type == 4) {
@@ -100,7 +115,10 @@ export default function ProjectSection({ section, slides,essecials,points }) {
         <Splide options={SliderSettings}>
           {slides.slides.map((slide, index) => (
             <SplideSlide key={index}>
-              <img className="project-slider-img" src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt={`Slide ${index}`} />
+               {windowSize.width <= 750 && slide.mobile!='' ? 
+            <Image height={500} width={500} style={{width:'100%',height:'100%'}}  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.movile} alt="Flowers"/>
+            : <Image height={500} width={500} style={{width:'100%',height:'100%'}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="Flowers"/> 
+        }
             </SplideSlide>
           ))}
         </Splide>

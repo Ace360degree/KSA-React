@@ -103,6 +103,10 @@
     background-color: transparent;
   }
   
+  .spinner-box.spinner-center{
+    align-items: center;
+  }
+
   /* SPINNING CIRCLE */
   
   .leo-border-1 {

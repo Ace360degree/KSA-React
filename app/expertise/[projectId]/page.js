@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import ProjectSection from "../projectsSection";
 import dynamic from "next/dynamic";
 import gsap from "gsap/all";
+import Image from "next/image";
+import CommonLoader from "@/app/components/commons/loaderCommon";
 
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
@@ -30,6 +32,11 @@ export default function ProjectInfo(){
     const [essecials,setEssenscials] = useState([]);
     const [points,setPoints] = useState([]);
     const projectTitle = useRef(null);
+    const projectDescrion = useRef(null)
+    const [windowSize, setWindowSize] = useState({
+        width: typeof window !== 'undefined' ? window.innerWidth : 0,
+        height: typeof window !== 'undefined' ? window.innerHeight : 0
+      });
  
     useEffect(()=>{
         const fetchProjectsApi = async()=>{
@@ -49,9 +56,9 @@ export default function ProjectInfo(){
 
 
     useEffect(()=>{
-        if(projectTitle.current){
+        if(projectTitle.current && projectDescrion.current){
             let projectTititleTL = gsap.timeline();
-            projectTititleTL.to(projectTitle.current,{scale:1, duration:2, delay:1});
+            projectTititleTL.to(projectTitle.current,{scale:1, duration:2, delay:1})
             projectTititleTL.play();
         }
     },[])
@@ -65,16 +72,19 @@ export default function ProjectInfo(){
             <LightTheme/>
             
 
-            {loading? "":
+            {loading? <CommonLoader/>:
             <> 
             <SliderCursor/>
             <NavbarIntroPage heading={'Expertise'} subheading={project.category}/>
-            </>
-            }
+            
+            
             <div className="project-banner">
                <div className="project-title" ref={projectTitle}><h2>{project.project_name}</h2>
-               <h4 className="fw-light m-0">{project.description}</h4></div>
-                <img className="project-image-hero" src={process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail} />
+               <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
+               </div>
+                {windowSize.width <=750 && project.mobile_banner!=''?
+                <Image height={600} width={600} className="project-image-hero" unoptimized  style={{width:'100%',height:'100%'}} placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.mobile_banner} />
+                :<Image height={600} width={600} className="project-image-hero" unoptimized style={{width:'100%',height:'100%'}}  placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.desktop_banner} />}
             </div>
 
 
@@ -82,6 +92,8 @@ export default function ProjectInfo(){
                 <ProjectSection section={section} essecials={essecials} points={points}  key={index} slides={slides[index]}/>
             ))}
 
+            </>
+            }
         </>
     )
 
