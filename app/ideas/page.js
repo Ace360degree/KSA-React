@@ -10,6 +10,12 @@ import Image from "next/image";
 import {motion , AnimatePresence} from 'framer-motion';
 import { useRouter } from "next/navigation";
 import { useVisitedIdeasStore } from "../states/store/ideasStore";
+import dynamic from "next/dynamic";
+
+
+const ScrollifyDisabled = dynamic(() => import('../components/commons/disableScrollify'), {
+    ssr: false,
+  })
 
 gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
 
@@ -272,6 +278,7 @@ export default  function Ideas(){
 
     return(
         <>  
+            <ScrollifyDisabled/>
             <LightTheme/>
             <NavbarIntroPage heading={'Research'}/>
         {visited? '':    

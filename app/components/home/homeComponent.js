@@ -3,10 +3,8 @@ import HomeMenu from "../homeMenu/homeMenu";
 import NavbarIntroPage from "../NavbarIntroPage";
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import $ from 'jquery';
-import 'jquery-scrollify';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import ScrollToPlugin from "gsap/ScrollToPlugin";
+import ScrollifyComponent from "./jQScrollify";
 
 
 export default function HomeComponent(){
@@ -352,27 +350,28 @@ function showScrollableTitles(){
     
   },[])
 
-  useEffect(()=>{
-    $(document).ready(function(){
-    $.scrollify({
-      section: ".home-snapping",
-      sectionName: "home-snapping",
-      interstitialSection: "",
-      easing: "easeOutExpo",
-      // easing: "swing",
-      scrollSpeed: 500,
-      offset: 0,
-      scrollbars: true,
-      standardScrollElements: "",
-      setHeights: true,
-      overflowScroll: true,
-      updateHash: false,
-      touchScroll: true,
-    });
+//   useEffect(()=>{
+//     $(document).ready(function(){
+//     $.scrollify({
+//       section: ".home-snapping",
+//       sectionName: "home-snapping",
+//       interstitialSection: "",
+//       easing: "easeOutExpo",
+//       // easing: "swing",
+//       scrollSpeed: 500,
+//       offset: 0,
+//       scrollbars: true,
+//       standardScrollElements: "",
+//       setHeights: true,
+//       overflowScroll: true,
+//       updateHash: false,
+//       touchScroll: true,
+//     });
 
 
-    });
-  },[snapping])
+//     });
+
+//   },[])
   
 
   useEffect(()=>{
@@ -447,6 +446,7 @@ function showScrollableTitles(){
     return(
         <>
         <NavbarIntroPage/>
+        <ScrollifyComponent/>
             <div id="page">
             
             <div className="nav-title" data-title=""></div>

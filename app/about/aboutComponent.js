@@ -7,6 +7,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import $ from "jquery";
 import  "jquery-scrollify";
+import ScrollifyDisabled from "../components/commons/disableScrollify";
 
 
 
@@ -135,6 +136,7 @@ export default function AboutComponent(){
 
     return(
         <>
+            <ScrollifyDisabled/>
             <DarkTheme/>
             <NavbarIntroPage heading={'ETHIOS'}/>
             {/* <div class="header-gap"></div> */}

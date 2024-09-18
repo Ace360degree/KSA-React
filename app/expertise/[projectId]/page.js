@@ -18,6 +18,10 @@ const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor
     ssr: false,
   }) 
 
+  const ScrollifyDisabled = dynamic(() => import("@/app/components/commons/disableScrollify"), {
+    ssr: false,
+  }) 
+
 
 
 
@@ -69,6 +73,7 @@ export default function ProjectInfo(){
 
     return (
         <>  
+            <ScrollifyDisabled/>
             <LightTheme/>
             
 

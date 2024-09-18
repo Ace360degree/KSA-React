@@ -10,8 +10,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import Link from "next/link";
-import "jquery-scrollify";
-import $ from "jquery";
+import ScrollifyDisabled from "../components/commons/disableScrollify";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -70,13 +69,10 @@ export default function ContactComponent(){
 
     },[])
 
-    useEffect(()=>{
-        // $.scrollify.destroy();
-        $.scrollify.move(0);
-    },[])
 
     return(
         <>
+        <ScrollifyDisabled/>
         <DarkTheme/>
         <NavbarIntroPage heading={'Contact'}/>
         <div class="header-gap"></div>

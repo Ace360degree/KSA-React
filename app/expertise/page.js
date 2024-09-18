@@ -10,12 +10,16 @@ const ProjectBoxes = dynamic(() => import("../components/projects/projectBoxes")
     ssr: false,
 })
 
+const ScrollifyDisabled = dynamic(() => import("../components/commons/disableScrollify"), {
+    ssr: false,
+})
+
 export default function Expertise(){
 
     const {visited} = useVisitedProjectsStore();
 
     return(<>
-        
+        <ScrollifyDisabled/>
         <LightTheme/>
         <NavbarIntroPage heading={'Expertise'}/>
         {visited?'' :
