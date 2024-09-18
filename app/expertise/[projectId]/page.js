@@ -33,7 +33,7 @@ export default function ProjectInfo(){
  
     useEffect(()=>{
         const fetchProjectsApi = async()=>{
-            const fetchProjects = await fetch(`/api/get-projects/getsingle?id=the-hameed-test`);
+            const fetchProjects = await fetch(`/api/get-projects/getsingle?id=${projectSlug}`);
             const getProjects = await (fetchProjects.json());
             console.log(getProjects)
             setProject(getProjects.project);

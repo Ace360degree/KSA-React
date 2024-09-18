@@ -1818,8 +1818,9 @@ body.dark .clock-indicator span{
 
 .pagination li {
   background: #ffffff00;
-  padding: 4px;
-  margin: 5px 0;
+  height: 14px;
+  width: 14px;
+  margin: 5vh 0;
   font-size: 0;
   cursor: var(--pointer);
   border-radius: 0;
