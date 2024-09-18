@@ -10,7 +10,7 @@ export default function NavbarIntroPage({heading,subheading}){
 
     return(
         <>
-            <div id="navbar" className="active">
+            <div id="navbar" className="active transparent">
                 <div className="navbar-control">
                     <div className="nav-logo">
                         <Link href={'/'}><div className="logo-main">KSA<span>{subHeading}</span></div></Link>

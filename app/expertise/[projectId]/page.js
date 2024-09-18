@@ -14,7 +14,7 @@ const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor
     ssr: false,
   }) 
 
-  const ProjectEssencials = dynamic(() => import("../projectsEssecials"), {
+  const CheckNavTransparent = dynamic(() => import("@/app/components/commons/checkNavTransparent"), {
     ssr: false,
   }) 
 
@@ -73,7 +73,8 @@ export default function ProjectInfo(){
             
 
             {loading? <CommonLoader/>:
-            <> 
+            <>
+            <CheckNavTransparent/> 
             <SliderCursor/>
             <NavbarIntroPage heading={'Expertise'} subheading={project.category}/>
             
@@ -83,8 +84,8 @@ export default function ProjectInfo(){
                <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
                </div>
                 {windowSize.width <=750 && project.mobile_banner!=''?
-                <Image height={600} width={600} className="project-image-hero" unoptimized  style={{width:'100%',height:'100%'}} placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.mobile_banner} />
-                :<Image height={600} width={600} className="project-image-hero" unoptimized style={{width:'100%',height:'100%'}}  placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.desktop_banner} />}
+                <Image height={600} width={600} className="project-image-hero hero-image" unoptimized  style={{width:'100%',height:'100%'}} placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.mobile_banner} />
+                :<Image height={600} width={600} className="project-image-hero hero-image" unoptimized style={{width:'100%',height:'100%'}}  placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.desktop_banner} />}
             </div>
 
 

@@ -200,6 +200,7 @@ body.dark{
     margin-left: 5px;
     font-size: 12px;
     text-transform: uppercase;
+    font-weight: 300;
 }
 
 
@@ -382,6 +383,20 @@ body.dark .cursor-lg,body.dark .cursor-sm{
   -webkit-transition:all 0.9s ease;
   -o-transition:all 0.9s ease;
   transition:all 0.9s ease;
+}
+
+#navbar{
+  height:auto;
+}
+
+#navbar.transparent{
+background: transparent !important;
+color: white !important;
+}
+
+
+#navbar.transparent .ksa-logo{
+filter: invert(1);
 }
 
 body.dark #navbar{
@@ -4175,9 +4190,8 @@ body.dark .filter-box-control{
       font-size: 1.6rem;
       border-radius: 50px;
   }
-  #navbar{
-      height:100px;
-  }
+  
+  
   .map-line::after {
       height: 14px;
       width: 14px;
