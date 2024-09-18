@@ -9,7 +9,6 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css'; // Import Splide styles
 import dynamic from "next/dynamic";
-import ScrollifyDisabled from "@/app/components/commons/disableScrollify";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
