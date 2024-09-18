@@ -10,7 +10,7 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 
 export default function HomeComponent(){
-
+  const [snapping,setSnapping] =useState(false);  
     gsap.registerPlugin(ScrollTrigger);
   const secondTitleSection = useRef(null);
   
@@ -33,7 +33,7 @@ export default function HomeComponent(){
     });
 
     gsap.ticker.lagSmoothing(false);
-    
+    setSnapping(true);
 
 // Function for Each Section has been Delared
     const navbar = document.getElementById('navbar');
@@ -372,10 +372,11 @@ function showScrollableTitles(){
 
 
     });
-  },[])
+  },[snapping])
   
 
   useEffect(()=>{
+    setSnapping(false);
     let ctxSlides = gsap.context(() => {
       
       ScrollTrigger.create({
