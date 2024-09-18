@@ -3957,7 +3957,7 @@ body.dark .filter-box-control{
       opacity: 0.1;
   }
   #clock-bound-box{
-    width: 175px;
+    bottom: 175px;
   }
   .clock-indicator.active{
       height: 196px;
