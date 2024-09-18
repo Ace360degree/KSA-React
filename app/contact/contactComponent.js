@@ -2,7 +2,7 @@
 import Image from "next/image";
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { FaFacebook } from "react-icons/fa6";
@@ -14,10 +14,17 @@ import "jquery-scrollify";
 import $ from "jquery";
 
 
-
+gsap.registerPlugin(ScrollTrigger);
 export default function ContactComponent(){
 
-    gsap.registerPlugin(ScrollTrigger);
+    
+
+    const [fileName, setFileName] = useState('No File Chosen');
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setFileName(file ? file.name : 'No file chosen');
+    };
 
     useEffect(()=>{
 
@@ -104,6 +111,21 @@ export default function ContactComponent(){
                  <div className="form-row">
                      <label>Email*</label>
                      <input type="email" className="theme-input" required/>
+                 </div>
+
+                 <div className="form-row">
+                     <label>Attach File</label>
+                     <div className="file-upload-container">
+                            <label for="fileInput" class="input-file-label">Upload</label>
+                            <input 
+                                type="file" 
+                                id="fileInput" 
+                                className="file-input" 
+                                onChange={handleFileChange} 
+                                required 
+                            />
+                            <div className="file-name">{fileName}</div>
+                        </div>
                  </div>
                  
                  <div className="form-row">
