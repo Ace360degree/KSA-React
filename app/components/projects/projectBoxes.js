@@ -17,8 +17,6 @@ export default function ProjectBoxes() {
   const [projects,setProjects] = useState([]);
   const [mobileFilter,setMobileFilter] =useState(false);
 
-  const isTouchDevice = useRef(window.matchMedia("(pointer: coarse)").matches);
-
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
     height: typeof window !== 'undefined' ? window.innerHeight : 0
@@ -94,37 +92,29 @@ export default function ProjectBoxes() {
   }, []);
 
   useEffect(() => {
-    if (isTouchDevice.current) return; // Skip dragging logic on touch devices
-
     let isDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
+    let startX, scrollLeft;
 
     const onMouseDown = (e) => {
       isDragging = true;
       startX = e.pageX - window.scrollX;
-      startY = e.pageY - window.scrollY;
       scrollLeft = window.scrollX;
-      scrollTop = window.scrollY;
       document.body.style.cursor = "grabbing";
+      // document.body.style.userSelect = "none";
     };
 
     const onMouseMove = (e) => {
       if (!isDragging) return;
       e.preventDefault();
       const x = e.pageX - window.scrollX;
-      const y = e.pageY - window.scrollY;
-      const walkX = (x - startX) * 2; // Example value; adjust as needed
-      const walkY = (y - startY) * 2; // Example value; adjust as needed
-      window.scrollTo({
-        left: scrollLeft - walkX,
-        top: scrollTop - walkY,
-        behavior: "auto"
-      });
+      const walk = (x - startX) * 2;
+      window.scrollTo({ left: scrollLeft - walk, behavior: "auto" });
     };
 
     const onMouseUp = () => {
       isDragging = false;
       document.body.style.cursor = "default";
+      document.body.style.removeProperty("user-select");
     };
 
     document.body.addEventListener("mousedown", onMouseDown);
@@ -139,49 +129,8 @@ export default function ProjectBoxes() {
   }, []);
 
   useEffect(() => {
-    if (!isTouchDevice.current) return; // Skip touch logic on non-touch devices
 
-    let startX, startY, scrollLeft, scrollTop;
-
-    const onTouchStart = (e) => {
-      startX = e.touches[0].pageX - window.scrollX;
-      startY = e.touches[0].pageY - window.scrollY;
-      scrollLeft = window.scrollX;
-      scrollTop = window.scrollY;
-    };
-
-    const onTouchMove = (e) => {
-      if (!startX || !startY) return; // If no start position, return
-      const x = e.touches[0].pageX - window.scrollX;
-      const y = e.touches[0].pageY - window.scrollY;
-      const walkX = (x - startX) * 2; // Adjust multiplier as needed
-      const walkY = (y - startY) * 2; // Adjust multiplier as needed
-      window.scrollTo({
-        left: scrollLeft - walkX,
-        top: scrollTop - walkY,
-        behavior: "auto"
-      });
-    };
-
-    const onTouchEnd = () => {
-      startX = null;
-      startY = null;
-    };
-
-    document.body.addEventListener("touchstart", onTouchStart);
-    document.body.addEventListener("touchmove", onTouchMove);
-    document.body.addEventListener("touchend", onTouchEnd);
-
-    return () => {
-      document.body.removeEventListener("touchstart", onTouchStart);
-      document.body.removeEventListener("touchmove", onTouchMove);
-      document.body.removeEventListener("touchend", onTouchEnd);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isTouchDevice.current) return; // Skip smooth scroll logic on touch devices
-
+    
     let scrollerIndex = 0;
 
     const smoothScroll = (targetY, duration) => {
@@ -221,33 +170,50 @@ export default function ProjectBoxes() {
       }
     };
 
+    // let indicatorIndex = 0;
+    // function indicatorAnimation(){
+    //   clockIndicators.current.forEach((indi)=>{
+    //       indi.classList.remove('active');
+    //   })
+    //   clockIndicators.current[indicatorIndex].classList.add('active');
+    //    indicatorIndex = (indicatorIndex+1) % clockIndicators.current.length;
+    // }
+
+    // indicatorAnimation();
+    
     const rotateSecondsHandsNormal = () => {
+      // const secondsClock = document.getElementById('seconds-clock');
+      // if (secondsClock) {
+      //   secondsClock.style.transform = `rotate(${(scrollerIndex + 1) * 30}deg)`;
+      // }
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       initProjects();
+      // indicatorAnimation();
     };
-
     initProjects();
     const clockInterval = setInterval(rotateSecondsHandsNormal, 5000);
 
     function updateScrollerIndex() {
       const allProjects = document.querySelectorAll('.projects-items.active');
-      const scrollPosition = window.scrollY;
-
+      const scrollPosition = window.scrollY; // Current scroll position
+  
+      // Loop through all projects to find the currently visible one
       allProjects.forEach((project, index) => {
-        const projectOffsetTop = project.offsetTop;
-        const projectHeight = project.offsetHeight;
-
-        if (scrollPosition >= projectOffsetTop - 100 && scrollPosition < projectOffsetTop + projectHeight - 100) {
-          scrollerIndex = index;
-        }
+          const projectOffsetTop = project.offsetTop;
+          const projectHeight = project.offsetHeight;
+  
+          // Check if the current scroll position is within the bounds of the project
+          if (scrollPosition >= projectOffsetTop - 100 && scrollPosition < projectOffsetTop + projectHeight - 100) {
+              scrollerIndex = index; // Update scrollerIndex to the current project
+          }
       });
-    }
-
-    window.addEventListener('scroll', updateScrollerIndex);
+  }
+  
+  // Add scroll event listener
+  window.addEventListener('scroll', updateScrollerIndex);
 
     return () => {
       clearInterval(clockInterval);
-      window.removeEventListener('scroll', updateScrollerIndex);
     };
   }, []);
 
