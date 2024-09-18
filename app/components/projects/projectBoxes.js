@@ -94,7 +94,7 @@ export default function ProjectBoxes() {
   }, []);
 
   useEffect(() => {
-    if (isTouchDevice.current) return; // Skip applying the dragging feature on touch devices
+    if (isTouchDevice.current) return; // Skip dragging logic on touch devices
 
     let isDragging = false;
     let startX, startY, scrollLeft, scrollTop;
@@ -139,7 +139,48 @@ export default function ProjectBoxes() {
   }, []);
 
   useEffect(() => {
-    if (isTouchDevice.current) return; // Skip applying the scrolling logic on touch devices
+    if (!isTouchDevice.current) return; // Skip touch logic on non-touch devices
+
+    let startX, startY, scrollLeft, scrollTop;
+
+    const onTouchStart = (e) => {
+      startX = e.touches[0].pageX - window.scrollX;
+      startY = e.touches[0].pageY - window.scrollY;
+      scrollLeft = window.scrollX;
+      scrollTop = window.scrollY;
+    };
+
+    const onTouchMove = (e) => {
+      if (!startX || !startY) return; // If no start position, return
+      const x = e.touches[0].pageX - window.scrollX;
+      const y = e.touches[0].pageY - window.scrollY;
+      const walkX = (x - startX) * 2; // Adjust multiplier as needed
+      const walkY = (y - startY) * 2; // Adjust multiplier as needed
+      window.scrollTo({
+        left: scrollLeft - walkX,
+        top: scrollTop - walkY,
+        behavior: "auto"
+      });
+    };
+
+    const onTouchEnd = () => {
+      startX = null;
+      startY = null;
+    };
+
+    document.body.addEventListener("touchstart", onTouchStart);
+    document.body.addEventListener("touchmove", onTouchMove);
+    document.body.addEventListener("touchend", onTouchEnd);
+
+    return () => {
+      document.body.removeEventListener("touchstart", onTouchStart);
+      document.body.removeEventListener("touchmove", onTouchMove);
+      document.body.removeEventListener("touchend", onTouchEnd);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isTouchDevice.current) return; // Skip smooth scroll logic on touch devices
 
     let scrollerIndex = 0;
 
