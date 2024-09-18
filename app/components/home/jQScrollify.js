@@ -7,8 +7,6 @@ import 'jquery-scrollify';
 export default function ScrollifyComponent(){
     useEffect(()=>{
         $(document).ready(function(){
-            if ($('.home-snapping').length > 0) {
-                // Initialize Scrollify
                 $.scrollify({
                   section: ".home-snapping",
                   sectionName: "home-snapping",
@@ -23,10 +21,7 @@ export default function ScrollifyComponent(){
                   updateHash: false,
                   touchScroll: true,
                 });
-              } 
-    
         });
-        
        
       },[])
 
