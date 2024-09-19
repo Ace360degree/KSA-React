@@ -3,6 +3,7 @@ import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CursorAudio from "./components/commons/cursor";
 import { AnimatePresence } from "framer-motion";
+import UserAuthorization from "./components/userauth/userAuth";
 
 
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
       </Head> 
       <body className="">
         <CursorAudio/>
+        <UserAuthorization/>  
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>
