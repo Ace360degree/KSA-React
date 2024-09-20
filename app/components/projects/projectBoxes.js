@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
-
+import { useAuth } from "@/app/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 
 export default function ProjectBoxes() {
@@ -16,6 +17,26 @@ export default function ProjectBoxes() {
   const [categories,setCategories] = useState([]);
   const [projects,setProjects] = useState([]);
   const [mobileFilter,setMobileFilter] =useState(false);
+  
+  const router  = useRouter();
+
+  const { isLoggedIn } = useAuth();
+
+  useEffect(()=>{
+    window.onscroll = function() {
+      if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          // Call your function here
+          ReRouteIt();
+      }
+    };
+    console.log(isLoggedIn);
+    function ReRouteIt() {
+      if(isLoggedIn===false){
+        router.push('/auth/login')
+      }
+    }
+  },[])
+  
 
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
