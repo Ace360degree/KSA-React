@@ -9,6 +9,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
 import Link from 'next/link';
 import DarkTheme from '@/app/components/body/darkTheme';
 import NavbarIntroPage from '@/app/components/NavbarIntroPage';
+import { useAuth } from '@/app/context/AuthContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -17,6 +18,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
+
+  const { login } = useAuth();
 
   // Add animation on component mount
   useEffect(() => {
@@ -38,6 +41,7 @@ export default function LoginPage() {
       } else {
         // Redirect to the home page on successful login
         router.push('/');
+        login(); 
       }
     } catch (error) {
       setError('An unexpected error occurred');

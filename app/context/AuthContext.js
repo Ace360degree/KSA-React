@@ -12,8 +12,16 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(!!cookies.isLogin); // Adjust the key based on your cookie
     }, []);
 
+    const login = () => {
+        setIsLoggedIn(true);
+    };
+
+    const logout = () => {
+        setIsLoggedIn(false);
+    };
+
     return (
-        <AuthContext.Provider value={{ isLoggedIn }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout  }}>
             {children}
         </AuthContext.Provider>
     );
