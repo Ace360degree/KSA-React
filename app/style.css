@@ -3545,7 +3545,7 @@ body.dark .filter-box-control{
 }
 
 .auth-icon-box svg path{
-  fill:black;
+  stroke:black;
 }
 
 

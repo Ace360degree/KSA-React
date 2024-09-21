@@ -7,6 +7,7 @@ import 'jquery-scrollify';
 export default function ScrollifyComponent(){
     useEffect(()=>{
         $(document).ready(function(){
+          $.scrollify.enable();
                 $.scrollify({
                   section: ".home-snapping",
                   sectionName: "home-snapping",

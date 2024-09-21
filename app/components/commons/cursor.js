@@ -4,6 +4,8 @@ import gsap from 'gsap';
 import { TweenMax } from 'gsap/all';
 import { HiOutlineUser } from "react-icons/hi2";
 import Link from 'next/link';
+import { useAuth } from "@/app/context/AuthContext";
+import { IoLogOutOutline } from "react-icons/io5";
 
 
 
@@ -15,6 +17,7 @@ export default function CursorAudio() {
   const bigCursorRef = useRef(null); // Ref for big cursor
   const smCursorRef = useRef(null); // Ref for small cursor
   const [isTouchscreen, setIsTouchscreen] = useState(false);
+  const { isLoggedIn } = useAuth();
   
 
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
@@ -148,8 +151,9 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <Link href={'/auth/login'}><div className='auth-icon-box'>
-        <HiOutlineUser />
+      <Link href={`/auth/${isLoggedIn?"logout":"login"}`}><div className='auth-icon-box'>
+        {isLoggedIn? <IoLogOutOutline /> : <HiOutlineUser /> }
+        
       </div></Link>
 
       <div className="audio-box" onClick={toggleAudio}>

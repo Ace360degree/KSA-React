@@ -8,6 +8,7 @@ export async function POST(req) {
 
   if (session) {
     // Perform any additional logout logic here if needed (e.g., log events, revoke tokens, etc.)
+    
     return NextResponse.json({ message: 'Logged out successfully' });
   }
 
