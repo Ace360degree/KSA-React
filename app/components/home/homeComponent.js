@@ -12,7 +12,7 @@ export default function HomeComponent(){
     gsap.registerPlugin(ScrollTrigger);
   const secondTitleSection = useRef(null);
   
-    function scrollSmoothTo() {
+    const scrollSmoothTo =()=> {
       if (secondTitleSection.current) {
         secondTitleSection.current.scrollIntoView({
           behavior: 'smooth',
@@ -464,14 +464,14 @@ function showScrollableTitles(){
                     <h1 className="intro-title">
                         <div className="intro-sm-title intro-txbx"><span>Bringing</span></div> 
                         <div className="intro-lg-title intro-txbx"><span className="expnad-imgn-txt">Imagination</span></div> 
-                        <div className="intro-sm-title intro-txbx mobile-to-life" style={{lineHeight:'3vw'}} ><span>to Life</span></div>
+                        <div className="intro-sm-title intro-txbx mobile-to-life" style={{lineHeight:'3.5vw'}} ><span>to Life</span></div>
                     </h1>
                 </div>
             </div>
             </div>
 
             <div>
-                <a onClick={scrollSmoothTo} ><div className="scroll-downlink">
+                <a onClick={()=>{scrollSmoothTo()}} ><div className="scroll-downlink">
                     
                 </div></a>
                 <div className="scrollbanner">

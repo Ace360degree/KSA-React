@@ -1,0 +1,9 @@
+/* 
+.target-section{
+    overflow: auto !important;
+    scroll-snap-type: y mandatory !important;
+}
+
+.full-section{
+    scroll-snap-align: start;
+} */

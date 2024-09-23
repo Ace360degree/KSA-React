@@ -2,12 +2,14 @@
 import Link from "next/link";
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import $ from "jquery";
 import  "jquery-scrollify";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
+import '../about.css';
+import { create } from "zustand";
 
 
 
@@ -15,6 +17,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutComponent(){
 
+    const [showTabs,setShowTabs] = useState('All');
+    const AboutProjects = useRef(null);
     
     gsap.defaults({inherit:false});
 
@@ -33,6 +37,8 @@ export default function AboutComponent(){
 
 
     useEffect(() => {
+
+        if(mainBanner.current){
         let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
 
         animationPageTitleSpans.forEach(function(title, index) {
@@ -70,7 +76,10 @@ export default function AboutComponent(){
 
         // Set interval to change text every 0.5 seconds
         let intervalId = setInterval(changeText, 500);
+    
 
+
+        }
         // Create a timeline for the animation
         let timeline = gsap.timeline({
             scrollTrigger: {
@@ -81,30 +90,13 @@ export default function AboutComponent(){
             }
         });
 
-        let Abouttimeline = gsap.timeline();
-        Abouttimeline.fromTo('.about-item', {y: "100%", opacity: 0}, {y: "0", opacity: 1, duration: 1.5, ease: "power3.out", stagger: 0.05});
-
-        function resetTargetSections() {
-            document.querySelectorAll('.target-section').forEach(function(obj) {
-                obj.classList.remove('active');
-            });
+        if(AboutProjects.current){
+            let Abouttimeline = gsap.timeline();
+            Abouttimeline.fromTo('.about-item', {y: "0", opacity: 0}, {y: "0", opacity: 1, duration: 1, ease: "power3.out", stagger: 0.05});
+            Abouttimeline.play();
         }
-
-        document.querySelectorAll('.filter-trigger').forEach(function(menu) {
-            menu.addEventListener('click', function(e) {
-                let targetTabs = menu.getAttribute('data-target');
-                resetTargetSections();
-                document.querySelector(targetTabs).classList.add('active');
-                Abouttimeline.restart();
-                document.querySelectorAll('.filter-trigger').forEach(function(itemMenu) {
-                    itemMenu.classList.remove('active');
-                });
-                menu.classList.add('active');
-                gsap.to(window, {scrollTo: {y: 0, autoKill: false}});
-            });
-        });
-
-    }, []);
+        
+    }, [showTabs]);
 
     useEffect(() => {
         let ctx = gsap.context(() => {
@@ -121,17 +113,35 @@ export default function AboutComponent(){
                 end: "+=1000",
                 pin: true,
                 animation: ksaAbout2TL,
+                snap: {
+                    snapTo: '#ksa-points', // Snap to the next section
+                    duration: { min: 0.2, max: 1 }, // Duration range
+                    ease: 'power1.inOut', // Easing for the snapping
+                }
             });
+
+            ScrollTrigger.create({
+                trigger:'#ksa-points',
+                start:'top top',
+                end:"+=1000s",
+                pin:true,
+                pinSpacing:true,
+            }) 
         });
 
         return () => ctx.revert();
-    }, []);
+    }, [showTabs]);
 
 
     useEffect(()=>{
         // $.scrollify.destroy();
         $.scrollify.move(0);
     },[])
+
+
+    const updateSections = (name)=>{
+        setShowTabs(name);
+    }
 
 
     return(
@@ -141,11 +151,12 @@ export default function AboutComponent(){
             <NavbarIntroPage heading={'ETHIOS'}/>
             {/* <div class="header-gap"></div> */}
         <ul className="top-section-filter">
-            <li className="filter-trigger " id="cultureTrigger" data-target="#culture">Culture</li>
-            <li className="filter-trigger" id="disciplineTrigger" data-target="#discipline">Discipline</li>
+            <li className={showTabs=='culture'?'filter-trigger active':'filter-trigger'} id="cultureTrigger" onClick={()=>{updateSections('culture')}} data-target="#culture">Culture</li>
+            <li className={showTabs=='discipline'?'filter-trigger active':'filter-trigger'} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
         </ul>
-     
-        <div className="target-section active overflow-hidden" ref={mainBanner} id="culture">
+        
+        {showTabs=='All' || showTabs=='culture'?
+        <div className="target-section overflow-hidden" ref={mainBanner} id="culture">
             
             <div className="full-section px-4" id="about-intro">
                 <div className=" text-uppercase">
@@ -182,8 +193,10 @@ export default function AboutComponent(){
                 </div>
             </div>
         </div> 
+        :''}
     
-        <div className="target-section active overflow-hidden position-relative" id="discipline">
+        {showTabs=='All' || showTabs=='discipline'?
+        <div className="target-section overflow-hidden position-relative" ref={AboutProjects} id="discipline">
         <div className="full-section" id="ksa-slider">
             <Link href={'/expertise'}><div className=" billy-text">
                 <div className="about-project-box">
@@ -217,6 +230,7 @@ export default function AboutComponent(){
             </Link>
         </div>    
         </div>
+        :''}
 
         </>
     )

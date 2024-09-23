@@ -117,8 +117,6 @@ export default function IdeasPage(){
                 </Splide>
                  
             </div>
-            <div className="images-slider-left slider-img-nav"></div>
-            <div className="images-slider-right slider-img-nav"></div>
         </div>
         
         <Link href={'/ideas'}><div className="close-projects"><FaXmark /></div></Link>

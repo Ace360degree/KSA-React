@@ -4610,7 +4610,7 @@ body.dark .filter-box-control{
 
 .splide__arrow{
   height: 30% !important;
-  width: 30% !important;
+  width: 15% !important;
   border-radius: 0 !important;
   opacity: 0 !important;
   cursor: var(--pointer) !important;
@@ -4623,4 +4623,18 @@ body.dark .filter-box-control{
 
 .project-info-image .splide , .project-info-image .splide__track{
   height: 100% !important;
+}
+
+
+@media screen and (max-width:750px){
+  .splide__arrow{
+    height: 18px !important;
+    width: 18px !important;
+    background: black !important;
+    opacity: 0.6 !important;
+  }
+  .splide__arrow svg{
+    height: 14px !important;
+    fill:#ffffff !important;
+  }
 }

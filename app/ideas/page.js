@@ -195,7 +195,7 @@ export default  function Ideas(){
         snap: (v, self) => gsap.utils.snap([0, self.end, ...triggers.map(t => t.start + innerHeight)], self.scroll()) / self.end
     });
     
-    // ScrollTrigger.normalizeScroll(true);
+    ScrollTrigger.normalizeScroll(true);
     
     // Handle scrolling to the current item if itemId is present
     let url_string = window.location.href; 
@@ -271,6 +271,7 @@ export default  function Ideas(){
         setTimeout(function(){
             setIdeasVisited();
             console.log(visited);
+            ScrollTrigger.normalizeScroll(false);
         },20000);
     },[])
 

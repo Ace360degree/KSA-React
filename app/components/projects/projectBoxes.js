@@ -6,7 +6,7 @@ import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import { useAuth } from "@/app/context/AuthContext";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 export default function ProjectBoxes() {
@@ -19,9 +19,14 @@ export default function ProjectBoxes() {
   const [mobileFilter,setMobileFilter] =useState(false);
   
   const router  = useRouter();
+  const searchParams = useSearchParams();
+  const searchCatagories = searchParams.get('category');
+
   const path = usePathname();
   
   const { isLoggedIn } = useAuth();
+
+  gsap.ticker.lagSmoothing(false);
 
   useEffect(()=>{
     window.onscroll = function() {
@@ -69,10 +74,15 @@ export default function ProjectBoxes() {
     : projects.filter(project => project.category === selectedFilter);
 
 
-  const handleFilterChange = (filter) => {
+  const handleFilterChange = (filter) => {   
     setSelectedFilter(filter);
   };
 
+  useEffect(()=>{
+    if(searchCatagories){
+      handleFilterChange(searchCatagories);
+    }
+  },[])
 
 
 
@@ -101,8 +111,8 @@ export default function ProjectBoxes() {
       lastScrollTime = performance.now();
       lastScrollPos = window.scrollY;
 
-      const speed = dp / dt / 20;
-      const clampedSpeed = Math.min(speed, 0.10);
+      const speed = dp / dt / 15;
+      const clampedSpeed = Math.min(speed, 4);
 
       wrapper.style.setProperty("--speed", clampedSpeed + 0.01);
       wrapper.style.setProperty("--scroll", `${window.scrollY + windowHeight - 100}px`);
@@ -113,7 +123,7 @@ export default function ProjectBoxes() {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [projects]);
 
   useEffect(() => {
     let isDragging = false;
@@ -150,7 +160,7 @@ export default function ProjectBoxes() {
       document.body.removeEventListener("mousemove", onMouseMove);
       document.body.removeEventListener("mouseup", onMouseUp);
     };
-  }, []);
+  }, [projects]);
 
   useEffect(() => {
 
@@ -167,7 +177,7 @@ export default function ProjectBoxes() {
         const timeElapsed = currentTime - startTime;
         const scrollPosition = easeInOutQuad(timeElapsed, startY, diff, duration);
 
-        window.scrollTo(0, scrollPosition);
+        window.scrollTo(100, scrollPosition);
 
         if (timeElapsed < duration) {
           requestAnimationFrame(scrollAnimation);
@@ -190,7 +200,7 @@ export default function ProjectBoxes() {
 
       const currProject = allProjects[scrollerIndex] || allProjects[0];
       if (currProject) {
-        smoothScroll(currProject.offsetTop - 100, 100);
+        smoothScroll(currProject.offsetTop - 50, 100);
       }
     };
 
@@ -239,7 +249,7 @@ export default function ProjectBoxes() {
     return () => {
       clearInterval(clockInterval);
     };
-  }, []);
+  }, [projects]);
 
   const toggleMobileFilter = () =>{
     setMobileFilter(!mobileFilter);

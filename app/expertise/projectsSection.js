@@ -26,7 +26,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
       gsap.fromTo(InfoSection.current, 
         {
           opacity: 0,
-          y: "200px",
+          y: "200",
         },
         {
           opacity: 1,
@@ -55,6 +55,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
 
   if (section.section_type == 1) {
     return (
+      <div className='overflow-hidden'>
       <div className="project-info-section my-1 project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
           <div className="col-md-4 col-lg-7">
@@ -72,9 +73,11 @@ export default function ProjectSection({ section, slides,essecials,points }) {
           </div>
         </div>
       </div>
+      </div>
     );
   } else if (section.section_type == 2) {
     return (
+      <div className='overflow-hidden'>
       <div className="project-info-section my-1 project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
           <div className="col-md-4 col-lg-7">
@@ -99,18 +102,22 @@ export default function ProjectSection({ section, slides,essecials,points }) {
           </div>
         </div>
       </div>
+      </div>
     );
   } else if (section.section_type == 3) {
     return (
+      <div className='overflow-hidden'>
       <div className="project-info-section position-relative" style={{minHeight:'100vh'}} ref={InfoSection}>
         {windowSize.width <= 750 && section.section_image_mobile!='' ? 
             <Image className='hero-image' height={500} width={500}  style={{width:'100%',height:'auto'}} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Flowers"/>
             : <Image className='hero-image' height={500} width={500} style={{width:'100%',height:'auto'}} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Flowers"/> 
         }
       </div>
+      </div>
     );
   } else if (section.section_type == 4) {
     return slides.slides.length !== 0 ? (
+      <div className='overflow-hidden'>
       <div className="project-info-section position-relative" ref={InfoSection}>
         <Splide options={SliderSettings}>
           {slides.slides.map((slide, index) => (
@@ -123,11 +130,14 @@ export default function ProjectSection({ section, slides,essecials,points }) {
           ))}
         </Splide>
       </div>
+      </div>
     ) : null;
   }
   else if (section.section_type == 5) {
     return (
-      <ProjectEssencials essecials={essecials} points={points} />
+      <div ref={InfoSection} style={{transition:'all 1.2s ease'}}>
+        <ProjectEssencials essecials={essecials} points={points} />
+      </div>
     );
   }
 }

@@ -19,6 +19,7 @@ export default function CursorAudio() {
   const [isTouchscreen, setIsTouchscreen] = useState(false);
   const { isLoggedIn } = useAuth();
   
+  let cursorStatus = false;
 
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
 
@@ -138,6 +139,15 @@ export default function CursorAudio() {
     } else {
       setIsTouchscreen(false);
     }
+    
+    if(cursorStatus==false){
+    document.addEventListener('mousemove',()=>{
+      setIsTouchscreen(false);
+      cursorStatus = true;
+      
+    })
+    console.log(cursorStatus);
+    }
 
   }, []);
 
@@ -179,7 +189,7 @@ export default function CursorAudio() {
         </svg>
       </div>
 
-      {isTouchscreen?"":
+      {isTouchscreen || cursorStatus==true ?"":
       <>
       <div className="cursor-lg" ref={bigCursorRef}></div>
       <div className="cursor-sm" ref={smCursorRef}></div>
