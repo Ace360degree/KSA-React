@@ -401,8 +401,7 @@ filter: invert(1);
 
 body.dark #navbar{
   color:var(--body-text-dark);
-  /*background:var(--body-bg-dark);*/
-  background:transparent;
+  background:var(--body-bg-dark);
 }
 
 #navbar.active{
@@ -2424,7 +2423,7 @@ body.dark .filter-box-control{
 
 .contact-menu{
   position: fixed;
-  top: 28px;
+  top: 22px;
   left: 0;
   right: 0;
   z-index: 5000;
@@ -3217,7 +3216,7 @@ body.dark .filter-box-control{
 
 .top-section-filter{
   position:fixed;
-  top:32px;
+  top:24px;
   max-width: 248px;
   background: black;
   border-radius: 14px;

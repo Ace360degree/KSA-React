@@ -1,27 +1,41 @@
 'use client';
 import HomeMenu from "../homeMenu/homeMenu";
 import NavbarIntroPage from "../NavbarIntroPage";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import ScrollifyComponent from "./jQScrollify";
+import CheckNavTransparent from "../commons/checkNavTransparent";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HomeComponent(){
   const [snapping,setSnapping] =useState(false);  
   const [fullScreenCheck,setFullScreenCheck] =useState(1)
-    gsap.registerPlugin(ScrollTrigger);
+    
   const secondTitleSection = useRef(null);
+
+  const page = useRef(null);
 
   const [fullscreen,setFullScreen] = useState(1);
   
-  useEffect(()=>{
-    document.addEventListener('keydown',(e)=>{
-        if(e.key=='F11'){
-            alert('pressesd f12')
-        }
-    })
-  },[]);
+//   useEffect(() => {
+//     const handleKeydown = (e) => {
+//       console.log(e);
+//       if (e.type === 'fullscreenchange') {
+//         setFullScreen(fullscreen+1);
+//       }
+//     };
+  
+//     if (page.current) {
+//       document.addEventListener('fullscreenchange', handleKeydown);
+//     }
+  
+//     // Cleanup the event listener when the component unmounts or when dependencies change
+//     return () => {
+//       document.removeEventListener('fullscreenchange', handleKeydown);
+//     };
+//   }, [page.current]);
 
   
     const scrollSmoothTo =()=> {
@@ -362,28 +376,6 @@ function showScrollableTitles(){
     
   },[])
 
-//   useEffect(()=>{
-//     $(document).ready(function(){
-//     $.scrollify({
-//       section: ".home-snapping",
-//       sectionName: "home-snapping",
-//       interstitialSection: "",
-//       easing: "easeOutExpo",
-//       // easing: "swing",
-//       scrollSpeed: 500,
-//       offset: 0,
-//       scrollbars: true,
-//       standardScrollElements: "",
-//       setHeights: true,
-//       overflowScroll: true,
-//       updateHash: false,
-//       touchScroll: true,
-//     });
-
-
-//     });
-
-//   },[])
   
 
   useEffect(()=>{
@@ -461,7 +453,8 @@ function showScrollableTitles(){
         <>
         <NavbarIntroPage/>
         <ScrollifyComponent/>
-            <div id="page">
+        <CheckNavTransparent/>
+            <div id="page" ref={page}>
             
             <div className="nav-title" data-title=""></div>
             
@@ -532,7 +525,7 @@ function showScrollableTitles(){
                             <h2>CLUSTER A</h2>
                             <h4>GREEN FACADE, VIBRANT SPACE. LIVE THE CASCADED DIFFERENCE</h4>
                         </div>
-                        <img src="/images/home/1.jpg"/>
+                        <img className="hero-image" src="/images/home/1.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping">
@@ -540,7 +533,7 @@ function showScrollableTitles(){
                             <h2>VU_T_SCHOOL</h2>
                             <h4>ARCHITECTURE MEETS EDUCATION : A SCHOOL REIMAGINED</h4>
                         </div>
-                        <img src="/images/home/2.jpg"/>
+                        <img className="hero-image" src="/images/home/2.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -548,7 +541,7 @@ function showScrollableTitles(){
                             <h2>BEVAB HEIGHTS</h2>
                             <h4>TWISTING LUXURY: REDEFINING THE SKYLINE</h4>
                         </div>
-                        <img src="/images/home/3.jpg"/>
+                        <img className="hero-image" src="/images/home/3.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -556,7 +549,7 @@ function showScrollableTitles(){
                             <h2>VAULT</h2>
                             <h4>THE ART OF HOSPITALITY, REDEFINED</h4>
                         </div>
-                        <img src="/images/home/4.jpg"/>
+                        <img className="hero-image" src="/images/home/4.jpg"/>
                     </div>
                     
                     <div className="home-slides-box home-snapping" >
@@ -564,7 +557,7 @@ function showScrollableTitles(){
                             <h2>LIVINE PARK</h2>
                             <h4>A PINNACLE OF MODERN LUXURY</h4>
                         </div>
-                        <img src="/images/home/5.jpg"/>
+                        <img className="hero-image" src="/images/home/5.jpg"/>
                     </div>
             </div>
 

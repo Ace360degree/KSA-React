@@ -63,7 +63,10 @@ export default function CursorAudio() {
     // Set up an event listener to play audio on user interaction
     const handleUserInteraction = () => {
       playAudioConditionByInteraction();
-     requestFullscreen(); // Request fullscreen on user interaction
+      setTimeout(()=>{
+        requestFullscreen();
+      },2000);
+    //  // Request fullscreen on user interaction
       document.removeEventListener('click', handleUserInteraction); // Remove listener once audio starts
     };
 
