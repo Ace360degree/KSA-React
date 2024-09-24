@@ -12,6 +12,17 @@ export default function HomeComponent(){
   const [fullScreenCheck,setFullScreenCheck] =useState(1)
     gsap.registerPlugin(ScrollTrigger);
   const secondTitleSection = useRef(null);
+
+  const [fullscreen,setFullScreen] = useState(1);
+  
+  useEffect(()=>{
+    document.addEventListener('keydown',(e)=>{
+        if(e.key=='F11'){
+            alert('pressesd f12')
+        }
+    })
+  },[]);
+
   
     const scrollSmoothTo =()=> {
       if (secondTitleSection.current) {
