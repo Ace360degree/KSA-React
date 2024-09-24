@@ -232,7 +232,7 @@ body.dark .ksa-logo{
   position:fixed;
   left:0;
   top:0;
-  z-index:5000;
+  z-index:10000;
   background:transparent;
   border:1px solid black;
   border-radius:800px;
@@ -2442,8 +2442,10 @@ body.dark .filter-box-control{
   -ms-flex-pack: center;
   justify-content: center;
   list-style: none;
-  max-width: 500px;
+  max-width: 248px;
   margin: auto;
+  background: black;
+  border-radius: 14px;
 }
 
 .contact-menu li{
@@ -3216,7 +3218,9 @@ body.dark .filter-box-control{
 .top-section-filter{
   position:fixed;
   top:32px;
-  max-width: 500px;
+  max-width: 248px;
+  background: black;
+  border-radius: 14px;
   color:white;
   padding:0;
   list-style:none;

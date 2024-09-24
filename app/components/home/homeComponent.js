@@ -9,6 +9,7 @@ import ScrollifyComponent from "./jQScrollify";
 
 export default function HomeComponent(){
   const [snapping,setSnapping] =useState(false);  
+  const [fullScreenCheck,setFullScreenCheck] =useState(1)
     gsap.registerPlugin(ScrollTrigger);
   const secondTitleSection = useRef(null);
   
@@ -251,7 +252,7 @@ export default function HomeComponent(){
 
 
   useEffect(()=>{
-    let totalDurationSecondTitle = '+='+windowHeight*3;
+    let totalDurationSecondTitle = '+='+windowHeight*2;
     let ScrollToggleActions = 'play none none reverse';
     
     let quoteTextFontSize;
@@ -338,7 +339,7 @@ function showScrollableTitles(){
      ScrollTrigger.create({
         trigger: '#second-title',
         start: 'top top',
-        end: "+=2000s",
+        end: totalDurationSecondTitle,
         pin: true,
         pinSpacing:true,
      });
@@ -440,6 +441,8 @@ function showScrollableTitles(){
 
     return () => ctxSlides.revert(); 
   },[])
+
+
 
 
 
