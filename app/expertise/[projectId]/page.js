@@ -60,7 +60,7 @@ export default function ProjectInfo(){
 
 
     useEffect(()=>{
-        if(projectTitle.current && projectDescrion.current){
+        if(projectTitle.current){
             let projectTititleTL = gsap.timeline();
             projectTititleTL.to(projectTitle.current,{scale:1, duration:2, delay:1})
             projectTititleTL.play();
@@ -69,7 +69,7 @@ export default function ProjectInfo(){
 
     useEffect(()=>{
         let ctx = gsap.context(() => {
-
+            if(window.innerWidth > 850){
         const sections = gsap.utils.toArray(".project-info-section");
 
         // Create scroll snapping functionality
@@ -84,6 +84,7 @@ export default function ProjectInfo(){
             duration:0.2,
         }
         });
+        }
     });
 
     return () => ctx.revert();

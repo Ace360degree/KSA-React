@@ -8,8 +8,10 @@ import { useVisitedProjectsStore } from "../states/store/projectsStore";
 gsap.registerPlugin(ScrollTrigger)
 export default function ProjectIntro(){
     const {setVisited} = useVisitedProjectsStore();
+    
 
     useEffect(()=>{
+        document.querySelector('body').classList.add('loading')
         let projectHeadTitles = document.querySelectorAll('.project-head-title');
         
         projectHeadTitles.forEach(function(title,index){
@@ -79,6 +81,7 @@ export default function ProjectIntro(){
         
         setTimeout(function(){
             document.querySelector('.project-heads').style.display='none';
+            document.querySelector('body').classList.remove('loading')
             setTimeout(()=>{
                 setVisited();
             },2000)

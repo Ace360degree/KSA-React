@@ -3855,6 +3855,14 @@ body.dark .filter-box-control{
     font-size: 12px;
     gap: 16px;
   }
+
+  .project-info-section{
+    min-height: auto;
+  }
+  .project-image-info{
+    padding-top: 50px;
+  }
+
   .theme-input {
     font-size: 16px;
   }
@@ -4001,8 +4009,8 @@ body.dark .filter-box-control{
       -webkit-box-pack: center;
           -ms-flex-pack: center;
               justify-content: center;
-      font-size: 29px;
-      gap: 28px;
+      font-size: 24px;
+      gap: 8px;
       text-align: center;
   }
   .project-image-wrap{
@@ -4010,8 +4018,10 @@ body.dark .filter-box-control{
       margin:auto;
   }
   .project-item-content {
-      width: 75%;
-      white-space: normal;
+    display: flex;
+    width: 75%;
+    white-space: normal;
+    flex-direction: column-reverse;
   }
   #projects-Scroller {
       height: 80vh;
