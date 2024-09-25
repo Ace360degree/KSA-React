@@ -151,8 +151,8 @@ export default function AboutComponent(){
             <NavbarIntroPage heading={'ETHIOS'}/>
             {/* <div class="header-gap"></div> */}
         <ul className="top-section-filter">
-            <li className={showTabs=='culture'?'filter-trigger active':'filter-trigger'} id="cultureTrigger" onClick={()=>{updateSections('culture')}} data-target="#culture">Culture</li>
-            <li className={showTabs=='discipline'?'filter-trigger active':'filter-trigger'} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
+            <li className={showTabs=='culture'?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="cultureTrigger" onClick={()=>{updateSections('culture')}} data-target="#culture">Culture</li>
+            <li className={showTabs=='discipline'?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
         </ul>
         
         {showTabs=='All' || showTabs=='culture'?

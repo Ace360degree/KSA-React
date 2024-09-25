@@ -92,7 +92,6 @@ export default function ProjectBoxes() {
 
   useEffect(() => {
 
-    const windowHeight = window.innerHeight / 2;
     let lastScrollPos = undefined;
     let lastScrollTime = undefined;
 
@@ -112,11 +111,10 @@ export default function ProjectBoxes() {
       lastScrollTime = performance.now();
       lastScrollPos = window.scrollY;
 
-      const speed = dp / dt / 15;
-      const clampedSpeed = Math.min(speed, 4);
+      const speed = dp / dt / 8;
 
-      wrapper.style.setProperty("--speed", clampedSpeed + 0.01);
-      wrapper.style.setProperty("--scroll", `${window.scrollY + windowHeight - 100}px`);
+      wrapper.style.setProperty("--speed", speed);
+      wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
     };
 
     window.addEventListener('scroll', onScroll);
@@ -423,7 +421,7 @@ useEffect(() => {
     <div class="filter-launch" onClick={toggleMobileFilter}>
       {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
     </div>
-    <div className="position-relative">
+    <div className="overflow-hidden">
       <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
         <div className="filter-box signifier">
           <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() => handleFilterChange('All')}>All</li>

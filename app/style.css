@@ -1833,8 +1833,8 @@ body.dark .clock-indicator span{
 
 .pagination li {
   background: #ffffff00;
-  height: 14px;
-  width: 14px;
+  height: 9px;
+  width: 9px;
   margin: 5vh 0;
   font-size: 0;
   cursor: var(--pointer);
@@ -1893,7 +1893,7 @@ body.dark .clock-indicator span{
   left:24px;
   bottom:8vh;
   z-index:50;
-  
+  font-family: 'Signifier';
 }
 
 .slider-texts h2{
@@ -1902,7 +1902,7 @@ body.dark .clock-indicator span{
       -ms-transform:scale(1.8);
           transform:scale(1.8);
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 300;
   text-shadow: 0 0 5px black;
   margin: 0;
   -webkit-transform-origin:left;
@@ -1916,7 +1916,7 @@ body.dark .clock-indicator span{
 }
 
 .slider-texts h4{
-  font-weight: 300;
+  font-weight: 100;
   font-size: 2.5vw;
   line-height: 2vw;
   opacity:0;
@@ -1974,7 +1974,7 @@ body.dark .filter-box-control{
           align-items: center;
   /*text-transform: uppercase;*/
   color: #737373;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 14px;
 }
 
@@ -2037,6 +2037,7 @@ body.dark .filter-box-control{
 }
 
 .projects-items-controls{
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2084,20 +2085,23 @@ body.dark .filter-box-control{
 }
 
 .project-item-content{
-  width: 10px;
-  white-space: nowrap;
+   position: absolute;
+    left: 84%;
+    bottom: 0;
+    width: 400px;
+    font-family: 'Signifier';
 }
 
 .project-item-content h4{
   font-size: 28px;
-  font-weight: 300;
+  font-weight: 400;
   margin: 0;
   text-transform: uppercase;
 }
 
 .project-item-content h6{
   margin:0;
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .project-slider-img{
@@ -2214,8 +2218,7 @@ body.dark .filter-box-control{
 }
 
 .project-image-info h4{
-  font-family: 'billie eilish';
-  /* font-style: italic; */
+  font-family: 'Signifier',serif;
   font-size: 1.6vw;
   font-weight: 500;
 }
@@ -2957,12 +2960,13 @@ body.dark .filter-box-control{
 .project-head-title{
   position:relative;
   display:block;
-  font-size:6vw;
-  font-family:'Billie Eilish';
+  font-size:5vw;
+  font-family:'Signifier';
   text-transform:uppercase;
   z-index:10;
   height:0;
   opacity:0;
+  font-weight: 300;
   -webkit-transform-origin:center;
       -ms-transform-origin:center;
           transform-origin:center;
@@ -2976,7 +2980,7 @@ body.dark .filter-box-control{
 
 
 .lg-text-title{
-  font-size:8vw
+  font-size:7vw
 }
 
 

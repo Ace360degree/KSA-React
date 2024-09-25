@@ -33,6 +33,7 @@ export default function HomeComponent(){
     let windowHeight = window.screen.height;
     let windowWidth = window.screen.width;
 
+
   useEffect(()=>{
     
     gsap.to(window, {
@@ -422,26 +423,21 @@ function showScrollableTitles(){
         paginationItems[activeIndex].classList.add('active');
     }
 
-  });
-
+    });
 
     return () => ctxSlides.revert(); 
-  },[]);
+
+},[]);
+
 
 
   useEffect(() => {
-    const handleFullscreenChange = () => {
-      // Recalculate GSAP ScrollTriggers after fullscreen change
-      ScrollTrigger.refresh();
-    };
-  
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-  
-    // Clean up event listener on unmount
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
+    // Normalize Scroll to prevent unexpected scroll behavior
+    ScrollTrigger.normalizeScroll(true);
+    
+    return () => ScrollTrigger.normalizeScroll(false); // Cleanup on unmount
   }, []);
+
 
 
 

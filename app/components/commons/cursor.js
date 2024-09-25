@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import { TweenMax } from 'gsap/all';
 import { HiOutlineUser } from "react-icons/hi2";
 import Link from 'next/link';
@@ -8,6 +10,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { IoLogOutOutline } from "react-icons/io5";
 
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CursorAudio() {
 
@@ -34,6 +37,28 @@ export default function CursorAudio() {
       setIsPlaying(false);
     }
   };
+
+  useEffect(() => {
+    // Function to handle fullscreen changes
+    const handleFullscreenChange = () => {
+      // Update GSAP ScrollTrigger points
+      ScrollTrigger.refresh();
+    };
+
+    // Add event listener for fullscreen change
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // Safari
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange); // Firefox
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange); // IE/Edge
+
+    // Clean up event listener on component unmount
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, []); 
 
   // Function to request fullscreen
   const requestFullscreen = () => {

@@ -13,7 +13,7 @@ export default function ScrollifyComponent(){
                   sectionName: "home-snapping",
                   interstitialSection: "",
                   easing: "easeOutExpo",
-                  scrollSpeed: 500,
+                  scrollSpeed: 1500,
                   offset: 0,
                   scrollbars: true,
                   standardScrollElements: "",
