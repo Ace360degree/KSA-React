@@ -109,10 +109,17 @@ export default function ContactComponent(){
                      <input type="email" className="theme-input" required/>
                  </div>
 
+                 
+                 
+                 <div className="form-row">
+                     <label>Description*</label>
+                     <textarea className="theme-input" name="email"  rows="3" required></textarea>
+                 </div>
+                 
                  <div className="form-row">
                      <label>Attach File</label>
-                     <div className="file-upload-container">
-                            <label for="fileInput" class="input-file-label">Upload</label>
+                     <div className="file-upload-container px-4">
+                            <label for="fileInput" className="input-file-label w-100">Upload</label>
                             <input 
                                 type="file" 
                                 id="fileInput" 
@@ -123,12 +130,6 @@ export default function ContactComponent(){
                             <div className="file-name">{fileName}</div>
                         </div>
                  </div>
-                 
-                 <div className="form-row">
-                     <label>Description*</label>
-                     <textarea className="theme-input" name="email"  rows="3" required></textarea>
-                 </div>
-                 
                  
                       
                  
