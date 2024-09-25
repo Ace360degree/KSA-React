@@ -6,12 +6,15 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import ScrollifyComponent from "./jQScrollify";
 import CheckNavTransparent from "../commons/checkNavTransparent";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomeComponent(){
   const [snapping,setSnapping] =useState(false);  
   const [fullScreenCheck,setFullScreenCheck] =useState(1)
+
+  const router = useRouter();
     
   const secondTitleSection = useRef(null);
 
@@ -437,6 +440,28 @@ function showScrollableTitles(){
     
     return () => ScrollTrigger.normalizeScroll(false); // Cleanup on unmount
   }, []);
+
+
+  useEffect(() => {
+    // Function to handle fullscreen changes
+    const handleFullscreenChange = () => {
+      router.refresh();
+    };
+  
+    // Add event listener for fullscreen change, covering various browser implementations
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // For Safari
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange); // For Firefox
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange); // For Internet Explorer/Edge
+  
+    // Clean up event listeners on component unmount
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, []); // Empty dependency array to run once on mount
 
 
 

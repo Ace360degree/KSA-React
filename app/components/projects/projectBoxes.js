@@ -10,7 +10,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 export default function ProjectBoxes() {
-
   const clockIndicators = useRef([]);
   const clockMainIndicators = useRef([]);
 
@@ -412,6 +411,27 @@ useEffect(() => {
     }
   }, []);
 
+  useEffect(() => {
+    // Function to handle fullscreen changes
+    const handleFullscreenChange = () => {
+      // Update GSAP ScrollTrigger points
+      ScrollTrigger.refresh();
+    };
+
+    // Add event listener for fullscreen change
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // Safari
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange); // Firefox
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange); // IE/Edge
+
+    // Clean up event listener on component unmount
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, []); // Empty dependency array to run once on mount
 
 
 
