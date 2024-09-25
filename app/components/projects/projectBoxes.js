@@ -134,7 +134,7 @@ export default function ProjectBoxes() {
       isDragging = true;
       startX = e.pageX - window.scrollX;
       scrollLeft = window.scrollX;
-      document.body.style.cursor = "grabbing";
+      // document.body.style.cursor = "grabbing";
       // document.body.style.userSelect = "none";
     };
 
@@ -148,8 +148,8 @@ export default function ProjectBoxes() {
 
     const onMouseUp = () => {
       isDragging = false;
-      document.body.style.cursor = "default";
-      document.body.style.removeProperty("user-select");
+      // document.body.style.cursor = "default";
+      // document.body.style.removeProperty("user-select");
     };
 
     document.body.addEventListener("mousedown", onMouseDown);
