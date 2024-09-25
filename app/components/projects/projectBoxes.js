@@ -10,6 +10,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 export default function ProjectBoxes() {
+
+  const clockIndicators = useRef([]);
+  const clockMainIndicators = useRef([]);
+
   const projectScrollerRef = useRef(null);
   const projectItemsRef = useRef([]);
   const [indiIndex,setIndiIndex] = useState(0);
@@ -86,9 +90,6 @@ export default function ProjectBoxes() {
 
 
 
-
-
-
   useEffect(() => {
 
     const windowHeight = window.innerHeight / 2;
@@ -162,98 +163,259 @@ export default function ProjectBoxes() {
     };
   }, [projects]);
 
-  useEffect(() => {
 
-    
-    let scrollerIndex = 0;
+  let tabIndex = 0;
 
-    const smoothScroll = (targetY, duration) => {
-      const startY = window.scrollY;
-      const diff = targetY - startY;
-      let startTime = null;
+useEffect(() => {
+  let scrollerIndex = 0;
 
-      const scrollAnimation = (currentTime) => {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const scrollPosition = easeInOutQuad(timeElapsed, startY, diff, duration);
+  const smoothScroll = (targetY, duration) => {
+    const startY = window.scrollY;
+    const diff = targetY - startY;
+    let startTime = null;
 
-        window.scrollTo(100, scrollPosition);
+    const scrollAnimation = (currentTime) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const scrollPosition = easeInOutQuad(timeElapsed, startY, diff, duration);
 
-        if (timeElapsed < duration) {
-          requestAnimationFrame(scrollAnimation);
-        }
-      };
+      window.scrollTo(100, scrollPosition);
 
-      const easeInOutQuad = (t, b, c, d) => {
-        t /= d / 2;
-        if (t < 1) return (c / 2) * t * t + b;
-        t--;
-        return (-c / 2) * (t * (t - 2) - 1) + b;
-      };
-
-      requestAnimationFrame(scrollAnimation);
-    };
-
-    const initProjects = () => {
-      const allProjects = document.querySelectorAll('.projects-items.active');
-      if (!allProjects.length) return;
-
-      const currProject = allProjects[scrollerIndex] || allProjects[0];
-      if (currProject) {
-        smoothScroll(currProject.offsetTop - 50, 100);
+      if (timeElapsed < duration) {
+        requestAnimationFrame(scrollAnimation);
       }
     };
 
-    // let indicatorIndex = 0;
-    // function indicatorAnimation(){
-    //   clockIndicators.current.forEach((indi)=>{
-    //       indi.classList.remove('active');
-    //   })
-    //   clockIndicators.current[indicatorIndex].classList.add('active');
-    //    indicatorIndex = (indicatorIndex+1) % clockIndicators.current.length;
-    // }
-
-    // indicatorAnimation();
-    
-    const rotateSecondsHandsNormal = () => {
-      // const secondsClock = document.getElementById('seconds-clock');
-      // if (secondsClock) {
-      //   secondsClock.style.transform = `rotate(${(scrollerIndex + 1) * 30}deg)`;
-      // }
-      scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
-      initProjects();
-      // indicatorAnimation();
+    const easeInOutQuad = (t, b, c, d) => {
+      t /= d / 2;
+      if (t < 1) return (c / 2) * t * t + b;
+      t--;
+      return (-c / 2) * (t * (t - 2) - 1) + b;
     };
-    initProjects();
-    const clockInterval = setInterval(rotateSecondsHandsNormal, 5000);
 
-    function updateScrollerIndex() {
-      const allProjects = document.querySelectorAll('.projects-items.active');
-      const scrollPosition = window.scrollY; // Current scroll position
-  
-      // Loop through all projects to find the currently visible one
-      allProjects.forEach((project, index) => {
-          const projectOffsetTop = project.offsetTop;
-          const projectHeight = project.offsetHeight;
-  
-          // Check if the current scroll position is within the bounds of the project
-          if (scrollPosition >= projectOffsetTop - 100 && scrollPosition < projectOffsetTop + projectHeight - 100) {
-              scrollerIndex = index; // Update scrollerIndex to the current project
-          }
-      });
+    requestAnimationFrame(scrollAnimation);
+  };
+
+  const initProjects = () => {
+    const allProjects = document.querySelectorAll('.projects-items.active');
+    if (!allProjects.length) return;
+
+    const currProject = allProjects[scrollerIndex] || allProjects[0];
+    if (currProject) {
+      smoothScroll(currProject.offsetTop - 50, 100);
+    }
+  };
+
+  const rotateSecondsHandsNormal = () => {
+    scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+    initProjects();
+  };
+  initProjects();
+
+  function updateScrollerIndex() {
+    const allProjects = document.querySelectorAll('.projects-items.active');
+    const scrollPosition = window.scrollY; // Current scroll position
+
+    allProjects.forEach((project, index) => {
+      const projectOffsetTop = project.offsetTop;
+      const projectHeight = project.offsetHeight;
+
+      if (
+        scrollPosition >= projectOffsetTop - 100 &&
+        scrollPosition < projectOffsetTop + projectHeight - 100
+      ) {
+        scrollerIndex = index; // Update scrollerIndex to the current project
+      }
+    });
   }
-  
-  // Add scroll event listener
+
   window.addEventListener('scroll', updateScrollerIndex);
 
-    return () => {
-      clearInterval(clockInterval);
-    };
-  }, [projects]);
+  const checkOverlap = () => {
+    const secondsClock = document.getElementById('clock-bound-box');
+    const indicators = clockIndicators.current;
+
+    if (!secondsClock || !indicators.length) return;
+
+    const secondsClockRect = secondsClock.getBoundingClientRect();
+
+    indicators.forEach((indicator, index) => {
+      const spanElement = indicator;
+      const spanParent = clockMainIndicators.current[index];
+      if (!spanElement) return;
+
+      const spanRect = spanElement.getBoundingClientRect();
+
+      const offset = 1; // 1px offset for detection
+
+      const isOverlapping = !(
+        secondsClockRect.right < spanRect.left - offset ||
+        secondsClockRect.left > spanRect.right + offset ||
+        secondsClockRect.bottom < spanRect.top - offset ||
+        secondsClockRect.top > spanRect.bottom + offset
+      );
+
+      if (isOverlapping && !spanParent.classList.contains('active')) {
+        tabIndex = index;
+        spanParent.classList.add('active');
+        rotateSecondsHandsNormal(); // Trigger function when class changes
+      } else if (!isOverlapping && spanParent.classList.contains('active')) {
+        spanParent.classList.remove('active');
+      }
+    });
+
+    clockMainIndicators.current[tabIndex].classList.add('active');
+  };
+
+  const handleUpdate = () => {
+    requestAnimationFrame(checkOverlap);
+  };
+
+  handleUpdate();
+  const intervalId = setInterval(handleUpdate, 100);
+
+  return () => {
+    clearInterval(intervalId);
+    window.removeEventListener('scroll', updateScrollerIndex); // Clean up scroll event listener
+  };
+}, [projects]);
+
 
   const toggleMobileFilter = () =>{
     setMobileFilter(!mobileFilter);
   }
+
+
+
+  useEffect(() => {
+    // Select clock indicator box and clock dots
+    const clockIndicatorBox = document.querySelector('.clock-indicator-box');
+    const clockDots = clockIndicatorBox.querySelectorAll('.clock-indicator');
+    const clockDotsLength = clockDots.length;
+
+    // Set the rotation for each dot
+    const numToDivide = 360 / clockDotsLength;
+    clockDots.forEach((dot, index) => {
+      dot.style.transform = `rotate(${numToDivide * index}deg)`;
+    });
+
+    // Select the small indicator box
+    const smallIndicatorBox = document.querySelector('.clock-smallindicator-box');
+
+    // Add 360 small indicators dynamically
+    for (let i = 1; i <= 360; i++) {
+      const smallIndicator = document.createElement('div');
+      smallIndicator.className = 'clock-smallindicator';
+      smallIndicator.style.transform = `rotate(${i}deg)`;
+      smallIndicatorBox.appendChild(smallIndicator);
+    }
+
+  }, []);
+
+
+
+  const usermainClockRef = useRef(null);
+  let scrollerClockIndex = 0;
+  let touchStartY = 0;
+  
+  useEffect(() => {
+    const scrollSpeedFactor = 0.03; 
+  
+    const handleWheel = (e) => {
+      const rotationClock = e.deltaY * scrollSpeedFactor;
+      scrollerClockIndex += rotationClock;
+      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
+    };
+  
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+    };
+  
+    const handleTouchMove = (e) => {
+      const touchMoveY = e.touches[0].clientY;
+      const deltaY = touchStartY - touchMoveY;
+      const rotationClock = deltaY * scrollSpeedFactor;
+      scrollerClockIndex += rotationClock;
+      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;
+      touchStartY = touchMoveY;  // Update touchStartY for continuous rotation
+    };
+  
+    // Add wheel and touch event listeners
+    window.addEventListener('wheel', handleWheel);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchmove', handleTouchMove);
+  
+    // Cleanup the event listeners on component unmount
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  
+  }, []);
+  
+  
+  
+  useEffect(() => {
+    // const checkOverlap = () => {
+    //   const secondsClock = document.getElementById('clock-bound-box');
+    //   const indicators = clockIndicators.current;
+  
+    //   if (!secondsClock || !indicators.length) return;
+  
+    //   // Get bounding box of the rotating seconds hand
+    //   const secondsClockRect = secondsClock.getBoundingClientRect();
+  
+    //   indicators.forEach((indicator, index) => {
+    //     // Get the bounding box of the span inside each clock-indicator
+    //     const spanElement = indicator;
+    //     const spanParent = clockMainIndicators.current[index];
+    //     if (!spanElement) return;
+  
+    //     const spanRect = spanElement.getBoundingClientRect();
+  
+    //     // Collision detection with a 1px offset
+    //     const offset = 1; // 1px offset for detection
+  
+    //     const isOverlapping = !(
+    //       secondsClockRect.right < spanRect.left - offset ||
+    //       secondsClockRect.left > spanRect.right + offset ||
+    //       secondsClockRect.bottom < spanRect.top - offset ||
+    //       secondsClockRect.top > spanRect.bottom + offset
+    //     );
+  
+    //     if (isOverlapping) {
+    //       tabIndex = index;
+    //       spanParent.classList.add('active');
+    //     } else {
+    //       spanParent.classList.remove('active');
+    //     }
+  
+    //     clockMainIndicators.current[tabIndex].classList.add('active');
+    //   });
+    // };
+  
+    // // Use requestAnimationFrame for smoother updates
+    // const handleUpdate = () => {
+    //   requestAnimationFrame(checkOverlap);
+    // };
+  
+    // handleUpdate();
+    // const intervalId = setInterval(handleUpdate, 100);
+  
+    // return () => clearInterval(intervalId);
+  
+  }, []);
+  
+  const secondsClock = useRef(null);
+  useEffect(() => {
+    if (secondsClock.current) {
+      secondsClock.current.classList.remove('clock-paused');
+    }
+  }, []);
+
+
+
 
 
   return (
@@ -300,6 +462,37 @@ export default function ProjectBoxes() {
         </div>
       </div>
     </div>
+
+
+
+    <div className="user-clock projects-clock" >
+        <div className="user-clock-control" ref={usermainClockRef} style={{transition:'all 0.3s ease'}}>
+          <div className="user-hands user-clock-hour" style={{ opacity: '0' }}>
+            <span></span>
+          </div>
+          <div
+            id="seconds-clock"
+            className="user-hands user-clock-seconds project-hands clock-paused"
+            ref={secondsClock}
+          >
+            <span></span>
+            <em id="clock-bound-box"></em>
+          </div>
+        </div>
+
+        <div className="clock-indicator-box">
+          {/* Rendering 12 clock indicators */}
+          {Array.from({ length: 12 }).map((_, index) => (
+            <div key={index} className="clock-indicator" ref={(el)=>(clockMainIndicators.current[index]=el)}>
+              <span >
+                <em  ref={(el)=>(clockIndicators.current[index] = el)}></em>
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="clock-smallindicator-box"></div>
+      </div>
 
 
    </>

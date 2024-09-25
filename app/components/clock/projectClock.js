@@ -31,20 +31,6 @@ export default function ProjectClock() {
       smallIndicatorBox.appendChild(smallIndicator);
     }
 
-    // Animate the second hand using GSAP
-    // const secondsHand = document.querySelector('#seconds-clock');
-
-    // const animateSecondsHand = () => {
-    //   gsap.to(secondsHand, {
-    //     rotate: "+=360",   // Incrementally rotate the second hand by 360 degrees
-    //     duration: 60,      // Complete the rotation in 60 seconds
-    //     ease: "linear",    // Use a linear easing for smooth rotation
-    //     repeat: -1,         // Infinite repeat for continuous rotation
-    //   });
-    // };
-
-    // animateSecondsHand();
-
   }, []);
 
   const usermainClockRef = useRef(null);

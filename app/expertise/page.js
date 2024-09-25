@@ -25,7 +25,6 @@ export default function Expertise(){
         {visited?'' :
         <ProjectIntro/>
         }   
-        <ProjectClock/>
         <ProjectBoxes/>
 
     </>)

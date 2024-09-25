@@ -52,7 +52,7 @@ export default function ProjectEssencials({essecials,points}){
     
     return(
     <>
-        <div class="project-info-section my-5" id="project-counter">
+        <div class="project-info-section" id="project-counter">
             <div class="border-section"> 
                 <div class="row m-0 g-0">
                     

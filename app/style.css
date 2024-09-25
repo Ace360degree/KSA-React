@@ -230,8 +230,8 @@ body.dark .ksa-logo{
 
 .cursor-lg,.cursor-sm{
   position:fixed;
-  left:0;
-  top:0;
+  left:-50px;
+  top:-50px;
   z-index:10000;
   background:transparent;
   border:1px solid black;
@@ -401,8 +401,7 @@ filter: invert(1);
 
 body.dark #navbar{
   color:var(--body-text-dark);
-  /*background:var(--body-bg-dark);*/
-  background:transparent;
+  background:var(--body-bg-dark);
 }
 
 #navbar.active{
@@ -1781,6 +1780,7 @@ body.dark .clock-indicator span{
   width: 100%;
   height: auto;
   overflow: hidden;
+  z-index:900;
 }
 
 
@@ -1984,7 +1984,6 @@ body.dark .filter-box-control{
      -moz-user-select:none;
       -ms-user-select:none;
           user-select:none;
-  font-style: italic;
   /*letter-spacing: 2px;*/
 }
 .filter-box li.selected{
@@ -2196,6 +2195,8 @@ body.dark .filter-box-control{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding: 3rem 2rem;
+  padding-top: 100px;
   gap: 14px;
   font-size: 2.5rem;
   -webkit-box-orient: vertical;
@@ -2256,10 +2257,21 @@ body.dark .filter-box-control{
 .border-section{
   border-top: 1px solid grey;
   border-bottom: 1px solid grey;
+  padding-top: 75px;
+  overflow: hidden;
 }
 
 .border-left-info{
-  border-left: 1px solid grey;
+  position: relative;
+}
+.border-left-info::before{
+  content: "";
+  position: absolute;
+  top:0;
+  left: 0;
+  height: 500vh;
+  width: 1px;
+  background: grey;
 }
 
 .glance-side-title{
@@ -2424,7 +2436,7 @@ body.dark .filter-box-control{
 
 .contact-menu{
   position: fixed;
-  top: 28px;
+  top: 22px;
   left: 0;
   right: 0;
   z-index: 5000;
@@ -3130,7 +3142,16 @@ body.dark .filter-box-control{
   -webkit-transition:all 1.5s ease;
   -o-transition:all 1.5s ease;
   transition:all 1.5s ease;
-  /* min-height: 100vh; */
+  min-height: 100vh;
+}
+
+#project-counter .border-section{
+  min-height: 100vh !important;
+}
+
+.full-bleed-image{
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .ideas-img-section{
@@ -3217,7 +3238,7 @@ body.dark .filter-box-control{
 
 .top-section-filter{
   position:fixed;
-  top:32px;
+  top:24px;
   max-width: 248px;
   background: black;
   border-radius: 14px;
@@ -4023,6 +4044,7 @@ body.dark .filter-box-control{
   }
   .filter-box li{
       white-space:nowrap;
+      font-weight: 200;
   }
   #they-say{
       font-size:4rem;

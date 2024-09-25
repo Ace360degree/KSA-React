@@ -67,6 +67,28 @@ export default function ProjectInfo(){
         }
     },[])
 
+    useEffect(()=>{
+        let ctx = gsap.context(() => {
+
+        const sections = gsap.utils.toArray(".project-info-section");
+
+        // Create scroll snapping functionality
+        gsap.to(sections, {
+        scrollTrigger: {
+            trigger: sections[0], // Start from the first section
+            start: "top top", // When top of section hits the top of viewport
+            end: () => `+=${(sections.length - 1) * window.innerHeight}`, // Scroll until the last section
+            scrub: 0, // Smooth scrub
+            snap: 1 / (sections.length - 1), // Snap to the closest section
+            markers: true, // Remove markers,
+            duration:0.2,
+        }
+        });
+    });
+
+    return () => ctx.revert();
+
+    },[loading]);
 
 
 
@@ -76,6 +98,7 @@ export default function ProjectInfo(){
             <ScrollifyDisabled/>
             <LightTheme/>
             
+            
 
             {loading? <CommonLoader/>:
             <>
@@ -84,7 +107,7 @@ export default function ProjectInfo(){
             <NavbarIntroPage heading={'Expertise'} subheading={project.category}/>
             
             
-            <div className="project-banner">
+            <div className="project-banner project-info-section">
                <div className="project-title" ref={projectTitle}><h2>{project.project_name}</h2>
                <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
                </div>

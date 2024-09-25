@@ -63,7 +63,10 @@ export default function CursorAudio() {
     // Set up an event listener to play audio on user interaction
     const handleUserInteraction = () => {
       playAudioConditionByInteraction();
-     requestFullscreen(); // Request fullscreen on user interaction
+      setTimeout(()=>{
+        requestFullscreen();
+      },0);
+    //  // Request fullscreen on user interaction
       document.removeEventListener('click', handleUserInteraction); // Remove listener once audio starts
     };
 
@@ -156,7 +159,7 @@ export default function CursorAudio() {
 
   return (
     <>
-      <audio ref={audioRef} id="mainAudio" autoPlay>
+      <audio ref={audioRef} id="mainAudio" autoPlay loop>
         <source src="/audio/main-audio.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
