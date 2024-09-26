@@ -156,7 +156,7 @@ export default function AboutComponent(){
         </ul>
         
         {showTabs=='All' || showTabs=='culture'?
-        <div className="target-section overflow-hidden" ref={mainBanner} id="culture">
+        <div className="target-section signifier overflow-hidden" ref={mainBanner} id="culture">
             
             <div className="full-section px-4" id="about-intro">
                 <div className=" text-uppercase">

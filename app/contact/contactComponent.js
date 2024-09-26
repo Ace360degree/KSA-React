@@ -76,7 +76,7 @@ export default function ContactComponent(){
         <DarkTheme/>
         <NavbarIntroPage heading={'Contact'}/>
         <div class="header-gap"></div>
-        <div className="contact-menu">
+        <div className="contact-menu signifier">
          <li className="" id="contactTrigger" data-target="#contact">Contact</li>
          <li id="officesTrigger" data-target="#offices">Offices</li>
      </div>

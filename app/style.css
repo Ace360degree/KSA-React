@@ -2452,7 +2452,6 @@ body.dark .filter-box-control{
   -ms-flex-direction: row;
   flex-direction: row;
   gap: 18px;
-  text-transform: uppercase;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -2467,6 +2466,7 @@ body.dark .filter-box-control{
   color: #ffffff87;
   font-size: 18px;
   cursor: var(--pointer);
+  font-weight: 300;
 }
 
 .contact-menu li.active{
@@ -2486,7 +2486,7 @@ body.dark .filter-box-control{
   position:relative;
   z-index:300;
   width: 100%;
-  min-height: 60vh;
+  min-height: 84vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3266,7 +3266,6 @@ body.dark .filter-box-control{
   display:-webkit-box;
   display:-ms-flexbox;
   display:flex;
-  text-transform:uppercase;
   font-weight:500;
   font-size:16px;
   -webkit-box-pack:center;
@@ -4262,7 +4261,8 @@ body.dark .filter-box-control{
       gap: 30px;
   }
   .contact-menu li{
-      font-size: 32px;
+      font-size: 28px;
+      
   }
   .office-section {
       max-width: 1600px;
@@ -4281,7 +4281,7 @@ body.dark .filter-box-control{
   }
 
   .about-intro-sub{
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .location-tag{

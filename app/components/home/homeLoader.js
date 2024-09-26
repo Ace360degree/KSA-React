@@ -73,7 +73,7 @@ export default function HomeLoader(){
                 </div>
                 <div className="home-title-grad" ref={homeGrad}></div>
                 {showTitle?
-                    <h4 className="loader-text">Click anywhere to Continue</h4>
+                    <h4 className="loader-text">Click to Continue</h4>
                 :
                     ''   
                 }
