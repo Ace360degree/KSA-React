@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import UserClock from "../commons/userClock";
 import Link from "next/link";
+import ScrollifyDisabled from "../commons/disableScrollify";
 
 export default function HomeMenu() {
 
@@ -150,6 +151,7 @@ export default function HomeMenu() {
   return (
     <>
       <UserClock />
+      <ScrollifyDisabled/>
       <div className="h-100">
         <div className="home-content-control">
           <div className="home-content">

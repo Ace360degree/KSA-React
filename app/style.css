@@ -1780,7 +1780,6 @@ body.dark .clock-indicator span{
   width: 100%;
   height: auto;
   overflow: hidden;
-  z-index:900;
 }
 
 
@@ -2459,7 +2458,7 @@ body.dark .filter-box-control{
   list-style: none;
   max-width: 248px;
   margin: auto;
-  background: black;
+  background: transparent;
   border-radius: 14px;
 }
 
@@ -3244,7 +3243,7 @@ body.dark .filter-box-control{
   position:fixed;
   top:24px;
   max-width: 248px;
-  background: black;
+  background: transparent;
   border-radius: 14px;
   color:white;
   padding:0;
@@ -4022,6 +4021,8 @@ body.dark .filter-box-control{
       margin:auto;
   }
   .project-item-content {
+    position: relative;
+    left: 0;
     display: flex;
     width: 75%;
     white-space: normal;
