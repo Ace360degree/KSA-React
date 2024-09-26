@@ -9,7 +9,6 @@ import $ from "jquery";
 import  "jquery-scrollify";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
 import '../about.css';
-import { create } from "zustand";
 
 
 
@@ -119,14 +118,6 @@ export default function AboutComponent(){
                     ease: 'power1.inOut', // Easing for the snapping
                 }
             });
-
-            ScrollTrigger.create({
-                trigger:'#ksa-points',
-                start:'top top',
-                end:"+=1000s",
-                pin:true,
-                pinSpacing:true,
-            }) 
         });
 
         return () => ctx.revert();
@@ -137,6 +128,34 @@ export default function AboutComponent(){
         // $.scrollify.destroy();
         $.scrollify.move(0);
     },[])
+
+    useEffect(() => {
+        $(document).ready(function () {
+          // Initialize Scrollify
+          $.scrollify.enable();
+          $.scrollify({
+            section: ".about-snap",
+            sectionName: "about-snap",
+            interstitialSection: "",
+            easing: "easeOutExpo",
+            scrollSpeed: 500,
+            offset: 0,
+            scrollbars: true,
+            standardScrollElements: "",
+            setHeights: true,
+            overflowScroll: true,
+            updateHash: false,
+            touchScroll: true,
+          });
+      
+          // Refresh ScrollTrigger after Scrollify initializes
+          ScrollTrigger.refresh();
+        });
+      
+        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+      }, []);
+
+
 
 
     const updateSections = (name)=>{
@@ -158,7 +177,7 @@ export default function AboutComponent(){
         {showTabs=='All' || showTabs=='culture'?
         <div className="target-section signifier overflow-hidden" ref={mainBanner} id="culture">
             
-            <div className="full-section px-4" id="about-intro">
+            <div className="full-section px-4 about-snap" id="about-intro">
                 <div className=" text-uppercase">
                     <h2 className="page-title-animation signifier"><span>Know</span> <span>Our</span> <span>Culture</span></h2>
                     <h4 className="about-intro-sub fw-light mb-0">Be Certain to Buzz us!!</h4>
@@ -174,7 +193,9 @@ export default function AboutComponent(){
                 </div>
 
             </div>
-            <div ref={aboutSection} className="full-section px-4" id="ksa-about">
+
+            <div className="about-snap">
+            <div ref={aboutSection} className="full-section px-4 " id="ksa-about">
                 <div className=" billy-text">
                     <div className="mx-auto">
                     <h3 className="ab-2-head signifier">KSA has grown from a founder to a big family.</h3>
@@ -184,7 +205,9 @@ export default function AboutComponent(){
                     </div>
                 </div>
             </div>
-            <div className="full-section px-4" id="ksa-points">
+            </div>
+
+            <div className="full-section px-4 about-snap" id="ksa-points">
                 <div className="px-4 billy-text">
                     <div className="mx-auto" style={{maxWidth:'100%'}}>
                         <h4 className="avelir-text fs-1"><i>We Are</i></h4>
@@ -197,7 +220,7 @@ export default function AboutComponent(){
     
         {showTabs=='All' || showTabs=='discipline'?
         <div className="target-section overflow-hidden position-relative" ref={AboutProjects} id="discipline">
-        <div className="full-section" id="ksa-slider">
+        <div className="full-section about-snap" id="ksa-slider">
             <Link href={'/expertise'}><div className=" billy-text">
                 <div className="about-project-box">
                     <div className="about-item">

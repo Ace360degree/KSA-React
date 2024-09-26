@@ -2,21 +2,24 @@
 import Image from "next/image";
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { FaFacebook } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
+import $ from "jquery";
+import  "jquery-scrollify";
 import Link from "next/link";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
 
 
 gsap.registerPlugin(ScrollTrigger);
 export default function ContactComponent(){
-
-    
+    const [showTabs,setShowTabs] = useState('All');
+    const formTitle = useRef(null);
+    const animationTitle = useRef(null);
 
     const [fileName, setFileName] = useState('No File Chosen');
 
@@ -27,6 +30,7 @@ export default function ContactComponent(){
 
     useEffect(()=>{
 
+        if(animationTitle.current){
         let animationPageTitleSpans =document.querySelectorAll('.page-title-animation span');
     
         animationPageTitleSpans.forEach(function(title,index){
@@ -39,52 +43,67 @@ export default function ContactComponent(){
                     
             pageTitleAnimation.to(title,{height:"auto",y:"0", delay:0.3,duration:0.4}) 
         })
+    }
 
-        gsap.fromTo('.form-legend-title',{opacity:0,y:'150px'},
+        if(formTitle.current){
+        gsap.fromTo(formTitle.current,{opacity:0,y:'150px'},
             {
                 opacity:1,
                 y:0,
                 scrollTrigger:{
-                    trigger:'.form-legend-title',
+                    trigger:formTitle.current,
                     start:'top 90%',
                     end:'bottom 60%',
                     scrub:true,
                 },
             });
+        } 
 
-            const contactMenuButton = document.querySelectorAll('.contact-menu li');
-    
-            contactMenuButton.forEach(function(btn){
-                let thisTarget = btn.getAttribute('data-target')
-                btn.addEventListener('click', function(){
-                    contactMenuButton.forEach(function(b){
-                        let thisBTarget = b.getAttribute('data-target')
-                        b.classList.remove('active');
-                        document.querySelector(thisBTarget).classList.remove('active');
-                    });
-                    btn.classList.add('active');
-                    document.querySelector(thisTarget).classList.add('active');
-                })
-            })    
+    },[showTabs]);
 
-    },[])
+    useEffect(() => {
+        $(document).ready(function () {
+          // Initialize Scrollify
+          $.scrollify.enable();
+          $.scrollify({
+            section: ".contact-snap",
+            sectionName: "contact-snap",
+            interstitialSection: "",
+            easing: "easeOutExpo",
+            scrollSpeed: 500,
+            offset: 0,
+            scrollbars: true,
+            standardScrollElements: "",
+            setHeights: true,
+            overflowScroll: true,
+            updateHash: false,
+            touchScroll: true,
+          });
+      
+          // Refresh ScrollTrigger after Scrollify initializes
+          ScrollTrigger.refresh();
+        });
+      
+        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+      }, [showTabs]);
 
 
     return(
         <>
-        <ScrollifyDisabled/>
+        {/* <ScrollifyDisabled/> */}
         <DarkTheme/>
         <NavbarIntroPage heading={'Contact'}/>
         <div class="header-gap"></div>
         <div className="contact-menu signifier">
-         <li className="" id="contactTrigger" data-target="#contact">Contact</li>
-         <li id="officesTrigger" data-target="#offices">Offices</li>
+         <li className={showTabs=='contact'?'active':''}  onClick={()=>{setShowTabs('contact')}}>Contact</li>
+         <li className={showTabs=='offices'?'active':''} onClick={()=>{setShowTabs('offices')}}>Offices</li>
      </div>
      
+     {showTabs=='All' || showTabs=='contact'?
      <div className="contact-accordion active" id="contact">
         
-        <div className="contact-title">
-         <i><h2 className="page-title-animation signifier fw-light">
+        <div className="contact-title contact-snap">
+         <i><h2 className="page-title-animation signifier fw-light" ref={animationTitle}>
              <span>Hey,</span>
              <span>we were</span>
              <span className="text-uppercase ">Expecting</span>
@@ -93,8 +112,8 @@ export default function ContactComponent(){
 
      </div> 
          
-        <div className="contact-main-section" id="contact-form-section">
-         <h3 className="form-legend-title signifier">DONT BE SHY, SAY HI !!!</h3>
+        <div className="contact-main-section contact-snap" id="contact-form-section">
+         <h3 className="form-legend-title signifier" ref={formTitle}>DONT BE SHY, SAY HI !!!</h3>
 
          <div className="contact-form-box">
              <div>
@@ -142,9 +161,11 @@ export default function ContactComponent(){
         </div>     
      </div>  
      
-    </div>     
+     </div>   
+     :''}  
      
-     <div className="contact-accordion active" id="offices">
+     {showTabs=='All' || showTabs=='offices'?
+     <div className="contact-accordion active contact-snap" id="offices">
          <div className="map-section active">
            
         <div className="office-section ">
@@ -167,12 +188,8 @@ export default function ContactComponent(){
             </div>
             </div>
         </div>
-        
-         
-     </div>
-    
-     
-     <div className="contact-footer mt-5">
+
+        <div className="contact-footer mt-5">
          <div className="footer-brand">KSA 2024</div>
          <div className="follow-us-text">Follow us on</div>
          <div className="social-links">
@@ -181,7 +198,13 @@ export default function ContactComponent(){
             <Link href={'#'}><FaSquareXTwitter className="footer-icon" size={22} /></Link>
             <Link href={'#'}><FaLinkedin className="footer-icon" size={22} /></Link>
          </div>
+        </div>
+         
      </div>
+     :''}  
+    
+     
+     
             
         </>
     )

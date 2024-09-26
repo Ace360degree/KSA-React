@@ -8,7 +8,8 @@ import dynamic from "next/dynamic";
 import gsap from "gsap/all";
 import Image from "next/image";
 import CommonLoader from "@/app/components/commons/loaderCommon";
-
+import "jquery-scrollify";
+import $ from "jquery";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
@@ -67,29 +68,55 @@ export default function ProjectInfo(){
         }
     },[])
 
-    useEffect(()=>{
-        let ctx = gsap.context(() => {
-            if(window.innerWidth > 850){
-        const sections = gsap.utils.toArray(".project-info-section");
+    // useEffect(()=>{
+    //     let ctx = gsap.context(() => {
+    //         if(window.innerWidth > 850){
+    //     const sections = gsap.utils.toArray(".project-info-section");
 
-        // Create scroll snapping functionality
-        gsap.to(sections, {
-        scrollTrigger: {
-            trigger: sections[0], // Start from the first section
-            start: "top top", // When top of section hits the top of viewport
-            end: () => `+=${(sections.length - 1) * window.innerHeight}`, // Scroll until the last section
-            scrub: 0, // Smooth scrub
-            snap: 1 / (sections.length - 1), // Snap to the closest section
-            markers: true, // Remove markers,
-            duration:0.2,
-        }
+    //     // Create scroll snapping functionality
+    //     gsap.to(sections, {
+    //     scrollTrigger: {
+    //         trigger: sections[0], // Start from the first section
+    //         start: "top top", // When top of section hits the top of viewport
+    //         end: () => `+=${(sections.length - 1) * window.innerHeight}`, // Scroll until the last section
+    //         scrub: 0, // Smooth scrub
+    //         snap: 1 / (sections.length - 1), // Snap to the closest section
+    //         markers: true, // Remove markers,
+    //         duration:0.2,
+    //     }
+    //     });
+    //     }
+    // });
+
+    // return () => ctx.revert();
+
+    // },[loading]);
+
+    useEffect(() => {
+        $(document).ready(function () {
+          // Initialize Scrollify
+          $.scrollify.enable();
+          $.scrollify({
+            section: ".project-info-section",
+            sectionName: "project-info-section",
+            interstitialSection: "",
+            easing: "easeOutExpo",
+            scrollSpeed: 500,
+            offset: 0,
+            scrollbars: true,
+            standardScrollElements: "",
+            setHeights: true,
+            overflowScroll: true,
+            updateHash: false,
+            touchScroll: true,
+          });
+      
+          // Refresh ScrollTrigger after Scrollify initializes
+          ScrollTrigger.refresh();
         });
-        }
-    });
-
-    return () => ctx.revert();
-
-    },[loading]);
+      
+        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+      }, [loading]);
 
 
 
@@ -108,7 +135,7 @@ export default function ProjectInfo(){
             <NavbarIntroPage heading={'Expertise'} subheading={project.category}/>
             
             
-            <div className="project-banner project-info-section">
+            <div className="project-banner project-info-section ">
                <div className="project-title" ref={projectTitle}><h2>{project.project_name}</h2>
                <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
                </div>
