@@ -2265,6 +2265,10 @@ body.dark .filter-box-control{
   overflow: hidden;
 }
 
+.glance-sections{
+  margin-bottom: 5rem;
+}
+
 .border-left-info{
   position: relative;
 }
@@ -2294,11 +2298,16 @@ body.dark .filter-box-control{
   list-style: none;
   font-weight: 300;
   line-height: 22px;
+
+}
+
+.project-info-highlights{
+  margin-bottom: 4rem;
 }
 
 .project-info-highlights h2{
   font-weight: 200;
-  font-size: 3.8rem;
+  font-size: 4.5rem;
   margin: 0;
 }
 
@@ -4102,8 +4111,14 @@ body.dark .filter-box-control{
       padding-bottom:10vh;
   }
   .glance-points{
-      margin-bottom:4rem;
+      margin-bottom:2.5rem;
   }
+  .glance-sections {
+    margin-bottom: 0rem;
+  }
+  .project-info-highlights {
+    margin-bottom: 0rem;
+}
   .project-info-highlights h2{
       font-size: 40px;
       font-weight:300;

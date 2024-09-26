@@ -64,12 +64,12 @@ export default function ProjectEssencials({essecials,points}){
                     
                     <div class="col-md-9 border-left-info">
                         <div class="p-4">
-                            <div class="row">
+                            <div class="row g-5">
                                 
                                 <div class="col-md-4">
                                     {/* Loop for Points Attributes  */}
                                     {essecials.map((essecial,index)=>(
-                                    <div class="mb-4" key={index}>
+                                    <div class="glance-sections" key={index}>
                                         <h4 class="glance-side-title">{essecial.title}</h4>
                                         <div class="glance-points">
                                             {essecial.content}
