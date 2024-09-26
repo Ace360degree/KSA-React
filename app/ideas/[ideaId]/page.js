@@ -87,10 +87,10 @@ export default function IdeasPage(){
                     }
                     <div className="row mt-3 align-items-center">
                         <div className="col-md-6">
-                            <h2 className="ideas-inner-title">{idea.title}</h2>
+                            <h2 className="ideas-inner-title signifier">{idea.title}</h2>
                         </div>
                         <div className="col-md-6">
-                            <p className="ideas-inner-content">{idea.description}</p>
+                            <p className="ideas-inner-content signifier">{idea.description}</p>
                         </div>
                     </div>
                 </div>
@@ -100,12 +100,12 @@ export default function IdeasPage(){
                 <SplideSlide key={index}>   
                 <div className="ideas-inner-section" >
                     <img className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+ideas.image} />
-                    <div className="row mt-3 align-items-center">
+                    <div className="row ideas-border mt-3 align-items-center">
                         <div className="col-md-6">
-                            <h2 className="ideas-inner-title">{ideas.title}</h2>
+                            <h2 className="ideas-inner-title signifier">{ideas.title}</h2>
                         </div>
                         <div className="col-md-6">
-                            <p className="ideas-inner-content">{ideas.description}</p>
+                            <p className="ideas-inner-content signifier">{ideas.description}</p>
                         </div>
                     </div>
                     

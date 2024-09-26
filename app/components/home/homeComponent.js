@@ -363,7 +363,7 @@ export default function HomeComponent(){
       ScrollTrigger.refresh();
     });
   
-    //return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
   }, [fullScreenCheck]);
 
 

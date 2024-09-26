@@ -93,35 +93,63 @@ export default function ProjectBoxes() {
 
     let lastScrollPos = undefined;
     let lastScrollTime = undefined;
-
+    let touchStartY = 0;
+  
+    const wrapper = projectScrollerRef.current;
+  
     const onScroll = () => {
-      const wrapper = projectScrollerRef.current;
       if (!wrapper) return;
-
+  
       if (lastScrollTime === undefined) {
         lastScrollPos = window.scrollY;
         lastScrollTime = performance.now();
         return;
       }
-
+  
       const dp = Math.abs(window.scrollY - lastScrollPos);
       const dt = performance.now() - lastScrollTime;
-
+  
       lastScrollTime = performance.now();
       lastScrollPos = window.scrollY;
-
+  
       const speed = dp / dt / 8;
-
+  
       wrapper.style.setProperty("--speed", speed);
       wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
     };
-
+  
+    const onTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+    };
+  
+    const onTouchMove = (e) => {
+      if (!wrapper) return;
+  
+      const currentTouchY = e.touches[0].clientY;
+      const dp = Math.abs(currentTouchY - touchStartY);
+      const dt = performance.now() - lastScrollTime;
+  
+      lastScrollTime = performance.now();
+      touchStartY = currentTouchY;
+  
+      const speed = dp / dt / 8;
+  
+      wrapper.style.setProperty("--speed", speed);
+      wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
+    };
+  
+    // Add both scroll and touch event listeners
     window.addEventListener('scroll', onScroll);
-
+    window.addEventListener('touchstart', onTouchStart);
+    window.addEventListener('touchmove', onTouchMove);
+  
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
     };
   }, [projects]);
+  
 
   useEffect(() => {
     let isDragging = false;
@@ -441,7 +469,7 @@ useEffect(() => {
     <div class="filter-launch" onClick={toggleMobileFilter}>
       {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
     </div>
-    <div className="overflow-hidden">
+    
       <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
         <div className="filter-box signifier">
           <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() => handleFilterChange('All')}>All</li>
@@ -452,7 +480,7 @@ useEffect(() => {
           ))}
         </div>
       </div>
-
+      <div className="overflow-x-hidden">
       <div id="projects-Scroller" ref={projectScrollerRef}>
         <div className="projects-main">
           

@@ -8,6 +8,10 @@ import { HiOutlineUser } from "react-icons/hi2";
 import Link from 'next/link';
 import { useAuth } from "@/app/context/AuthContext";
 import { IoLogOutOutline } from "react-icons/io5";
+import { GrPowerForceShutdown } from "react-icons/gr";
+import { GrPowerShutdown } from "react-icons/gr";
+
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -22,7 +26,7 @@ export default function CursorAudio() {
   const [isTouchscreen, setIsTouchscreen] = useState(false);
   const { isLoggedIn } = useAuth();
   
-  let cursorStatus = false;
+  const [cursorStatus,setcursorStatus] = useState(true);
 
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
 
@@ -156,28 +160,37 @@ export default function CursorAudio() {
 
 
   useEffect(() => {
-    // Method 1: Using matchMedia
+    // Method 1: Using matchMedia to detect coarse pointer (touch devices)
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     
-    // Method 2: Check for touch events
+    // Method 2: Check for touch events to confirm touch support
     const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
+  
+    // Set initial state for touchscreen devices
     if (isTouchDevice || hasTouchSupport) {
       setIsTouchscreen(true);
-    } else {
-      setIsTouchscreen(false);
     }
-    
-    if(cursorStatus==false){
-    document.addEventListener('mousemove',()=>{
+  
+    // Detect touch input interaction
+    const onTouchStart = () => {
+      setIsTouchscreen(true);
+      setcursorStatus(false); // Set cursorStatus to false when touch is detected
+    };
+  
+    // Detect mouse input interaction
+    const onMouseMove = () => {
       setIsTouchscreen(false);
-      cursorStatus = true;
-      
-    })
-    console.log(cursorStatus);
-    }
-
+      setcursorStatus(true); // Set cursorStatus to true when mouse movement is detected\
+    };
+  
+    // Add event listeners for touch and mouse interactions
+    window.addEventListener('touchstart', onTouchStart);
+    window.addEventListener('mousemove', onMouseMove);
+  
+    // Cleanup event listeners when component unmounts
+   
   }, []);
+  
 
 
 
@@ -190,7 +203,7 @@ export default function CursorAudio() {
       </audio>
 
       <Link href={`/auth/${isLoggedIn?"logout":"login"}`}><div className='auth-icon-box'>
-        {isLoggedIn? <IoLogOutOutline /> : <HiOutlineUser /> }
+        {isLoggedIn? <GrPowerShutdown stroke-width="1"/> : <GrPowerForceShutdown stroke-width="1" /> }
         
       </div></Link>
 
@@ -217,7 +230,7 @@ export default function CursorAudio() {
         </svg>
       </div>
 
-      {isTouchscreen || cursorStatus==true ?"":
+      {isTouchscreen && !cursorStatus ?'':
       <>
       <div className="cursor-lg" ref={bigCursorRef}></div>
       <div className="cursor-sm" ref={smCursorRef}></div>

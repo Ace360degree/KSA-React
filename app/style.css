@@ -1987,6 +1987,7 @@ body.dark .filter-box-control{
 }
 .filter-box li.selected{
   color: #0a0a0a;
+  font-weight: 400;
 }
 
 
@@ -2485,7 +2486,7 @@ body.dark .filter-box-control{
   position:relative;
   z-index:300;
   width: 100%;
-  min-height: 80vh;
+  min-height: 60vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2586,7 +2587,7 @@ body.dark .filter-box-control{
   width: 100%;
   background: #272727;
   border-radius: 30px;
-  padding: 8px;
+  padding: 6px;
   border: none;
   color: white;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
@@ -2753,6 +2754,10 @@ body.dark .filter-box-control{
 }
 
 
+.ideas-border{
+  border-top: 1px solid grey;
+  padding-top: 1.5rem;
+}
 
 
 
@@ -3030,6 +3035,10 @@ body.dark .filter-box-control{
   cursor:var(--pointer);
 }
 
+.ideas-item h5{
+  max-width: 850px;
+}
+
 .title-tohide.hidden{
   opacity:0;
 }
@@ -3113,13 +3122,14 @@ body.dark .filter-box-control{
 }
 
 .ideas-inner-title{
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 400;
   text-transform: uppercase;
 }
 
 .ideas-inner-content{
   font-size:1.2rem;
+  font-weight: 300;
 }
 
 .project-image-wrap{
@@ -3455,23 +3465,11 @@ body.dark .filter-box-control{
 }
 
 .map-section{
-  padding:14vh 0;
-}
-.map-section{
-  opacity:0;
-  -webkit-transform:translateY(200px);
-      -ms-transform:translateY(200px);
-          transform:translateY(200px);
-  -webkit-transition:all 0.9s ease;
-  -o-transition:all 0.9s ease;
-  transition:all 0.9s ease;
-}
-.map-section.active{
-  -webkit-transform:translateY(0);
-      -ms-transform:translateY(0);
-          transform:translateY(0);
+  padding:0;
   opacity:1;
 }
+
+
 
 .location-tag h4{
   font-weight:700;
@@ -3547,13 +3545,13 @@ body.dark .filter-box-control{
   position: fixed;
   bottom: 25px;
   left: 25px;
-  height: 30px;
-  width: 30px;
+  height: 32px;
+  width: 32px;
   opacity: 0.5;
   background: transparent;
   cursor: var(--pointer);
   border-radius: 500px;
-  border: 1px solid black;
+  border: none;
   z-index: 5000;
   text-align: center;
   transition: all 0.3s ease;
@@ -3568,7 +3566,7 @@ body.dark .filter-box-control{
 }
 
 .auth-icon-box svg{
-  height: 75%;
+  height: 100%;
   width: 100%;
 }
 
@@ -3845,7 +3843,7 @@ body.dark .filter-box-control{
 
 
 /*Mobile Responsive*/
-@media screen and (max-width:580px){
+@media screen and (max-width:780px){
   .home-content-control{
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
@@ -3858,7 +3856,12 @@ body.dark .filter-box-control{
     font-size: 12px;
     gap: 16px;
   }
-
+  .ideas-section-img{
+    margin-bottom: 4rem;
+  }
+  .ideas-inner-title{
+    font-size: 2.1rem;
+  }
   .project-info-section{
     min-height: auto;
   }
@@ -4017,14 +4020,14 @@ body.dark .filter-box-control{
       text-align: center;
   }
   .project-image-wrap{
-      width:75%;
+      width:85%;
       margin:auto;
   }
   .project-item-content {
     position: relative;
     left: 0;
     display: flex;
-    width: 75%;
+    width: 85%;
     white-space: normal;
     flex-direction: column-reverse;
   }
@@ -4125,6 +4128,7 @@ body.dark .filter-box-control{
     max-height: auto;
     min-height: auto;
     margin-top: 6rem;
+    margin-bottom: 4rem;
   }
   .ideas-inner-section {
     padding: 2rem;
@@ -4147,6 +4151,11 @@ body.dark .filter-box-control{
 
   .clock-indicator span ,.clock-indicator span em{
     height: 82px;
+  }
+
+  .page-title-animation {
+    font-size: 7rem;
+    line-height: 7rem;
   }
 
   #clock-bound-box{
@@ -4265,8 +4274,16 @@ body.dark .filter-box-control{
       font-size: 10rem;
   }
   .location-tag.london{
-      top: -36%;
+      top: -70%;
   }
+  .project-item-content{
+    left:92%;
+  }
+
+  .about-intro-sub{
+    font-size: 2rem;
+  }
+
   .location-tag{
       min-width: 500px;
   }
@@ -4290,7 +4307,7 @@ body.dark .filter-box-control{
       padding: 2rem 5rem;
   }
   .theme-input{
-      font-size: 2.8rem;
+      font-size:32px;
       border-radius: 4rem;
   }
   .form-row label {
@@ -4298,10 +4315,17 @@ body.dark .filter-box-control{
       margin-top: 3rem;
   }
   .btn-theme{
-      font-size: 1.6rem;
+      font-size: 32px;
       border-radius: 50px;
   }
-  
+
+  .file-name {
+    font-size: 26px;
+  }
+  .footer-icon{
+    height: 42px;
+    width:42px;
+  }
   
   .map-line::after {
       height: 14px;
