@@ -108,7 +108,7 @@ export default function ProjectInfo(){
             setHeights: true,
             overflowScroll: true,
             updateHash: false,
-            touchScroll: false,
+            touchScroll: true,
           });
       
           // Refresh ScrollTrigger after Scrollify initializes
