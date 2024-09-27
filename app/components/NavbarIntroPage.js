@@ -17,7 +17,7 @@ export default function NavbarIntroPage({heading,subheading}){
                     <div className="nav-logo">
                         <Link href={'/'}><div className="logo-main">KSA<span>{subHeading}</span></div></Link>
                         {smallHeading!=''? 
-                            <Link href={`/expertise?category=${smallHeading}`}><div className="header-content">{smallHeading}</div></Link>
+                            <Link href={`/expertise?category=${smallHeading}`}><div className="header-content signifier text-capitalize">{smallHeading}</div></Link>
                         : ''}
                     </div>
                     <div className="nav-img-logo">

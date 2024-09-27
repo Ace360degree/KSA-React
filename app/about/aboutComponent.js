@@ -124,11 +124,6 @@ export default function AboutComponent(){
     }, [showTabs]);
 
 
-    useEffect(()=>{
-        // $.scrollify.destroy();
-        $.scrollify.move(0);
-    },[])
-
     useEffect(() => {
         $(document).ready(function () {
           // Initialize Scrollify
@@ -155,6 +150,10 @@ export default function AboutComponent(){
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
       }, []);
 
+      useEffect(()=>{
+        // $.scrollify.destroy();
+        $.scrollify.move(0);
+    },[])
 
 
 
@@ -175,7 +174,7 @@ export default function AboutComponent(){
         </ul>
         
         {showTabs=='All' || showTabs=='culture'?
-        <div className="target-section signifier overflow-hidden" ref={mainBanner} id="culture">
+        <div className="target-section signifier" ref={mainBanner} id="culture">
             
             <div className="full-section px-4 about-snap" id="about-intro">
                 <div className=" text-uppercase">
@@ -219,8 +218,8 @@ export default function AboutComponent(){
         :''}
     
         {showTabs=='All' || showTabs=='discipline'?
-        <div className="target-section overflow-hidden position-relative" ref={AboutProjects} id="discipline">
-        <div className="full-section about-snap" id="ksa-slider">
+        <div className="target-section position-relative about-snap" ref={AboutProjects} id="discipline">
+        <div className="full-section " id="ksa-slider">
             <Link href={'/expertise'}><div className=" billy-text">
                 <div className="about-project-box">
                     <div className="about-item">
@@ -245,13 +244,14 @@ export default function AboutComponent(){
                     </div>
                 </div>
             </div></Link>
-        </div>
-        <div className="hello-about" style={{opacity:'0.5'}}>
+            <div className="hello-about" style={{opacity:'0.5'}}>
             <Link href={'/contact'}>
             <div className="white-stick"><div className="white-stick-content"></div></div>
             <div>Say Hello</div>
             </Link>
-        </div>    
+        </div>  
+        </div>
+          
         </div>
         :''}
 

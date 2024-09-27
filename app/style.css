@@ -196,7 +196,7 @@ body.dark{
 
 
 .header-content{
-  line-height: 9px;
+  line-height: 5px;
     margin-left: 5px;
     font-size: 12px;
     text-transform: uppercase;
@@ -383,6 +383,7 @@ body.dark .cursor-lg,body.dark .cursor-sm{
   -webkit-transition:all 0.9s ease;
   -o-transition:all 0.9s ease;
   transition:all 0.9s ease;
+  border-bottom: 1px solid grey;
 }
 
 #navbar{
@@ -392,6 +393,7 @@ body.dark .cursor-lg,body.dark .cursor-sm{
 #navbar.transparent{
 background: transparent !important;
 color: white !important;
+border-bottom: none;
 }
 
 
@@ -402,6 +404,7 @@ filter: invert(1);
 body.dark #navbar{
   color:var(--body-text-dark);
   background:var(--body-bg-dark);
+  border-bottom: none;
 }
 
 #navbar.active{
@@ -2275,7 +2278,7 @@ body.dark .filter-box-control{
 .border-left-info::before{
   content: "";
   position: absolute;
-  top:0;
+  top:-50%;
   left: 0;
   height: 500vh;
   width: 1px;
@@ -3312,7 +3315,7 @@ body.dark .filter-box-control{
 
 
 .hello-about{
-  position:sticky;
+  position:absolute;
   bottom:0;
   left:0;
   right:0;
@@ -3957,9 +3960,6 @@ body.dark .filter-box-control{
   #ksa-slider{
       height:auto !important;
       padding: 6rem 0;
-  }
-  .hello-about {
-      position:relative;
   }
   /*.contact-menu{*/
   /*    top: 64px;*/

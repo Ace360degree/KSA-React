@@ -7,7 +7,6 @@ export default function SetUserAuth(){
 
     useEffect(()=>{
         setLoggedIn();
-        alert('Logged in');
     },[])
 
     

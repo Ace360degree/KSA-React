@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
 import Link from 'next/link';
@@ -18,6 +18,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const paramsPage = searchParams.get('route');
 
   const { login } = useAuth();
 
@@ -40,7 +42,12 @@ export default function LoginPage() {
         setError(response.data.error);
       } else {
         // Redirect to the home page on successful login
-        router.push('/');
+        if(paramsPage){
+          router.push(paramsPage);
+        }else{
+          router.push('/');
+        }
+        
         login(); 
       }
     } catch (error) {

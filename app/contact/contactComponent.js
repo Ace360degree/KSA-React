@@ -87,6 +87,11 @@ export default function ContactComponent(){
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
       }, [showTabs]);
 
+      useEffect(()=>{
+        // $.scrollify.destroy();
+        $.scrollify.move(0);
+    },[])
+
 
     return(
         <>

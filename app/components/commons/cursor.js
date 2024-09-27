@@ -10,6 +10,8 @@ import { useAuth } from "@/app/context/AuthContext";
 import { IoLogOutOutline } from "react-icons/io5";
 import { GrPowerForceShutdown } from "react-icons/gr";
 import { GrPowerShutdown } from "react-icons/gr";
+import { usePathname, useRouter } from 'next/navigation';
+
 
 
 
@@ -17,6 +19,7 @@ import { GrPowerShutdown } from "react-icons/gr";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CursorAudio() {
+  const path = usePathname();
 
   const audioRef = useRef(null); // Ref to access the audio element
   const playSVGRef = useRef(null); // Ref for play SVG icon
@@ -202,7 +205,7 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <Link href={`/auth/${isLoggedIn?"logout":"login"}`}><div className='auth-icon-box'>
+      <Link href={`/auth/${isLoggedIn?"logout":`login?route=${path}`}`}><div className='auth-icon-box'>
         {isLoggedIn? <GrPowerShutdown stroke-width="1"/> : <GrPowerForceShutdown stroke-width="1" /> }
         
       </div></Link>

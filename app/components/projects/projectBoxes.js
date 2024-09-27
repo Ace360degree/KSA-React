@@ -43,7 +43,7 @@ export default function ProjectBoxes() {
     console.log(isLoggedIn);
     function ReRouteIt() {
       if(isLoggedIn===false && path ==='/expertise' ){
-        router.push('/auth/login')
+        router.push(`/auth/login?route=${path}`);
       }
     }
   },[])
@@ -132,7 +132,7 @@ export default function ProjectBoxes() {
       lastScrollTime = performance.now();
       touchStartY = currentTouchY;
   
-      const speed = dp / dt / 8;
+      const speed = dp / dt / 12;
   
       wrapper.style.setProperty("--speed", speed);
       wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
@@ -227,7 +227,7 @@ useEffect(() => {
 
     const currProject = allProjects[scrollerIndex] || allProjects[0];
     if (currProject) {
-      smoothScroll(currProject.offsetTop - 50, 100);
+      smoothScroll(currProject.offsetTop - 100, 100);
     }
   };
 

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ProjectSection from "../projectsSection";
 import dynamic from "next/dynamic";
 import gsap from "gsap/all";
+import ScrollTrigger from "gsap/all";
 import Image from "next/image";
 import CommonLoader from "@/app/components/commons/loaderCommon";
 import "jquery-scrollify";
@@ -24,10 +25,10 @@ const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor
   }) 
 
 
-
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectInfo(){
-
+    const [resized,setResized] =useState(1);
     const pathfull = useParams();
     const projectSlug  = pathfull.projectId;
     const [loading,setLoading] =useState(true);
@@ -93,31 +94,55 @@ export default function ProjectInfo(){
     // },[loading]);
 
     useEffect(() => {
-        $(document).ready(function () {
-          // Initialize Scrollify
-          $.scrollify.enable();
-          $.scrollify({
-            section: ".project-info-section",
-            sectionName: "project-info-section",
-            interstitialSection: "",
-            easing: "easeOutExpo",
-            scrollSpeed: 500,
-            offset: 0,
-            scrollbars: true,
-            standardScrollElements: "",
-            setHeights: true,
-            overflowScroll: true,
-            updateHash: false,
-            touchScroll: true,
-          });
-      
-          // Refresh ScrollTrigger after Scrollify initializes
-          ScrollTrigger.refresh();
-        });
+        const scrollifyFunction = ()=>{            
+            // Initialize Scrollify
+            console.log('Scrollify');
+            $.scrollify.enable();
+            $.scrollify({
+              section: ".project-info-section",
+              sectionName: "project-info-section",
+              interstitialSection: "",
+              easing: "easeOutExpo",
+              scrollSpeed: 500,
+              offset: 0,
+              scrollbars: true,
+              standardScrollElements: "",
+              setHeights: true,
+              overflowScroll: true,
+              updateHash: false,
+              touchScroll: true,
+            });
+                      
+        }
+        
+        scrollifyFunction();
+
+        
       
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
       }, [loading]);
 
+ 
+
+      useEffect(() => {
+        // Define the resize handler
+        const handleResize = () => {
+            setLoading(true); // Set loading to true on resize
+            clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
+            window.resizeTimeout = setTimeout(() => {
+                setLoading(false); // Set loading to false after 1 second (1000ms)
+            }, 1000);
+        };
+    
+        // Add the event listener for window resize
+        window.addEventListener("resize", handleResize);
+    
+        // Cleanup the resize event and timeout on component unmount
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            clearTimeout(window.resizeTimeout); // Clean up the timeout when the component unmounts
+        };
+    }, [resized]);
 
 
 

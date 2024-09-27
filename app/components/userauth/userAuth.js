@@ -9,6 +9,7 @@ export default function UserAuthorization(){
     let  userLoggedinTrue = false;
     if(userLoggedin && userLoggedin.value==true){
         userLoggedinTrue = userLoggedin.value;
+        console.log('true');
     }
 
     return(
