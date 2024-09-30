@@ -11,6 +11,7 @@ import Image from "next/image";
 import CommonLoader from "@/app/components/commons/loaderCommon";
 import "jquery-scrollify";
 import $ from "jquery";
+import NavbarIntroPageUnderline from "@/app/components/NavbarUnderline";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
@@ -157,7 +158,7 @@ export default function ProjectInfo(){
             <>
             <CheckNavTransparent/> 
             <SliderCursor/>
-            <NavbarIntroPage heading={'Expertise'} subheading={project.category}/>
+            <NavbarIntroPageUnderline heading={'Expertise'} subheading={project.category}/>
             
             
             <div className="project-banner project-info-section ">

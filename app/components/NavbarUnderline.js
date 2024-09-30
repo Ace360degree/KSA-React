@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
-export default function NavbarIntroPage({heading,subheading}){
+export default function NavbarIntroPageUnderline({heading,subheading}){
 
     const [subHeading,setSubHead]= useState(heading);
     const [smallHeading,setsmallHeading]= useState(subheading);
@@ -12,7 +12,7 @@ export default function NavbarIntroPage({heading,subheading}){
 
     return(
         <>
-            <div id="navbar" className='active' >
+            <div id="navbar" className="active underline-nav" >
                 <div className="navbar-control">
                     <div className="nav-logo">
                         <Link href={'/'}><div className="logo-main">KSA<span>{subHeading}</span></div></Link>

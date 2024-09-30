@@ -6,24 +6,35 @@ export default function CheckNavTransparent() {
     useEffect(() => {
         const navbar = document.getElementById('navbar');
         const heroImages = document.querySelectorAll('.hero-image');
+        const projectSections = document.querySelectorAll('.remove-transparent');
         const transparentClass = 'transparent';
-        let isScrolling;
+        let intervalId;
 
         function checkNavbarPosition() {
             let shouldAddTransparent = false;
 
+            // Recalculate navbar's position in every check
+            const navbarRect = navbar.getBoundingClientRect();
+
             // Iterate over all hero images
             heroImages.forEach(heroImage => {
-                const navbarRect = navbar.getBoundingClientRect();
                 const heroRect = heroImage.getBoundingClientRect();
-
+                
                 // Check if the navbar is close to or overlapping with the current hero image
                 if (navbarRect.top <= heroRect.bottom && navbarRect.bottom >= heroRect.top) {
                     shouldAddTransparent = true;
                 }
             });
 
-            // Add or remove the transparent class based on the condition
+            // Check against project sections to remove transparency
+            projectSections.forEach(projectSection => {
+                const projectRect = projectSection.getBoundingClientRect();
+                if (navbarRect.top <= projectRect.bottom && navbarRect.bottom >= projectRect.top) {
+                    shouldAddTransparent = false;
+                }
+            });
+
+            // Add or remove the transparent class based on the conditions
             if (shouldAddTransparent) {
                 navbar.classList.add(transparentClass);
             } else {
@@ -31,26 +42,14 @@ export default function CheckNavTransparent() {
             }
         }
 
-        // Function to detect when scrolling stops
-        function handleScroll() {
-            // Clear the previous timeout to debounce
-            clearTimeout(isScrolling);
+        // Check every 200ms
+        intervalId = setInterval(() => {
+            checkNavbarPosition();
+        }, 200);
 
-            // Set a timeout to run after scroll settles (100ms delay)
-            isScrolling = setTimeout(() => {
-                checkNavbarPosition(); // Check position when scroll has stopped
-            }, 100);
-        }
-
-        // Initial check when the page loads
-        checkNavbarPosition();
-
-        // Add scroll event listener to check when scrolling stops
-        window.addEventListener('scroll', handleScroll);
-
-        // Cleanup event listener on component unmount
+        // Cleanup interval on component unmount
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            clearInterval(intervalId);
         };
     }, []);
 

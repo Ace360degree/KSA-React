@@ -56,7 +56,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
 
   if (section.section_type == 1) {
     return (
-      <div className="project-info-section full-bleed-image  project-border-bottom" ref={InfoSection}>
+      <div className="project-info-section remove-transparent full-bleed-image  project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
           <div className="col-md-4 col-lg-7">
             <div className="project-image-info">
@@ -77,7 +77,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
   } else if (section.section_type == 2) {
     return (
       <div className='overflow-hidden'>
-      <div className="project-info-section project-border-bottom" ref={InfoSection}>
+      <div className="project-info-section remove-transparent project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
           <div className="col-md-4 col-lg-7">
             <div className="project-image-info">
@@ -134,7 +134,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
   }
   else if (section.section_type == 5) {
     return (
-      <div ref={InfoSection}  style={{transition:'all 1.2s ease'}}>
+      <div ref={InfoSection} className='remove-transparent'  style={{transition:'all 1.2s ease'}}>
         <ProjectEssencials essecials={essecials} points={points} />
       </div>
     );

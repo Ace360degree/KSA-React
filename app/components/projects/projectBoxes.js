@@ -231,10 +231,23 @@ useEffect(() => {
     }
   };
 
+  let lastScrollerIndex = -1;
+
   const rotateSecondsHandsNormal = () => {
+    // Increment and wrap around if necessary
     scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+
+    // Ensure the new index is different from the last used index
+    while (scrollerIndex === lastScrollerIndex) {
+        scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+    }
+
+    // Update the lastScrollerIndex to the current one
+    lastScrollerIndex = scrollerIndex;
+
+    // Call the function with the new scrollerIndex
     initProjects();
-  };
+};
   initProjects();
 
   function updateScrollerIndex() {
@@ -480,7 +493,7 @@ useEffect(() => {
           ))}
         </div>
       </div>
-      <div className="overflow-x-hidden">
+      <div className="project-overflow">
       <div id="projects-Scroller" ref={projectScrollerRef}>
         <div className="projects-main">
           
