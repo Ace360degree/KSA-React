@@ -57,14 +57,11 @@ export default function ProjectBoxes() {
 
   useEffect(()=>{
     async function getProjectsAPI(){
-
-      const fetchProjects = await fetch('/api/get-projects', {
+      const timestamp = Date.parse(new Date().toString());
+      const fetchProjects = await fetch(`/api/get-projects?tid=${timestamp}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        next: {
-          revalidate: 3600, // 1 hour
         },
         cache: 'no-store', // Ensure fetch does not cache the response
       });
