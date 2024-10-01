@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import { useAuth } from "@/app/context/AuthContext";
+import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
@@ -61,6 +62,9 @@ export default function ProjectBoxes() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+        },
+        next: {
+          revalidate: 3600, // 1 hour
         },
         cache: 'no-store', // Ensure fetch does not cache the response
       });
