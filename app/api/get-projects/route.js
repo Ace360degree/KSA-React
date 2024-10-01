@@ -12,8 +12,15 @@ export async function GET(){
 
     const projects = rows[0];  // First query result
     const categories = rows[1];  // Second query result
+    // res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    // return NextResponse.json({projects, categories});
 
-    return NextResponse.json({projects, categories});
+    const response = NextResponse.json({ projects, categories });
+
+    // Set cache-control headers to prevent caching
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    return response;
+
 
 
 }
