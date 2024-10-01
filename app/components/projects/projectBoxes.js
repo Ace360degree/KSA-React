@@ -58,8 +58,7 @@ export default function ProjectBoxes() {
 
   useEffect(()=>{
     async function getProjectsAPI(){
-      const timestamp = Date.parse(new Date().toString());
-      const fetchProjects = await fetch(`/api/get-projects?tid=${timestamp}`, {
+      const fetchProjects = await fetch(`/api/get-projects`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

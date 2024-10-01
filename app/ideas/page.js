@@ -81,7 +81,7 @@ export default  function Ideas(){
         gsap.fromTo(headAnim,{
             background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
         },{
-            background:'conic-gradient(from 0deg, transparent 150% , black 150% )',
+            background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
             duration:1.5,
             ease: "power3.inOut",
             delay:0,

@@ -45,8 +45,8 @@ export default function ProjectIntro(){
         gsap.fromTo(headAnim,{
             background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
         },{
-            background:'conic-gradient(from 0deg, transparent 150% , black 150% )',
-            duration:2,
+            background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
+            duration:1.5,
             ease: "power3.inOut",
             delay:0,
         });
@@ -85,8 +85,8 @@ export default function ProjectIntro(){
             document.querySelector('body').classList.remove('loading')
             setTimeout(()=>{
                 setVisited();
-            },3000)
-        },3000)
+            },2000)
+        },2000)
         
     }, 5000); 
     },[]);

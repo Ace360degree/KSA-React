@@ -19,7 +19,7 @@ export async function GET(){
     const response = NextResponse.json({ projects, categories });
 
     // Set cache-control headers to prevent caching
-    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    // response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     return response;
 
 

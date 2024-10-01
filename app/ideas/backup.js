@@ -111,15 +111,19 @@ export default function IdeasBackup() {
         });
 
         const headAnim = document.querySelector('.head-anim');
+        const conicAnimation = gsap.timeline();
+        conicAnimation.to(headAnim,{background: 'conic-gradient(from 0deg, transparent 0%, black 0%)'})
+                        .to(headAnim,{background: 'conic-gradient(from 0deg, transparent 100%, black 100%)',duration:2})
+                        .to(headAnim,{background: 'conic-gradient(from 0deg, transparent 100%, black 120%)',duration:0.1})
         setTimeout(() => {
-            gsap.fromTo(headAnim, {
-                background: 'conic-gradient(from 0deg, transparent 0%, black 0%)',
-            }, {
-                background: 'conic-gradient(from 0deg, transparent 100%, black 100%)',
-                duration: 1.5,
-                ease: "power3.inOut",
-            });
-
+            // gsap.fromTo(headAnim, {
+                
+            // }, {
+            //     background: 'conic-gradient(from 0deg, transparent 100%, black 110%)',
+            //     duration: 1.5,
+            //     ease: "power3.inOut",
+            // });
+            conicAnimation.play();  
             document.querySelector('.project-heads').style.display = 'none';
         }, 5000);
     }, [isLoaded]);
