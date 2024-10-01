@@ -152,7 +152,7 @@ export default function HomeMenu() {
     <>
       <UserClock />
       <ScrollifyDisabled/>
-      <div className="h-100">
+      <div className="">
         <div className="home-content-control">
           <div className="home-content">
             <h4 className="hero-sub">We Are</h4>

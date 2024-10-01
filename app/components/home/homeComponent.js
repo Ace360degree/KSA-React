@@ -409,7 +409,7 @@ export default function HomeComponent(){
                     <h1 className="intro-title">
                         <div className="intro-sm-title intro-txbx"><span>Bringing</span></div> 
                         <div className="intro-lg-title intro-txbx"><span className="expnad-imgn-txt">Imagination</span></div> 
-                        <div className="intro-sm-title intro-txbx mobile-to-life" style={{lineHeight:'3.5vw'}} ><span>to Life</span></div>
+                        <div className="intro-sm-title intro-txbx mobile-to-life bil-sml-gap" ><span>to Life</span></div>
                     </h1>
                 </div>
             </div>

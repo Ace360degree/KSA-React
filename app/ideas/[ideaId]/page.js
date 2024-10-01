@@ -85,7 +85,7 @@ export default function IdeasPage(){
                     : 
                     <motion.img initial={{scale:0.8}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+idea.image} />
                     }
-                    <div className="row mt-3 align-items-center">
+                    <div className="row ideas-border mt-3 align-items-center">
                         <div className="col-md-6">
                             <h2 className="ideas-inner-title signifier">{idea.title}</h2>
                         </div>

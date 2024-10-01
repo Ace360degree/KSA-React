@@ -522,8 +522,8 @@ useEffect(() => {
                   </Link>
                 </div>
                 <div className="project-item-content">
-                  <h6>{project.description}</h6>
                   <h4>{project.project_name}</h4>
+                  <h6>{project.description}</h6>
                 </div>
               </div>
             </div>

@@ -372,6 +372,7 @@ body.dark .cursor-lg,body.dark .cursor-sm{
   top:0;
   left:0;
   width:100%;
+  max-width: 100vw;
   height:var(--nav-height);
   background:var(--body-bg-light);
   z-index:900;
@@ -483,7 +484,7 @@ body.dark #navbar{
   font-size: 12px;
   line-height: 8px;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 200;
   letter-spacing: 1px;
 }
 
@@ -568,7 +569,8 @@ body.dark #navbar{
 }
 
 .home-content-control{
-  height: 100%;
+  height: 100vh;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -582,6 +584,7 @@ body.dark #navbar{
   -webkit-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .home-content-control.hide{
@@ -1465,6 +1468,7 @@ i.close-menu{
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .menu-screen.active{
@@ -1537,10 +1541,15 @@ i.close-menu{
 .menu-link li{
   display: block;
   opacity:0;
+  margin: 2rem 0;
   -webkit-transition: all 0.9s cubic-bezier(0.26, 0.03, 0.37, 0.97);
   -o-transition: all 0.9s cubic-bezier(0.26, 0.03, 0.37, 0.97);
   transition: all 0.9s cubic-bezier(0.26, 0.03, 0.37, 0.97);
 
+}
+
+.bil-sml-gap{
+  line-height: 3.2rem;
 }
 
 #leftMenu .menu-link li{
@@ -1926,7 +1935,7 @@ body.dark .clock-indicator span{
 }
 
 .slider-texts h2{
-  font-size: 5vw;
+  font-size: 5rem;
   -webkit-transform:scale(1.8);
       -ms-transform:scale(1.8);
           transform:scale(1.8);
@@ -1946,8 +1955,8 @@ body.dark .clock-indicator span{
 
 .slider-texts h4{
   font-weight: 100;
-  font-size: 2.5vw;
-  line-height: 2vw;
+  font-size: 2rem;
+  line-height: 2rem;
   opacity:0;
   text-shadow: 0 0 5px black;
   text-transform: uppercase;
@@ -2253,7 +2262,7 @@ body.dark .filter-box-control{
 .project-image-info h4{
   font-family: 'Signifier',serif;
   font-size: 1.6vw;
-  font-weight: 500;
+  font-weight: 200;
 }
 
 .project-border-bottom{
@@ -2317,9 +2326,10 @@ body.dark .filter-box-control{
 .glance-side-title{
   font-size: 28px;
   font-weight: 300;
-  color: dimgrey;
+  color: #bdbdbd;
   text-transform: uppercase;
   margin:0;
+  margin-bottom: 1.4rem;
 }
 
 .glance-points{
@@ -3167,6 +3177,8 @@ body.dark .filter-box-control{
   font-size: 2.6rem;
   font-weight: 400;
   text-transform: uppercase;
+  text-align: right;
+  padding-right: 28px;
 }
 
 .ideas-inner-content{
@@ -3903,8 +3915,13 @@ body.dark .filter-box-control{
   .ideas-section-img{
     margin-bottom: 4rem;
   }
+  .menu-link li{
+    margin: 8px 0;
+  }
   .ideas-inner-title{
     font-size: 2.1rem;
+    text-align: left;
+    padding: 0;
   }
   .project-info-section{
     min-height: auto;
@@ -4067,10 +4084,8 @@ body.dark .filter-box-control{
   .project-item-content {
     position: relative;
     left: 0;
-    display: flex;
     width: 85%;
     white-space: normal;
-    flex-direction: column-reverse;
     max-width: 380px;
   }
   #projects-Scroller {
@@ -4118,14 +4133,14 @@ body.dark .filter-box-control{
   }
   
   .slider-texts h2{
-      font-size: 3rem;
-      line-height: 3rem;
+      font-size: 32px;
+      line-height: 30px;
       margin-bottom:8px;
   }
   
   .slider-texts h4 {
-      font-size: 1.4rem;
-      line-height: 1.4rem;
+      font-size: 16px;
+      line-height: 16px;
   }
   .project-title h2 {
       font-size: 3.5rem;
@@ -4201,6 +4216,20 @@ body.dark .filter-box-control{
     height: 82px;
   }
 
+  .intro-lg-title{
+    line-height: 8rem;
+    font-size: 8rem;
+  }
+  .intro-sm-title{
+    font-size: 6rem;
+    line-height: 6rem;
+  }
+
+
+  .bil-sml-gap{
+    line-height: 3.5rem;
+  }
+
   .page-title-animation {
     font-size: 7rem;
     line-height: 7rem;
@@ -4240,16 +4269,16 @@ body.dark .filter-box-control{
   
   .side-menu.left{
       left: 3vw;
-      -webkit-transform: scale(1.8) translateX(10px);
-          -ms-transform: scale(1.8) translateX(10px);
-              transform: scale(1.8) translateX(10px);
+      -webkit-transform: scale(1.5) translateX(10px);
+          -ms-transform: scale(1.5) translateX(10px);
+              transform: scale(1.5) translateX(10px);
   }
   
   .side-menu.right{
       right: 3vw;
-      -webkit-transform:scale(1.8) translateX(-10px);
-          -ms-transform:scale(1.8) translateX(-10px);
-              transform:scale(1.8) translateX(-10px);
+      -webkit-transform:scale(1.5) translateX(-10px);
+          -ms-transform:scale(1.5) translateX(-10px);
+              transform:scale(1.5) translateX(-10px);
   }
   
   .menu-screen{
@@ -4282,9 +4311,21 @@ body.dark .filter-box-control{
   }
   
   .filter-box{
-      font-size:22px;
+      font-size:20px;
+  }
+
+  .projects-clock{
+    transform: scale(0.8);
+    overflow: visible;
+  }
+  .projects-clock .user-clock-seconds span{
+    height: 500vh;
   }
   
+  .filter-box-control{
+    padding-top: 28px;
+  }
+
   .about-para {
       font-size: 3rem;
       line-height: 3rem;
@@ -4294,39 +4335,52 @@ body.dark .filter-box-control{
       line-height: 40px;
   }
   .logo-main span {
-      font-size: 22px;
-      line-height: 22px;
+        font-size: 18px;
+        line-height: 18px;
+        font-family: 'signifier';
   }
   .top-section-filter{
-      font-size:28px;
+      font-size:24px;
   }
   .ksa-logo{
       width: 60px !important;
   }
   .about-item h4{
-      font-size:3rem;
+      font-size:2.4rem;
   }
   .contact-menu{
       gap: 30px;
   }
   .contact-menu li{
-      font-size: 28px;
+      font-size: 24px;
       
   }
   .office-section {
       max-width: 1600px;
   }
   .map-section {
-      padding: 24vh 0;
+      padding: 10vh 0;
   }
   .contact-title-text ,.contact-title-text span:nth-child(2){
       font-size: 10rem;
   }
   .location-tag.london{
-      top: -70%;
+      top: -31%;
+  }
+  .location-tag.mumbai{
+    top: 102%;
   }
   .project-item-content{
-    left:92%;
+    left:102%;
+  }
+  
+  .header-content {
+    line-height: 18px;
+    font-size: 18px;
+  }
+
+  .project-image-info h4{
+    font-size: 30px;
   }
 
   .about-intro-sub{
@@ -4337,10 +4391,10 @@ body.dark .filter-box-control{
       min-width: 500px;
   }
   .location-tag h4 {
-      font-size: 4rem;
+      font-size: 46px;
   }
   .location-tag h6 {
-      font-size: 2.5rem;
+      font-size: 24px;
   }
   .social-links i {
       font-size: 52px;
@@ -4352,24 +4406,24 @@ body.dark .filter-box-control{
       font-size:2.8rem;
   }
   .contact-form-box {
-      max-width: 800px;
+      max-width: 680px;
       padding: 2rem 5rem;
   }
   .theme-input{
-      font-size:32px;
-      border-radius: 4rem;
+      font-size:24px;
+      border-radius: 1.8rem;
   }
   .form-row label {
-      font-size: 2rem;
+      font-size: 24px;
       margin-top: 3rem;
   }
   .btn-theme{
-      font-size: 32px;
+      font-size: 24px;
       border-radius: 50px;
   }
 
   .file-name {
-    font-size: 26px;
+    font-size: 24px;
   }
   .footer-icon{
     height: 42px;
@@ -4415,10 +4469,10 @@ body.dark .filter-box-control{
       max-width: 1800px;
   }
   .ideas-item h2 {
-      font-size: 8rem;
+      font-size: 5rem;
   }
   .ideas-item h5 {
-      font-size: 22px;
+      font-size: 20px;
   }
   .ideas-img-section {
       width: 70%;
@@ -4438,12 +4492,12 @@ body.dark .filter-box-control{
   }
   
   .projects-items{
-      max-width: 1000px;
+      max-width: 780px;
   }
   
   .project-info-highlights h2{
       font-size: 6rem;
-      font-weight: 300;
+      font-weight: 200;
   }
   
   .project-info-highlights h4{
@@ -4451,15 +4505,15 @@ body.dark .filter-box-control{
   }
   
   .project-info-highlights{
-      margin-bottom:14rem;
+      margin-bottom:12rem;
   }
   
   .glance-side-title {
-      font-size: 3rem;
+      font-size: 36px;
   }
   .glance-points {
-      font-size: 2.1rem;
-      line-height: 2.4rem;
+    font-size: 28px;
+    line-height: 32px;
       margin-bottom: 5rem;
   }
   .essential-title{
@@ -4492,7 +4546,7 @@ body.dark .filter-box-control{
   }
   
 }
-
+/* 
 @media screen and (min-width:2800px){
   #clock{
       -webkit-transform: scale(2);
@@ -4717,7 +4771,7 @@ body.dark .filter-box-control{
   .padding-points{
       padding-left: 10rem;
   }
-}
+} */
 
 
 

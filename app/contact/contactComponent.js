@@ -188,7 +188,7 @@ export default function ContactComponent() {
 
                                 <div className="form-row">
                                     <label>Attach File</label>
-                                    <div className="file-upload-container px-4">
+                                    <div className="file-upload-container ">
                                         <label htmlFor="fileInput" className="input-file-label w-100">Upload</label>
                                         <input
                                             type="file"
