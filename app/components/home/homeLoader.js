@@ -30,7 +30,7 @@ export default function HomeLoader(){
                 gsap.fromTo(homeGrad.current,{
                     background:'conic-gradient(from 45deg, black 0%, transparent 0%)',
                 },{
-                    background:'conic-gradient(from 45deg, black 100%, transparent 100%)',
+                    background:'conic-gradient(from 45deg, black 150%, transparent 150%)',
                     duration:2.5,
                     ease: "power3.inOut",
                     delay:0,

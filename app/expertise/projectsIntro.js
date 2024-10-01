@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import gsap from "gsap";
+import dynamic from "next/dynamic";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useVisitedProjectsStore } from "../states/store/projectsStore";
 
@@ -44,8 +45,8 @@ export default function ProjectIntro(){
         gsap.fromTo(headAnim,{
             background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
         },{
-            background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
-            duration:1.5,
+            background:'conic-gradient(from 0deg, transparent 150% , black 150% )',
+            duration:2,
             ease: "power3.inOut",
             delay:0,
         });
@@ -84,8 +85,8 @@ export default function ProjectIntro(){
             document.querySelector('body').classList.remove('loading')
             setTimeout(()=>{
                 setVisited();
-            },2000)
-        },2000)
+            },3000)
+        },3000)
         
     }, 5000); 
     },[]);
