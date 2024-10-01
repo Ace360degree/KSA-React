@@ -8,7 +8,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { useAuth } from "@/app/context/AuthContext";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-export const dynamic = 'force-dynamic';
 
 
 
@@ -65,7 +64,9 @@ export default function ProjectBoxes() {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store', // Ensure fetch does not cache the response
+        
+        cache: 'no-store',
+        revalidate:0, 
       });
 
       const getProjects = await (fetchProjects.json());
