@@ -57,7 +57,7 @@ export default function ProjectBoxes() {
   useEffect(()=>{
     async function getProjectsAPI(){
 
-      const fetchProjects = await fetch('/api/get-projects',{method:'GET',headers: {'Content-Type': 'application/json',}});
+      const fetchProjects = await fetch('/api/get-projects',{method:'GET',headers: {'Content-Type': 'application/json',}},{ cache: 'no-store' });
       const getProjects = await (fetchProjects.json());
       
       setProjects(getProjects.projects);
