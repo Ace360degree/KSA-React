@@ -86,7 +86,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
             </div>
           </div>
           <div className="col-md-8 col-lg-5">
-            <div className="project-info-image">
+            <div className="project-info-image info-slider-section">
               <Splide options={SliderSettings}>
                 {slides.slides.map((slide, index) => (
                   <SplideSlide key={index}>

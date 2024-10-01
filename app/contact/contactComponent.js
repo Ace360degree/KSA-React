@@ -210,7 +210,7 @@ export default function ContactComponent() {
                 : ''}
 
             {showTabs === 'All' || showTabs === 'offices' ?
-                <div className="contact-accordion active contact-snap" id="offices">
+                <div className="contact-section-tab contact-snap" id="offices">
                     <div className="map-section active">
                         <div className="office-section ">
                             <div className="image-mapped">
@@ -233,8 +233,7 @@ export default function ContactComponent() {
                     </div>
 
                     <div className="contact-footer mt-5">
-                        <div className="footer-brand">KSA 2024</div>
-                        <div className="follow-us-text">Follow us on</div>
+                        <div className="footer-brand">© KSA 2024</div>
                         <div className="social-links">
                             <Link href={'#'}><FaFacebook className="footer-icon" size={22} /></Link>
                             <Link href={'#'}><FaInstagram className="footer-icon" size={22} /></Link>

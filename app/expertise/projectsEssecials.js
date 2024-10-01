@@ -54,10 +54,10 @@ export default function ProjectEssencials({essecials,points}){
     <>
         <div class="project-info-section" id="project-counter">
             <div class="border-section"> 
-                <div class="row m-0 g-0">
+                <div class="row m-0 g-0 mobile-signifier">
                     
                     <div class="col-md-3">
-                        <div class="p-4">
+                        <div class="project-title-padding">
                         <h4 class="fs-1 fw-light essential-title">Project Essentials</h4>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ export default function ProjectEssencials({essecials,points}){
                                 </div>
                                 
                                 <div class="col-md-8 ">
-                                    <div class="row g-5 padding-points">
+                                    <div class="row g-3 g-md-5 padding-points">
                                         {/* Loop for Points Counter  */}
                                         {points.map((point,index)=>(
                                         <div class="col-md-6 col-6" key={index}>

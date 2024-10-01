@@ -7,6 +7,7 @@ export default function CheckNavTransparent() {
         const navbar = document.getElementById('navbar');
         const heroImages = document.querySelectorAll('.hero-image');
         const projectSections = document.querySelectorAll('.remove-transparent');
+        const SVGIcons = document.querySelectorAll('.change-svg');
         const transparentClass = 'transparent';
         let intervalId;
 
@@ -37,8 +38,14 @@ export default function CheckNavTransparent() {
             // Add or remove the transparent class based on the conditions
             if (shouldAddTransparent) {
                 navbar.classList.add(transparentClass);
+                SVGIcons.forEach((curr)=>{
+                    curr.classList.add('light');
+                })
             } else {
                 navbar.classList.remove(transparentClass);
+                SVGIcons.forEach((curr)=>{
+                    curr.classList.remove('light');
+                })
             }
         }
 

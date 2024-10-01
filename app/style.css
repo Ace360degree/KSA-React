@@ -480,12 +480,13 @@ body.dark #navbar{
 }
 
 .logo-main span{
-  display: block;
-  font-size: 12px;
-  line-height: 8px;
-  text-transform: uppercase;
-  font-weight: 200;
-  letter-spacing: 1px;
+    display: block;
+    font-size: 12px;
+    line-height: 5px;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-family: 'Signifier', serif;
 }
 
 
@@ -569,8 +570,8 @@ body.dark #navbar{
 }
 
 .home-content-control{
-  height: 100vh;
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1355,13 +1356,13 @@ i.close-menu{
   -webkit-box-direction:normal;
       -ms-flex-direction:column;
           flex-direction:column;
-  gap:4px;
+  gap:8px;
 }
 
 .menu-circles span{
   background:white;
-  height:8px;
-  width:8px;
+  height:5px;
+  width:5px;
   border-radius:8px;
   -webkit-transition:all 0.3s ease;
   -o-transition:all 0.3s ease;
@@ -1384,9 +1385,9 @@ i.close-menu{
 .side-menu.active .menu-circles span:nth-child(2){
   height: 14px;
   width: 2px;
-  -webkit-transform: rotate(45deg) translateX(4px)scale(1.4);
-      -ms-transform: rotate(45deg) translateX(4px)scale(1.4);
-          transform: rotate(45deg) translateX(4px)scale(1.4);
+  -webkit-transform: rotate(45deg) translateX(3px)scale(1.4);
+      -ms-transform: rotate(45deg) translateX(3px)scale(1.4);
+          transform: rotate(45deg) translateX(3px)scale(1.4);
   -webkit-animation:none;
           animation:none;
 }
@@ -1394,9 +1395,9 @@ i.close-menu{
 .side-menu.active .menu-circles span:nth-child(3){
   height: 14px;
   width: 2px;
-  -webkit-transform: rotate(-45deg) translateX(13px) translateY(-9px) scale(1.4);
-      -ms-transform: rotate(-45deg) translateX(13px) translateY(-9px) scale(1.4);
-          transform: rotate(-45deg) translateX(13px) translateY(-9px) scale(1.4);
+  -webkit-transform: rotate(-45deg) translateX(15px) translateY(-12px) scale(1.4);
+      -ms-transform: rotate(-45deg) translateX(15px) translateY(-12px) scale(1.4);
+          transform: rotate(-45deg) translateX(15px) translateY(-12px) scale(1.4);
   -webkit-animation:none;
           animation:none;
 }
@@ -2527,12 +2528,7 @@ body.dark .filter-box-control{
 
 .contact-accordion{
   overflow:hidden;
-  max-height:0;
 }
-.contact-accordion.active{
-  max-height:100000px;
-}
-
 
 .contact-main-section,.office-section{
   position:relative;
@@ -2785,6 +2781,20 @@ body.dark .filter-box-control{
   padding-bottom: 18px;
 }
 
+.contact-section-tab{
+  position: relative;
+  max-height: 90vh;
+}
+
+.contact-footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 16px;
+}
+
 .social-links{
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2797,7 +2807,7 @@ body.dark .filter-box-control{
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 10px 0;
+  margin: 4px 0;
 }
 
 .social-links i{
@@ -2808,9 +2818,25 @@ body.dark .filter-box-control{
 
 .ideas-border{
   border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
   padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  overflow: hidden;
 }
 
+.title-border-ideas{
+  position: relative;
+}
+
+.title-border-ideas::before{
+  content: "";
+  position: absolute;
+  height: 200%;
+  top:-50%;
+  right: 0;
+  background-color: grey;
+  width: 1px;
+}
 
 
 .top-menu{
@@ -3558,22 +3584,22 @@ body.dark .filter-box-control{
 
 .close-projects{
   position: fixed;
-  bottom: 4vh;
-  left: 0;
-  right: 0;
-  margin: auto;
-  height: 35px;
-  width: 35px;
-  line-height: 26px;
-  font-size: 20px;
-  background: transparent;
-  z-index: 900;
-  color: black;
-  border-radius: 60px;
-  border: 1px solid black;
-  text-align: center;
-  opacity: 0.6;
-  cursor: var(--pointer);
+    bottom: 18px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30px;
+    width: 29px;
+    line-height: 24px;
+    font-size: 17px;
+    background: transparent;
+    z-index: 900;
+    color: black;
+    border-radius: 60px;
+    border: 1px solid black;
+    text-align: center;
+    opacity: 0.6;
+    cursor: var(--pointer);
 }
 
 
@@ -3618,6 +3644,7 @@ body.dark .filter-box-control{
   filter: invert(1);
 }
 
+
 .auth-icon-box svg{
   height: 100%;
   width: 100%;
@@ -3625,9 +3652,24 @@ body.dark .filter-box-control{
 
 .auth-icon-box svg path{
   stroke:black;
+  stroke-width: 1px;
 }
 
+.change-svg.light svg path{
+  stroke: white;
+}
+.audio-box.change-svg.light svg path,.audio-box.change-svg.light svg line{
+  fill: white;
+  stroke: white;
+}
 
+.audio-box.change-svg.light{
+  border: 1px solid white;
+}
+
+.info-slider-section{
+  padding: 24px;
+}
 
 .audio-box{
   position: fixed;
@@ -3816,6 +3858,10 @@ body.dark .filter-box-control{
   opacity:0.5;
 }
 
+.project-title-padding{
+  padding: 4rem;
+}
+
 
 
 
@@ -3877,9 +3923,6 @@ body.dark .filter-box-control{
     height: 40px;
     width: 40px;
   }
-  .footer-brand{
-    font-size: 2rem;
-  }
   .follow-us-text{
     font-size: 1.6rem;
   }
@@ -3904,6 +3947,25 @@ body.dark .filter-box-control{
               flex-direction: column;
       padding:5rem 0;
   }
+  .project-title-padding{
+    padding: 0 1.5rem;
+  }
+  .mobile-signifier{
+    font-family: 'signifier',serif !important;
+  }
+
+  .glance-side-title{
+    font-size: 14px;
+    margin-bottom:0;
+  }
+
+  .glance-points{
+    font-size: 14px;
+    line-height: 14px;
+    margin-bottom:18px;
+  }
+
+
   .top-section-filter{
     top: 26px;
     font-size: 12px;
@@ -3938,9 +4000,6 @@ body.dark .filter-box-control{
   }
   .btn-theme {
     font-size: 14px;
-  }
-  .footer-brand {
-    font-size: 1.5rem;
   }
   .follow-us-text {
     font-size: 1.2rem;
@@ -4158,9 +4217,6 @@ body.dark .filter-box-control{
   .project-images-slider{
       padding-bottom:10vh;
   }
-  .glance-points{
-      margin-bottom:2.5rem;
-  }
   .glance-sections {
     margin-bottom: 0rem;
   }
@@ -4168,11 +4224,11 @@ body.dark .filter-box-control{
     margin-bottom: 0rem;
 }
   .project-info-highlights h2{
-      font-size: 40px;
+      font-size: 26px;
       font-weight:300;
   }
   .project-info-highlights h4{
-      font-size: 20px;
+      font-size: 14px;
   }
   .padding-points{
       border-top: 1px solid grey;
@@ -4216,6 +4272,11 @@ body.dark .filter-box-control{
     height: 82px;
   }
 
+
+  .contact-footer{
+    font-size: 22px;
+  }
+
   .intro-lg-title{
     line-height: 8rem;
     font-size: 8rem;
@@ -4253,12 +4314,12 @@ body.dark .filter-box-control{
       font-size: 1.8rem;
   }
   .audio-box {
-      height: 54px !important;
-      width: 54px !important;
+      height: 42px !important;
+      width: 42px !important;
   }
   .audio-box svg {
-      height: 54px !important;
-      width: 44px !important;
+      height: 42px !important;
+      width: 35px !important;
   }
   
   .cursor-lg {
@@ -4402,9 +4463,6 @@ body.dark .filter-box-control{
   .follow-us-text{
       font-size:2rem;
   }
-  .footer-brand{
-      font-size:2.8rem;
-  }
   .contact-form-box {
       max-width: 680px;
       padding: 2rem 5rem;
@@ -4426,8 +4484,8 @@ body.dark .filter-box-control{
     font-size: 24px;
   }
   .footer-icon{
-    height: 42px;
-    width:42px;
+    height: 30px;
+    width:30px;
   }
   
   .map-line::after {
@@ -4435,6 +4493,11 @@ body.dark .filter-box-control{
       width: 14px;
       left: -6px;
   }
+
+  .contact-section-tab{
+    max-height: 94vh;
+  }
+
   .map-line::before{
       height: 50px;
       width: 50px;
@@ -4532,10 +4595,10 @@ body.dark .filter-box-control{
   }
   
   .close-projects{
-      height: 45px;
-      width: 45px;
-      line-height: 40px;
-      font-size: 30px;
+    height: 35px;
+    width: 35px;
+    line-height: 26px;
+    font-size: 22px;
   }
   .ideas-section-img{
       min-height:75vh;
