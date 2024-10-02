@@ -218,7 +218,7 @@ export default function AboutComponent(){
             </div>
             </div>
 
-            <div className="full-section px-4 about-snap" id="ksa-points">
+            <div className="full-section overflow-x-hidden px-4 about-snap" id="ksa-points">
                 <div className="px-4 billy-text">
                     <div className="mx-auto" style={{maxWidth:'100%'}}>
                         <h4 className="avelir-text fs-1"><i>We Are</i></h4>

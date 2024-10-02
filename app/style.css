@@ -1601,6 +1601,11 @@ i.close-menu{
   transition:all 0.9s ease-in-out;
 }
 
+.full-bleed-container{
+  max-height:100vh;
+  overflow: hidden;
+}
+
 .projects-clock{
   position:fixed;
   z-index:-1;
@@ -4020,10 +4025,12 @@ body.dark .filter-box-control{
   }
 
   .theme-input {
-    font-size: 16px;
+    font-size: 14px;
+    padding: 3px 8px;
+    border-radius: 14px;
   }
   .form-row label {
-    font-size: 18px;
+    font-size: 14px;
   }
   .btn-theme {
     font-size: 14px;
@@ -4116,11 +4123,14 @@ body.dark .filter-box-control{
       font-size: 3rem;
   }
   .contact-form-box{
-      padding:1rem;
-      width: 90%;
+    padding: 1rem;
+    width: 80%;
+    max-width: 450px;
   }
   .form-legend-title{
-      font-size: 8vw;
+    font-size: 2.4rem;
+    text-align: center;
+    padding: 14px;
   }
   .filter-launch{
       position: fixed;
