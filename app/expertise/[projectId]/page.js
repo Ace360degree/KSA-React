@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ProjectSection from "../projectsSection";
 import dynamic from "next/dynamic";
 import gsap from "gsap/all";
-import ScrollTrigger from "gsap/all";
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import Image from "next/image";
 import CommonLoader from "@/app/components/commons/loaderCommon";
 import "jquery-scrollify";
@@ -40,6 +40,7 @@ export default function ProjectInfo(){
     const [points,setPoints] = useState([]);
     const projectTitle = useRef(null);
     const projectDescrion = useRef(null)
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [windowSize, setWindowSize] = useState({
         width: typeof window !== 'undefined' ? window.innerWidth : 0,
         height: typeof window !== 'undefined' ? window.innerHeight : 0
@@ -60,6 +61,20 @@ export default function ProjectInfo(){
 
         fetchProjectsApi();
     },[])
+
+    useEffect(() => {
+  
+      if (!isTouchDevice) {
+        // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+        ScrollTrigger.normalizeScroll(true);
+      }
+    
+      return () => {
+        if (!isTouchDevice) {
+          ScrollTrigger.normalizeScroll(false);
+        }
+      };
+    }, []);
 
 
     useEffect(()=>{
@@ -104,7 +119,7 @@ export default function ProjectInfo(){
               sectionName: "project-info-section",
               interstitialSection: "",
               easing: "easeOutExpo",
-              scrollSpeed: 500,
+              scrollSpeed: isTouchDevice?100:1500,
               offset: 0,
               scrollbars: true,
               standardScrollElements: "",
