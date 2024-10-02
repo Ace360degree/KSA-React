@@ -16,7 +16,7 @@
   transform: scale(calc(1 - var(--speed)));
   transform-origin: center var(--scroll);
   /* Increased transition duration for smoother effect */
-  transition: transform 0.6s ease;
+  transition: transform 1.6s ease;
 }
 
 #projectClockHour span {

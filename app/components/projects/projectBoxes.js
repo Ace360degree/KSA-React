@@ -113,12 +113,30 @@ export default function ProjectBoxes() {
 
 
   useEffect(() => {
-
     let lastScrollPos = undefined;
     let lastScrollTime = undefined;
     let touchStartY = 0;
+    let scrollTimeout; // Variable to hold the timeout ID
   
     const wrapper = projectScrollerRef.current;
+  
+    const clamp = (value, min, max) => {
+      return Math.max(min, Math.min(value, max));
+    };
+  
+    const scaleDown = () => {
+      if (wrapper) {
+        // Scale the wrapper down to 0.5
+        wrapper.style.transform = 'scale(0.8)';
+      }
+    };
+  
+    const resetScale = () => {
+      if (wrapper) {
+        // Reset the scale back to 1
+        wrapper.style.transform = 'scale(1)';
+      }
+    };
   
     const onScroll = () => {
       if (!wrapper) return;
@@ -135,10 +153,22 @@ export default function ProjectBoxes() {
       lastScrollTime = performance.now();
       lastScrollPos = window.scrollY;
   
-      const speed = dp / dt / 8;
+      let speed = dp / dt / 8; // Adjust divisor for better scaling
   
-      wrapper.style.setProperty("--speed", speed);
+      // Clamp the speed between a minimum and maximum value
+      speed = clamp(speed, 0.05, 1.5); // Adjust values to suit your needs
+  
+      // Scale the wrapper while scrolling
+      scaleDown();
+  
+      // Set scroll position
       wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
+  
+      // Clear any existing timeout to prevent immediate reset
+      clearTimeout(scrollTimeout);
+  
+      // Set a new timeout to reset the scale after scrolling stops
+      scrollTimeout = setTimeout(resetScale, 200); // Adjust the delay as needed
     };
   
     const onTouchStart = (e) => {
@@ -155,10 +185,21 @@ export default function ProjectBoxes() {
       lastScrollTime = performance.now();
       touchStartY = currentTouchY;
   
-      const speed = dp / dt / 12;
+      let speed = dp / dt / 20; // Adjust divisor for better scaling
   
-      wrapper.style.setProperty("--speed", speed);
+      // Clamp the speed between a minimum and maximum value
+      speed = clamp(speed, 0.05, 1.5); // Adjust values to suit your needs
+  
+      // Scale the wrapper while touching
+      scaleDown();
+  
       wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
+  
+      // Clear any existing timeout to prevent immediate reset
+      clearTimeout(scrollTimeout);
+  
+      // Set a new timeout to reset the scale after touch stops
+      scrollTimeout = setTimeout(resetScale, 200); // Adjust the delay as needed
     };
   
     // Add both scroll and touch event listeners
@@ -170,53 +211,61 @@ export default function ProjectBoxes() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
+      clearTimeout(scrollTimeout); // Clean up timeout on unmount
     };
   }, [projects]);
   
+  
+  
 
-  useEffect(() => {
-    let isDragging = false;
-    let startX, scrollLeft;
 
-    const onMouseDown = (e) => {
-      isDragging = true;
-      startX = e.pageX - window.scrollX;
-      scrollLeft = window.scrollX;
-      // document.body.style.cursor = "grabbing";
-      // document.body.style.userSelect = "none";
-    };
 
-    const onMouseMove = (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - window.scrollX;
-      const walk = (x - startX) * 2;
-      window.scrollTo({ left: scrollLeft - walk, behavior: "auto" });
-    };
+  
 
-    const onMouseUp = () => {
-      isDragging = false;
-      // document.body.style.cursor = "default";
-      // document.body.style.removeProperty("user-select");
-    };
+  // useEffect(() => {
+  //   let isDragging = false;
+  //   let startX, scrollLeft;
 
-    document.body.addEventListener("mousedown", onMouseDown);
-    document.body.addEventListener("mousemove", onMouseMove);
-    document.body.addEventListener("mouseup", onMouseUp);
+  //   const onMouseDown = (e) => {
+  //     isDragging = true;
+  //     startX = e.pageX - window.scrollX;
+  //     scrollLeft = window.scrollX;
+  //     // document.body.style.cursor = "grabbing";
+  //     // document.body.style.userSelect = "none";
+  //   };
 
-    return () => {
-      document.body.removeEventListener("mousedown", onMouseDown);
-      document.body.removeEventListener("mousemove", onMouseMove);
-      document.body.removeEventListener("mouseup", onMouseUp);
-    };
-  }, [projects]);
+  //   const onMouseMove = (e) => {
+  //     if (!isDragging) return;
+  //     e.preventDefault();
+  //     const x = e.pageX - window.scrollX;
+  //     const walk = (x - startX) * 2;
+  //     window.scrollTo({ left: scrollLeft - walk, behavior: "auto" });
+  //   };
+
+  //   const onMouseUp = () => {
+  //     isDragging = false;
+  //     // document.body.style.cursor = "default";
+  //     // document.body.style.removeProperty("user-select");
+  //   };
+
+  //   document.body.addEventListener("mousedown", onMouseDown);
+  //   document.body.addEventListener("mousemove", onMouseMove);
+  //   document.body.addEventListener("mouseup", onMouseUp);
+
+  //   return () => {
+  //     document.body.removeEventListener("mousedown", onMouseDown);
+  //     document.body.removeEventListener("mousemove", onMouseMove);
+  //     document.body.removeEventListener("mouseup", onMouseUp);
+  //   };
+  // }, [projects]);
 
 
   let tabIndex = 0;
 
+  const [isScrolling,seIsScrolling] = useState(false)
+
   useEffect(() => {
     let scrollerIndex = 0;
-    let isScrolling = false;
   
     const initProjects = () => {
       const allProjects = document.querySelectorAll('.projects-items.active');
@@ -281,10 +330,10 @@ export default function ProjectBoxes() {
     
     window.addEventListener('scroll', ()=>{
       updateScrollerIndex();
-      isScrolling=true;
-      console.log(isScrolling);
+      seIsScrolling(true);
+      console.log('scrolling');
       setTimeout(()=>{
-        isScrolling=false;
+        seIsScrolling(false);
       },1000);
     });
   
