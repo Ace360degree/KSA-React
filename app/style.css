@@ -3967,10 +3967,26 @@ body.dark .filter-box-control{
 
 
   .top-section-filter{
-    top: 26px;
-    font-size: 12px;
-    gap: 16px;
+        top: 59px;
+        height: calc(100vh - 59px);
+        background: black;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        gap: 10px;
+        padding-bottom: 59px;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
   }
+
+  .top-section-filter.active{
+      transform: translateY(0);
+  }
+
   .project-overflow{
     overflow: visible;
   }
@@ -4009,11 +4025,24 @@ body.dark .filter-box-control{
     width: 30px;
   }
   .contact-menu{
-    top:24px;
-    gap:14px;
+        top: 60px;
+        height: calc(100vh - 60px);
+        padding-bottom: 60px;
+        width: 100%;
+        max-width: 100%;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+  }
+  .contact-menu.active{
+    transform: translateY(0);
   }
   .contact-menu li{
-    font-size:16px;
+    font-size:36px;
   }
   .intro-lg-title{
     font-size: 3.5rem;

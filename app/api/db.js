@@ -16,7 +16,7 @@ export const pool = mysql.createPool({
   user: 'cosmon1u_ksauser',
   password: `MyOEZ8qjlh()`,
   database: 'cosmon1u_ksa',
-  connectionLimit: 100000, // Adjust this value based on your needs
+  connectionLimit: 5000000000, // Adjust this value based on your needs
   multipleStatements: true,  
 });
 

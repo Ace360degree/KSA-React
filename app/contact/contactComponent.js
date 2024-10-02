@@ -9,6 +9,8 @@ import { FaFacebook, FaInstagram, FaSquareXTwitter, FaLinkedin } from "react-ico
 import $ from "jquery";
 import "jquery-scrollify";
 import Link from "next/link";
+import { BsThreeDots } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +18,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ContactComponent() {
     const [showTabs, setShowTabs] = useState('All');
     const formTitle = useRef(null);
+    const [mobileFilter,setMobileFilter] =useState(false);
+
     const animationTitle = useRef(null);
     const [fileName, setFileName] = useState('No File Chosen');
     const [formData, setFormData] = useState({
@@ -24,9 +28,14 @@ export default function ContactComponent() {
         description: '',
         file: null
     });
+    
 
     const [showAlert,setshowAlert] = useState(false);
     const [showAlertError,setshowAlertError] = useState(false);
+
+    const toggleMobileFilter = () =>{
+        setMobileFilter(!mobileFilter);
+    }
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -147,10 +156,12 @@ export default function ContactComponent() {
         <>
             <DarkTheme />
             <NavbarIntroPage heading={'Contact'} />
-            <div className="header-gap"></div>
-            <div className="contact-menu signifier">
-                <li className={showTabs === 'contact' ? 'active' : ''} onClick={() => { setShowTabs('contact') }}>Contact</li>
-                <li className={showTabs === 'offices' ? 'active' : ''} onClick={() => { setShowTabs('offices') }}>Offices</li>
+            <div class="filter-launch" onClick={toggleMobileFilter}>
+                {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
+            </div> 
+            <div className={mobileFilter?'contact-menu signifier active':'contact-menu signifier'}>
+                <li className={showTabs === 'contact' ? 'active' : ''} onClick={() => { setShowTabs('contact');setMobileFilter(false) }}>Contact</li>
+                <li className={showTabs === 'offices' ? 'active' : ''} onClick={() => { setShowTabs('offices');setMobileFilter(false) }}>Offices</li>
             </div>
 
             {showTabs === 'All' || showTabs === 'contact' ?
@@ -210,7 +221,7 @@ export default function ContactComponent() {
                 : ''}
 
             {showTabs === 'All' || showTabs === 'offices' ?
-                <div className="contact-section-tab contact-snap" id="offices">
+                <div className="contact-section-tab contact-snap overflow-hidden" id="offices">
                     <div className="map-section active">
                         <div className="office-section ">
                             <div className="image-mapped">

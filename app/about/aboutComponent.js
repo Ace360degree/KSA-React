@@ -5,6 +5,8 @@ import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { BsThreeDots } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
 import $ from "jquery";
 import  "jquery-scrollify";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
@@ -17,12 +19,18 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AboutComponent(){
 
     const [showTabs,setShowTabs] = useState('All');
+    const [mobileFilter,setMobileFilter] =useState(false);
+
     const AboutProjects = useRef(null);
     
     gsap.defaults({inherit:false});
 
     const aboutSection = useRef(null);
     const mainBanner = useRef(null);
+
+    const toggleMobileFilter = () =>{
+        setMobileFilter(!mobileFilter);
+    }
 
     function scrollSmoothTo() {
         if (aboutSection.current) {
@@ -159,6 +167,7 @@ export default function AboutComponent(){
 
     const updateSections = (name)=>{
         setShowTabs(name);
+        setMobileFilter(false);
     }
 
 
@@ -168,7 +177,10 @@ export default function AboutComponent(){
             <DarkTheme/>
             <NavbarIntroPage heading={'ETHIOS'}/>
             {/* <div class="header-gap"></div> */}
-        <ul className="top-section-filter">
+            <div class="filter-launch" onClick={toggleMobileFilter}>
+                {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
+            </div>    
+        <ul className={mobileFilter?'top-section-filter active':'top-section-filter'}>
             <li className={showTabs=='culture'?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="cultureTrigger" onClick={()=>{updateSections('culture')}} data-target="#culture">Culture</li>
             <li className={showTabs=='discipline'?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
         </ul>
@@ -194,7 +206,7 @@ export default function AboutComponent(){
             </div>
 
             <div className="about-snap">
-            <div ref={aboutSection} className="full-section px-4 " id="ksa-about">
+            <div ref={aboutSection} className="full-section px-4 overflow-hidden" id="ksa-about">
                 <div className=" billy-text">
                     <div className="mx-auto">
                     <h3 className="ab-2-head signifier">KSA has grown from a founder to a big family.</h3>

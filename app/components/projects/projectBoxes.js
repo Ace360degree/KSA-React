@@ -7,11 +7,14 @@ import { BsThreeDots } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import { useAuth } from "@/app/context/AuthContext";
 import dynamic from "next/dynamic";
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
+gsap.registerPlugin(ScrollToPlugin);
 
 export default function ProjectBoxes() {
+
   const clockIndicators = useRef([]);
   const clockMainIndicators = useRef([]);
 
@@ -89,6 +92,16 @@ export default function ProjectBoxes() {
 
   const handleFilterChange = (filter) => {   
     setSelectedFilter(filter);
+    setMobileFilter(false);
+      gsap.to(window, {
+        scrollTo: {
+          y: 0, // Adjust scroll position, subtracting 100px as an offset
+          autoKill: false,    // Auto-stop scrolling if the user interacts
+        },
+        duration: 0.6,  
+        delay:0,      // Duration in seconds for the scroll
+        ease: "power4.out",// Use ease for smooth scrolling
+      });
   };
 
   useEffect(()=>{
@@ -201,132 +214,131 @@ export default function ProjectBoxes() {
 
   let tabIndex = 0;
 
-useEffect(() => {
-  let scrollerIndex = 0;
+  useEffect(() => {
+    let scrollerIndex = 0;
+    let isScrolling = false;
+  
+    const initProjects = () => {
+      const allProjects = document.querySelectorAll('.projects-items.active');
+      if (!allProjects.length) return;
+  
+      const currProject = allProjects[scrollerIndex] || allProjects[0];
+      if (currProject) {
+        // Get the y-position of the current project
+        const targetY = currProject.offsetTop;
+        console.log(targetY);
+        // TweenMax.to(window, 1, { scrollTo: targetY });
 
-  const smoothScroll = (targetY, duration) => {
-    const startY = window.scrollY;
-    const diff = targetY - startY;
-    let startTime = null;
-
-    const scrollAnimation = (currentTime) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const scrollPosition = easeInOutQuad(timeElapsed, startY, diff, duration);
-
-      window.scrollTo(100, scrollPosition);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(scrollAnimation);
+    
+        // Use GSAP to scroll to the project's y-position
+        gsap.to(window, {
+          scrollTo: {
+            y: targetY-100, // Adjust scroll position, subtracting 100px as an offset
+            autoKill: false,    // Auto-stop scrolling if the user interacts
+          },
+          duration: 1.5,  
+          delay:0,      // Duration in seconds for the scroll
+          ease: "power4.out",// Use ease for smooth scrolling
+        });
       }
     };
-
-    const easeInOutQuad = (t, b, c, d) => {
-      t /= d / 2;
-      if (t < 1) return (c / 2) * t * t + b;
-      t--;
-      return (-c / 2) * (t * (t - 2) - 1) + b;
-    };
-
-    requestAnimationFrame(scrollAnimation);
-  };
-
-  const initProjects = () => {
-    const allProjects = document.querySelectorAll('.projects-items.active');
-    if (!allProjects.length) return;
-
-    const currProject = allProjects[scrollerIndex] || allProjects[0];
-    if (currProject) {
-      smoothScroll(currProject.offsetTop - 100, 100);
-    }
-  };
-
-  let lastScrollerIndex = -1;
-
-  const rotateSecondsHandsNormal = () => {
-    // Increment and wrap around if necessary
-    scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
-
-    // Ensure the new index is different from the last used index
-    while (scrollerIndex === lastScrollerIndex) {
+  
+    let lastScrollerIndex = -1;
+  
+    const rotateSecondsHandsNormal = () => {
+      scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+  
+      while (scrollerIndex === lastScrollerIndex) {
         scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
-    }
-
-    // Update the lastScrollerIndex to the current one
-    lastScrollerIndex = scrollerIndex;
-
-    // Call the function with the new scrollerIndex
+      }
+  
+      lastScrollerIndex = scrollerIndex;
+      
+      if(!isScrolling){
+      initProjects(); // Update project scrolling
+      }
+    };
+  
     initProjects();
-};
-  initProjects();
-
-  function updateScrollerIndex() {
-    const allProjects = document.querySelectorAll('.projects-items.active');
-    const scrollPosition = window.scrollY; // Current scroll position
-
-    allProjects.forEach((project, index) => {
-      const projectOffsetTop = project.offsetTop;
-      const projectHeight = project.offsetHeight;
-
-      if (
-        scrollPosition >= projectOffsetTop - 100 &&
-        scrollPosition < projectOffsetTop + projectHeight - 100
-      ) {
-        scrollerIndex = index; // Update scrollerIndex to the current project
-      }
+  
+    function updateScrollerIndex() {
+      const allProjects = document.querySelectorAll('.projects-items.active');
+      const scrollPosition = window.scrollY;
+  
+      allProjects.forEach((project, index) => {
+        const projectOffsetTop = project.offsetTop;
+        const projectHeight = project.offsetHeight;
+  
+        if (
+          scrollPosition >= projectOffsetTop - 100 &&
+          scrollPosition < projectOffsetTop + projectHeight - 100
+        ) {
+          scrollerIndex = index; // Update scrollerIndex
+        }
+      });
+    }
+  
+    
+    window.addEventListener('scroll', ()=>{
+      updateScrollerIndex();
+      isScrolling=true;
+      console.log(isScrolling);
+      setTimeout(()=>{
+        isScrolling=false;
+      },1000);
     });
-  }
+  
+    const checkOverlap = () => {
+      const secondsClock = document.getElementById('clock-bound-box');
+      const indicators = clockIndicators.current;
+  
+      if (!secondsClock || !indicators.length) return;
+  
+      const secondsClockRect = secondsClock.getBoundingClientRect();
+  
+      indicators.forEach((indicator, index) => {
+        const spanElement = indicator;
+        const spanParent = clockMainIndicators.current[index];
+        if (!spanElement) return;
+  
+        const spanRect = spanElement.getBoundingClientRect();
+  
+        const offset = 1;
+  
+        const isOverlapping = !(
+          secondsClockRect.right < spanRect.left - offset ||
+          secondsClockRect.left > spanRect.right + offset ||
+          secondsClockRect.bottom < spanRect.top - offset ||
+          secondsClockRect.top > spanRect.bottom + offset
+        );
+  
+        if (isOverlapping && !spanParent.classList.contains('active')) {
+          tabIndex = index;
+          spanParent.classList.add('active');
+          rotateSecondsHandsNormal();
+        } else if (!isOverlapping && spanParent.classList.contains('active')) {
+          spanParent.classList.remove('active');
+        }
+      });
+  
+      clockMainIndicators.current[tabIndex].classList.add('active');
+    };
+  
+    const handleUpdate = () => {
+      requestAnimationFrame(checkOverlap);
+    };
+  
+    handleUpdate();
+    const intervalId = setInterval(handleUpdate, 100);
+  
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener('scroll', updateScrollerIndex);
+    };
+  }, [projects]);
 
-  window.addEventListener('scroll', updateScrollerIndex);
 
-  const checkOverlap = () => {
-    const secondsClock = document.getElementById('clock-bound-box');
-    const indicators = clockIndicators.current;
 
-    if (!secondsClock || !indicators.length) return;
-
-    const secondsClockRect = secondsClock.getBoundingClientRect();
-
-    indicators.forEach((indicator, index) => {
-      const spanElement = indicator;
-      const spanParent = clockMainIndicators.current[index];
-      if (!spanElement) return;
-
-      const spanRect = spanElement.getBoundingClientRect();
-
-      const offset = 1; // 1px offset for detection
-
-      const isOverlapping = !(
-        secondsClockRect.right < spanRect.left - offset ||
-        secondsClockRect.left > spanRect.right + offset ||
-        secondsClockRect.bottom < spanRect.top - offset ||
-        secondsClockRect.top > spanRect.bottom + offset
-      );
-
-      if (isOverlapping && !spanParent.classList.contains('active')) {
-        tabIndex = index;
-        spanParent.classList.add('active');
-        rotateSecondsHandsNormal(); // Trigger function when class changes
-      } else if (!isOverlapping && spanParent.classList.contains('active')) {
-        spanParent.classList.remove('active');
-      }
-    });
-
-    clockMainIndicators.current[tabIndex].classList.add('active');
-  };
-
-  const handleUpdate = () => {
-    requestAnimationFrame(checkOverlap);
-  };
-
-  handleUpdate();
-  const intervalId = setInterval(handleUpdate, 100);
-
-  return () => {
-    clearInterval(intervalId);
-    window.removeEventListener('scroll', updateScrollerIndex); // Clean up scroll event listener
-  };
-}, [projects]);
 
 
   const toggleMobileFilter = () =>{

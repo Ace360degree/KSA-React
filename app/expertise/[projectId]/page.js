@@ -126,24 +126,39 @@ export default function ProjectInfo(){
  
 
       useEffect(() => {
+        // Store the initial width and height to compare later
+        let windowWidth = window.innerWidth;
+        let windowHeight = window.innerHeight;
+      
         // Define the resize handler
         const handleResize = () => {
-            setLoading(true); // Set loading to true on resize
-            clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
-            window.resizeTimeout = setTimeout(() => {
-                setLoading(false); // Set loading to false after 1 second (1000ms)
-            }, 1000);
+          // Check if the window dimensions have actually changed
+          if (window.innerWidth === windowWidth && window.innerHeight === windowHeight) {
+            return; // If the dimensions haven't changed, it's not a real resize
+          }
+      
+          // Update stored dimensions after confirming a real resize
+          windowWidth = window.innerWidth;
+          windowHeight = window.innerHeight;
+      
+          setLoading(true); // Set loading to true on resize
+          clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
+      
+          window.resizeTimeout = setTimeout(() => {
+            setLoading(false); // Set loading to false after 1 second (1000ms)
+          }, 1000);
         };
-    
+      
         // Add the event listener for window resize
         window.addEventListener("resize", handleResize);
-    
+      
         // Cleanup the resize event and timeout on component unmount
         return () => {
-            window.removeEventListener("resize", handleResize);
-            clearTimeout(window.resizeTimeout); // Clean up the timeout when the component unmounts
+          window.removeEventListener("resize", handleResize);
+          clearTimeout(window.resizeTimeout); // Clean up the timeout when the component unmounts
         };
-    }, [resized]);
+      }, []);
+      
 
 
 
