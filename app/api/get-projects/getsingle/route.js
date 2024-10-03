@@ -2,47 +2,50 @@ import { NextResponse } from 'next/server';
 import { pool } from '../../db';
 export const dynamic = 'force-dynamic';
 
-
 export async function GET(req) {
+    let connection; // Declare a variable to hold the connection
+
     try {
+        // Get a connection from the pool
+        connection = await pool.getConnection();
+
         // Extract URL slug from the query parameters
         const params = req.nextUrl.searchParams;
         const urlSlug = params.get('id');
 
         if (!urlSlug) {
-            return new Response(JSON.stringify({ error: 'URL slug is required' }), { status: 400 });
+            return NextResponse.json({ error: 'URL slug is required' }, { status: 400 });
         }
 
         // Query to fetch the project details
-        const [projectRows] = await pool.query(
+        const [projectRows] = await connection.query(
             `SELECT pb.*, c.category 
              FROM projects_beta pb
              LEFT JOIN categories c ON pb.category = c.id
              WHERE pb.url_slug = ?`,
             [urlSlug]
         );
-        
 
         if (projectRows.length === 0) {
-            return new Response(JSON.stringify({ error: 'Project not found' }), { status: 404 });
+            return NextResponse.json({ error: 'Project not found' }, { status: 404 });
         }
 
         const project = projectRows[0];
 
         // Query to fetch tabs (sections) related to the project
-        const [tabsRows] = await pool.query(
+        const [tabsRows] = await connection.query(
             'SELECT * FROM projects_sections WHERE project_id = ? ORDER BY sequence ASC',
             [project.id]
         );
 
         // Query to fetch attributes related to the project
-        const [attributesRows] = await pool.query(
+        const [attributesRows] = await connection.query(
             'SELECT * FROM projects_attributes WHERE project_id = ?',
             [project.id]
         );
 
         // Query to fetch highlights points related to the project
-        const [pointsRows] = await pool.query(
+        const [pointsRows] = await connection.query(
             'SELECT * FROM project_highlights_points WHERE project_id = ?',
             [project.id]
         );
@@ -52,7 +55,7 @@ export async function GET(req) {
 
         // Fetch slides for each tab
         for (const tab of tabsRows) {
-            const [slidesRows] = await pool.query(
+            const [slidesRows] = await connection.query(
                 'SELECT * FROM projects_slides WHERE project_id = ? AND section_id = ?',
                 [project.id, tab.id]
             );
@@ -70,9 +73,15 @@ export async function GET(req) {
 
         // Return the JSON response
         return NextResponse.json(data, { status: 200 });
+
     } catch (error) {
         // Handle errors
         console.error(error);
-        return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    } finally {
+        // Ensure the connection is released back to the pool
+        if (connection) {
+            await connection.release(); // Release the connection back to the pool
+        }
     }
 }

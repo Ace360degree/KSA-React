@@ -20,4 +20,9 @@ export async function POST(req) {
     console.error('Error creating user:', error);
     return NextResponse.json({ error: 'Error creating user' }, { status: 500 });
   }
+  finally{
+    if(db){
+      await db.end();
+    }
+  }
 }

@@ -94,4 +94,9 @@ export async function POST(req) {
     console.error('Error during login:', error.message, error.stack);
     return NextResponse.json({ error: 'Error during login',error_message:error.message }, { status: 500 });
   }
+  finally{
+    if(db){
+      await db.end();
+    }
+  }
 }
