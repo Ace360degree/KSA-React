@@ -137,9 +137,6 @@ export default function ProjectInfo(){
         }
         
         scrollifyFunction();
-
-        
-      
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
       }, [loading]);
 

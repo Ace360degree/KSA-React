@@ -6,7 +6,9 @@ export default function CheckNavTransparent() {
     useEffect(() => {
         const navbar = document.getElementById('navbar');
         const heroImages = document.querySelectorAll('.hero-image');
+        const projectInfoSections = document.querySelectorAll('.project-info-section');
         const projectSections = document.querySelectorAll('.remove-transparent');
+        const allSections = document.querySelectorAll('section'); // Get all sections
         const SVGIcons = document.querySelectorAll('.change-svg');
         const transparentClass = 'transparent';
         let intervalId;
@@ -38,21 +40,37 @@ export default function CheckNavTransparent() {
             // Add or remove the transparent class based on the conditions
             if (shouldAddTransparent) {
                 navbar.classList.add(transparentClass);
-                SVGIcons.forEach((curr)=>{
+                SVGIcons.forEach((curr) => {
                     curr.classList.add('light');
-                })
+                });
             } else {
                 navbar.classList.remove(transparentClass);
-                SVGIcons.forEach((curr)=>{
+                SVGIcons.forEach((curr) => {
                     curr.classList.remove('light');
-                })
+                });
             }
+
+            // Check all sections: if the section does not have the `.remove-transparent` class, add `.light`
+            allSections.forEach(section => {
+                const sectionRect = section.getBoundingClientRect();
+
+                // Check if the navbar overlaps with a section
+                if (navbarRect.top <= sectionRect.bottom && navbarRect.bottom >= sectionRect.top) {
+                    if (!section.classList.contains('remove-transparent')) {
+                        // If the section does not have the `remove-transparent` class, add light to the navbar
+                        navbar.classList.add('light');
+                        SVGIcons.forEach((curr) => {
+                            curr.classList.add('light');
+                        });
+                    }
+                }
+            });
         }
 
         // Check every 200ms
         intervalId = setInterval(() => {
             checkNavbarPosition();
-        }, 200);
+        }, 1000);
 
         // Cleanup interval on component unmount
         return () => {
