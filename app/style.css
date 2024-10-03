@@ -2212,7 +2212,7 @@ body.dark .filter-box-control{
 
 .project-title{
   position: absolute;
-  bottom: 24px;
+  bottom: 70px;
   left: 24px;
   text-shadow: 1px 1px 3px black;
   color: white;
@@ -2313,7 +2313,7 @@ body.dark .filter-box-control{
 }
 
 .glance-sections{
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .border-left-info{
@@ -3165,6 +3165,40 @@ body.dark .filter-box-control{
       -webkit-transform:scale(2);
               transform:scale(2);
   }
+}
+
+.loader-spin-screen{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  z-index: 500;
+}
+
+.spinner-logo {
+  height: 50px;
+  width: 50px;
+  transform-origin: center;
+  animation: spin 1s linear infinite; 
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); 
+  }
+  100% {
+    transform: rotate(360deg); 
+  }
+}
+
+.spinner-logo svg{
+  height: 100%;
+  width: 100%;
 }
 
 
@@ -4639,9 +4673,7 @@ body.dark .filter-box-control{
   .essential-title{
       font-size: 5rem !important;
   }
-  .project-title{
-      left:120px;
-  }
+
   .nav-subtitle-content{
       font-size: 21px;
       line-height: 21px;

@@ -7,9 +7,19 @@ const AboutComponent = dynamic(() => import('./aboutComponent'), {
 
 export default function About(){
 
+    const[loaded,setLoaded] = useState(false);
+
+    useEffect(()=>{
+        setTimeout(()=>{
+        setLoaded(true);
+        },500)
+    },[])
+
     return(
         <>
+        {loaded?
         <AboutComponent/>
+        :''}
         </>
     )
 

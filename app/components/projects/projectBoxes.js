@@ -9,12 +9,14 @@ import { useAuth } from "@/app/context/AuthContext";
 import dynamic from "next/dynamic";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function ProjectBoxes() {
-
+  const [loading,setLoading] = useState(false);
   const clockIndicators = useRef([]);
   const clockMainIndicators = useRef([]);
 
@@ -74,6 +76,7 @@ export default function ProjectBoxes() {
       
       setProjects(getProjects.projects);
       setCategories(getProjects.categories);
+      setLoading(true);
     }
 
     getProjectsAPI();
@@ -556,6 +559,7 @@ export default function ProjectBoxes() {
 
 
   return (
+    
     <>
     <div class="filter-launch" onClick={toggleMobileFilter}>
       {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
@@ -630,6 +634,17 @@ export default function ProjectBoxes() {
 
         <div className="clock-smallindicator-box"></div>
       </div>
+
+
+  {loading? '': 
+    
+      <div className="loader-spin-screen">
+        <div className="spinner-logo">
+        <AiOutlineLoading3Quarters  />
+        </div>
+      </div>
+    
+  }
 
 
    </>

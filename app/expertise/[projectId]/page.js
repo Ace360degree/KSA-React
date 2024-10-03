@@ -205,10 +205,11 @@ export default function ProjectInfo(){
                 :<Image height={600} width={600} className="project-image-hero hero-image" unoptimized style={{width:'100%',height:'100%'}}  placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.desktop_banner} />}
             </div>
 
-
+            <div className="overflow-hidden">
             {sections.map((section,index)=>(
                 <ProjectSection section={section} essecials={essecials} points={points}  key={index} slides={slides[index]}/>
             ))}
+            </div>
 
             </>
             }

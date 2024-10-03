@@ -21,6 +21,9 @@ export default function AboutComponent(){
     const [showTabs,setShowTabs] = useState('All');
     const [mobileFilter,setMobileFilter] =useState(false);
 
+    const [activeCulture,setActiveCulture] = useState(true);
+    const [activeDiscipline,setActiveDiscipline] = useState(false);
+
     const AboutProjects = useRef(null);
     
     gsap.defaults({inherit:false});
@@ -31,6 +34,9 @@ export default function AboutComponent(){
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
     }
+
+
+
 
     function scrollSmoothTo() {
         if (aboutSection.current) {
@@ -164,6 +170,33 @@ export default function AboutComponent(){
     },[])
 
 
+    useEffect(()=>{
+        if(AboutProjects.current){
+            
+            function initActiveNow(){
+                setActiveCulture(false);
+                setActiveDiscipline(true);
+                
+            }
+
+            function removeActiveNow(){
+                setActiveCulture(true);
+                setActiveDiscipline(false);
+            }
+
+            ScrollTrigger.create({
+                trigger:AboutProjects.current,
+                start:'top 50%',
+                end:'bottom 0%',
+                onEnter:initActiveNow,
+                onEnterBack:initActiveNow,
+                onLeave:removeActiveNow,
+                onLeaveBack:removeActiveNow,
+            })
+        }
+    },[activeCulture,activeDiscipline,showTabs])
+
+
 
     const updateSections = (name)=>{
         setShowTabs(name);
@@ -181,8 +214,8 @@ export default function AboutComponent(){
                 {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
             </div>    
         <ul className={mobileFilter?'top-section-filter active':'top-section-filter'}>
-            <li className={showTabs=='culture'?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="cultureTrigger" onClick={()=>{updateSections('culture')}} data-target="#culture">Culture</li>
-            <li className={showTabs=='discipline'?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
+            <li className={showTabs=='culture' || activeCulture ?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="cultureTrigger" onClick={()=>{updateSections('culture')}} data-target="#culture">Culture</li>
+            <li className={showTabs=='discipline' || activeDiscipline ?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
         </ul>
         
         {showTabs=='All' || showTabs=='culture'?

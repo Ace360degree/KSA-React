@@ -20,6 +20,8 @@ export default function ContactComponent() {
     const formTitle = useRef(null);
     const [mobileFilter,setMobileFilter] =useState(false);
 
+    const officeSection = useRef(null);
+
     const animationTitle = useRef(null);
     const [fileName, setFileName] = useState('No File Chosen');
     const [formData, setFormData] = useState({
@@ -29,6 +31,8 @@ export default function ContactComponent() {
         file: null
     });
     
+    const[activeContact,setActiveContact] = useState(true);
+    const[activeOffices,setActiveOffices] =useState(false);
 
     const [showAlert,setshowAlert] = useState(false);
     const [showAlertError,setshowAlertError] = useState(false);
@@ -36,6 +40,32 @@ export default function ContactComponent() {
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
     }
+
+    useEffect(()=>{
+        if(officeSection.current){
+            
+            function initActiveNow(){
+                setActiveContact(false);
+                setActiveOffices(true);
+                
+            }
+
+            function removeActiveNow(){
+                setActiveContact(true);
+                setActiveOffices(false);
+            }
+
+            ScrollTrigger.create({
+                trigger:officeSection.current,
+                start:'top 50%',
+                end:'bottom 0%',
+                onEnter:initActiveNow,
+                onEnterBack:initActiveNow,
+                onLeave:removeActiveNow,
+                onLeaveBack:removeActiveNow,
+            })
+        }
+    },[activeContact,activeOffices,showTabs])
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -160,8 +190,8 @@ export default function ContactComponent() {
                 {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
             </div> 
             <div className={mobileFilter?'contact-menu signifier active':'contact-menu signifier'}>
-                <li className={showTabs === 'contact' ? 'active' : ''} onClick={() => { setShowTabs('contact');setMobileFilter(false) }}>Contact</li>
-                <li className={showTabs === 'offices' ? 'active' : ''} onClick={() => { setShowTabs('offices');setMobileFilter(false) }}>Offices</li>
+                <li className={showTabs === 'contact' || activeContact ? 'active' : ''} onClick={() => { setShowTabs('contact');setMobileFilter(false) }}>Contact</li>
+                <li className={showTabs === 'offices' || activeOffices ? 'active' : ''} onClick={() => { setShowTabs('offices');setMobileFilter(false) }}>Offices</li>
             </div>
 
             {showTabs === 'All' || showTabs === 'contact' ?
@@ -221,7 +251,7 @@ export default function ContactComponent() {
                 : ''}
 
             {showTabs === 'All' || showTabs === 'offices' ?
-                <div className="contact-section-tab contact-snap overflow-hidden" id="offices">
+                <div className="contact-section-tab contact-snap overflow-hidden" ref={officeSection} id="offices">
                     <div className="map-section active">
                         <div className="office-section ">
                             <div className="image-mapped">
