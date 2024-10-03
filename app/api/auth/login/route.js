@@ -92,6 +92,6 @@ export async function POST(req) {
 
   } catch (error) {
     console.error('Error during login:', error.message, error.stack);
-    return NextResponse.json({ error: 'Error during login' }, { status: 500 });
+    return NextResponse.json({ error: 'Error during login',error_message:error.message }, { status: 500 });
   }
 }
