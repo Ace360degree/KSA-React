@@ -3,15 +3,20 @@ import { pool } from "../db";
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    let connection; // Declare connection variable
+
     try {
+        // Get a connection from the pool
+        connection = await pool.getConnection();
+
         // Execute both queries
-        const [projectsRows] = await pool.query(`
+        const [projectsRows] = await connection.query(`
             SELECT projects_beta.*, projects_beta.id AS projectid, categories.*
             FROM projects_beta
             LEFT JOIN categories ON categories.id = projects_beta.category;
         `);
         
-        const [categoriesRows] = await pool.query(`
+        const [categoriesRows] = await connection.query(`
             SELECT category
             FROM categories
             WHERE status = 1;
@@ -28,9 +33,12 @@ export async function GET() {
         return response;
 
     } catch (error) {
-        return NextResponse.json({ error: 'Error fetching data' }, { status: 500 });
+        console.error(error); // Log the error for debugging
+        return NextResponse.json({ error: 'Error fetching data', error_message: error.message }, { status: 500 });
     } finally {
-        // Close the pool connection
-        await pool.end();
+        // Ensure the connection is released back to the pool
+        if (connection) {
+            await connection.release(); // Release the connection back to the pool
+        }
     }
 }
