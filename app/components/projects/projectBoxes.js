@@ -45,7 +45,6 @@ export default function ProjectBoxes() {
       }
     }
     };
-    console.log(isLoggedIn);
     function ReRouteIt() {
       if(isLoggedIn===false && path ==='/expertise' ){
         router.push(`/auth/login?route=${path}`);
@@ -74,8 +73,6 @@ export default function ProjectBoxes() {
       const getProjects = await (fetchProjects.json());
       
       setProjects(getProjects.projects);
-      console.log(projects)
-
       setCategories(getProjects.categories);
     }
 
@@ -262,54 +259,54 @@ export default function ProjectBoxes() {
 
   let tabIndex = 0;
 
-  const [isScrolling,seIsScrolling] = useState(false)
-
   useEffect(() => {
     let scrollerIndex = 0;
-  
+    let isScrolling =false; 
+
+    let timeoutId; 
+    const handleScroll = () => {
+      isScrolling=true;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      timeoutId = setTimeout(() => {
+        updateScrollerIndex();
+        isScrolling= false;
+      }, 1000);
+    };
+
+    const handleTouchEnd = () => {
+      isScrolling = false;
+      updateScrollerIndex(); // Update the index when touch ends
+    };
+
+    document.addEventListener('wheel', handleScroll);
+    document.addEventListener('touchstart', handleScroll);
+    document.addEventListener('touchmove', handleScroll);
+    // document.addEventListener('touchend', handleTouchEnd);
+    
     const initProjects = () => {
       const allProjects = document.querySelectorAll('.projects-items.active');
       if (!allProjects.length) return;
   
       const currProject = allProjects[scrollerIndex] || allProjects[0];
-      if (currProject) {
-        // Get the y-position of the current project
+      if (currProject && !isScrolling) {
         const targetY = currProject.offsetTop;
-        console.log(targetY);
-        // TweenMax.to(window, 1, { scrollTo: targetY });
-
-    
-        // Use GSAP to scroll to the project's y-position
         gsap.to(window, {
           scrollTo: {
             y: targetY-100, // Adjust scroll position, subtracting 100px as an offset
             autoKill: false,    // Auto-stop scrolling if the user interacts
           },
-          duration: 1.5,  
+          duration: 0.5,  
           delay:0,      // Duration in seconds for the scroll
           ease: "power4.out",// Use ease for smooth scrolling
         });
       }
     };
   
-    let lastScrollerIndex = -1;
-  
-    const rotateSecondsHandsNormal = () => {
-      scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
-  
-      while (scrollerIndex === lastScrollerIndex) {
-        scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
-      }
-  
-      lastScrollerIndex = scrollerIndex;
-      
-      if(!isScrolling){
-      initProjects(); // Update project scrolling
-      }
-    };
-  
-    initProjects();
-  
+    
+
     function updateScrollerIndex() {
       const allProjects = document.querySelectorAll('.projects-items.active');
       const scrollPosition = window.scrollY;
@@ -326,16 +323,19 @@ export default function ProjectBoxes() {
         }
       });
     }
-  
     
-    window.addEventListener('scroll', ()=>{
-      updateScrollerIndex();
-      seIsScrolling(true);
-      console.log('scrolling');
-      setTimeout(()=>{
-        seIsScrolling(false);
-      },1000);
-    });
+    let lastScrollerIndex = -1;
+    const rotateSecondsHandsNormal = () => {
+      scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+      while (scrollerIndex === lastScrollerIndex) {
+        scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+      }
+  
+      lastScrollerIndex = scrollerIndex;
+        initProjects();
+    };
+    
+  
   
     const checkOverlap = () => {
       const secondsClock = document.getElementById('clock-bound-box');
@@ -364,6 +364,7 @@ export default function ProjectBoxes() {
         if (isOverlapping && !spanParent.classList.contains('active')) {
           tabIndex = index;
           spanParent.classList.add('active');
+          
           rotateSecondsHandsNormal();
         } else if (!isOverlapping && spanParent.classList.contains('active')) {
           spanParent.classList.remove('active');
@@ -383,9 +384,15 @@ export default function ProjectBoxes() {
     return () => {
       clearInterval(intervalId);
       window.removeEventListener('scroll', updateScrollerIndex);
+      clearTimeout(timeoutId); // Clear timeout on cleanup
+      document.removeEventListener('wheel', handleScroll); 
+      document.removeEventListener('touchstart', handleScroll);
+      document.removeEventListener('touchmove', handleScroll);
+      // document.removeEventListener('touchend', handleTouchEnd);
+
     };
   }, [projects]);
-
+  
 
 
 

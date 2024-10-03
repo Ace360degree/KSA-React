@@ -2822,8 +2822,8 @@ body.dark .filter-box-control{
 
 
 .ideas-border{
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+  /* border-top: 1px solid grey;
+  border-bottom: 1px solid grey; */
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   overflow: hidden;
@@ -3974,7 +3974,14 @@ body.dark .filter-box-control{
     font-size: 14px;
     margin-bottom:0;
   }
-
+  .ideas-border{
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+  }
+  .title-border-ideas::before{
+    height: 0;
+  }
+  
   .glance-points{
     font-size: 14px;
     line-height: 14px;

@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 
 export default function CheckNavTransparent() {
-
     useEffect(() => {
         const navbar = document.getElementById('navbar');
         const heroImages = document.querySelectorAll('.hero-image');
@@ -20,9 +19,9 @@ export default function CheckNavTransparent() {
             // Iterate over all hero images
             heroImages.forEach(heroImage => {
                 const heroRect = heroImage.getBoundingClientRect();
-                
-                // Check if the navbar is close to or overlapping with the current hero image
-                if (navbarRect.top <= heroRect.bottom && navbarRect.bottom >= heroRect.top) {
+
+                // Check if the hero image is in view considering a 100px offset
+                if (heroRect.top <= window.innerHeight && heroRect.bottom >= 0) {
                     shouldAddTransparent = true;
                 }
             });
@@ -30,22 +29,24 @@ export default function CheckNavTransparent() {
             // Check against project sections to remove transparency
             projectSections.forEach(projectSection => {
                 const projectRect = projectSection.getBoundingClientRect();
-                if (navbarRect.top <= projectRect.bottom && navbarRect.bottom >= projectRect.top) {
-                    shouldAddTransparent = false;
+                
+                // Check if the navbar overlaps with a project section
+                if (navbarRect.bottom >= projectRect.top && navbarRect.top <= projectRect.bottom) {
+                    shouldAddTransparent = false; // If the navbar overlaps with a project section, remove transparency
                 }
             });
 
             // Add or remove the transparent class based on the conditions
             if (shouldAddTransparent) {
                 navbar.classList.add(transparentClass);
-                SVGIcons.forEach((curr)=>{
+                SVGIcons.forEach((curr) => {
                     curr.classList.add('light');
-                })
+                });
             } else {
                 navbar.classList.remove(transparentClass);
-                SVGIcons.forEach((curr)=>{
+                SVGIcons.forEach((curr) => {
                     curr.classList.remove('light');
-                })
+                });
             }
         }
 
