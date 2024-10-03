@@ -1,7 +1,7 @@
 
 'use client';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 const AboutComponent = dynamic(() => import('./aboutComponent'), {
     ssr: false,
   }) 
