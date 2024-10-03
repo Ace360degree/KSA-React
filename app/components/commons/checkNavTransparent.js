@@ -2,16 +2,13 @@
 import { useEffect } from "react";
 
 export default function CheckNavTransparent() {
-
     useEffect(() => {
         const navbar = document.getElementById('navbar');
         const heroImages = document.querySelectorAll('.hero-image');
-        const projectInfoSections = document.querySelectorAll('.project-info-section');
         const projectSections = document.querySelectorAll('.remove-transparent');
         const allSections = document.querySelectorAll('section'); // Get all sections
         const SVGIcons = document.querySelectorAll('.change-svg');
         const transparentClass = 'transparent';
-        let intervalId;
 
         function checkNavbarPosition() {
             let shouldAddTransparent = false;
@@ -67,15 +64,16 @@ export default function CheckNavTransparent() {
             });
         }
 
-        // Check every 200ms
-        intervalId = setInterval(() => {
-            checkNavbarPosition();
-        }, 1000);
+        // // Attach the scroll event listener
+        // window.addEventListener('wheel', checkNavbarPosition);
 
-        // Cleanup interval on component unmount
-        return () => {
-            clearInterval(intervalId);
-        };
+        // // Initial check in case the page is loaded at a scroll position
+        checkNavbarPosition();
+
+        // Cleanup event listener on component unmount
+        // return () => {
+        //     window.removeEventListener('wheel', checkNavbarPosition);
+        // };
     }, []);
 
     return null;

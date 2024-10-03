@@ -357,6 +357,17 @@ export default function HomeComponent(){
         overflowScroll: true,
         updateHash: false,
         touchScroll: true,
+        before: function(index, sections) {
+          const nextSection = sections[index]; // Get the next section
+          if ($(nextSection).hasClass('hero-image')) {
+              $('#navbar').addClass('transparent');
+              $('.change-svg').addClass('light');
+          }
+          else{
+            $('#navbar').removeClass('transparent');
+            $('.change-svg').removeClass('light');
+          }
+        },
       });
   
       // Refresh ScrollTrigger after Scrollify initializes
@@ -458,7 +469,7 @@ export default function HomeComponent(){
                       </ul>
                     </div>
                 
-                    <div className="home-slides-box home-snapping">
+                    <div className="home-slides-box hero-image home-snapping">
                         <div className="slider-texts">
                             <h2>CLUSTER A</h2>
                             <h4>GREEN FACADE, VIBRANT SPACE. LIVE THE CASCADED DIFFERENCE</h4>
@@ -466,7 +477,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src="/images/home/1.jpg"/>
                     </div>
                     
-                    <div className="home-slides-box home-snapping">
+                    <div className="home-slides-box hero-image home-snapping">
                          <div className="slider-texts">
                             <h2>VU_T_SCHOOL</h2>
                             <h4>ARCHITECTURE MEETS EDUCATION : A SCHOOL REIMAGINED</h4>
@@ -474,7 +485,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src="/images/home/2.jpg"/>
                     </div>
                     
-                    <div className="home-slides-box home-snapping" >
+                    <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
                             <h2>BEVAB HEIGHTS</h2>
                             <h4>TWISTING LUXURY: REDEFINING THE SKYLINE</h4>
@@ -482,7 +493,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src="/images/home/3.jpg"/>
                     </div>
                     
-                    <div className="home-slides-box home-snapping" >
+                    <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
                             <h2>VAULT</h2>
                             <h4>THE ART OF HOSPITALITY, REDEFINED</h4>
@@ -490,7 +501,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src="/images/home/4.jpg"/>
                     </div>
                     
-                    <div className="home-slides-box home-snapping" >
+                    <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
                             <h2>LIVINE PARK</h2>
                             <h4>A PINNACLE OF MODERN LUXURY</h4>

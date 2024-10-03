@@ -132,6 +132,17 @@ export default function ProjectInfo(){
               overflowScroll: true,
               updateHash: false,
               touchScroll: true,
+              before: function(index, sections) {
+                const nextSection = sections[index]; // Get the next section
+                if ($(nextSection).hasClass('hero-image')) {
+                    $('#navbar').addClass('transparent');
+                    $('.change-svg').addClass('light');
+                }
+                else{
+                  $('#navbar').removeClass('transparent');
+                  $('.change-svg').removeClass('light');
+                }
+              },
             });
                       
         }
@@ -193,7 +204,7 @@ export default function ProjectInfo(){
             <NavbarIntroPageUnderline heading={'Expertise'} subheading={project.category}/>
             
             
-            <div className="project-banner project-info-section ">
+            <div className="project-banner hero-image project-info-section ">
                <div className="project-title" ref={projectTitle}><h2>{project.project_name}</h2>
                <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
                </div>
