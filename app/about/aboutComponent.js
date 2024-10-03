@@ -156,6 +156,8 @@ export default function AboutComponent(){
             updateHash: false,
             touchScroll: true,
           });
+
+          $.scrollify.move(0);
       
           // Refresh ScrollTrigger after Scrollify initializes
           ScrollTrigger.refresh();
@@ -164,10 +166,6 @@ export default function AboutComponent(){
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
       }, []);
 
-      useEffect(()=>{
-        // $.scrollify.destroy();
-        $.scrollify.move(0);
-    },[])
 
 
     useEffect(()=>{

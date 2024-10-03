@@ -170,7 +170,7 @@ export default function ContactComponent() {
                 updateHash: false,
                 touchScroll: true,
             });
-
+            $.scrollify.move(0);
             // Refresh ScrollTrigger after Scrollify initializes
             ScrollTrigger.refresh();
         });
@@ -178,9 +178,6 @@ export default function ContactComponent() {
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
     }, [showTabs]);
 
-    useEffect(() => {
-        $.scrollify.move(0);
-    }, []);
 
     return (
         <>

@@ -49,6 +49,7 @@ export default  function Ideas(){
     useEffect(()=>{
         
         if(!visited){
+        document.querySelector('body').classList.add('loading')
         let projectHeadTitles = document.querySelectorAll('.project-head-title');
         
         projectHeadTitles.forEach(function(title,index){
@@ -84,7 +85,7 @@ export default  function Ideas(){
             background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
             duration:1.5,
             ease: "power3.inOut",
-            delay:0,
+            delay:0, 
         });
         
                     let url_string = window.location.href; 
@@ -118,7 +119,7 @@ export default  function Ideas(){
         
         setTimeout(function(){
             document.querySelector('.project-heads').style.display='none';
-
+            document.querySelector('body').classList.remove('loading');
         },2000)
         
     }, 5000);
