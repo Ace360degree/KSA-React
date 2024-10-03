@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { TweenMax } from 'gsap/gsap-core';
 import { BsArrowLeftShort } from "react-icons/bs";
 import { BsArrowRightShort } from "react-icons/bs";
+import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa6";
+
 
 
 export default function SliderCursor(){
@@ -35,8 +38,8 @@ export default function SliderCursor(){
         
         TweenMax.set(sliderIcon, {
             css: {    
-            left: mouseX - 12,
-            top: mouseY - 18,
+            left: mouseX - 14,
+            top: mouseY - 20,
             }
         });
       }
@@ -99,9 +102,10 @@ export default function SliderCursor(){
           <div className="slider-cursor"></div>
         <div className="slider-cursor-icon fa-solid">
             {arrowIcon=='left'?  
-              <BsArrowRightShort  height={30} width={30} />
+              <FaChevronRight />
+
               : 
-              <BsArrowLeftShort height={30} width={30} />
+              <FaChevronLeft />
             } 
 
         </div>
