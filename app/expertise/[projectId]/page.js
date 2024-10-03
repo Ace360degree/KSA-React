@@ -12,6 +12,7 @@ import CommonLoader from "@/app/components/commons/loaderCommon";
 import "jquery-scrollify";
 import $ from "jquery";
 import NavbarIntroPageUnderline from "@/app/components/NavbarUnderline";
+import { useVisitedProjectsStore } from "@/app/states/store/projectsStore";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
@@ -29,6 +30,9 @@ const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectInfo(){
+
+    const {setVisited} = useVisitedProjectsStore();
+
     const [resized,setResized] =useState(1);
     const pathfull = useParams();
     const projectSlug  = pathfull.projectId;
@@ -60,6 +64,7 @@ export default function ProjectInfo(){
         }
 
         fetchProjectsApi();
+        setVisited();
     },[])
 
     useEffect(() => {
