@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../nextauth'; // Ensure this path is correct
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 
 export async function POST(req) {
