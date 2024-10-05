@@ -485,7 +485,6 @@ body.dark #navbar{
     line-height: 5px;
     text-transform: uppercase;
     font-weight: 300;
-    letter-spacing: 1px;
     font-family: 'Signifier', serif;
 }
 
@@ -2010,7 +2009,7 @@ body.dark .filter-box-control{
   list-style: none;
   width: 100%;
   max-width: 850px;
-  gap: 36px;
+  gap: 34px;
   margin: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -3663,8 +3662,8 @@ body.dark .filter-box-control{
   position: fixed;
   bottom: 25px;
   left: 25px;
-  height: 32px;
-  width: 32px;
+  height: 36px;
+  width: 36px;
   opacity: 0.5;
   background: transparent;
   cursor: var(--pointer);
@@ -4404,7 +4403,10 @@ body.dark .filter-box-control{
   .hero-sub {
       font-size: 1.8rem;
   }
-  .audio-box {
+  .filter-box{
+    gap:50px;
+  }
+  /* .audio-box {
       height: 42px !important;
       width: 42px !important;
   }
@@ -4412,7 +4414,7 @@ body.dark .filter-box-control{
       height: 42px !important;
       width: 35px !important;
   }
-  
+   */
   .cursor-lg {
       -webkit-transform:scale(1);
           -ms-transform:scale(1);
@@ -4483,11 +4485,11 @@ body.dark .filter-box-control{
       line-height: 3rem;
   }
   .logo-main {
-      font-size: 40px;
+      font-size: 46px;
       line-height: 40px;
   }
   .logo-main span {
-        font-size: 18px;
+        font-size: 14px;
         line-height: 18px;
         font-family: 'signifier';
   }
@@ -4623,7 +4625,7 @@ body.dark .filter-box-control{
       max-width: 1800px;
   }
   .ideas-item h2 {
-      font-size: 5rem;
+      font-size: 4.5rem;
   }
   .ideas-item h5 {
       font-size: 20px;

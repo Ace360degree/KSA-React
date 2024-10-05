@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { pool as db } from '../../db'; // Adjust the path to your db file
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
 import jwt from 'jsonwebtoken';
 
 // Secret key for signing JWT, store this in your environment variable

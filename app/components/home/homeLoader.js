@@ -65,7 +65,7 @@ export default function HomeLoader() {
 
     return (
         <>
-            <div className="loader-box" onClick={handleClick}>
+            <div className="loader-box">
                 {spinning ? (
                     <div className="spinner-box">
                         <div className="pulse-container">

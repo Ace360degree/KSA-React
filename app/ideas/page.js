@@ -324,8 +324,8 @@ export default  function Ideas(){
                                             />
                                             {/* </Link> */}
                                         </div>
-                                        <h2 className="title-tohide">{idea.title}</h2>
-                                        <h5 className="title-tohide">{idea.description}</h5>
+                                        <h2 className="title-tohide signifier">{idea.title}</h2>
+                                        <h5 className="title-tohide signifier">{idea.description}</h5>
                                     </div>
                                 </div>
                             </div>
