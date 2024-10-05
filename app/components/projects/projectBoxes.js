@@ -68,8 +68,6 @@ export default function ProjectBoxes() {
           'Content-Type': 'application/json',
         },
         
-        cache: 'no-store',
-        revalidate:0, 
       });
 
       const getProjects = await (fetchProjects.json());
