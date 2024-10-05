@@ -18,6 +18,8 @@ export const pool = mysql.createPool({
   database: 'cosmon1u_ksa',
   connectionLimit: 5000000000, // Adjust this value based on your needs
   multipleStatements: true,  
+  waitForConnections: true,
+  queueLimit:0,
 });
 
 // Export the pool to be used in other modules
