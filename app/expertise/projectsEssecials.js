@@ -52,7 +52,7 @@ export default function ProjectEssencials({essecials,points}){
     
     return(
     <>
-        <div class="project-info-section" id="project-counter">
+        <div id="project-counter">
             <div class="border-section"> 
                 <div class="row m-0 g-0 mobile-signifier">
                     

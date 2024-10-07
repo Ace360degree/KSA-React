@@ -30,7 +30,6 @@ export default function CursorAudio() {
   const { isLoggedIn } = useAuth();
   
   const [cursorStatus,setcursorStatus] = useState(true);
-
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
 
   // Function to toggle play/pause
@@ -95,9 +94,9 @@ export default function CursorAudio() {
     // Set up an event listener to play audio on user interaction
     const handleUserInteraction = () => {
       playAudioConditionByInteraction();
-      setTimeout(()=>{
-        requestFullscreen();
-      },0);
+      // setTimeout(()=>{
+      //   requestFullscreen();
+      // },0);
     //  // Request fullscreen on user interaction
       document.removeEventListener('click', handleUserInteraction); // Remove listener once audio starts
     };
@@ -205,12 +204,12 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <Link href={`/auth/${isLoggedIn?"logout":`login?route=${path}`}`}><div className='auth-icon-box change-svg'>
-        {isLoggedIn? <GrPowerShutdown stroke-width="1"/> : <GrPowerForceShutdown stroke-width="1" /> }
+      <Link href={`/auth/${isLoggedIn?"logout":`login?route=${path}`}`}><div className='auth-icon-box slide-up change-svg'>
+        {isLoggedIn? <GrPowerShutdown /> : <GrPowerForceShutdown /> }
         
       </div></Link>
 
-      <div className="audio-box change-svg" onClick={toggleAudio}>
+      <div className="audio-box change-svg slide-up" onClick={toggleAudio}>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" viewBox="0 0 24 24">
           {/* Toggle visibility based on state */}
           <path

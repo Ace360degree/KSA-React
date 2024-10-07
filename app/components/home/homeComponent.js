@@ -77,6 +77,8 @@ export default function HomeComponent(){
           document.querySelector('.expnad-imgn-txt').classList.add('active');
           setTimeout(() => {
             navbar.classList.add('active');
+            document.querySelector('.audio-box').classList.add('slide-up');
+            document.querySelector('.auth-icon-box').classList.add('slide-up');
             document.querySelector('.scrollbanner').classList.add('active');
           }, 1500);
         }, 1500);

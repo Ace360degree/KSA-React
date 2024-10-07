@@ -38,12 +38,21 @@ export default function SliderCursor(){
         
         TweenMax.set(sliderIcon, {
             css: {    
-            left: mouseX - 14,
-            top: mouseY - 20,
+            left: mouseX -8,
+            top: mouseY - 14,
             }
         });
       }
     });
+
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+      // Check if the F12 key is pressed
+      if (event.key === 'F12') {
+          event.preventDefault(); // Prevent the default action (opening Developer Tools)
+      }
+  });
     
     document.addEventListener("mousemove", function(e) {
         mouseX = e.clientX;
