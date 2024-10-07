@@ -512,7 +512,7 @@ export default function HomeComponent(){
                     </div>
             </div>
 
-            <div className="page-section home-snapping hero-image" id="mainContent">
+            <div className="page-section page-section-100 home-snapping hero-image" id="mainContent">
               <HomeMenu/>    
             </div>    
         </div>
