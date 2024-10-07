@@ -569,6 +569,7 @@ body.dark #navbar{
   transition:all 0.8s ease-in-out;
 }
 
+/* 100 percent  */
 .page-section-100{
   max-height: 100vh;
 }
