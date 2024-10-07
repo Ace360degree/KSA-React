@@ -205,7 +205,7 @@ export default function ProjectInfo(){
             
             
             <div className="project-banner hero-image project-info-section ">
-               <div className="project-title" ref={projectTitle}><h2>{project.project_name}</h2>
+               <div className="project-title text-uppercase" ref={projectTitle}><h2>{project.project_name}</h2>
                <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
                </div>
                 {windowSize.width <=750 && project.mobile_banner!=''?

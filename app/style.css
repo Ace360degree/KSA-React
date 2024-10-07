@@ -2222,7 +2222,7 @@ body.dark .filter-box-control{
   left: 24px;
   text-shadow: 1px 1px 3px black;
   color: white;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   -webkit-transform-origin:left;
       -ms-transform-origin:left;
           transform-origin:left;
