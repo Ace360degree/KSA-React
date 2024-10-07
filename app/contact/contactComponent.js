@@ -28,7 +28,7 @@ export default function ContactComponent() {
         name: '',
         email: '',
         description: '',
-        file: null
+        //file: null
     });
     
     const[activeContact,setActiveContact] = useState(true);
@@ -67,14 +67,14 @@ export default function ContactComponent() {
         }
     },[activeContact,activeOffices,showTabs])
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setFileName(file ? file.name : 'No file chosen');
-        setFormData({
-            ...formData,
-            file: file
-        });
-    };
+    // const handleFileChange = (event) => {
+    //     const file = event.target.files[0];
+    //     setFileName(file ? file.name : 'No file chosen');
+    //     setFormData({
+    //         ...formData,
+    //         file: file
+    //     });
+    // };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -91,9 +91,9 @@ export default function ContactComponent() {
         form.append('name', formData.name);
         form.append('email', formData.email);
         form.append('description', formData.description);
-        if (formData.file) {
-            form.append('file', formData.file);
-        }
+        // if (formData.file) {
+        //     form.append('file', formData.file);
+        // }
 
         try {
             const response = await fetch('/api/submitcontact', {
@@ -111,7 +111,7 @@ export default function ContactComponent() {
                 name: '',
                 email: '',
                 description: '',
-                file: null
+                //file: null
             });
             setFileName('No File Chosen');
         } catch (error) {
@@ -224,7 +224,7 @@ export default function ContactComponent() {
                                     <textarea className="theme-input" name="description" value={formData.description} onChange={handleChange} rows="3" required></textarea>
                                 </div>
 
-                                <div className="form-row">
+                                {/* <div className="form-row d-none">
                                     <label>Attach File</label>
                                     <div className="file-upload-container ">
                                         <label htmlFor="fileInput" className="input-file-label w-100">Upload</label>
@@ -236,7 +236,7 @@ export default function ContactComponent() {
                                         />
                                         <div className="file-name">{fileName}</div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="form-row">
                                     <button type="submit" className="btn-theme mt-4 w-100"><div className="btn-content">Submit</div></button>

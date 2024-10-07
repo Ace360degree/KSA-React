@@ -2789,7 +2789,10 @@ body.dark .filter-box-control{
 
 .contact-section-tab{
   position: relative;
-  max-height: 90vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contact-footer{
@@ -4253,13 +4256,13 @@ body.dark .filter-box-control{
       text-align: center;
   }
   .project-image-wrap{
-      width:85%;
+      width:75%;
       margin:auto;
   }
   .project-item-content {
     position: relative;
     left: 0;
-    width: 85%;
+    width: 75%;
     white-space: normal;
     max-width: 380px;
   }
@@ -4289,7 +4292,7 @@ body.dark .filter-box-control{
       font-size: 14px;
   }
   .project-item-content h4 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 400;
   }
   .filter-box li{
@@ -4613,9 +4616,9 @@ body.dark .filter-box-control{
       left: -6px;
   }
 
-  .contact-section-tab{
+  /* .contact-section-tab{
     max-height: 94vh;
-  }
+  } */
 
   .map-line::before{
       height: 50px;
