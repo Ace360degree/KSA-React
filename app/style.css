@@ -367,6 +367,23 @@ body.dark .cursor-lg,body.dark .cursor-sm{
 }
 
 
+.home-navbar-trans {
+  opacity: 0;
+  animation: fadeInNav 2s forwards; /* Apply the animation */
+  animation-delay: 2s; /* Delay the animation for 2 seconds */
+}
+
+.home-btn-trans-anim{
+  opacity: 0;
+  animation: fadeInNav 2s forwards; /* Apply the animation */
+  animation-delay: 2s; 
+}
+
+@keyframes fadeInNav {
+  to {
+    opacity: 1; /* End state of the animation */
+  }
+}
 
 #navbar{
   position:fixed;
@@ -2319,7 +2336,7 @@ body.dark .filter-box-control{
 }
 
 .glance-sections{
-  margin-bottom: 3rem;
+  margin-bottom: 6vh;
 }
 
 .border-left-info{
@@ -2347,8 +2364,8 @@ body.dark .filter-box-control{
 .glance-points{
   padding: 0;
   margin: 0;
-  text-transform: uppercase;
-  font-size: 18px;
+  /* text-transform: uppercase; */
+  font-size: 16px;
   list-style: none;
   font-weight: 300;
   line-height: 22px;
@@ -3287,7 +3304,7 @@ body.dark .filter-box-control{
 }
 
 #project-counter .border-section{
-  min-height: 100vh !important;
+  min-height: 95vh !important;
 }
 
 
@@ -3925,7 +3942,10 @@ body.dark .filter-box-control{
 }
 
 .project-title-padding{
-  padding: 4rem;
+  padding: 2rem;
+}
+.essential-title{
+  font-size: 2rem;
 }
 
 
@@ -4278,6 +4298,17 @@ body.dark .filter-box-control{
       height: 194px;
       opacity: 0.1;
   }
+  .border-section{
+    border-top: none;
+    border-bottom: none;
+  }
+  .padding-points{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid grey;
+  }
+  .essential-title{
+    font-size: 1.2rem;
+  }
   #clock-bound-box{
     bottom: 175px;
   }
@@ -4563,8 +4594,8 @@ body.dark .filter-box-control{
   }
   
   .header-content {
-    line-height: 18px;
-    font-size: 18px;
+    line-height: 19px;
+    font-size: 16px;
   }
 
   .project-image-info h4{
@@ -4710,7 +4741,7 @@ body.dark .filter-box-control{
       margin-bottom: 5rem;
   }
   .essential-title{
-      font-size: 5rem !important;
+      font-size: 3rem !important;
   }
 
   .nav-subtitle-content{
