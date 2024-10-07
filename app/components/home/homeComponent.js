@@ -405,7 +405,7 @@ export default function HomeComponent(){
         <NavbarIntroPage/>
         {/* <ScrollifyComponent/> */}
         <CheckNavTransparent/>
-            <div id="page" ref={page}>
+            <div id="page" className="overflow-hidden" ref={page}>
             
             <div className="nav-title" data-title=""></div>
             
@@ -512,7 +512,7 @@ export default function HomeComponent(){
                     </div>
             </div>
 
-            <div className="page-section home-snapping" id="mainContent">
+            <div className="page-section home-snapping hero-image" id="mainContent">
               <HomeMenu/>    
             </div>    
         </div>

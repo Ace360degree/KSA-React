@@ -3673,7 +3673,7 @@ body.dark .filter-box-control{
   z-index: 5000;
   text-align: center;
   transition: all 0.6s ease;
-  transform: translateY(180%);
+  transform: translateY(250%);
 }
 
 .auth-icon-box.slide-up{
@@ -3730,7 +3730,7 @@ body.dark .filter-box-control{
   cursor: var(--pointer);
   border: 1px solid black;
   transition:all 0.6s ease;
-  transform: translateY(180%);
+  transform: translateY(250%);
 }
 
 .audio-box.slide-up{
