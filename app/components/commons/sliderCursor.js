@@ -38,8 +38,8 @@ export default function SliderCursor(){
         
         TweenMax.set(sliderIcon, {
             css: {    
-            left: mouseX - 14,
-            top: mouseY - 20,
+            left: mouseX -8,
+            top: mouseY - 14,
             }
         });
       }

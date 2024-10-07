@@ -68,7 +68,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
             <div className="project-info-image">
               {windowSize.width <= 750 && section.section_image_mobile!='' ? 
               <Image height={500} width={500}  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Flowers"/>
-              : <Image  height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Flowers"/> } 
+              : <Image  height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="Flowers"/> } 
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
                   <SplideSlide key={index}>
                     {windowSize.width <= 750 && slide.mobile!='' ? 
                     <Image height={500} width={500} style={{width:'100%',height:'100%'}}  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="Flowers"/>
-                    : <Image height={500} width={500} style={{width:'100%',height:'100%'}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="Flowers"/> 
+                    : <Image height={500} width={500} unoptimized style={{width:'100%',height:'100%'}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="Flowers"/> 
                     }
                   </SplideSlide>
                 ))}
@@ -108,7 +108,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
       <div className="project-info-section full-bleed-container position-relative hero-image" style={{minHeight:'100vh'}} ref={InfoSection}>
         {windowSize.width <= 750 && section.section_image_mobile!='' ? 
             <Image className='hero-image' height={500} width={500}  style={{width:'100%',height:'100vh',objectFit:'cover'}} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
-            : <Image className='hero-image' height={500} width={500} style={{width:'100%',height:'100vh',objectFit:'cover'}} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
+            : <Image className='hero-image' height={500} width={500} unoptimized style={{width:'100%',height:'100vh',objectFit:'cover'}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
         }
       </div>
     );
@@ -120,7 +120,7 @@ export default function ProjectSection({ section, slides,essecials,points }) {
             <SplideSlide key={index}>
                {windowSize.width <= 750 && slide.mobile!='' ? 
             <Image className='hero-image' height={500} width={500} style={{width:'100%',height:'100vh',objectFit:"cover"}}  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.movile} alt="KSA"/>
-            : <Image className='hero-image' height={500} width={500} style={{width:'100%',height:'100vh',objectFit:"cover"}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/> 
+            : <Image className='hero-image' height={500} width={500} unoptimized style={{width:'100%',height:'100vh',objectFit:"cover"}} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/> 
         }
             </SplideSlide>
           ))}

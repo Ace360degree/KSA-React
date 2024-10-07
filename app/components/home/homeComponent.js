@@ -44,8 +44,6 @@ export default function HomeComponent(){
     const mainContent = document.getElementById('mainContent');
     const ProjectSlider = document.querySelector('.home-project-slider');
     const homeSlidesItem = document.querySelectorAll('.home-slider-item');
-
-    navbar.classList.remove('active');
     document.body.classList.add('loading', 'dark');
 
     homeSlidesItem.forEach((item, index) => {
@@ -77,6 +75,8 @@ export default function HomeComponent(){
           document.querySelector('.expnad-imgn-txt').classList.add('active');
           setTimeout(() => {
             navbar.classList.add('active');
+            document.querySelector('.audio-box').classList.add('slide-up');
+            document.querySelector('.auth-icon-box').classList.add('slide-up');
             document.querySelector('.scrollbanner').classList.add('active');
           }, 1500);
         }, 1500);
@@ -400,7 +400,9 @@ export default function HomeComponent(){
 
     return(
         <>
+        <div class="home-navbar-trans">
         <NavbarIntroPage/>
+        </div>
         {/* <ScrollifyComponent/> */}
         <CheckNavTransparent/>
             <div id="page" ref={page}>
@@ -510,7 +512,7 @@ export default function HomeComponent(){
                     </div>
             </div>
 
-            <div className="page-section home-snapping" id="mainContent">
+            <div className="page-section page-section-100 home-snapping hero-image" id="mainContent">
               <HomeMenu/>    
             </div>    
         </div>

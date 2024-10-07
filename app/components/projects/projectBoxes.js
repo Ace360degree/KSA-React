@@ -380,7 +380,7 @@ export default function ProjectBoxes() {
     };
   
     handleUpdate();
-    const intervalId = setInterval(handleUpdate, 100);
+    const intervalId = setInterval(handleUpdate, 600);
   
     return () => {
       clearInterval(intervalId);

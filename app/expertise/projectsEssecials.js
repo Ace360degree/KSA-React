@@ -52,13 +52,13 @@ export default function ProjectEssencials({essecials,points}){
     
     return(
     <>
-        <div class="project-info-section" id="project-counter">
+        <div id="project-counter">
             <div class="border-section"> 
                 <div class="row m-0 g-0 mobile-signifier">
                     
                     <div class="col-md-3">
                         <div class="project-title-padding">
-                        <h4 class="fs-1 fw-light essential-title">Project Essentials</h4>
+                        <h4 class="fw-light essential-title signifier">Project Essentials</h4>
                         </div>
                     </div>
                     
@@ -71,7 +71,7 @@ export default function ProjectEssencials({essecials,points}){
                                     {essecials.map((essecial,index)=>(
                                     <div class="glance-sections" key={index}>
                                         <h4 class="glance-side-title">{essecial.title}</h4>
-                                        <div className="glance-points" dangerouslySetInnerHTML={{ __html: essecial.content }} />
+                                        <div className="glance-points signifier" dangerouslySetInnerHTML={{ __html: essecial.content }} />
                                     </div>
                                     ))}
                                     {/* Loop for Points Attributes  */}
