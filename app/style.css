@@ -3286,9 +3286,9 @@ body.dark .filter-box-control{
   min-height: 100vh;
 }
 
-/* #project-counter .border-section{
+#project-counter .border-section{
   min-height: 100vh !important;
-} */
+}
 
 
 .full-bleed-image{
