@@ -405,7 +405,7 @@ export default function HomeComponent(){
         <NavbarIntroPage/>
         {/* <ScrollifyComponent/> */}
         <CheckNavTransparent/>
-            <div id="page" className="overflow-hidden" ref={page}>
+            <div id="page" ref={page}>
             
             <div className="nav-title" data-title=""></div>
             

@@ -633,6 +633,7 @@ body.dark #navbar{
   position:relative;
   min-height:100vh;
   overflow-x:clip;
+  overflow-y:clip;
   /*display:flex;*/
   /*flex-direction:column;*/
   /*align-items:center;*/
