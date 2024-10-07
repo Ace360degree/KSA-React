@@ -81,7 +81,7 @@ export async function GET(req) {
     } finally {
         // Ensure the connection is released back to the pool
         if (connection) {
-           // await connection.release(); // Release the connection back to the pool
+           await connection.release(); // Release the connection back to the pool
         }
     }
 }

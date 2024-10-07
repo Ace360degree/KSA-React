@@ -2,7 +2,7 @@
 import bcrypt from 'bcrypt';
 import { pool as db } from '../../db'; // Adjust the path to your db file
 import { NextResponse } from 'next/server';
-// export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 
 export async function POST(req) {
@@ -23,8 +23,8 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Error creating user' }, { status: 500 });
   }
   finally{
-    if(db){
-      await db.end();
-    }
+    // if(db){
+    //   await db.end();
+    // }
   }
 }
