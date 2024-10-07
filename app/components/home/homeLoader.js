@@ -21,6 +21,7 @@ export default function HomeLoader() {
     }, []);
 
     useEffect(() => {
+        // document.querySelector('body').classList.add('loading');
         document.querySelector('body').classList.remove('dark');
         document.querySelector('.audio-box').classList.remove('slide-up');
         document.querySelector('.auth-icon-box').classList.remove('slide-up');
