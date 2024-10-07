@@ -101,6 +101,15 @@ export default function CursorAudio() {
       document.removeEventListener('click', handleUserInteraction); // Remove listener once audio starts
     };
 
+    
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+      // Check if the F12 key is pressed
+      if (event.key === 'F12') {
+          event.preventDefault(); // Prevent the default action (opening Developer Tools)
+      }
+  });
+
     document.addEventListener('click', handleUserInteraction); // Set up listener on document click
 
     return () => {
