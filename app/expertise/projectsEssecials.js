@@ -70,7 +70,7 @@ export default function ProjectEssencials({essecials,points}){
                                     {/* Loop for Points Attributes  */}
                                     {essecials.map((essecial,index)=>(
                                     <div class="glance-sections" key={index}>
-                                        <h4 class="glance-side-title">{essecial.title}</h4>
+                                        <h4 class="glance-side-title signifier">{essecial.title}</h4>
                                         <div className="glance-points signifier" dangerouslySetInnerHTML={{ __html: essecial.content }} />
                                     </div>
                                     ))}
@@ -85,7 +85,7 @@ export default function ProjectEssencials({essecials,points}){
                                         <div class="col-md-6 col-6" key={index}>
                                             <div class="project-info-highlights">
                                                 <h2><span class="fx-counter" data-number={point.number}>0</span>{point.number_title}</h2>
-                                                <h4>{point.title}</h4>
+                                                <h4 className="signifier">{point.title}</h4>
                                             </div>
                                         </div>
                                         ))}

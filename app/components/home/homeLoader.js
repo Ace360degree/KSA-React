@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import '../../loader.css';
+import '../../home.css';
 import { useVisitedStore } from '@/app/states/store';
 import gsap from 'gsap/all';
 

@@ -213,9 +213,8 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <div className='home-btn-trans-anim'>
       <Link href={`/auth/${isLoggedIn?"logout":`login?route=${path}`}`}><div className='auth-icon-box slide-up change-svg'>
-        {isLoggedIn? <GrPowerShutdown /> : <GrPowerForceShutdown /> }
+        {isLoggedIn? <GrPowerForceShutdown /> :  <GrPowerShutdown className='shutdown' /> }
         
       </div></Link>
 
@@ -240,8 +239,7 @@ export default function CursorAudio() {
             strokeWidth="1"
           />
         </svg>
-      </div>
-
+        
       </div>
 
       {isTouchscreen && !cursorStatus ?'':

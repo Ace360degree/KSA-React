@@ -399,7 +399,7 @@ export default function HomeComponent(){
 
 
 
-    return(
+    return( 
         <>
         <NavbarIntroPage/>
         {/* <ScrollifyComponent/> */}

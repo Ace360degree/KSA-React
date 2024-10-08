@@ -4,6 +4,12 @@
     animation: fadeInNav 2s forwards; 
     animation-delay: 2s; 
   }
+
+  .change-svg{
+    opacity: 0;
+    animation: fadeInNav 2s forwards; 
+    animation-delay: 2s; 
+  }
   
   @keyframes fadeInNav {
     to {
