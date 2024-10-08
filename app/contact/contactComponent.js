@@ -278,6 +278,13 @@ export default function ContactComponent() {
                             <Link href={'#'}><FaSquareXTwitter className="footer-icon" size={22} /></Link>
                             <Link href={'#'}><FaLinkedin className="footer-icon" size={22} /></Link>
                         </div>
+                        <div class="footer-policy-box">
+                            <ul class="policy-box">
+                                <Link href={'/'}><li>Terms of Use</li></Link>
+                                <Link href={'/'}><li>Privacy Policy</li></Link>
+                                <Link href={'/'}><li>Cookies Policies</li></Link>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 : ''}
