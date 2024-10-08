@@ -1,5 +1,6 @@
 'use client';
 import HomeMenu from "../homeMenu/homeMenu";
+import '../../home.css';
 import NavbarIntroPage from "../NavbarIntroPage";
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
@@ -400,9 +401,7 @@ export default function HomeComponent(){
 
     return(
         <>
-        <div class="home-navbar-trans">
         <NavbarIntroPage/>
-        </div>
         {/* <ScrollifyComponent/> */}
         <CheckNavTransparent/>
             <div id="page" ref={page}>

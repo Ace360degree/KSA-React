@@ -1,0 +1,13 @@
+
+#navbar{
+    opacity: 0;
+    animation: fadeInNav 2s forwards; 
+    animation-delay: 2s; 
+  }
+  
+  @keyframes fadeInNav {
+    to {
+      opacity: 1 ; /* End state of the animation */
+    }
+  }
+  

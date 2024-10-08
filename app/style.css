@@ -375,15 +375,15 @@ body.dark .cursor-lg,body.dark .cursor-sm{
 
 .home-btn-trans-anim{
   opacity: 0;
-  animation: fadeInNav 2s forwards; /* Apply the animation */
+  animation: fadeInNav 2s forwards; 
   animation-delay: 2s; 
-  position: relative;
-    z-index: 50000;
+  position: absolute;
+  z-index: 100;
 }
 
 @keyframes fadeInNav {
   to {
-    opacity: 1; /* End state of the animation */
+    opacity: 1 ; /* End state of the animation */
   }
 }
 
