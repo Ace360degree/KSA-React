@@ -2437,8 +2437,9 @@ body.dark .filter-box-control{
 
 
 .ab-2-head{
-  font-size: 3vw;
+  font-size: 2.7rem;
   margin-bottom: 14px;
+  max-width:75vw;
   -webkit-transform: scale(1.4);
       -ms-transform: scale(1.4);
           transform: scale(1.4);
@@ -2828,6 +2829,14 @@ body.dark .filter-box-control{
   font-size: 16px;
 }
 
+.footer-policy-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 14px;
+}
+
 .policy-box{
   display: flex;
   flex-direction: row;
@@ -2836,8 +2845,34 @@ body.dark .filter-box-control{
   list-style: none;
   gap: 24px;
   font-size: 1rem;
-  margin-top: 8px;
   font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+.policy-box{
+  position: absolute;
+  left:0;
+  top: 0;
+  overflow: hidden;
+  width: auto;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  max-width: 0;
+}
+
+.policy-box.active{
+  max-width: 9000px;
+  transition: all 0.9s ease;
+}
+
+.policy-box-control{
+  width:0px;
+  position: relative;
+}
+
+.policies-launcher{
+    cursor:var(--pointer);
 }
 
 .social-links{
@@ -4048,6 +4083,28 @@ body.dark .filter-box-control{
       padding:5rem 0;
   }
 
+  .footer-policy-box{
+    flex-direction: column;
+  }
+
+  .policy-box-control{
+    width: auto;
+  }
+
+  .policy-box{
+    position: relative;
+    max-width: 9000px;
+    max-height: 0;
+  }
+  .policy-box.active{
+    max-height: 10000px;
+  }
+  .contact-footer{
+    padding-bottom: 3rem;
+  }
+  .map-line{
+    height: 80px;
+  }
   .auth-icon-box{
     bottom: 16px;
     left: 16px;
