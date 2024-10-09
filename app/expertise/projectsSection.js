@@ -71,13 +71,13 @@ export default function ProjectSection({ section, slides, essecials, points }) {
     return (
       <div className="project-info-section remove-transparent full-bleed-image  project-border-bottom" ref={InfoSection}>
         <div className="row m-0 g-0">
-          <div className="col-md-4 col-lg-7">
+          <div className="col-lg-7">
             <div className="project-image-info">
               <h2>{section.section_title}</h2>
               <h4>{section.content}</h4>
             </div>
           </div>
-          <div className="col-md-8 col-lg-5">
+          <div className="col-lg-5">
             <div className="project-info-image">
               {windowSize.width <= 750 && section.section_image_mobile ? 
                 <Image height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Mobile Image"/>
@@ -93,13 +93,13 @@ export default function ProjectSection({ section, slides, essecials, points }) {
     return (
         <div className="project-info-section remove-transparent project-border-bottom" ref={InfoSection}>
           <div className="row m-0 g-0">
-            <div className="col-md-4 col-lg-7">
+            <div className=" col-lg-7">
               <div className="project-image-info">
                 <h2>{section.section_title}</h2>
                 <h4>{section.content}</h4>
               </div>
             </div>
-            <div className="col-md-8 col-lg-5">
+            <div className=" col-lg-5">
               <div className="project-info-image info-slider-section">
                 <Splide options={SliderSettings}>
                   {slides.slides.map((slide, index) => (

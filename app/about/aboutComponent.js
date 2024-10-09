@@ -124,38 +124,68 @@ export default function AboutComponent(){
         
     }, [showTabs]);
 
-    useEffect(() => {
-        let ctx = gsap.context(() => {
 
-            document.querySelectorAll('.about-pinned-anim').forEach((pinned,index)=>{
-                let ab2head = pinned.querySelector('.ab-2-head');
-                let abPara = pinned.querySelector('.about-para');
+    
 
-                // Play Second Animation
-                let ksaAbout2TL = gsap.timeline();
-                ksaAbout2TL.to(ab2head, {duration: 1, scale: 1})
-                    .to(abPara, {duration: 1, opacity: 1, scale: 1.1})
-                    .to(ksaAbout2TL, {delay: 0.5});
 
-                ScrollTrigger.create({
-                    scrub: true,
-                    trigger: pinned,
-                    start: "top top",
-                    end: "+=900",
-                    pin: true,
-                    animation: ksaAbout2TL,
-                    snap: {
-                        snapTo: '#ksa-points', // Snap to the next section
-                        duration: { min: 0.2, max: 1 }, // Duration range
-                        ease: 'power1.inOut', // Easing for the snapping
-                    }
-                });
+    // useEffect(() => {
+    //     let ctx = gsap.context(() => {
 
-            })
+    //         document.querySelectorAll('.about-pinned-anim').forEach((pinned,index)=>{
+    //             let ab2head = pinned.querySelector('.ab-2-head');
+    //             let abPara = pinned.querySelector('.about-para');
+
+    //             // Play Second Animation
+    //             let ksaAbout2TL = gsap.timeline();
+    //             ksaAbout2TL.to(ab2head, {duration: 1, scale: 1})
+    //                 .to(abPara, {duration: 1, opacity: 1, scale: 1.1})
+    //                 .to(ksaAbout2TL, {delay: 0.5});
+
+    //             ScrollTrigger.create({
+    //                 scrub: true,
+    //                 trigger: pinned,
+    //                 start: "top top",
+    //                 end: "+=900",
+    //                 pin: true,
+    //                 animation: ksaAbout2TL,
+               
+    //             });
+
+    //         })
 
             
-        });
+    //     });
 
+    //     return () => ctx.revert();
+    // }, [showTabs]);
+
+    useEffect(() => {
+        let ctx = gsap.context(() => {
+            document.querySelectorAll('.about-pinned-anim').forEach((pinned, index) => {
+                let ab2head = pinned.querySelector('.ab-2-head');
+                let abPara = pinned.querySelector('.about-para');
+    
+                // Create the timeline with ScrollTrigger
+                let ksaAbout2TL = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: pinned,
+                        start: "top 50%",
+                        //end: "+=1000s", // Adjust this value as needed
+                        //scrub: true, // Sync with scroll position
+                        onEnter:() => ksaAbout2TL.play(),
+                        onLeave: () => ksaAbout2TL.reverse(),    // Reverse animation on leave
+                        onEnterBack: () => ksaAbout2TL.play(),   // Play again on enter back
+                        onLeaveBack: () => ksaAbout2TL.reverse() // Reverse again on leave back
+                        // pin: true, // Uncomment if you want to pin
+                    }
+                });
+    
+                ksaAbout2TL
+                    .to(ab2head, { duration: 1, scale: 1 })
+                    .to(abPara, { duration: 0.5, opacity: 1, scale: 1 });
+            });
+        });
+    
         return () => ctx.revert();
     }, [showTabs]);
 

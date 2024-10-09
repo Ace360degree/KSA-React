@@ -35,7 +35,6 @@ export default function HomeComponent(){
   };
 
   useEffect(() => {
-    gsap.to(window, { scrollTo: { y: 0, autoKill: false } });
     gsap.ticker.lagSmoothing(false);
     setSnapping(true);
 
@@ -339,6 +338,10 @@ export default function HomeComponent(){
     };
   }, [fullScreenCheck]);
   
+  useEffect(()=>{
+    $.scrollify.move(0);
+    $.scrollify.destroy();
+  },[])
 
 
   useEffect(() => {
@@ -409,7 +412,7 @@ export default function HomeComponent(){
             <div className="nav-title" data-title=""></div>
             
             <div className="home-snapping">
-                <div className="home-banner-box">
+                <div className="home-banner-box ">
                 
             
             
