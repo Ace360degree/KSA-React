@@ -19,7 +19,7 @@ export default function ContactComponent() {
     const [showTabs, setShowTabs] = useState('All');
     const formTitle = useRef(null);
     const [mobileFilter,setMobileFilter] =useState(false);
-
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [showTerms,setShowTerms] = useState(false);
 
     const officeSection = useRef(null);
@@ -46,6 +46,20 @@ export default function ContactComponent() {
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
     }
+
+    useEffect(() => {
+  
+        if (!isTouchDevice) {
+          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+          ScrollTrigger.normalizeScroll(true);
+        }
+      
+        return () => {
+          if (!isTouchDevice) {
+            ScrollTrigger.normalizeScroll(false);
+          }
+        };
+      }, []);
 
     useEffect(()=>{
         if(officeSection.current){
@@ -167,7 +181,7 @@ export default function ContactComponent() {
                 sectionName: "contact-snap",
                 interstitialSection: "",
                 easing: "easeOutExpo",
-                scrollSpeed: 500,
+                scrollSpeed: isTouchDevice?100:1500,
                 offset: 0,
                 scrollbars: true,
                 standardScrollElements: "",

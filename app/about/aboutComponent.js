@@ -23,7 +23,7 @@ export default function AboutComponent(){
 
     const [activeCulture,setActiveCulture] = useState(true);
     const [activeDiscipline,setActiveDiscipline] = useState(false);
-
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const AboutProjects = useRef(null);
     
     gsap.defaults({inherit:false});
@@ -48,7 +48,19 @@ export default function AboutComponent(){
         }
     }
 
-
+    useEffect(() => {
+  
+        if (!isTouchDevice) {
+          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+          ScrollTrigger.normalizeScroll(true);
+        }
+      
+        return () => {
+          if (!isTouchDevice) {
+            ScrollTrigger.normalizeScroll(false);
+          }
+        };
+      }, []);
 
     useEffect(() => {
 
@@ -157,7 +169,7 @@ export default function AboutComponent(){
             sectionName: "about-snap",
             interstitialSection: "",
             easing: "easeOutExpo",
-            scrollSpeed: 500,
+            scrollSpeed: isTouchDevice?100:1500,
             offset: 0,
             scrollbars: true,
             standardScrollElements: "",

@@ -4125,7 +4125,7 @@ body.dark .filter-box-control{
     padding-bottom: 3rem;
   }
   .map-line{
-    height: 80px;
+    height: 124px;
   }
   .auth-icon-box{
     bottom: 10px;
@@ -4269,7 +4269,8 @@ body.dark .filter-box-control{
       font-size: 1.4rem;
   }
   .ab-2-head {
-      font-size: 6vw;
+      font-size: 1.2rem;
+      margin: auto;
   }
   .about-para {
       font-size: 16px;

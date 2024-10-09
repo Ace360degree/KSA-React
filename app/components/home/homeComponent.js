@@ -17,7 +17,7 @@ export default function HomeComponent(){
   
 
   const [snapping, setSnapping] = useState(false);
-  const [fullScreenCheck, setFullScreenCheck] = useState(1);
+  const [fullScreenCheck, setFullScreenCheck] = useState(1); 
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const router = useRouter();
   const secondTitleSection = useRef(null);
