@@ -369,19 +369,22 @@ body.dark .cursor-lg,body.dark .cursor-sm{
 
 .home-navbar-trans {
   opacity: 0;
-  animation: fadeInNav 2s forwards; /* Apply the animation */
-  animation-delay: 2s; /* Delay the animation for 2 seconds */
+  animation: fadeInNav 1s forwards; /* Apply the animation */
+  animation-delay: 1s; /* Delay the animation for 2 seconds */
 }
 
 .home-btn-trans-anim{
   opacity: 0;
-  animation: fadeInNav 2s forwards; /* Apply the animation */
+  animation: fadeInNav 2s forwards; 
   animation-delay: 2s; 
+  position: absolute;
+  height: 0;
+  z-index: 5000;
 }
 
 @keyframes fadeInNav {
   to {
-    opacity: 1; /* End state of the animation */
+    opacity: 1 ; /* End state of the animation */
   }
 }
 
@@ -405,7 +408,8 @@ body.dark .cursor-lg,body.dark .cursor-sm{
 }
 
 #navbar.underline-nav{
-  border-bottom: 1px solid grey;
+  border-bottom: none;
+  background-color: transparent !important;
 }
 
 #navbar{
@@ -2353,7 +2357,7 @@ body.dark .filter-box-control{
 }
 
 .glance-side-title{
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 300;
   color: #bdbdbd;
   text-transform: uppercase;
@@ -2384,7 +2388,7 @@ body.dark .filter-box-control{
 
 .project-info-highlights h4{
   font-weight:400;
-  font-size:24px;
+  font-size:18px;
   color: dimgrey;
 }
 
@@ -2435,8 +2439,9 @@ body.dark .filter-box-control{
 
 
 .ab-2-head{
-  font-size: 3vw;
+  font-size: 2.7rem;
   margin-bottom: 14px;
+  max-width:75vw;
   -webkit-transform: scale(1.4);
       -ms-transform: scale(1.4);
           transform: scale(1.4);
@@ -2824,6 +2829,52 @@ body.dark .filter-box-control{
   right: 0;
   margin: auto;
   font-size: 16px;
+}
+
+.footer-policy-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 14px;
+}
+
+.policy-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  gap: 24px;
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+.policy-box{
+  position: absolute;
+  left:0;
+  top: 0;
+  overflow: hidden;
+  width: auto;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  max-width: 0;
+}
+
+.policy-box.active{
+  max-width: 9000px;
+  transition: all 0.9s ease;
+}
+
+.policy-box-control{
+  width:0px;
+  position: relative;
+}
+
+.policies-launcher{
+    cursor:var(--pointer);
 }
 
 .social-links{
@@ -3275,6 +3326,7 @@ body.dark .filter-box-control{
 .ideas-inner-content{
   font-size:1.2rem;
   font-weight: 300;
+  max-width: 550px;
 }
 
 .project-image-wrap{
@@ -3688,7 +3740,7 @@ body.dark .filter-box-control{
 
 .auth-icon-box{
   position: fixed;
-  bottom: 25px;
+  bottom: 20px;
   left: 25px;
   height: 36px;
   width: 36px;
@@ -3719,6 +3771,11 @@ body.dark .filter-box-control{
 .auth-icon-box svg{
   height: 100%;
   width: 100%;
+}
+
+.auth-icon-box svg.shutdown{
+  height: 100%;
+  width: 85%;
 }
 
 .auth-icon-box svg path{
@@ -4034,9 +4091,45 @@ body.dark .filter-box-control{
       padding:5rem 0;
   }
 
+  .info-slider-section{
+    padding: 8px !important;
+  }
+
+  #navbar.underline-nav{
+    border-bottom: 1px solid grey;
+    background: white !important;
+  }
+
+  #navbar.underline-nav.transparent{
+    background: transparent !important;
+    border-bottom: none;
+  }
+
+  .footer-policy-box{
+    flex-direction: column;
+  }
+
+  .policy-box-control{
+    width: auto;
+  }
+
+  .policy-box{
+    position: relative;
+    max-width: 9000px;
+    max-height: 0;
+  }
+  .policy-box.active{
+    max-height: 10000px;
+  }
+  .contact-footer{
+    padding-bottom: 3rem;
+  }
+  .map-line{
+    height: 124px;
+  }
   .auth-icon-box{
-    bottom: 16px;
-    left: 16px;
+    bottom: 10px;
+    left: 10px;
     height: 30px;
   }
   .audio-box{
@@ -4072,7 +4165,7 @@ body.dark .filter-box-control{
   .glance-points{
     font-size: 14px;
     line-height: 14px;
-    margin-bottom:18px;
+    margin-bottom:44px;
   }
 
 
@@ -4176,7 +4269,8 @@ body.dark .filter-box-control{
       font-size: 1.4rem;
   }
   .ab-2-head {
-      font-size: 6vw;
+      font-size: 1.2rem;
+      margin: auto;
   }
   .about-para {
       font-size: 16px;

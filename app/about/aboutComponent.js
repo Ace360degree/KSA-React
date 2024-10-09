@@ -23,12 +23,13 @@ export default function AboutComponent(){
 
     const [activeCulture,setActiveCulture] = useState(true);
     const [activeDiscipline,setActiveDiscipline] = useState(false);
-
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const AboutProjects = useRef(null);
     
     gsap.defaults({inherit:false});
 
     const aboutSection = useRef(null);
+    const aboutSection2 = useRef(null);
     const mainBanner = useRef(null);
 
     const toggleMobileFilter = () =>{
@@ -47,7 +48,19 @@ export default function AboutComponent(){
         }
     }
 
-
+    useEffect(() => {
+  
+        if (!isTouchDevice) {
+          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+          ScrollTrigger.normalizeScroll(true);
+        }
+      
+        return () => {
+          if (!isTouchDevice) {
+            ScrollTrigger.normalizeScroll(false);
+          }
+        };
+      }, []);
 
     useEffect(() => {
 
@@ -113,25 +126,34 @@ export default function AboutComponent(){
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            // Play Second Animation
-            let ksaAbout2TL = gsap.timeline();
-            ksaAbout2TL.to('.ab-2-head', {duration: 1, scale: 1})
-                .to('.about-para', {duration: 1, opacity: 1, scale: 1.1})
-                .to(ksaAbout2TL, {delay: 0.5});
 
-            ScrollTrigger.create({
-                scrub: true,
-                trigger: '#ksa-about',
-                start: "top top",
-                end: "+=1000",
-                pin: true,
-                animation: ksaAbout2TL,
-                snap: {
-                    snapTo: '#ksa-points', // Snap to the next section
-                    duration: { min: 0.2, max: 1 }, // Duration range
-                    ease: 'power1.inOut', // Easing for the snapping
-                }
-            });
+            document.querySelectorAll('.about-pinned-anim').forEach((pinned,index)=>{
+                let ab2head = pinned.querySelector('.ab-2-head');
+                let abPara = pinned.querySelector('.about-para');
+
+                // Play Second Animation
+                let ksaAbout2TL = gsap.timeline();
+                ksaAbout2TL.to(ab2head, {duration: 1, scale: 1})
+                    .to(abPara, {duration: 1, opacity: 1, scale: 1.1})
+                    .to(ksaAbout2TL, {delay: 0.5});
+
+                ScrollTrigger.create({
+                    scrub: true,
+                    trigger: pinned,
+                    start: "top top",
+                    end: "+=900",
+                    pin: true,
+                    animation: ksaAbout2TL,
+                    snap: {
+                        snapTo: '#ksa-points', // Snap to the next section
+                        duration: { min: 0.2, max: 1 }, // Duration range
+                        ease: 'power1.inOut', // Easing for the snapping
+                    }
+                });
+
+            })
+
+            
         });
 
         return () => ctx.revert();
@@ -147,7 +169,7 @@ export default function AboutComponent(){
             sectionName: "about-snap",
             interstitialSection: "",
             easing: "easeOutExpo",
-            scrollSpeed: 500,
+            scrollSpeed: isTouchDevice?100:1500,
             offset: 0,
             scrollbars: true,
             standardScrollElements: "",
@@ -237,13 +259,28 @@ export default function AboutComponent(){
             </div>
 
             <div className="about-snap">
-            <div ref={aboutSection} className="full-section px-4 overflow-hidden" id="ksa-about">
+            <div ref={aboutSection} className="full-section about-pinned-anim px-4 overflow-hidden" id="ksa-about">
                 <div className=" billy-text">
                     <div className="mx-auto">
-                    <h3 className="ab-2-head signifier">KSA has grown from a founder to a big family.</h3>
-                    <p className="about-para mx-auto signifier">KSA is a team with plethora of inhouse perspectives where Lorem ipsum dolor sit amet,
-                    consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus</p>
+                    <h3 className="ab-2-head signifier">KSA aims to transform every aspect of human life.</h3>
+                    <p className="about-para mx-auto signifier">KSA has grown from a founder to a big family. 
+                        A dynamic and evolving practice that responds to the shifting and advancing social, cultural, political economic and technological conditions of modern life. 
+                        Interdisciplinary Research and Design practice with projects of various scales ranging from Architecture, Landscape, Urban Design and Planning, Design Management and Interiors.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div className="about-snap">
+            <div ref={aboutSection2} className="full-section about-pinned-anim px-4 overflow-hidden" id="ksa-about">
+                <div className=" billy-text">
+                    <div className="mx-auto">
+                    <h3 className="ab-2-head signifier">KSA’s pedagogies focuses on creation of intelligent forms while inventing new possibilities for future use.</h3>
+                    <p className="about-para mx-auto signifier">KSA emphasize on design performance: An amalgamation of program, organization, analysis,
+                        innovation and form calibrated to each client’s aspirations and each project’s constraints.
+                        KSA is a diverse team dedicated to creating environments where individuals can thrive, not
+                        just survive. Resulting in healthier spaces, buildings and cities that improve the quality of life to
+                        whatever the future may bring.</p>
                     </div>
                 </div>
             </div>

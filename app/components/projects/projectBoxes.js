@@ -39,6 +39,10 @@ export default function ProjectBoxes() {
   gsap.ticker.lagSmoothing(false);
 
   useEffect(()=>{
+    const SVGIcons = document.querySelectorAll('.change-svg');
+    SVGIcons.forEach((curr) => {
+      curr.classList.remove('light');
+  });
     window.onscroll = function() {
       if(projectScrollerRef.current){
       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {

@@ -3,7 +3,7 @@
 KSA was Initially developed on Codeigniter Framework. Which was later migrated to React Js using [`Next.js`](https://nextjs.org/). Many of the code were changed and Manupilated to be copactible with React Js. 
 
 ## Libraries and Dependencies
-Please check the `package.json` file for Libraries, Dependencies and Plugins.
+Please check the `package.json` file for Libraries, Dependencies, Plugins etc. 
 
 ## Assets and Media
 Primary Images such as Logos and Misc images can be found in `public/images/` folder.  External Images ie. Projects & Ideas are called from `.env => SITE_URL`. Make sure to update the `.env` file when the URL for Admin Panel is changed.

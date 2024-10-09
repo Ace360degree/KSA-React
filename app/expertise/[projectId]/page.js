@@ -157,6 +157,8 @@ export default function ProjectInfo(){
         // Store the initial width and height to compare later
         let windowWidth = window.innerWidth;
         let windowHeight = window.innerHeight;
+
+
       
         // Define the resize handler
         const handleResize = () => {

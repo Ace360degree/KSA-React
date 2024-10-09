@@ -19,6 +19,8 @@ export default function ContactComponent() {
     const [showTabs, setShowTabs] = useState('All');
     const formTitle = useRef(null);
     const [mobileFilter,setMobileFilter] =useState(false);
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const [showTerms,setShowTerms] = useState(false);
 
     const officeSection = useRef(null);
 
@@ -30,6 +32,10 @@ export default function ContactComponent() {
         description: '',
         //file: null
     });
+
+    const changeShowTerms = () =>{
+        setShowTerms(!showTerms);
+    }
     
     const[activeContact,setActiveContact] = useState(true);
     const[activeOffices,setActiveOffices] =useState(false);
@@ -40,6 +46,20 @@ export default function ContactComponent() {
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
     }
+
+    useEffect(() => {
+  
+        if (!isTouchDevice) {
+          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+          ScrollTrigger.normalizeScroll(true);
+        }
+      
+        return () => {
+          if (!isTouchDevice) {
+            ScrollTrigger.normalizeScroll(false);
+          }
+        };
+      }, []);
 
     useEffect(()=>{
         if(officeSection.current){
@@ -161,7 +181,7 @@ export default function ContactComponent() {
                 sectionName: "contact-snap",
                 interstitialSection: "",
                 easing: "easeOutExpo",
-                scrollSpeed: 500,
+                scrollSpeed: isTouchDevice?100:1500,
                 offset: 0,
                 scrollbars: true,
                 standardScrollElements: "",
@@ -270,13 +290,23 @@ export default function ContactComponent() {
                         </div>
                     </div>
 
-                    <div className="contact-footer mt-5">
+                    <div className="contact-footer">
                         <div className="footer-brand">© KSA 2024</div>
                         <div className="social-links">
                             <Link href={'#'}><FaFacebook className="footer-icon" size={22} /></Link>
                             <Link href={'#'}><FaInstagram className="footer-icon" size={22} /></Link>
                             <Link href={'#'}><FaSquareXTwitter className="footer-icon" size={22} /></Link>
                             <Link href={'#'}><FaLinkedin className="footer-icon" size={22} /></Link>
+                        </div>
+                        <div className="footer-policy-box">
+                            <div className="policies-launcher" onClick={()=>{changeShowTerms()}}>Policies</div>
+                            <div className='policy-box-control'>
+                                <ul className={showTerms?'policy-box active':'policy-box'}>
+                                    <Link href={'/contact'}><li>Terms of Use</li></Link>
+                                    <Link href={'/contact'}><li>Privacy Policy</li></Link>
+                                    <Link href={'/contact'}><li>Cookies Policies</li></Link>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
