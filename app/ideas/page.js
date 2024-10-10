@@ -28,6 +28,10 @@ export default  function Ideas(){
     const router = useRouter();
 
     const [ideas, setIdeas] = useState([]);
+    const [categories,setCategories] = useState([]);
+    const [filteredIdeas, setFilteredIdeas] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('All');
+
 
         // Fetch ideas from API
         useEffect(() => {
@@ -36,7 +40,9 @@ export default  function Ideas(){
                     const response = await fetch('/api/get-ideas', { method: 'GET' });
                     if (!response.ok) throw new Error('Failed to fetch ideas');
                     const data = await response.json();
-                    setIdeas(data);
+                    setIdeas(data.ideas);
+                    setCategories(data.categories);
+                    setFilteredIdeas(data.ideas);
                     //setIsLoaded(true); // Mark content as loaded
                 } catch (error) {
                     console.error(error.message);
@@ -124,7 +130,7 @@ export default  function Ideas(){
         
     }, 5000);
     }
-    },[])
+    },[filteredIdeas])
 
     useEffect(()=>{
 
@@ -225,7 +231,7 @@ export default  function Ideas(){
             ctx.revert();
         } 
 
-    });
+    },[filteredIdeas]);
 
 
     useEffect(()=>{
@@ -251,19 +257,11 @@ export default  function Ideas(){
         
             },5500);    
             
-    },[])
+    },[filteredIdeas]);
 
 
         
     const handleImageClick = async (slug,id,image) => {
-        // Scale up the image before routing
-        // const imgElement = document.querySelector(`.ideas-img-${slug}`);
-        // await gsap.to(imgElement, {
-        //     scale: 1.06,
-        //     duration: 0.2,
-        //     ease: 'power3.inOut',
-        // });
-        // Navigate to the next page after the animation
         router.push(`/ideas/${slug}?id=${id}&image=${image}`);
     };
 
@@ -275,6 +273,20 @@ export default  function Ideas(){
             ScrollTrigger.normalizeScroll(false);
         },20000);
     },[])
+
+
+    
+
+    const handleFilter = (category) => {
+        setSelectedCategory(category);
+        if (category === 'All') {
+            setFilteredIdeas(ideas); // Show all ideas
+        } else {
+            const filtered = ideas.filter(idea => idea.category === category);
+            setFilteredIdeas(filtered); // Show filtered ideas based on category
+        }
+    };
+
 
 
 
@@ -297,11 +309,18 @@ export default  function Ideas(){
         <div class="filter-launch"><i class="fa-solid fa-ellipsis"></i></div>          
        <div class="filter-box-control">
            <div class="filter-box signifier">
-               <li data-filter="All">All</li>
-               <li data-filter="1">Study</li>
-               <li data-filter="2">Research</li>
-               <li data-filter="3">Experimental</li>
-               <li data-filter="4">Technologial</li>
+               <li data-filter="All" 
+               className={selectedCategory === 'All' ? 'selected' : ''}
+               onClick={() => handleFilter('All')}
+               >All</li>
+
+               {categories.map((cat,index)=>(
+               <li key={index} data-filter={cat.id}
+               className={selectedCategory === cat.id ? 'selected' : ''}
+               onClick={() => handleFilter(cat.id)}
+               >{cat.category}</li>
+                ))}
+               
                
            </div>
        </div>
@@ -309,8 +328,8 @@ export default  function Ideas(){
         <div className="snap-perspective">
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
-        {ideas.map((idea, index) => (
-                            <div className="snap-section filter-main-box active" key={index} data-filter="">
+        {filteredIdeas.map((idea, index) => (
+                            <div className="snap-section filter-main-box active" key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">

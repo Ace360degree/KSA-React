@@ -447,6 +447,12 @@ body.dark #navbar{
 }
 
 
+#navbar.underlined{
+  border-bottom: 1px solid grey !important;
+  background: white !important;
+}
+
+
 .trans-nav #navbar{
   background: transparent;
   color: white;
@@ -4012,6 +4018,18 @@ body.dark .filter-box-control{
   font-size: 2rem;
 }
 
+
+.logout-window{
+  height: 100vh;
+  width: 100%;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
 
 
 

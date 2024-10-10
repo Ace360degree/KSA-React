@@ -142,6 +142,14 @@ export default function ProjectInfo(){
                   $('#navbar').removeClass('transparent');
                   $('.change-svg').removeClass('light');
                 }
+
+                if ($(nextSection).hasClass('project-underline-section')) {
+                    $('#navbar').addClass('underlined');
+                }
+                else{
+                  $('#navbar').removeClass('underlined');
+                }
+                
               },
             });
                       
