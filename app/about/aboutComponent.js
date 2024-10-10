@@ -48,19 +48,19 @@ export default function AboutComponent(){
         }
     }
 
-    useEffect(() => {
+    // useEffect(() => {
   
-        if (!isTouchDevice) {
-          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
-          ScrollTrigger.normalizeScroll(true);
-        }
+    //     if (!isTouchDevice) {
+    //       // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+    //       ScrollTrigger.normalizeScroll(true);
+    //     }
       
-        return () => {
-          if (!isTouchDevice) {
-            ScrollTrigger.normalizeScroll(false);
-          }
-        };
-      }, []);
+    //     return () => {
+    //       if (!isTouchDevice) {
+    //         ScrollTrigger.normalizeScroll(false);
+    //       }
+    //     };
+    //   }, []);
 
     useEffect(() => {
 
@@ -190,33 +190,33 @@ export default function AboutComponent(){
     // }, [showTabs]);
 
 
-    useEffect(() => {
-        $(document).ready(function () {
-          // Initialize Scrollify
-          $.scrollify.enable();
-          $.scrollify({
-            section: ".about-snap",
-            sectionName: "about-snap",
-            interstitialSection: "",
-            easing: "easeOutExpo",
-            scrollSpeed: isTouchDevice?100:1500,
-            offset: 0,
-            scrollbars: true,
-            standardScrollElements: "",
-            setHeights: true,
-            overflowScroll: true,
-            updateHash: false,
-            touchScroll: true,
-          });
+    // useEffect(() => {
+    //     $(document).ready(function () {
+    //       // Initialize Scrollify
+    //       $.scrollify.enable();
+    //       $.scrollify({
+    //         section: ".about-snap",
+    //         sectionName: "about-snap",
+    //         interstitialSection: "",
+    //         easing: "easeOutExpo",
+    //         scrollSpeed: isTouchDevice?100:1500,
+    //         offset: 0,
+    //         scrollbars: true,
+    //         standardScrollElements: "",
+    //         setHeights: true,
+    //         overflowScroll: true,
+    //         updateHash: false,
+    //         touchScroll: true,
+    //       });
 
-          $.scrollify.move(0);
+    //       $.scrollify.move(0);
       
-          // Refresh ScrollTrigger after Scrollify initializes
-          ScrollTrigger.refresh();
-        });
+    //       // Refresh ScrollTrigger after Scrollify initializes
+    //       ScrollTrigger.refresh();
+    //     });
       
-        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-      }, []);
+    //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    //   }, []);
 
 
 
@@ -333,23 +333,23 @@ export default function AboutComponent(){
             <Link href={'/expertise'}><div className=" billy-text">
                 <div className="about-project-box">
                     <div className="about-item">
-                        <img src="https://media.architecturaldigest.com/photos/5d3f6c8084a5790008e99f37/master/w_1600%2Cc_limit/GettyImages-1143278588.jpg" />
+                        <img src="./images/about/KSA_planning.webp" />
                         <h4>KSA_Planning</h4>
                     </div>
                     <div className="about-item">
-                        <img src="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXJjaGl0ZWN0dXJlfGVufDB8fDB8fHww"/>
+                        <img src="./images/about/KSA_Engineering.webp"/>
                         <h4>KSA_Engineering</h4>
                     </div>
                     <div className="about-item">
-                        <img src="https://img.freepik.com/free-photo/low-angle-shot-grey-concrete-building-representing-modern-architecture_181624-4719.jpg"/>
+                        <img src="./images/about/KSA_Architecture.webp"/>
                         <h4>KSA_Architecture</h4>
                     </div>
                     <div className="about-item">
-                        <img src="https://images.adsttc.com/media/images/6308/2af8/fa26/793f/ed20/7aab/newsletter/cilada-verde-potenciais-problemas-no-projeto-paisagistico_1.jpg?1661479681"/>
+                        <img src="./images/about/KSA_Landscape.webp"/>
                         <h4>KSA_Landscape</h4>
                     </div>
                     <div className="about-item">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOqftw_F2PUXjlAtrJ_dTTCcXfhEAuTfArsVPV2wFVHQ&s"/>
+                        <img src="./images/about/KSA_Sustainability.webp"/>
                         <h4>KSA_Sustainability</h4>
                     </div>
                 </div>

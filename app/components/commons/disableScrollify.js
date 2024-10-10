@@ -9,7 +9,7 @@ export default function ScrollifyDisabled(){
         $(document).ready(function(){
 
             $.scrollify.move(0);
-            $.scrollify.disable();
+            $.scrollify.destroy();
     
         });
         
