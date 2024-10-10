@@ -20,8 +20,6 @@ export default function ContactComponent() {
     const formTitle = useRef(null);
     const [mobileFilter,setMobileFilter] =useState(false);
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const [showTerms,setShowTerms] = useState(false);
-
     const officeSection = useRef(null);
 
     const animationTitle = useRef(null);
@@ -33,9 +31,6 @@ export default function ContactComponent() {
         //file: null
     });
 
-    const changeShowTerms = () =>{
-        setShowTerms(!showTerms);
-    }
     
     const[activeContact,setActiveContact] = useState(true);
     const[activeOffices,setActiveOffices] =useState(false);
@@ -299,14 +294,7 @@ export default function ContactComponent() {
                             <Link href={'#'}><FaLinkedin className="footer-icon" size={22} /></Link>
                         </div>
                         <div className="footer-policy-box">
-                            <div className="policies-launcher" onClick={()=>{changeShowTerms()}}>Policies</div>
-                            <div className='policy-box-control'>
-                                <ul className={showTerms?'policy-box active':'policy-box'}>
-                                    <Link href={'/contact'}><li>Terms of Use</li></Link>
-                                    <Link href={'/contact'}><li>Privacy Policy</li></Link>
-                                    <Link href={'/contact'}><li>Cookies Policies</li></Link>
-                                </ul>
-                            </div>
+                            <Link href={'/policies'}><div className="policies-launcher">Policies</div></Link>
                         </div>
                     </div>
                 </div>

@@ -2480,9 +2480,9 @@ body.dark .filter-box-control{
   margin-bottom: 14px;
   max-width:75vw;
   opacity: 0.8;
-  -webkit-transform: scale(1.4);
-      -ms-transform: scale(1.4);
-          transform: scale(1.4);
+  -webkit-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+          transform: scale(1.2);
 }
 
 .about-para{
@@ -3586,6 +3586,51 @@ body.dark .filter-box-control{
 }
 
 
+.policies-page{
+  position: relative;
+  padding: 1.5rem;
+}
+
+.policy-border-title{
+  border-bottom: 1px solid grey;
+  width: 100%;
+  font-size: 2.8rem;
+  font-weight: 300;
+}
+.policy-item{
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.8rem;
+  background: none;
+  margin: 16px 0;
+  opacity: 0.8;
+  border-radius: 0;
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  transition: all 0.5s ease;
+  cursor: var(--pointer);
+  border-bottom: 1px solid #151515;
+}
+
+.policy-item:hover{
+  padding-left: 1.2rem;
+  opacity: 1;
+}
+
+.policy-downloadicon{
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.policy-item:hover .policy-downloadicon{
+  opacity: 1;
+  margin-left: 24px;
+}
+
 .hello-about{
   position:absolute;
   bottom:0;
@@ -4504,7 +4549,7 @@ body.dark .filter-box-control{
       left: 0;
       width: 100%;
       height: 100%;
-      background: #ffffffcc;
+      background:white;
       overflow: hidden;
       -webkit-transform: translateY(120%);
           -ms-transform: translateY(120%);
