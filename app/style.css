@@ -2479,6 +2479,7 @@ body.dark .filter-box-control{
   font-size: 2.7rem;
   margin-bottom: 14px;
   max-width:75vw;
+  opacity: 0.8;
   -webkit-transform: scale(1.4);
       -ms-transform: scale(1.4);
           transform: scale(1.4);

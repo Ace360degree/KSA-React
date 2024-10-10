@@ -137,7 +137,7 @@ export default function AboutComponent(){
 
                 // Play Second Animation
                 let ksaAbout2TL = gsap.timeline();
-                ksaAbout2TL.to(ab2head, {duration: 1, scale: 1})
+                ksaAbout2TL.to(ab2head, {duration: 1, opacity:1, scale: 1})
                     .to(abPara, {duration: 1, opacity: 1, scale: 1.1})
                     .to(ksaAbout2TL, {delay: 0.5});
 
