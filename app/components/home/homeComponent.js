@@ -475,40 +475,40 @@ export default function HomeComponent(){
                 
                     <div className="home-slides-box hero-image home-snapping">
                         <div className="slider-texts">
-                            <h2>CLUSTER A</h2>
-                            <h4>GREEN FACADE, VIBRANT SPACE. LIVE THE CASCADED DIFFERENCE</h4>
+                            <h2>DESIGN THAT INSPIRES</h2>
+                            <h4>Creating environments which are joyous, memorable and Explorative.</h4>
                         </div>
                         <img className="hero-image" src="/images/home/1.jpg"/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping">
                          <div className="slider-texts">
-                            <h2>VU_T_SCHOOL</h2>
-                            <h4>ARCHITECTURE MEETS EDUCATION : A SCHOOL REIMAGINED</h4>
+                            <h2>SMART CITY, REIMAGINED</h2>
+                            <h4>An optimized space for Everyone which is Inclusive, Timeless, and Resilient.</h4>
                         </div>
                         <img className="hero-image" src="/images/home/2.jpg"/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
-                            <h2>BEVAB HEIGHTS</h2>
-                            <h4>TWISTING LUXURY: REDEFINING THE SKYLINE</h4>
+                            <h2>INNOVATIVE SPACES, EXPLORATORY PLACES</h2>
+                            <h4>Exploring the convergence of technology, design, construction, materials, and environment.</h4>
                         </div>
                         <img className="hero-image" src="/images/home/3.jpg"/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
-                            <h2>VAULT</h2>
-                            <h4>THE ART OF HOSPITALITY, REDEFINED</h4>
+                            <h2>ECO-CONCIOUS ENDURING SPACES</h2>
+                            <h4>Designing spaces in sync with natural environment, eco-friendly materials and energy transformations.</h4>
                         </div>
                         <img className="hero-image" src="/images/home/4.jpg"/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
-                            <h2>LIVINE PARK</h2>
-                            <h4>A PINNACLE OF MODERN LUXURY</h4>
+                            <h2>NATURE, NURTURE, FUTURE</h2>
+                            <h4>Nurturing a Sustainable Future: Visionary Research for Tomorrow's Challenges.</h4>
                         </div>
                         <img className="hero-image" src="/images/home/5.jpg"/>
                     </div>

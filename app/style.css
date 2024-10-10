@@ -1981,7 +1981,7 @@ body.dark .clock-indicator span{
 }
 
 .slider-texts h2{
-  font-size: 5rem;
+  font-size: 3.5rem;
   -webkit-transform:scale(1.8);
       -ms-transform:scale(1.8);
           transform:scale(1.8);
@@ -2001,11 +2001,10 @@ body.dark .clock-indicator span{
 
 .slider-texts h4{
   font-weight: 100;
-  font-size: 2rem;
-  line-height: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
   opacity:0;
   text-shadow: 0 0 5px black;
-  text-transform: uppercase;
   -webkit-transition:all 0.8s var(--common-easing);
   -o-transition:all 0.8s var(--common-easing);
   transition:all 0.8s var(--common-easing);
