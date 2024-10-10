@@ -56,17 +56,17 @@ export default function ProjectEssencials({essecials,points}){
             <div class="border-section"> 
                 <div class="row m-0 g-0 mobile-signifier">
                     
-                    <div class="col-md-3">
+                    <div class="col-lg-3">
                         <div class="project-title-padding">
                         <h4 class="fw-light essential-title signifier">Project Essentials</h4>
                         </div>
                     </div>
                     
-                    <div class="col-md-9 border-left-info">
+                    <div class="col-lg-9 border-left-info">
                         <div class="p-4">
                             <div class="row g-5">
                                 
-                                <div class="col-md-4">
+                                <div class="col-lg-4">
                                     {/* Loop for Points Attributes  */}
                                     {essecials.map((essecial,index)=>(
                                     <div class="glance-sections" key={index}>
@@ -78,11 +78,11 @@ export default function ProjectEssencials({essecials,points}){
                                     
                                 </div>
                                 
-                                <div class="col-md-8 ">
+                                <div class="col-lg-8">
                                     <div class="row g-3 g-md-5 padding-points">
                                         {/* Loop for Points Counter  */}
                                         {points.map((point,index)=>(
-                                        <div class="col-md-6 col-6" key={index}>
+                                        <div class="col-md-6 col-lg-6 col-6" key={index}>
                                             <div class="project-info-highlights">
                                                 <h2><span class="fx-counter" data-number={point.number}>0</span>{point.number_title}</h2>
                                                 <h4 className="signifier">{point.title}</h4>

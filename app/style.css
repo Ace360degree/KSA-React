@@ -195,6 +195,13 @@ body.dark{
   color:var(--body-text-dark);
 }
 
+img{
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+}
 
 .header-content{
   line-height: 5px;
@@ -2288,13 +2295,13 @@ body.dark .filter-box-control{
 }
 
 .project-image-info h2{
-  font-size: 2.5vw;
+  font-size: 2.5rem;
   font-weight: 400;
 }
 
 .project-image-info h4{
   font-family: 'Signifier',serif;
-  font-size: 1.6vw;
+  font-size: 1.8rem;
   font-weight: 200;
 }
 
@@ -2667,7 +2674,7 @@ body.dark .filter-box-control{
   color: white;
   width: 100%;
   background: #272727;
-  border-radius: 30px;
+  border-radius: 10px;
   padding: 6px;
   border: none;
   color: white;
@@ -4081,8 +4088,10 @@ body.dark .filter-box-control{
 
 
 
+
+
 /*Mobile Responsive*/
-@media screen and (max-width:780px){
+@media screen and (max-width:840px){
   .home-content-control{
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
@@ -4214,13 +4223,14 @@ body.dark .filter-box-control{
   .theme-input {
     font-size: 14px;
     padding: 3px 8px;
-    border-radius: 14px;
+    border-radius: 8px;
   }
   .form-row label {
     font-size: 14px;
   }
   .btn-theme {
     font-size: 14px;
+    border-radius:8px;
   }
   .follow-us-text {
     font-size: 1.2rem;
@@ -4273,8 +4283,8 @@ body.dark .filter-box-control{
       margin: auto;
   }
   .about-para {
-      font-size: 16px;
-      line-height: 18px;
+      font-size: 14px;
+      line-height: 16px;
       padding: 18px;
       max-width:100%;
   }
@@ -4510,6 +4520,30 @@ body.dark .filter-box-control{
 }
 
 
+
+
+
+@media screen and (max-width: 900px) and (min-width: 750px){
+  
+  .essential-title {
+    font-size: 2rem;
+  }
+  .glance-side-title {
+    font-size: 1.1rem;
+  }
+  .glance-points {
+    font-size: 1.3rem;
+    line-height: 1.2rem;
+    margin-bottom: 64px;
+  }
+  .project-info-highlights h2 {
+    font-size: 64px;
+  }
+
+
+}
+
+
 @media screen and (min-width:2400px){
   #clock{
       -webkit-transform: scale(1.2);
@@ -4640,8 +4674,8 @@ body.dark .filter-box-control{
   }
 
   .about-para {
-      font-size: 3rem;
-      line-height: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
   }
   .logo-main {
       font-size: 46px;
@@ -4721,7 +4755,7 @@ body.dark .filter-box-control{
   }
   .theme-input{
       font-size:24px;
-      border-radius: 1.8rem;
+      border-radius: 14px;
   }
   .form-row label {
       font-size: 24px;
@@ -4729,7 +4763,7 @@ body.dark .filter-box-control{
   }
   .btn-theme{
       font-size: 24px;
-      border-radius: 50px;
+      border-radius: 14px;
   }
 
   .file-name {
