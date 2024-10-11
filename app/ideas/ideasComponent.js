@@ -1,3 +1,4 @@
+'use client';
 import { useEffect,useState } from "react";
 import LightTheme from "../components/body/lightTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
