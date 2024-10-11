@@ -592,7 +592,7 @@ export default function ProjectBoxes() {
                 <div className="project-image-wrap">
                   <div className="wrap-box"></div>
                   <Link href={`/expertise/${project.url_slug}`}>
-                  <Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} />
+                   <div><Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} /></div>
                   </Link>
                 </div>
                 <div className="project-item-content">

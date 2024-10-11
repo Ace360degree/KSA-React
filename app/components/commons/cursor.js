@@ -30,7 +30,9 @@ export default function CursorAudio() {
   const { isLoggedIn } = useAuth();
   
   const [cursorStatus,setcursorStatus] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause
+  const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause\
+  const [triggerPlaying,setTriggerPlaying] = useState(false);
+
 
   // Function to toggle play/pause
   const toggleAudio = () => {
@@ -38,9 +40,11 @@ export default function CursorAudio() {
     if (mainAudio.paused) {
       mainAudio.play();
       setIsPlaying(true);
+      setTriggerPlaying(true);
     } else {
       mainAudio.pause();
       setIsPlaying(false);
+      setTriggerPlaying(false);
     }
   };
 
@@ -83,22 +87,29 @@ export default function CursorAudio() {
 
   useEffect(() => {
     const handleVisibilityChange = () => {
+      if(triggerPlaying){
       const mainAudio = audioRef.current;
       if (document.hidden) {
         mainAudio.pause();
-        setIsPlaying(false); // Pause audio when tab is hidden
+        console.log(isPlaying);
+        //setIsPlaying(false); // Pause audio when tab is hidden
       } else {
-        mainAudio.play();
-        setIsPlaying(true);  // Play audio when tab becomes visible again
+          mainAudio.play();
+          setIsPlaying(true);
+          if(isPlaying){
+          console.log(isPlaying);
+          }
       }
+    }
     };
   
     document.addEventListener('visibilitychange', handleVisibilityChange);
+
   
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [triggerPlaying]);
   
 
   useEffect(() => {
@@ -108,6 +119,7 @@ export default function CursorAudio() {
     const playAudioConditionByInteraction = () => {
       mainAudio.play().then(() => {
         setIsPlaying(true);
+        setTriggerPlaying(true);
       }).catch((error) => {
         console.log('Unable to play the audio, User has not interacted yet.');
       });
@@ -133,6 +145,19 @@ export default function CursorAudio() {
           event.preventDefault(); // Prevent the default action (opening Developer Tools)
       }
   });
+
+  document.addEventListener('keydown', function(event) {
+    // Check if the Control key is pressed
+    if (event.ctrlKey) {
+        // Check for the specific key combinations
+        if (event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) {
+            event.preventDefault(); // Disable the default action
+        } else if (event.key === 'u' && event.shiftKey) {
+            event.preventDefault(); // Disable Ctrl + Shift + U
+        }
+    }
+  });
+
 
     document.addEventListener('click', handleUserInteraction); // Set up listener on document click
 
@@ -222,8 +247,7 @@ export default function CursorAudio() {
     window.addEventListener('touchstart', onTouchStart);
     window.addEventListener('mousemove', onMouseMove);
   
-    // Cleanup event listeners when component unmounts
-   
+    // Cleanup event listeners when component unmount   
   }, []);
   
 

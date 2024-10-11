@@ -177,7 +177,7 @@ export default function HomeComponent(){
       }
     });
 
-  }, [fullScreenCheck]);
+  }, []);
 
   useEffect(() => {
     const totalDurationSecondTitle = `+=${window.innerHeight * 2}`;

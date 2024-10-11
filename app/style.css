@@ -72,6 +72,7 @@ width: 4px;
 background:#d3d3d30a;
 }
 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
 background: #aaaaaa;
@@ -171,6 +172,15 @@ src: url('./fonts/signifier/TestSignifier-Black.otf');
 .signifier{
   font-family: 'Signifier' !important;
 }
+
+@media print {
+
+  html, body {
+    display: none; 
+  }
+  
+}
+
 
 
 html,
