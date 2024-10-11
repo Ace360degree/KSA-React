@@ -4,7 +4,7 @@ const nextConfig = {
       remotePatterns: [
         {
           protocol: 'https', // Assuming your image uses HTTPS
-          hostname: 'cosmosseals.com',
+          hostname: 'admin.kuwalsanamarchitekts.com',
           port: '', // No port specified in the error message
         },
       ],
