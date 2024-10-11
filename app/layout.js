@@ -5,6 +5,7 @@ import CursorAudio from "./components/commons/cursor";
 import { AnimatePresence } from "framer-motion";
 import UserAuthorization from "./components/userauth/userAuth";
 import { AuthProvider } from "./context/AuthContext";
+import CheckCookie from "./components/commons/checkCookie";
 
 
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
       <body className="">
         <AuthProvider>
         <CursorAudio/>
+        <CheckCookie/>
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>

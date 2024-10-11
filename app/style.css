@@ -57,7 +57,7 @@ html{
     cursor: none !important;
 }
 a, button {
-  cursor:var(--pointer);
+  cursor:var(--pointer) !important;
 }
 
 /* width */
@@ -703,6 +703,35 @@ body.dark #navbar{
   transition:all 1.2s var(--common-easing);
 }
 
+
+.cookie-window{
+  z-index: 5000;
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    max-width: 300px;
+    height: auto;
+    background: #080808;
+    padding: 1.1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.cookie-title{
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.cookie-content{
+  font-size: 14px;
+  font-weight: 200;
+}
+.close-cookie{
+  font-size: 24px;
+  cursor: var(--pointer);
+}
 
 
 #page{
@@ -2110,6 +2139,14 @@ body.dark .filter-box-control{
 .filter-box li.selected{
   color: #0a0a0a;
   font-weight: 400;
+}
+
+.policies-page{
+  height: 98vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -3608,39 +3645,31 @@ body.dark .filter-box-control{
   font-size: 2.8rem;
   font-weight: 300;
 }
+
+
 .policy-item{
+  position: relative;
   width: 100%;
-  padding: 1rem;
-  font-size: 1.8rem;
-  background: none;
-  margin: 16px 0;
-  opacity: 0.8;
-  border-radius: 0;
-  display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  transition: all 0.5s ease;
+  min-width: 380px;
+  font-size: 16px;
+  background: #161616;
+  margin: 24px 0;
   cursor: var(--pointer);
-  border-bottom: 1px solid #151515;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 6px;
 }
 
-.policy-item:hover{
-  padding-left: 1.2rem;
-  opacity: 1;
+.legal-bottom{
+  position: absolute;
+  bottom: 8px;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  font-weight: 300;
 }
 
-.policy-downloadicon{
-  height: 30px;
-  width: 30px;
-  margin-left: 20px;
-  transition: all 0.3s ease;
-  opacity: 0.5;
-}
-
-.policy-item:hover .policy-downloadicon{
-  opacity: 1;
-  margin-left: 24px;
-}
 
 .hello-about{
   position:absolute;
@@ -4286,6 +4315,10 @@ body.dark .filter-box-control{
   #navbar.underline-nav{
     border-bottom: 1px solid grey;
     background: white !important;
+  }
+
+  .legal-bottom{
+    bottom: 30px;
   }
 
   #navbar.underline-nav.transparent{

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { FaFacebook, FaInstagram, FaSquareXTwitter, FaLinkedin } from "react-icons/fa6";
+import { FaYoutube } from "react-icons/fa";
 import $ from "jquery";
 import "jquery-scrollify";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default function ContactComponent() {
     const [showTabs, setShowTabs] = useState('All');
     const formTitle = useRef(null);
     const [mobileFilter,setMobileFilter] =useState(false);
+    const[submitting,setSubmitting] = useState(false);
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const officeSection = useRef(null);
 
@@ -109,7 +111,7 @@ export default function ContactComponent() {
         // if (formData.file) {
         //     form.append('file', formData.file);
         // }
-
+        setSubmitting(true);
         try {
             const response = await fetch('/api/submitcontact', {
                 method: 'POST',
@@ -122,6 +124,7 @@ export default function ContactComponent() {
 
             // Handle successful submission (e.g., show a success message)
             setshowAlert(true);
+            setSubmitting(false);
             setFormData({
                 name: '',
                 email: '',
@@ -254,7 +257,11 @@ export default function ContactComponent() {
                                 </div> */}
 
                                 <div className="form-row">
+                                    {submitting?
+                                        <button type="submit" className="btn-theme mt-4 w-100" disabled><div className="btn-content">Please Wait...</div></button>
+                                    :
                                     <button type="submit" className="btn-theme mt-4 w-100"><div className="btn-content">Submit</div></button>
+                                    }
                                 </div>
                             </div>
                         </form>
@@ -288,10 +295,11 @@ export default function ContactComponent() {
                     <div className="contact-footer">
                         <div className="footer-brand">© KSA 2024</div>
                         <div className="social-links">
-                            <Link href={'#'}><FaFacebook className="footer-icon" size={22} /></Link>
-                            <Link href={'#'}><FaInstagram className="footer-icon" size={22} /></Link>
-                            <Link href={'#'}><FaSquareXTwitter className="footer-icon" size={22} /></Link>
-                            <Link href={'#'}><FaLinkedin className="footer-icon" size={22} /></Link>
+                            <a href=''  target="_blank"><FaFacebook className="footer-icon" size={22} /></a>
+                            <a href='https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1' target="_blank"><FaInstagram className="footer-icon" size={22} /></a>
+                            {/* <a href='' target="_blank"><FaSquareXTwitter className="footer-icon" size={22} /></a> */}
+                            <a href='https://www.youtube.com/@kuwalsanamarchitekts4285' target="_blank"><FaYoutube className="footer-icon" size={22} /></a>
+                            <a href='https://www.linkedin.com/feed/' target="_blank"><FaLinkedin className="footer-icon" size={22} /></a>
                         </div>
                         <div className="footer-policy-box">
                             <Link href={'/policies'}><div className="policies-launcher">Policies</div></Link>
