@@ -1,8 +1,9 @@
 'use client';
 import dynamic from "next/dynamic";
+import IdeasComponent from "./ideasComponent";
 import { ready } from "jquery";
 
-const IdeasComponent = dynamic(() => import("path_to_dynamicComponent"));
+const IdeasComponent = dynamic(() => import("./ideasComponent"));
 
 
 export default  function Ideas(){
