@@ -130,7 +130,7 @@ export default  function Ideas(){
         
     }, 5000);
     }
-    },[filteredIdeas])
+    },[]);
 
     useEffect(()=>{
 
