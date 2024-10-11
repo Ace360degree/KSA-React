@@ -11,6 +11,9 @@ import {motion , AnimatePresence} from 'framer-motion';
 import { useRouter } from "next/navigation";
 import { useVisitedIdeasStore } from "../states/store/ideasStore";
 import dynamic from "next/dynamic";
+import $ from "jquery";
+import "jquery-scrollify";
+
 
 
 const ScrollifyDisabled = dynamic(() => import('../components/commons/disableScrollify'), {
@@ -26,6 +29,7 @@ export default  function Ideas(){
     console.log(visited);
 
     const router = useRouter();
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     const [ideas, setIdeas] = useState([]);
     const [categories,setCategories] = useState([]);
@@ -150,82 +154,28 @@ export default  function Ideas(){
                 rotationY:PsY,
             })
         })
-        
-        
-        
-            // Snap to a specific section
-    // Snap to a specific section
-    let panels = gsap.utils.toArray(".snap-section"),
-        triggers, scrollTween;
     
-    function goToSection(trigger, i) {
-        scrollTween = gsap.to(window, {
-            scrollTo: { y: trigger.start + innerHeight, autoKill: false },
-            duration: 0.5,
-            onComplete: () => scrollTween = null,
-            overwrite: true
-        });
-    }
+    let panels = gsap.utils.toArray(".snap-section")
     
-    function scrollToCurrentItem(currentItem) {
-        if (currentItem) {
-            // Delay scrolling slightly to allow ScrollTrigger to set up correctly
-            setTimeout(() => {
-                const scrollPosition = currentItem.getBoundingClientRect().top + window.pageYOffset;
-                gsap.to(window, {
-                    scrollTo: { y: scrollPosition, autoKill: false },
-                    duration: 0.5
-                });
-            }, 500); // Adjust the delay if needed
-        }
-    }
-    
-    triggers = panels.map((panel, i) => {
+    panels.map((panel, i) => {
         let imgPanel = panel.querySelector('.ideas-cover');
         
         let imganelTimeline = gsap.timeline();
-        imganelTimeline.to(imgPanel, { height: "0", delay: 0.5, duration: 0.5 })
-                       .to(imgPanel, { height: "0", delay: 0.5, duration: 0.5 });
+        imganelTimeline.to(imgPanel, { height: "0", delay: 0, duration: 0.5 })
         
         return ScrollTrigger.create({
             trigger: panel,
             start: "top bottom",
             animation: imganelTimeline,
-            scrub: true,
-            onToggle: self => { if (self.isActive && !scrollTween) { goToSection(self, i) } },
+            // scrub: true,
+            onEnter:() => imganelTimeline.play(),
+            onLeave: () => imganelTimeline.reverse(),    // Reverse animation on leave
+            onEnterBack: () => imganelTimeline.play(),   // Play again on enter back
+            onLeaveBack: () => imganelTimeline.reverse()
         });
     });
-    
-    ScrollTrigger.create({
-        start: 0,
-        end: "max",
-        snap: (v, self) => gsap.utils.snap([0, self.end, ...triggers.map(t => t.start + innerHeight)], self.scroll()) / self.end
+
     });
-    
-    ScrollTrigger.normalizeScroll(true);
-    
-    // Handle scrolling to the current item if itemId is present
-    let url_string = window.location.href; 
-    let url = new URL(url_string);
-    let itemId = url.searchParams.get("id");  
-    let getCurrentIdeaItem;
-    
-    if (itemId) {
-        document.querySelectorAll('.snap-section').forEach(function(el) {
-            let currId = el.getAttribute('data-id');
-            if (currId == itemId) {
-                getCurrentIdeaItem = el;
-            }
-        });
-        if (getCurrentIdeaItem) {
-            // Scroll to the item after ScrollTrigger setup
-            setTimeout(() => scrollToCurrentItem(getCurrentIdeaItem), 500); // Adjust delay if necessary
-        }
-    }
-         
-
-
-        });
 
         return () => {
             ctx.revert();
@@ -275,6 +225,47 @@ export default  function Ideas(){
     },[])
 
 
+    useEffect(() => {
+        $(document).ready(function () {
+            // Initialize Scrollify
+            $.scrollify.enable();
+            $.scrollify({
+                section: ".snap-section",
+                sectionName: "snap-section",
+                interstitialSection: "",
+                easing: "easeOutExpo",
+                scrollSpeed: isTouchDevice?100:1000,
+                offset: 0,
+                scrollbars: true,
+                standardScrollElements: "",
+                setHeights: true,
+                overflowScroll: true,
+                updateHash: false,
+                touchScroll: true,
+            });
+            $.scrollify.move(0);
+            // Refresh ScrollTrigger after Scrollify initializes
+            ScrollTrigger.refresh();
+        });
+
+        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    }, [filteredIdeas]);
+
+    useEffect(() => {
+  
+        if (!isTouchDevice) {
+          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+          ScrollTrigger.normalizeScroll(true);
+        }
+      
+        return () => {
+          if (!isTouchDevice) {
+            ScrollTrigger.normalizeScroll(false);
+          }
+        };
+      }, [filteredIdeas]);
+
+
     
 
     const handleFilter = (category) => {
@@ -288,11 +279,14 @@ export default  function Ideas(){
     };
 
 
+    
+
+
 
 
     return(
         <>  
-            <ScrollifyDisabled/>
+            {/* <ScrollifyDisabled/> */}
             <LightTheme/>
             <NavbarIntroPage heading={'Research'}/>
         {visited? '':    

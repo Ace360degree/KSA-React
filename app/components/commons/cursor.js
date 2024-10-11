@@ -79,6 +79,28 @@ export default function CursorAudio() {
     }
   };
 
+
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const mainAudio = audioRef.current;
+      if (document.hidden) {
+        mainAudio.pause();
+        setIsPlaying(false); // Pause audio when tab is hidden
+      } else {
+        mainAudio.play();
+        setIsPlaying(true);  // Play audio when tab becomes visible again
+      }
+    };
+  
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+  
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+  
+
   useEffect(() => {
     const mainAudio = audioRef.current;
 
