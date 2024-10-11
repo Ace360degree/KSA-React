@@ -6,6 +6,6 @@ const IdeasComponent = dynamic(() => import("./ideasComponent"));
 
 export default  function Ideas(){
 
-    return IdeasComponent;
+    return <IdeasComponent/>;
 
 }
