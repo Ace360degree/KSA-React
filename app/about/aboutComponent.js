@@ -1,5 +1,6 @@
 'use client'
 import Link from "next/link";
+import '../about.css';
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef, useState } from "react";
@@ -115,12 +116,6 @@ export default function AboutComponent(){
                 scrub: true,
             }
         });
-
-        if(AboutProjects.current){
-            let Abouttimeline = gsap.timeline();
-            Abouttimeline.fromTo('.about-item', {y: "0", opacity: 0}, {y: "0", opacity: 1, duration: 1, ease: "power3.out", stagger: 0.05});
-            Abouttimeline.play();
-        }
         
     }, [showTabs]);
 
@@ -220,37 +215,54 @@ export default function AboutComponent(){
 
 
 
-    useEffect(()=>{
-        if(AboutProjects.current){
+    useEffect(() => {
+        if (AboutProjects.current) {
+
+            let Abouttimeline = gsap.timeline();
+            Abouttimeline.fromTo('.about-item', {y: "50", opacity: 0}, {y: "0", opacity: 1, duration: 1, ease: "power3.out", stagger: 0.05});
             
-            function initActiveNow(){
+            // Function to activate the Discipline tab
+            const initActiveNow = () => {
                 setActiveCulture(false);
                 setActiveDiscipline(true);
-                
-            }
-
-            function removeActiveNow(){
+                Abouttimeline.play();
+            };
+    
+            // Function to deactivate the Discipline tab
+            const removeActiveNow = () => {
                 setActiveCulture(true);
                 setActiveDiscipline(false);
-            }
-
-            ScrollTrigger.create({
-                trigger:AboutProjects.current,
-                start:'top 50%',
-                end:'bottom 0%',
-                onEnter:initActiveNow,
-                onEnterBack:initActiveNow,
-                onLeave:removeActiveNow,
-                onLeaveBack:removeActiveNow,
-            })
+                Abouttimeline.play();
+            };
+    
+            // Create a ScrollTrigger instance
+            const scrollTriggerInstance = ScrollTrigger.create({
+                trigger: '#discipline',
+                start: 'top 50%',
+                end: 'bottom 0%',
+                onEnter: initActiveNow,
+                onEnterBack: initActiveNow,
+                onLeave: removeActiveNow,
+                onLeaveBack: removeActiveNow,
+            });
+    
+            // Cleanup function to remove ScrollTrigger when component unmounts or dependencies change
+            return () => {
+                scrollTriggerInstance.kill();
+            };
         }
-    },[activeCulture,activeDiscipline,showTabs])
+    }, [activeCulture, activeDiscipline, showTabs]);
+    
+
 
 
 
     const updateSections = (name)=>{
         setShowTabs(name);
         setMobileFilter(false);
+        if(name=='culture'){
+            setActiveDiscipline(false);
+        }
     }
 
 
@@ -289,7 +301,7 @@ export default function AboutComponent(){
             </div>
 
             <div className="about-snap">
-            <div ref={aboutSection} className="full-section about-pinned-anim px-4 overflow-hidden" id="ksa-about">
+            <div ref={aboutSection} className="full-section about-pinned-anim px-4 overflow-hidden" >
                 <div className=" billy-text">
                     <div className="mx-auto">
                     <h3 className="ab-2-head signifier">KSA aims to transform every aspect of human life.</h3>
@@ -302,7 +314,7 @@ export default function AboutComponent(){
             </div>
 
             <div className="about-snap">
-            <div ref={aboutSection2} className="full-section about-pinned-anim px-4 overflow-hidden" id="ksa-about">
+            <div ref={aboutSection2} className="full-section about-pinned-anim px-4 overflow-hidden">
                 <div className=" billy-text">
                     <div className="mx-auto">
                     <h3 className="ab-2-head signifier">KSA’s pedagogies focuses on creation of intelligent forms while inventing new possibilities for future use.</h3>
@@ -356,8 +368,8 @@ export default function AboutComponent(){
             </div></Link>
             <div className="hello-about" style={{opacity:'0.5'}}>
             <Link href={'/contact'}>
-            <div className="white-stick"><div className="white-stick-content"></div></div>
-            <div>Say Hello</div>
+            <div className="signifier">Say Hello</div>
+            <div className="white-stick mb-2"><div className="white-stick-content"></div></div>
             </Link>
         </div>  
         </div>

@@ -1,5 +1,6 @@
 'use client';
 import Image from "next/image";
+import '../contact.css';
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef, useState } from "react";
@@ -225,21 +226,21 @@ export default function ContactComponent() {
                     <div className="contact-main-section contact-snap" id="contact-form-section">
                         <h3 className="form-legend-title signifier" ref={formTitle}>DONT BE SHY, SAY HI !!!</h3>
 
-                        <form onSubmit={handleSubmit} className="contact-form-box">
+                        <form onSubmit={handleSubmit} className="contact-form-box signifier">
                             <div>
                                 <div className="form-row">
                                     <label>Name*</label>
-                                    <input className="theme-input" name="name" value={formData.name} onChange={handleChange} required />
+                                    <input className="theme-input" name="name" value={formData.name} onChange={handleChange} placeholder="Type here" required />
                                 </div>
 
                                 <div className="form-row">
                                     <label>Email*</label>
-                                    <input type="email" className="theme-input" name="email" value={formData.email} onChange={handleChange} required />
+                                    <input type="email" className="theme-input" name="email" value={formData.email} onChange={handleChange} placeholder="Type here" required />
                                 </div>
 
                                 <div className="form-row">
                                     <label>Description*</label>
-                                    <textarea className="theme-input" name="description" value={formData.description} onChange={handleChange} rows="3" required></textarea>
+                                    <textarea className="theme-input" name="description" value={formData.description} onChange={handleChange} placeholder="Type here" rows="3" required></textarea>
                                 </div>
 
                                 {/* <div className="form-row d-none">
@@ -258,9 +259,9 @@ export default function ContactComponent() {
 
                                 <div className="form-row">
                                     {submitting?
-                                        <button type="submit" className="btn-theme mt-4 w-100" disabled><div className="btn-content">Please Wait...</div></button>
+                                        <button type="submit" className="btn-theme mt-5 w-100" disabled><div className="btn-content">Please Wait...</div></button>
                                     :
-                                    <button type="submit" className="btn-theme mt-4 w-100"><div className="btn-content">Submit</div></button>
+                                    <button type="submit" className="btn-theme mt-5 w-100"><div className="btn-content">Submit</div></button>
                                     }
                                 </div>
                             </div>
@@ -293,7 +294,8 @@ export default function ContactComponent() {
                     </div>
 
                     <div className="contact-footer">
-                        <div className="footer-brand">© KSA 2024</div>
+                        <div className="footer-brand"><Link href={'/policies'}>Legal and policies</Link> © 2024 KSA. All Rights Reserved.
+                        </div>
                         <div className="social-links">
                             <a href=''  target="_blank"><FaFacebook className="footer-icon" size={22} /></a>
                             <a href='https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1' target="_blank"><FaInstagram className="footer-icon" size={22} /></a>
@@ -301,9 +303,9 @@ export default function ContactComponent() {
                             <a href='https://www.youtube.com/@kuwalsanamarchitekts4285' target="_blank"><FaYoutube className="footer-icon" size={22} /></a>
                             <a href='https://www.linkedin.com/feed/' target="_blank"><FaLinkedin className="footer-icon" size={22} /></a>
                         </div>
-                        <div className="footer-policy-box">
-                            <Link href={'/policies'}><div className="policies-launcher">Policies</div></Link>
-                        </div>
+                        {/* <div className="footer-policy-box">
+                            <Link ><div className="policies-launcher">Policies</div></Link>
+                        </div> */}
                     </div>
                 </div>
                 : ''}

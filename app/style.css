@@ -2046,7 +2046,7 @@ body.dark .clock-indicator span{
 }
 
 .slider-texts h2{
-  font-size: 3.5rem;
+  font-size: 3rem;
   -webkit-transform:scale(1.8);
       -ms-transform:scale(1.8);
           transform:scale(1.8);
@@ -2066,8 +2066,8 @@ body.dark .clock-indicator span{
 
 .slider-texts h4{
   font-weight: 100;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 16px;
+  line-height: 16px;
   max-width: 600px;
   opacity:0;
   text-shadow: 0 0 5px black;
@@ -2502,8 +2502,8 @@ body.dark .filter-box-control{
 
 
 .page-title-animation{
-  font-size:5rem;
-  line-height:5rem;
+  font-size:4rem;
+  line-height:4rem;
   margin:0;
   text-align:center;
 }
@@ -2520,14 +2520,14 @@ body.dark .filter-box-control{
 }
 
 .about-intro-sub{
-  font-size:1.4rem;
+  font-size:18px;
 }
 
 
 .ab-2-head{
-  font-size: 2.7rem;
+  font-size: 2.1rem;
   margin-bottom: 14px;
-  max-width:75vw;
+  max-width:800px;
   opacity: 0.8;
   -webkit-transform: scale(1.2);
       -ms-transform: scale(1.2);
@@ -2535,9 +2535,9 @@ body.dark .filter-box-control{
 }
 
 .about-para{
-  font-size: 24px;
-  line-height: 24px;
-  max-width:75vw;
+  font-size: 14px;
+  line-height: 16px;
+  max-width:800px;
   opacity: 0.2;
   font-style: italic;
   font-weight: 100;
@@ -2559,7 +2559,7 @@ body.dark .filter-box-control{
 
 
 .form-legend-title{
-  font-size:4vw;
+  font-size:3.5rem;
   /*font-family:"billie eilish";*/
   font-style:italic;
 }
@@ -2624,7 +2624,7 @@ body.dark .filter-box-control{
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  gap: 18px;
+  gap: 22%;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -2637,9 +2637,10 @@ body.dark .filter-box-control{
 
 .contact-menu li{
   color: #ffffff87;
-  font-size: 18px;
+  font-size: 16px;
   cursor: var(--pointer);
-  font-weight: 300;
+  font-weight: 200;
+  letter-spacing: 1px;
 }
 
 .contact-menu li.active{
@@ -2730,10 +2731,12 @@ body.dark .filter-box-control{
   max-width: 500px;
   height: auto;
   padding: 1.4rem 3rem;
-  background: #121212;
+  /* background: #121212; */
   border-radius: 1.2rem;
   /* box-shadow: inset 1px 1px 0 #343434, inset -2px -2px 0 #161616, 8px 8px 16px rgb(4 4 4), -8px -8px 16px rgb(37 37 37); */
   margin: 1.5rem auto;
+  font-style: italic;
+  font-weight: 200;
   /* overflow: hidden;*/
 }
 
@@ -2749,13 +2752,19 @@ body.dark .filter-box-control{
   margin-bottom:8px;
 }
 
+.theme-input::placeholder{
+  color: grey;
+  text-decoration: underline;
+}
+
 .theme-input {
   text-align: center;
   color: white;
   width: 100%;
   background: #272727;
-  border-radius: 12px;
-  padding: 6px;
+  border-radius: 10px;
+  padding: 3px;
+  font-size: 14px;
   border: none;
   color: white;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
@@ -2803,13 +2812,14 @@ body.dark .filter-box-control{
   position:relative;
   color: white;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 200;
   background: #272727;
   border: none;
-  border-radius: 30px;
+  border-radius: 10px;
   outline: none;
-  padding: 6px 18px;
+  padding: 3px 18px;
   display: block;
+  font-style: italic;
   margin: auto;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
   -webkit-box-shadow: 0 0 0 #2b2b2b;
@@ -3606,7 +3616,7 @@ body.dark .filter-box-control{
   -webkit-box-pack:center;
       -ms-flex-pack:center;
           justify-content:center;
-  gap:24px;
+  gap:22%;
   z-index:5000;
 }
 
@@ -3621,6 +3631,8 @@ body.dark .filter-box-control{
   -o-transition:all 0.3s ease;
   transition:all 0.3s ease;
   cursor:var(--pointer);
+  font-weight: 200;
+  letter-spacing: 1px;
 }
 
 .filter-trigger.active{
@@ -3693,8 +3705,8 @@ body.dark .filter-box-control{
   -webkit-box-pack:center;
       -ms-flex-pack:center;
           justify-content:center;
-  text-transform:uppercase;
-  font-size:20px;
+  font-size:1rem;
+  font-weight: 100;
 }
 
 .white-stick{
@@ -4530,10 +4542,10 @@ body.dark .filter-box-control{
       margin: auto;
   }
   .about-para {
-      font-size: 14px;
-      line-height: 16px;
-      padding: 18px;
-      max-width:100%;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    padding: 18px;
+    max-width:100%;
   }
   .about-anim-text {
       font-size: 2.1rem;
@@ -4920,6 +4932,10 @@ body.dark .filter-box-control{
       font-size:20px;
   }
 
+  .form-legend-title {
+    font-size: 5.5rem;
+  }
+
   .auth-icon-box{
     height: 60px;
     width: 60px;
@@ -4949,8 +4965,8 @@ body.dark .filter-box-control{
   }
 
   .about-para {
-    font-size: 1.5rem;
-    line-height: 1.8rem;
+    font-size: 22px;
+    line-height: 25px;
   }
   .logo-main {
       font-size: 46px;

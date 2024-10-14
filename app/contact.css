@@ -1,0 +1,22 @@
+
+.footer-brand{
+    font-size: 14px;
+}
+
+.logo-main span {
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: 1px;
+}
+
+@media screen and (min-width: 840px) {
+    .logo-main span {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 2400px) {
+    .logo-main span {
+        font-size: 15px;
+    }
+}

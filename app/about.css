@@ -7,3 +7,17 @@
 .full-section{
     scroll-snap-align: start;
 } */
+@media screen and (min-width: 840px) {
+    .logo-main span {
+        font-size: 12px;
+        line-height: 4px;
+    }
+}
+
+@media screen and (min-width: 2400px) {
+    .logo-main span {
+        font-size: 19px;
+        line-height: 24px;
+        font-family: 'signifier';
+    }
+}
