@@ -182,8 +182,8 @@ export default function HomeComponent(){
   useEffect(() => {
     const totalDurationSecondTitle = `+=${window.innerHeight * 2}`;
     const ScrollToggleActions = 'play none none reverse';
-    const quoteTextFontSize = window.innerWidth >= 992 ? '3.8rem' : '1.8rem';
-    const theySayFontSize = window.innerWidth >= 992 ? '5rem' : '2rem';
+    const quoteTextFontSize = window.innerWidth >= 992 ? '2.8rem' : '1.8rem';
+    const theySayFontSize = window.innerWidth >= 992 ? '3.2rem' : '2rem';
 
     function showScrollableTitles() {
       gsap.to('#they-say', {
@@ -308,7 +308,7 @@ export default function HomeComponent(){
 
         textTimeline
           .fromTo(subTitleImg, { scale: 1.2 }, { scale: 1, delay: 0 })
-          .fromTo(TitleElement, { scale: 1.8, opacity: 1 }, { scale: 1, opacity: 1, duration: 0.5 })
+          .fromTo(TitleElement, { scale: 1.8, opacity: 1 }, { scale: 1, opacity: 1, duration: 0.2 })
           .fromTo(subTitleElement, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
       });
 
@@ -442,7 +442,7 @@ export default function HomeComponent(){
             <div id="second-title" ref={secondTitleSection} className="active" >
             <div className="introtext-box" >
                 <div className="intro-text-content">
-                    <h1 className="">
+                    <h1 className="they-say-titlebox">
                         <div className="qoute-text text-capitalize scale-down second-transition" id="they-say"><span><i>They say,</i></span></div> 
                         <div className="duo-quotation scale-down second-transition" id="quote-texts">
                             <div className="qoute-text text-uppercase"><span >"It takes 7 Seconds</span></div> 

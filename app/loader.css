@@ -12,7 +12,7 @@
     z-index: 4000;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     text-align: center;
     overflow: hidden;
   }
@@ -102,7 +102,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     background-color: transparent;
   }
   
@@ -216,12 +216,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 0;
   }
   
   .pulse-bubble {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background-color:black;
   }
   

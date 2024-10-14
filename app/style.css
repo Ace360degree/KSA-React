@@ -1194,12 +1194,12 @@ body.dark .extended-line::before{
 
 .scrollbanner{
   position: absolute;
-  bottom: 14px;
+  bottom: 2vh;
   left: 0;
   right: 0;
   margin: auto;
   width: 2px;
-  height: 8vh;
+  height: 5vh;
   max-height: 40px;
   background: #80808052;
   z-index: 800;
@@ -1213,12 +1213,12 @@ body.dark .extended-line::before{
 
 .scroll-downlink{
   position: absolute;
-  bottom: 14px;
+  bottom: 2vh;
   left: 0;
   right: 0;
   margin: auto;
   width: 100px;
-  height: 8vh;
+  height: 5vh;
   background: transparent;
   z-index: 800;
   opacity: 0;
@@ -1260,7 +1260,7 @@ body.dark .extended-line::before{
 }
 
 #quote-texts{
-  font-size:4.5rem;
+  font-size:3.8rem;
   opacity: 0;
   -webkit-transform:translateY(100%);
       -ms-transform:translateY(100%);
@@ -1268,7 +1268,7 @@ body.dark .extended-line::before{
 }
 
 #we-do{
-  font-size:6.5rem;
+  font-size:5rem;
   opacity: 0;
   letter-spacing: 6px;
   -webkit-transform:translateY(100%);
@@ -2057,17 +2057,18 @@ body.dark .clock-indicator span{
   -webkit-transform-origin:left;
       -ms-transform-origin:left;
           transform-origin:left;
-  -webkit-transition:-webkit-transform 0.8s var(--common-easing);
-  transition:-webkit-transform 0.8s var(--common-easing);
-  -o-transition:transform 0.8s var(--common-easing);
-  transition:transform 0.8s var(--common-easing);
-  transition:transform 0.8s var(--common-easing), -webkit-transform 0.8s var(--common-easing);
+  -webkit-transition:-webkit-transform 0.2s var(--common-easing);
+  transition:-webkit-transform 0.2s var(--common-easing);
+  -o-transition:transform 0.2s var(--common-easing);
+  transition:transform 0.2s var(--common-easing);
+  transition:transform 0.2s var(--common-easing), -webkit-transform 0.8s var(--common-easing);
 }
 
 .slider-texts h4{
   font-weight: 100;
   font-size: 1.5rem;
   line-height: 1.5rem;
+  max-width: 600px;
   opacity:0;
   text-shadow: 0 0 5px black;
   -webkit-transition:all 0.8s var(--common-easing);
@@ -4515,7 +4516,7 @@ body.dark .filter-box-control{
       line-height: 3rem;
   }
   .mobile-to-life{
-      line-height:6vw !important;
+      line-height:7vw !important;
   }
   .about-intro-hero {
       font-size: 9vw;
@@ -4692,7 +4693,7 @@ body.dark .filter-box-control{
       font-size: 2rem;
   }
   #we-do {
-      font-size: 3.5rem;
+      font-size: 3.2rem;
       letter-spacing: 4px;
   }
   
@@ -4700,11 +4701,13 @@ body.dark .filter-box-control{
       font-size: 32px;
       line-height: 30px;
       margin-bottom:8px;
+      transform: scale(1) !important;
   }
   
   .slider-texts h4 {
       font-size: 16px;
       line-height: 16px;
+      display: none;
   }
   .project-title h2 {
       font-size: 3.5rem;
@@ -4745,8 +4748,8 @@ body.dark .filter-box-control{
   .sm-text-title{
       font-size:8vw;
   }
-  .scrollbanner{
-      bottom: 8vh;
+  .scrollbanner,.scroll-downlink{
+      bottom: 4vh;
   }
   .ideas-section-img{
     max-height: auto;
@@ -4807,22 +4810,28 @@ body.dark .filter-box-control{
   }
 
   .intro-lg-title{
-    line-height: 8rem;
-    font-size: 8rem;
+    line-height: 176px;
+    font-size: 176px;
   }
   .intro-sm-title{
-    font-size: 6rem;
-    line-height: 6rem;
+    font-size: 128px;
+    line-height: 130px;
   }
 
 
   .bil-sml-gap{
-    line-height: 3.5rem;
+    line-height: 74px;
   }
 
   .page-title-animation {
     font-size: 7rem;
     line-height: 7rem;
+  }
+
+  .they-say-titlebox{
+    transform: scale(2);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   #clock-bound-box{
@@ -4831,9 +4840,10 @@ body.dark .filter-box-control{
   }
 
   .scrollbanner{
-      width: 2px;
-      height: 80px;
-      max-height: 60px;
+    width: 3px;
+    bottom: 2vh;
+    height: 5vh;
+    max-height: 5vh;
   }
   .hero-title {
       font-size: 6rem;
@@ -4907,6 +4917,20 @@ body.dark .filter-box-control{
       font-size:20px;
   }
 
+  .auth-icon-box{
+    height: 60px;
+    width: 60px;
+  }
+
+  .audio-box{
+    height: 52px;
+    width: 52px;
+  }
+  .audio-box svg{
+    height: 50px;
+    width: 38px;
+  }
+
   .projects-clock{
     -webkit-transform: scale(0.8);
         -ms-transform: scale(0.8);
@@ -4938,7 +4962,7 @@ body.dark .filter-box-control{
       font-size:24px;
   }
   .ksa-logo{
-      width: 60px !important;
+      width: 80px !important;
   }
   .about-item h4{
       font-size:2.4rem;
