@@ -114,50 +114,50 @@ export default function ProjectInfo(){
 
     // },[loading]);
 
-    useEffect(() => {
-        const scrollifyFunction = ()=>{            
-            // Initialize Scrollify
-            console.log('Scrollify');
-            $.scrollify.enable();
-            $.scrollify({
-              section: ".project-info-section",
-              sectionName: "project-info-section",
-              interstitialSection: "",
-              easing: "easeOutExpo",
-              scrollSpeed: isTouchDevice?100:1500,
-              offset: 0,
-              scrollbars: true,
-              standardScrollElements: "",
-              setHeights: true,
-              overflowScroll: true,
-              updateHash: false,
-              touchScroll: true,
-              before: function(index, sections) {
-                const nextSection = sections[index]; // Get the next section
-                if ($(nextSection).hasClass('hero-image')) {
-                    $('#navbar').addClass('transparent');
-                    $('.change-svg').addClass('light');
-                }
-                else{
-                  $('#navbar').removeClass('transparent');
-                  $('.change-svg').removeClass('light');
-                }
+    // useEffect(() => {
+    //     const scrollifyFunction = ()=>{            
+    //         // Initialize Scrollify
+    //         console.log('Scrollify');
+    //         $.scrollify.enable();
+    //         $.scrollify({
+    //           section: ".project-info-section",
+    //           sectionName: "project-info-section",
+    //           interstitialSection: "",
+    //           easing: "easeOutExpo",
+    //           scrollSpeed: isTouchDevice?100:1500,
+    //           offset: 0,
+    //           scrollbars: true,
+    //           standardScrollElements: "",
+    //           setHeights: true,
+    //           overflowScroll: true,
+    //           updateHash: false,
+    //           touchScroll: true,
+    //           before: function(index, sections) {
+    //             const nextSection = sections[index]; // Get the next section
+    //             if ($(nextSection).hasClass('hero-image')) {
+    //                 $('#navbar').addClass('transparent');
+    //                 $('.change-svg').addClass('light');
+    //             }
+    //             else{
+    //               $('#navbar').removeClass('transparent');
+    //               $('.change-svg').removeClass('light');
+    //             }
 
-                if ($(nextSection).hasClass('project-underline-section')) {
-                    $('#navbar').addClass('underlined');
-                }
-                else{
-                  $('#navbar').removeClass('underlined');
-                }
+    //             if ($(nextSection).hasClass('project-underline-section')) {
+    //                 $('#navbar').addClass('underlined');
+    //             }
+    //             else{
+    //               $('#navbar').removeClass('underlined');
+    //             }
                 
-              },
-            });
+    //           },
+    //         });
                       
-        }
+    //     }
         
-        scrollifyFunction();
-        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-      }, [loading]);
+    //     scrollifyFunction();
+    //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    //   }, [loading]);
 
  
 
@@ -209,7 +209,7 @@ export default function ProjectInfo(){
 
             {loading? <CommonLoader/>:
             <>
-            <CheckNavTransparent/> 
+            {/* <CheckNavTransparent/>  */}
             <SliderCursor/>
             <NavbarIntroPageUnderline heading={'Expertise'} subheading={project.category}/>
             
