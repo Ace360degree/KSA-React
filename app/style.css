@@ -2040,7 +2040,7 @@ body.dark .clock-indicator span{
 .slider-texts{
   position:absolute;
   left:24px;
-  bottom:8vh;
+  bottom:50px;
   z-index:50;
   font-family: 'Signifier';
 }
@@ -4821,6 +4821,9 @@ body.dark .filter-box-control{
 
   .bil-sml-gap{
     line-height: 74px;
+  }
+  .slider-texts{
+    bottom: 84px;
   }
 
   .page-title-animation {
