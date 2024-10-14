@@ -320,21 +320,21 @@ export default function IdeasComponent(){
         {filteredIdeas.map((idea, index) => (
                             <div className="snap-section filter-main-box active" key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
-                                    <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&image=${idea.image}`}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover"></div>
-                                            {/* <Link href={`/ideas/${idea.url_slug}`} > */}
+                                            <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&image=${idea.image}`}>
+                                            <div>
                                             <img
                                                 className={`ideas-thumbnail ideas-img-${idea.url_slug}`}
                                                 src={process.env.NEXT_PUBLIC_SITE_URL+idea.image}
                                                 alt={idea.title}                                            />
-                                            {/* </Link> */}
+                                                </div>
+                                            </Link>
                                         </div>
                                         <h2 className="title-tohide signifier">{idea.title}</h2>
                                         <h5 className="title-tohide signifier">{idea.description}</h5>
                                     </div>
-                                    </Link>
                                 </div>
                             </div>
         ))}
