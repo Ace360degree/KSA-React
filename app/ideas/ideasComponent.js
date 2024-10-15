@@ -7,6 +7,8 @@ import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import Link from "next/link";
 import Image from "next/image";
 import {motion , AnimatePresence} from 'framer-motion';
+import { BsThreeDots } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useVisitedIdeasStore } from "../states/store/ideasStore";
 import dynamic from "next/dynamic";
@@ -35,6 +37,14 @@ export default function IdeasComponent(){
     const [categories,setCategories] = useState([]);
     const [filteredIdeas, setFilteredIdeas] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [mobileFilter,setMobileFilter] =useState(false);
+
+
+
+
+    const toggleMobileFilter = () =>{
+        setMobileFilter(!mobileFilter);
+      }
 
 
         // Fetch ideas from API
@@ -278,6 +288,7 @@ export default function IdeasComponent(){
 
     const handleFilter = (category) => {
         setSelectedCategory(category);
+        setMobileFilter(false);
         if (category === 'All') {
             setFilteredIdeas(ideas); // Show all ideas
         } else {
@@ -288,7 +299,7 @@ export default function IdeasComponent(){
 
 
     
-
+ 
 
 
 
@@ -308,8 +319,10 @@ export default function IdeasComponent(){
         </div>
         } 
         
-        <div class="filter-launch"><i class="fa-solid fa-ellipsis"></i></div>          
-       <div class="filter-box-control">
+        <div class="filter-launch" onClick={toggleMobileFilter}>
+            {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
+        </div>          
+        <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
            <div class="filter-box signifier">
                <li data-filter="All" 
                className={selectedCategory === 'All' ? 'selected' : ''}
