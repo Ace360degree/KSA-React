@@ -476,41 +476,41 @@ export default function HomeComponent(){
                     <div className="home-slides-box hero-image home-snapping">
                         <div className="slider-texts">
                             <h2>DESIGN THAT INSPIRES</h2>
-                            <h4>Creating environments which are joyous, memorable and Explorative.</h4>
+                            <h4><span>Creating environments which are joyous, memorable and Explorative.</span></h4>
                         </div>
-                        <img className="hero-image" src="/images/home/1.jpg"/>
+                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/cluster_a.webp'}/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping">
                          <div className="slider-texts">
                             <h2>SMART CITY, REIMAGINED</h2>
-                            <h4>An optimized space for Everyone which is Inclusive, Timeless, and Resilient.</h4>
+                            <h4><span>An optimized space for Everyone which is Inclusive, Timeless, and Resilient.</span></h4>
                         </div>
-                        <img className="hero-image" src="/images/home/2.jpg"/>
+                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/vut_banner.webp'} />
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
                             <h2>INNOVATIVE SPACES, EXPLORATORY PLACES</h2>
-                            <h4>Exploring the convergence of technology, design, construction, materials, and environment.</h4>
+                            <h4><span>Exploring the convergence of technology, design, construction, materials, and environment.</span></h4>
                         </div>
-                        <img className="hero-image" src="/images/home/3.jpg"/>
+                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/bivab_heights.webp'}/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
                             <h2>ECO-CONCIOUS ENDURING SPACES</h2>
-                            <h4>Designing spaces in sync with natural environment, eco-friendly materials and energy transformations.</h4>
+                            <h4><span>Designing spaces in sync with natural environment, eco-friendly materials and energy transformations.</span></h4>
                         </div>
-                        <img className="hero-image" src="/images/home/4.jpg"/>
+                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/BAMBOO RESORT_01.webp'}/>
                     </div>
                     
                     <div className="home-slides-box hero-image home-snapping" >
                          <div className="slider-texts">
                             <h2>NATURE, NURTURE, FUTURE</h2>
-                            <h4>Nurturing a Sustainable Future: Visionary Research for Tomorrow's Challenges.</h4>
+                            <h4><span>Nurturing a Sustainable Future: Visionary Research for Tomorrow's Challenges.</span></h4>
                         </div>
-                        <img className="hero-image" src="/images/home/5.jpg"/>
+                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/dino_resort.webp'}/>
                     </div>
             </div>
 

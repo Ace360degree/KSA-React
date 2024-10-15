@@ -24,6 +24,7 @@ export default function ContactComponent() {
     const[submitting,setSubmitting] = useState(false);
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const officeSection = useRef(null);
+    const formsection = useRef(null);
 
     const animationTitle = useRef(null);
     const [fileName, setFileName] = useState('No File Chosen');
@@ -43,6 +44,15 @@ export default function ContactComponent() {
 
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
+    }
+
+    function scrollSmoothTo() {
+        if (formsection.current) {
+            formsection.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
     }
 
     useEffect(() => {
@@ -155,6 +165,10 @@ export default function ContactComponent() {
             });
         }
 
+        setTimeout(() => {
+            document.querySelector('.scrollbanner').classList.add('active');
+        }, 2000);
+
         if (formTitle.current) {
             gsap.fromTo(formTitle.current, { opacity: 0, y: '150px' },
                 {
@@ -221,9 +235,18 @@ export default function ContactComponent() {
                             <span className="text-uppercase">You</span>
                         </h2></i>
 
+                        <div>
+                           <a onClick={scrollSmoothTo}><div className="scroll-downlink">
+                        
+                            </div></a>
+                            <div className="scrollbanner">
+                                <div className="scrollbanner-box"></div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div className="contact-main-section contact-snap" id="contact-form-section">
+                    <div className="contact-main-section contact-snap" id="contact-form-section" ref={formsection}>
                         <h3 className="form-legend-title signifier" ref={formTitle}>DONT BE SHY, SAY HI !!!</h3>
 
                         <form onSubmit={handleSubmit} className="contact-form-box signifier">

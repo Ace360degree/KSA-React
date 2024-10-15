@@ -119,6 +119,6 @@ export default function IdeasPage(){
             </div>
         </div>
         
-        <Link href={'/ideas'}><div className="close-projects"><FaXmark /></div></Link>
+        <Link href={`/ideas?id=${idea.id}`}><div className="close-projects"><FaXmark /></div></Link>
     </>)
 }

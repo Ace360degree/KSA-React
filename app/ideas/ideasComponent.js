@@ -7,7 +7,7 @@ import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import Link from "next/link";
 import Image from "next/image";
 import {motion , AnimatePresence} from 'framer-motion';
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useVisitedIdeasStore } from "../states/store/ideasStore";
 import dynamic from "next/dynamic";
 import $ from "jquery";
@@ -27,8 +27,10 @@ export default function IdeasComponent(){
     console.log(visited);
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const ideasSearchId = searchParams.get('id');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
+    const [initScroll,setInitScroll]=useState(false);
     const [ideas, setIdeas] = useState([]);
     const [categories,setCategories] = useState([]);
     const [filteredIdeas, setFilteredIdeas] = useState([]);
@@ -45,11 +47,13 @@ export default function IdeasComponent(){
                     setIdeas(data.ideas);
                     setCategories(data.categories);
                     setFilteredIdeas(data.ideas);
+                    setInitScroll(true);
                     //setIsLoaded(true); // Mark content as loaded
                 } catch (error) {
                     console.error(error.message);
                 }
             };
+
     
             fetchIdeasAPI();
         }, []);
@@ -221,6 +225,14 @@ export default function IdeasComponent(){
 
 
     useEffect(() => {
+        if (ideasSearchId) {
+            // alert(ideasSearchId)
+            const targetSection = document.querySelector(`[data-filter="${ideasSearchId}"]`);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+            }
+        }    
+        setTimeout(() => {
         $(document).ready(function () {
             // Initialize Scrollify
             $.scrollify.enable();
@@ -238,10 +250,10 @@ export default function IdeasComponent(){
                 updateHash: false,
                 touchScroll: true,
             });
-            $.scrollify.move(0);
-            // Refresh ScrollTrigger after Scrollify initializes
             ScrollTrigger.refresh();
+                 
         });
+    }, 500);   
 
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
     }, [filteredIdeas]);
@@ -259,6 +271,7 @@ export default function IdeasComponent(){
           }
         };
       }, [filteredIdeas]);
+
 
 
     
