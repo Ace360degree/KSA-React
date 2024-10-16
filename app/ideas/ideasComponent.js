@@ -196,6 +196,7 @@ export default function IdeasComponent(){
     },[filteredIdeas]);
 
 
+    // Ideas Cover Layout 
     useEffect(()=>{
             setTimeout(function(){
                 
