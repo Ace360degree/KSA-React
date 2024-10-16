@@ -384,7 +384,7 @@ export default function ProjectBoxes() {
     };
   
     handleUpdate();
-    const intervalId = setInterval(handleUpdate, 600);
+    const intervalId = setInterval(handleUpdate, 400);
   
     return () => {
       clearInterval(intervalId);
@@ -527,6 +527,28 @@ export default function ProjectBoxes() {
     // return () => clearInterval(intervalId);
   
   }, []);
+
+
+  useEffect(() => {
+    const updateClock = () => {
+      const hoursHand = document.querySelectorAll(".clock-2-hour");
+      const currentDate = new Date();
+      const currentHour = currentDate.getHours() % 12;
+      const currentMinute = currentDate.getMinutes();
+      const minuteProcessed = currentMinute / 2;
+
+      hoursHand.forEach((obj) => {
+        obj.style.transform = `rotate(${currentHour * 30 + minuteProcessed}deg)`;
+      });
+    };
+
+    updateClock();
+    const interval = setInterval(updateClock, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
   
   const secondsClock = useRef(null);
   useEffect(() => {
@@ -607,8 +629,9 @@ export default function ProjectBoxes() {
     </div>
 
 
-
+      
     <div className="user-clock projects-clock" >
+     
         <div className="user-clock-control" ref={usermainClockRef} style={{transition:'all 0.3s ease'}}>
           <div className="user-hands user-clock-hour" style={{ opacity: '0' }}>
             <span></span>
@@ -636,6 +659,10 @@ export default function ProjectBoxes() {
 
         <div className="clock-smallindicator-box"></div>
       </div>
+
+      <div className="user-clock-2">
+      <div class="clock-2-hour"></div>
+    </div> 
 
 
   {loading? '': 
