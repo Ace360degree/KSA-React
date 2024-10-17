@@ -300,15 +300,18 @@ export default function HomeComponent(){
             trigger: box,
             start: 'top 50%',
             end: 'top bottom',
+            scrub:true,
             toggleActions: "play none none reverse",
-            onEnter: () => updatePagination(index),
-            onLeaveBack: () => updatePagination(index - 1),
+            onEnter: () =>{ updatePagination(index); textTimeline.restart(); },
+            onEnterBack:()=> textTimeline.restart(),
+            onLeaveBack: () =>{ updatePagination(index - 1);},
           }
         });
 
         textTimeline
           .fromTo(subTitleImg, { scale: 1.2 }, { scale: 1, delay: 0 })
-          .fromTo(TitleElement, { scale: 1.8, opacity: 1 }, { scale: 1, opacity: 1, duration: 0.2 })
+          .fromTo(TitleElement, { scale: 1.8, opacity: 0 }, { opacity: 1, duration: 0.8 })
+          .fromTo(TitleElement, { scale: 1.8}, { scale: 1 , duration: 0.5 })
           .fromTo(subTitleElement, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
       });
 
