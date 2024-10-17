@@ -204,12 +204,12 @@ export default function ProjectInfo(){
         <>  
             <ScrollifyDisabled/>
             <LightTheme/>
-            <CheckNavTransparent/>
+            
             
 
             {loading? <CommonLoader/>:
             <>
-            {/* <CheckNavTransparent/>  */}
+            <CheckNavTransparent/> 
             <SliderCursor/>
             <NavbarIntroPageUnderline heading={'Expertise'} subheading={project.category}/>
             
