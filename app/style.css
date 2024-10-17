@@ -1987,9 +1987,9 @@ body.dark .clock-indicator span{
   height: 100vh;
   -o-object-fit:cover;
      object-fit:cover;
-  -webkit-transition:all 6s ease;
-  -o-transition:all 6s ease;
-  transition:all 6s ease;
+  -webkit-transition:all 10s ease;
+  -o-transition:all 10s ease;
+  transition:all 10s ease;
 }
 
 
@@ -2082,7 +2082,8 @@ body.dark .clock-indicator span{
 }
 
 .slider-texts h2{
-  font-size: 3rem;
+  font-size: 4.5rem;
+  max-width: 75%;
   -webkit-transform:scale(1.8);
       -ms-transform:scale(1.8);
           transform:scale(1.8);
@@ -2091,9 +2092,9 @@ body.dark .clock-indicator span{
   text-shadow: 0 0 5px black;
   margin: 0;
   opacity: 0;
-  -webkit-transform-origin:left;
-      -ms-transform-origin:left;
-          transform-origin:left;
+  -webkit-transform-origin:bottom left;
+      -ms-transform-origin:bottom left;
+          transform-origin:bottom left;
   -webkit-transition:-webkit-transform 0.2s var(--common-easing);
   transition:-webkit-transform 0.2s var(--common-easing);
   -o-transition:transform 0.2s var(--common-easing);
@@ -2106,8 +2107,8 @@ body.dark .clock-indicator span{
   bottom: 0;
   left: 0;
   font-weight: 100;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 18px;
+  line-height: 18px;
   max-width: 95%;
   opacity:0;
   text-shadow: 0 0 5px black;
