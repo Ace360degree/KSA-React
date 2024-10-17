@@ -301,7 +301,7 @@ export default function HomeComponent(){
             start: 'top 50%',
             end: 'top bottom',
             markers:true,
-            toggleActions: "play none none none",
+            toggleActions: "play none none reverse",
             onEnter: () =>{ updatePagination(index);},
             onLeaveBack: () =>{ updatePagination(index - 1);},
           }
