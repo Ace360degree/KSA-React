@@ -309,7 +309,7 @@ export default function HomeComponent(){
         });
 
         textTimeline
-          .fromTo(subTitleImg, { scale: 1.2 }, { scale: 1, delay: 0 })
+          .fromTo(subTitleImg, { scale: 1.1 }, { scale: 1, delay: 0 })
           .fromTo(TitleElement, { scale: 1.8, opacity: 0 }, { opacity: 1, duration: 0.8 })
           .fromTo(TitleElement, { scale: 1.8}, { scale: 1 , duration: 0.5 })
           .fromTo(subTitleElement, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });

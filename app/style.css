@@ -1987,9 +1987,9 @@ body.dark .clock-indicator span{
   height: 100vh;
   -o-object-fit:cover;
      object-fit:cover;
-  -webkit-transition:all 8s ease;
-  -o-transition:all 8s ease;
-  transition:all 8s ease;
+  -webkit-transition:all 6s ease;
+  -o-transition:all 6s ease;
+  transition:all 6s ease;
 }
 
 
