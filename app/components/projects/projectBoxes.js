@@ -340,51 +340,65 @@ export default function ProjectBoxes() {
         initProjects();
     };
     
-  
-  
+    
+
     const checkOverlap = () => {
       const secondsClock = document.getElementById('clock-bound-box');
       const indicators = clockIndicators.current;
-  
+    
       if (!secondsClock || !indicators.length) return;
-  
+    
       const secondsClockRect = secondsClock.getBoundingClientRect();
-  
+      let newActiveIndex = -1; // To keep track of the new active index
+    
       indicators.forEach((indicator, index) => {
         const spanElement = indicator;
         const spanParent = clockMainIndicators.current[index];
         if (!spanElement) return;
-  
+    
         const spanRect = spanElement.getBoundingClientRect();
-  
         const offset = 1;
-  
+    
         const isOverlapping = !(
           secondsClockRect.right < spanRect.left - offset ||
           secondsClockRect.left > spanRect.right + offset ||
           secondsClockRect.bottom < spanRect.top - offset ||
           secondsClockRect.top > spanRect.bottom + offset
         );
-  
-        if (isOverlapping && !spanParent.classList.contains('active')) {
-          tabIndex = index;
-          spanParent.classList.add('active');
-          
-          rotateSecondsHandsNormal();
-        } else if (!isOverlapping && spanParent.classList.contains('active')) {
-          spanParent.classList.remove('active');
+    
+        if (isOverlapping) {
+          // If overlapping and this indicator is not already active
+          if (!spanParent.classList.contains('active')) {
+            newActiveIndex = index; // Mark this index for activation
+          }
         }
       });
-  
-      clockMainIndicators.current[tabIndex].classList.add('active');
+    
+      // Update the active class only if there is a new active index
+      if (newActiveIndex !== -1) {
+        // Remove 'active' class from the currently active indicator
+        indicators.forEach((indicator, index) => {
+          const spanParent = clockMainIndicators.current[index];
+          if (spanParent.classList.contains('active') && index !== newActiveIndex) {
+            spanParent.classList.remove('active'); // Only remove from others
+          }
+        });
+    
+        // Set the new active indicator
+        clockMainIndicators.current[newActiveIndex].classList.add('active');
+        rotateSecondsHandsNormal(); // Rotate hands only when changing active
+      }
     };
-  
+    
     const handleUpdate = () => {
       requestAnimationFrame(checkOverlap);
     };
-  
+    
     handleUpdate();
     const intervalId = setInterval(handleUpdate, 400);
+    
+  
+   
   
     return () => {
       clearInterval(intervalId);
