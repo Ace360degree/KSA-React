@@ -179,7 +179,7 @@ export default function ProjectInfo(){
           windowWidth = window.innerWidth;
           windowHeight = window.innerHeight;
       
-          //setLoading(true); // Set loading to true on resize
+          setLoading(true); // Set loading to true on resize
           clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
       
           window.resizeTimeout = setTimeout(() => {

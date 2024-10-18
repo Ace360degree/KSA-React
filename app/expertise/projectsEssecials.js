@@ -79,7 +79,7 @@ export default function ProjectEssencials({essecials,points}){
                                 </div>
                                 
                                 <div class="col-lg-8">
-                                    <div class="row g-3 g-md-5 padding-points">
+                                    <div class="row padding-points gap-hilghlights">
                                         {/* Loop for Points Counter  */}
                                         {points.map((point,index)=>(
                                         <div class="col-md-6 col-lg-6 col-6" key={index}>

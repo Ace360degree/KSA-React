@@ -222,9 +222,9 @@ img{
 }
 
 .header-content{
-  line-height: 5px;
+    line-height: 0.4rem;
     margin-left: 5px;
-    font-size: 12px;
+    font-size: 0.6rem;
     text-transform: uppercase;
     font-weight: 300;
 }
@@ -1863,7 +1863,7 @@ bdoy.dark .user-hands span{
   bottom: 0;
   height: 390px;
   width: 2px;
-  opacity:0.1;
+  opacity:0.04;
   z-index:4;
   -webkit-transform-origin: bottom;
       -ms-transform-origin: bottom;
@@ -1892,7 +1892,7 @@ bdoy.dark .user-hands span{
   bottom: 0;
   height: 390px;
   width: 2px;
-  opacity: 0.1;
+  opacity: 0.05;
   -webkit-transform-origin: bottom;
       -ms-transform-origin: bottom;
           transform-origin: bottom;
@@ -2423,13 +2423,13 @@ body.dark .filter-box-control{
 }
 
 .info-block-title{
-  font-size: 2.2rem;
+  font-size: 2.6rem;
   font-weight: 400;
   margin-bottom: 14px;
 }
 
 .info-block-desc{
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 100;
 }
 
@@ -2583,38 +2583,38 @@ body.dark .filter-box-control{
 }
 
 .glance-side-title{
-  font-size: 14px;
-  font-weight: 300;
-  color: #bdbdbd;
-  text-transform: uppercase;
-  margin:0;
-  margin-bottom: 14px;
+  font-size: 1.4rem;
+    font-weight: 300;
+    color: #bdbdbd;
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 1rem;
 }
 
 .glance-points{
   padding: 0;
   margin: 0;
   /* text-transform: uppercase; */
-  font-size: 14px;
+  font-size: 1.2rem;
   list-style: none;
   font-weight: 300;
-  line-height: 16px;
+  line-height: 1.2rem;
 
 }
 
-.project-info-highlights{
-  margin-bottom: 4rem;
+.gap-hilghlights{
+  gap: 18vh 0rem;
 }
 
 .project-info-highlights h2{
   font-weight: 200;
-  font-size: 4.5rem;
+  font-size: 5.2rem;
   margin: 0;
 }
 
 .project-info-highlights h4{
   font-weight:300;
-  font-size:16px;
+  font-size:1.2rem;
   color: #bdbdbd;
 }
 
@@ -3676,8 +3676,10 @@ body.dark .filter-box-control{
   aspect-ratio: 18 / 12;
   -o-object-fit: cover;
      object-fit: cover;
-  max-height: 80vh;
+  max-height: 58vh;
   margin: auto;
+  margin-top: 3rem;
+  margin-bottom:4rem;
 }
 
 .ideas-cover{
@@ -4047,7 +4049,7 @@ body.dark .filter-box-control{
 
 .close-projects{
   position: fixed;
-    bottom: 2.2vh;
+    bottom: 25px;
     left: 0;
     right: 0;
     margin: auto;
@@ -4471,6 +4473,10 @@ body.dark .filter-box-control{
     padding: 8px !important;
   }
 
+  .gap-hilghlights {
+    gap: 4vh 0rem;
+  }
+
   #navbar.underline-nav{
     border-bottom: 1px solid grey;
     background: white !important;
@@ -4549,7 +4555,7 @@ body.dark .filter-box-control{
   }
 
   .glance-side-title{
-    font-size: 14px;
+    font-size: 1rem;
     margin-bottom:0;
   }
   .ideas-border{
@@ -4561,9 +4567,9 @@ body.dark .filter-box-control{
   }
   
   .glance-points{
-    font-size: 14px;
-    line-height: 14px;
-    margin-bottom:3vh;
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-bottom: 2.5rem;
   }
 
 
@@ -4820,7 +4826,7 @@ body.dark .filter-box-control{
     border-bottom: none;
   }
   .padding-points{
-    padding-bottom: 1rem;
+    padding: 1rem 0;
     border-bottom: 1px solid grey;
   }
   .essential-title{
@@ -4998,10 +5004,6 @@ body.dark .filter-box-control{
               transform: scale(1.2);
   }
 
-  .clock-indicator span ,.clock-indicator span em{
-    height: 82px;
-  }
-
   .clock-2-hour::before{
     height: 400px;
   }
@@ -5072,17 +5074,6 @@ body.dark .filter-box-control{
       height: 60px;
   }
   
-  .project-image-wrap{
-      max-width: 800px;
-  }
-  
-  .project-item-content h6{
-      font-size: 22px;
-  }
-  
-  .project-item-content h4{
-      font-size: 3rem;
-  }
   
   .auth-icon-box{
     height: 40px;
@@ -5098,32 +5089,20 @@ body.dark .filter-box-control{
     width: 30px;
   }
 
-  .projects-clock{
-    -webkit-transform: scale(0.8);
-        -ms-transform: scale(0.8);
-            transform: scale(0.8);
-    overflow: visible;
-  }
-  .projects-clock .user-clock-seconds span{
-    height: 500vh;
-  }
 
   .ksa-logo{
-      width: 70px !important;
+      width: 54px !important;
   }
   
   .contact-title-text ,.contact-title-text span:nth-child(2){
       font-size: 10rem;
   }
 
-  .project-item-content{
-    left:102%;
-  }
   
-  .header-content {
+  /* .header-content {
     line-height: 19px;
     font-size: 16px;
-  }
+  } */
 
   .project-image-info h4{
     font-size: 30px;
@@ -5141,7 +5120,7 @@ body.dark .filter-box-control{
     max-height: 94vh;
   } */
   
-  .clock-indicator{
+  /* .clock-indicator{
       height: 800px;
       width: 4px;
   }
@@ -5160,9 +5139,9 @@ body.dark .filter-box-control{
   .user-clock-hour span {
       height: 450px !important;
       width: 1px;
-  }
+  } */
   
-  .project-info-highlights h2{
+  /* .project-info-highlights h2{
       font-size: 8rem;
       font-weight: 200;
   }
@@ -5198,7 +5177,7 @@ body.dark .filter-box-control{
   }
   .padding-points{
       padding-left: 10rem;
-  }
+  } */
   
   .close-projects{
     height: 35px;
@@ -5219,12 +5198,7 @@ body.dark .filter-box-control{
     padding-top:7.5rem;
     max-width: 1500px;
   }
-  .info-block-title {
-    font-size: 2.6rem;
-  }
-  .info-block-desc {
-    font-size: 1.6rem;
-  }
+
 }
 
 
