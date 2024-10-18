@@ -1,6 +1,5 @@
 'use client';
 import Image from "next/image";
-import '../contact.css';
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef, useState } from "react";
@@ -256,10 +255,11 @@ export default function ContactComponent() {
                                     <input className="theme-input" name="name" value={formData.name} onChange={handleChange} placeholder="Type here" required />
                                 </div>
 
-                                <div className="form-row">
+                                <div className="form-row mb-4">
                                     <label>Email*</label>
                                     <input type="email" className="theme-input" name="email" value={formData.email} onChange={handleChange} placeholder="Type here" required />
                                 </div>
+                                <br/>
 
                                 <div className="form-row">
                                     <label>Description*</label>

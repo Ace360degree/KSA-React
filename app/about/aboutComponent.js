@@ -1,6 +1,5 @@
 'use client'
 import Link from "next/link";
-import '../about.css';
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef, useState } from "react";
@@ -11,7 +10,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import $ from "jquery";
 import  "jquery-scrollify";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
-import '../about.css';
 
 
 

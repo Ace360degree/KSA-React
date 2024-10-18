@@ -1233,8 +1233,7 @@ body.dark .extended-line::before{
   right: 0;
   margin: auto;
   width: 2px;
-  height: 5vh;
-  max-height: 40px;
+  height: 3.5rem;
   background: #80808052;
   z-index: 800;
   opacity: 0;
@@ -2643,8 +2642,8 @@ body.dark .filter-box-control{
 
 
 .page-title-animation{
-  font-size:4rem;
-  line-height:4rem;
+  font-size:5rem;
+  line-height:5rem;
   margin:0;
   text-align:center;
 }
@@ -2661,7 +2660,7 @@ body.dark .filter-box-control{
 }
 
 .about-intro-sub{
-  font-size:18px;
+  font-size:1.8rem;
 }
 
 .ab-width{
@@ -2710,7 +2709,8 @@ body.dark .filter-box-control{
 
 
 .form-legend-title{
-  font-size:3.5rem;
+  font-size:4.5rem;
+  text-align: center;
   /*font-family:"billie eilish";*/
   font-style:italic;
 }
@@ -2763,7 +2763,7 @@ body.dark .filter-box-control{
 
 .contact-menu{
   position: fixed;
-  top: 22px;
+  top: 3vh;
   left: 0;
   right: 0;
   z-index: 5000;
@@ -2775,7 +2775,7 @@ body.dark .filter-box-control{
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  gap: 22%;
+  gap: 5rem;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -2788,7 +2788,7 @@ body.dark .filter-box-control{
 
 .contact-menu li{
   color: #ffffff87;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: var(--pointer);
   font-weight: 200;
   letter-spacing: 1px;
@@ -2823,7 +2823,7 @@ body.dark .filter-box-control{
 }
 
 .office-section{
-  max-width:650px;
+  max-width:calc(800px - 4vw);
   margin:auto;
 }
 
@@ -2879,7 +2879,7 @@ body.dark .filter-box-control{
 
 .contact-form-box{
   width: 100%;
-  max-width: 500px;
+  max-width: calc(600px + -4vw);
   height: auto;
   padding: 1.4rem 3rem;
   /* background: #121212; */
@@ -2895,11 +2895,12 @@ body.dark .filter-box-control{
 
 .form-row{
   text-align:center;
-  margin:15px 0;
+  margin:1rem 0;
 }
 
 .form-row label{
   display:block;
+  font-size: 1rem;
   margin-bottom:8px;
 }
 
@@ -2913,9 +2914,9 @@ body.dark .filter-box-control{
   color: white;
   width: 100%;
   background: #272727;
-  border-radius: 10px;
+  border-radius: 0.8rem;
   padding: 3px;
-  font-size: 14px;
+  font-size: 1.1rem;
   border: none;
   color: white;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
@@ -2966,10 +2967,11 @@ body.dark .filter-box-control{
   font-weight: 200;
   background: #272727;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.8rem;
   outline: none;
   padding: 3px 18px;
   display: block;
+  font-size: 1.2rem;
   font-style: italic;
   margin: auto;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
@@ -3083,7 +3085,7 @@ body.dark .filter-box-control{
   left: 0;
   right: 0;
   margin: auto;
-  font-size: 16px;
+  font-size: 0.8rem;
 }
 
 .footer-policy-box{
@@ -3750,7 +3752,7 @@ body.dark .filter-box-control{
 
 .top-section-filter{
   position:fixed;
-  top:24px;
+  top:3vh;
   max-width: 248px;
   background: transparent;
   border-radius: 14px;
@@ -3766,11 +3768,11 @@ body.dark .filter-box-control{
   display:-ms-flexbox;
   display:flex;
   font-weight:500;
-  font-size:16px;
+  font-size:1rem;
   -webkit-box-pack:center;
       -ms-flex-pack:center;
           justify-content:center;
-  gap:22%;
+  gap:5rem;
   z-index:5000;
 }
 
@@ -4352,6 +4354,9 @@ body.dark .filter-box-control{
 
 .footer-icon{
   opacity:1;
+  height: 1.8rem;
+  width: 1.8rem; 
+  margin: .1rem;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -4422,23 +4427,8 @@ body.dark .filter-box-control{
   .intro-lg-title {
     margin-bottom: 0.6rem;
   }
-  .about-intro-sub {
-    font-size: 2.4rem;
-  }
   .about-item{
     max-width: 24%;
-  }
-  .contact-form-box{
-    max-width: 750px;
-  }
-  .form-row label{
-    font-size: 28px;
-  }
-  .theme-input{
-    font-size: 32px;
-  }
-  .btn-theme{
-    font-size: 24px;
   }
   .footer-icon{
     height: 40px;
@@ -5015,11 +5005,6 @@ body.dark .filter-box-control{
     height: 400px;
   }
 
-
-  .contact-footer{
-    font-size: 22px;
-  }
-
   .intro-lg-title{
     line-height: 176px;
     font-size: 176px;
@@ -5037,10 +5022,6 @@ body.dark .filter-box-control{
     bottom: 84px;
   }
 
-  .page-title-animation {
-    font-size: 7rem;
-    line-height: 7rem;
-  }
 
   .they-say-titlebox{
     transform: scale(2);
@@ -5051,13 +5032,6 @@ body.dark .filter-box-control{
   #clock-bound-box{
     height: 80px;
     bottom: 720px;
-  }
-
-  .scrollbanner{
-    width: 3px;
-    bottom: 2vh;
-    height: 5vh;
-    max-height: 5vh;
   }
   .hero-title {
       font-size: 6rem;
@@ -5131,10 +5105,6 @@ body.dark .filter-box-control{
       font-size:20px;
   }
 
-  .form-legend-title {
-    font-size: 5.5rem;
-  }
-
   .auth-icon-box{
     height: 50px;
     width: 50px;
@@ -5158,51 +5128,15 @@ body.dark .filter-box-control{
   .projects-clock .user-clock-seconds span{
     height: 500vh;
   }
-  
-  .filter-box-control{
-    padding-top: 44px;
-  }
 
-  .logo-main {
-      font-size: 46px;
-      line-height: 40px;
-  }
-  .logo-main span {
-        font-size: 14px;
-        line-height: 18px;
-        font-family: 'signifier';
-  }
-  .top-section-filter{
-      font-size:24px;
-  }
   .ksa-logo{
       width: 80px !important;
   }
-  .about-item h4{
-      font-size:2.4rem;
-  }
-  .contact-menu{
-      gap: 30px;
-  }
-  .contact-menu li{
-      font-size: 24px;
-      
-  }
-  .office-section {
-      max-width: 1600px;
-  }
-  .map-section {
-      padding: 10vh 0;
-  }
+  
   .contact-title-text ,.contact-title-text span:nth-child(2){
       font-size: 10rem;
   }
-  .location-tag.london{
-      top: -31%;
-  }
-  .location-tag.mumbai{
-    top: 102%;
-  }
+
   .project-item-content{
     left:102%;
   }
@@ -5216,72 +5150,17 @@ body.dark .filter-box-control{
     font-size: 30px;
   }
 
-  .about-intro-sub{
-    font-size: 2.5rem;
-  }
-
-  .location-tag{
-      min-width: 500px;
-  }
-  .location-tag h4 {
-      font-size: 46px;
-  }
-  .location-tag h6 {
-      font-size: 24px;
-  }
   .social-links i {
       font-size: 52px;
   }
   .follow-us-text{
       font-size:2rem;
   }
-  .contact-form-box {
-      max-width: 680px;
-      padding: 2rem 5rem;
-  }
-  .theme-input{
-      font-size:24px;
-      border-radius: 16px;
-  }
-  .form-row label {
-      font-size: 24px;
-      margin-top: 3rem;
-  }
-  .btn-theme{
-      font-size: 24px;
-      border-radius: 16px;
-  }
-
-  .file-name {
-    font-size: 24px;
-  }
-  .footer-icon{
-    height: 30px;
-    width:30px;
-  }
   
-  .map-line::after {
-      height: 14px;
-      width: 14px;
-      left: -6px;
-  }
 
   /* .contact-section-tab{
     max-height: 94vh;
   } */
-
-  .map-line::before{
-      height: 50px;
-      width: 50px;
-      left: -24px;
-  }
-  .map-line.london::before {
-      bottom: -18px;
-      
-  }
-  .map-line.mumbai::before {
-      top: -18px;
-  }
   
   .clock-indicator{
       height: 800px;
@@ -5397,232 +5276,8 @@ body.dark .filter-box-control{
     font-size: 1.6rem;
   }
 }
-/* 
-@media screen and (min-width:2800px){
-  #clock{
-      -webkit-transform: scale(2);
-          -ms-transform: scale(2);
-              transform: scale(2);
-  }
-  .scrollbanner{
-      width:4px;
-      height:120px;
-      max-height:120px;
-  }
-  .hero-title {
-      font-size: 8rem;
-      width:auto;
-  }
-  .hero-sub {
-      font-size: 2.8rem;
-  }
-  .audio-box, .audio-box svg {
-      height: 70px !important;
-      width: 70px !important;
-  }
-  .cursor-lg {
-      -webkit-transform:scale(1);
-          -ms-transform:scale(1);
-              transform:scale(1);
-  }
-  
-  .side-menu.left{
-      left: 4vw;
-      -webkit-transform:scale(4) translateX(12px);
-          -ms-transform:scale(4) translateX(12px);
-              transform:scale(4) translateX(12px);
-  }
-  
-  .side-menu.right{
-      right: 4vw;
-      -webkit-transform:scale(4) translateX(-12px);
-          -ms-transform:scale(4) translateX(-12px);
-              transform:scale(4) translateX(-12px);
-  }
-  
-  .menu-screen{
-      padding:8vw;
-  }
-  
-  .menu-link {
-      font-size: 8.8rem;
-      line-height: 8.8rem;
-  }
-  
-  .about-para {
-      font-size: 3rem;
-      line-height: 3rem;
-  }
-  .logo-main {
-      font-size: 64px;
-      line-height: 64px;
-  }
-  .logo-main span {
-      font-size: 26px;
-      line-height: 28px;
-  }
-  .top-section-filter{
-      font-size:34px;
-  }
-  .ksa-logo{
-      width: 90px !important;
-  }
-  .about-item h4{
-      font-size:3rem;
-  }
-  .contact-menu{
-      gap: 46px;
-  }
-  .contact-menu li{
-      font-size: 38px;
-  }
-  .office-section {
-      max-width: 2000px;
-  }
-  .map-section {
-      padding: 24vh 0;
-  }
-  .contact-title-text ,.contact-title-text span:nth-child(2){
-      font-size: 10rem;
-  }
-  .location-tag.london{
-      top: -36%;
-  }
-  .location-tag{
-      min-width: 500px;
-  }
-  .location-tag h4 {
-      font-size: 4rem;
-  }
-  .location-tag h6 {
-      font-size: 2.5rem;
-  }
-  .social-links i {
-      font-size: 52px;
-  }
-  .follow-us-text{
-      font-size:2.8rem;
-  }
-  .footer-brand{
-      font-size:3.8rem;
-  }
-  .contact-form-box {
-      max-width: 40vw;
-      padding: 4rem 18rem;
-  }
-  .theme-input{
-      font-size: 2.8rem;
-      border-radius: 4rem;
-  }
-  .form-row label {
-      font-size: 2.2rem;
-      margin-top: 2rem;
-  }
-  .btn-theme{
-      font-size: 2.5rem;
-      border-radius: 50px;
-  }
-  #navbar{
-      height:100px;
-  }
-  .map-line::after {
-      height: 14px;
-      width: 14px;
-      left: -6px;
-  }
-  .map-line::before{
-      height: 50px;
-      width: 50px;
-      left: -24px;
-  }
-  .map-line.london::before {
-      bottom: -18px;
-      
-  }
-  .map-line.mumbai::before {
-      top: -18px;
-  }
-  
-  .clock-indicator{
-      height: 800px;
-      width: 6px;
-  }
-  .clock-indicator::before{
-      height: 100px;
-  }
-  .clock-smallindicator{
-      height: 800px;
-  }
-  .clock-smallindicator::before{
-      height: 60px;
-  }
-  .user-clock-hour span {
-      height: 920px !important;
-      width: 4px;
-  }
-  .user-hands span{
-      width: 4px;
-  }
-  .ideas-item{
-      max-width: 2500px;
-  }
-  .ideas-item h2 {
-      font-size: 10rem;
-  }
-  .ideas-item h5 {
-      font-size: 2.5rem;
-  }
-  .ideas-img-section {
-      width: 70%;
-      max-width:100%;
-      max-height: 80vh;
-  }
-  .scale-up-idea{
-      -webkit-perspective: 84px;
-              perspective: 84px;
-  }
-  .project-title h2 {
-      font-size: 12.5rem;
-  }
-  
-  .project-title h4 {
-      font-size: 6rem;
-  }
-  
-  .project-info-highlights h2{
-      font-size:10rem;
-  }
-  
-  .project-info-highlights h4{
-      font-size:4rem;
-  }
-  
-  .project-info-highlights{
-      margin-bottom:14rem;
-  }
-  
-  .glance-side-title {
-      font-size: 4rem;
-  }
-  .glance-points {
-      font-size: 3rem;
-      line-height: 3.2rem;
-      margin-bottom: 12rem;
-  }
-  .essential-title{
-      font-size: 8rem !important;
-  }
-  .project-title{
-      left:120px;
-  }
-  .nav-subtitle-content{
-      font-size:28px;
-      line-height:28px;
-  }
-  .padding-points{
-      padding-left: 10rem;
-  }
-} */
+
+
 
 
 
