@@ -2186,7 +2186,7 @@ body.dark .clock-indicator span{
   left: 0;
   right: 0;
   width: 100%;
-  max-width: 850px;
+  max-width: 80%;
   margin: auto;
   padding-top: 2rem;
   z-index: 1000;
