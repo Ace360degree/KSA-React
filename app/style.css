@@ -2191,6 +2191,7 @@ body.dark .clock-indicator span{
   padding-top: 2rem;
   z-index: 1000;
   background: white;
+  height: 5rem;
 }
 
 body.dark .filter-box-control{
@@ -2204,7 +2205,7 @@ body.dark .filter-box-control{
   list-style: none;
   width: 100%;
   max-width: 75%;
-  gap: 4.5rem;
+  gap: 4rem;
   margin: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -2215,7 +2216,7 @@ body.dark .filter-box-control{
   /*text-transform: uppercase;*/
   color: #737373;
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .filter-box li{
@@ -3424,7 +3425,7 @@ body.dark .filter-box-control{
 }
 
 .sm-text-title{
-  font-size:4.4rem;   
+  font-size:3.5rem;   
 }
 
 .snap-section{
@@ -3872,7 +3873,7 @@ body.dark .filter-box-control{
 .white-stick{
   position: relative;
   width: 2px;
-  height: 32px;
+  height: 3.5rem;
   display: block;
   margin: auto;
   background: #ffffff45;
@@ -5078,10 +5079,6 @@ body.dark .filter-box-control{
   
   .hello-about{
       font-size: 2rem;
-  }
-  
-  .white-stick{
-      height: 60px;
   }
   
   

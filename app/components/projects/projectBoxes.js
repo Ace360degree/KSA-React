@@ -300,7 +300,7 @@ export default function ProjectBoxes() {
         const targetY = currProject.offsetTop;
         gsap.to(window, {
           scrollTo: {
-            y: targetY-100, // Adjust scroll position, subtracting 100px as an offset
+            y: targetY- 150, // Adjust scroll position, subtracting 100px as an offset
             autoKill: false,    // Auto-stop scrolling if the user interacts
           },
           duration: 0.5,  
