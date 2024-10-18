@@ -13,7 +13,12 @@ export default function Policies(){
     <>  
         <DarkTheme/>
         <NavbarIntroPage heading={'Legal'}/>
+        <ul className='top-section-filter'>
+            <li className='filter-trigger active' style={{fontFamily:'Signifier'}} id="cultureTrigger"  data-target="#culture">Legal </li>
+            <li className='filter-trigger active' style={{fontFamily:'Signifier'}} id="disciplineTrigger" data-target="#discipline">Polices</li>
+        </ul>
         <div className="container" style={{maxWidth:'850px'}}>
+            
         <div className="policies-page signifier">
             <div>
                 <a href="./files/privacy_policy.pdf" target="_blank"><div className="policy-item">

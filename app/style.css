@@ -1233,7 +1233,7 @@ body.dark .extended-line::before{
   right: 0;
   margin: auto;
   width: 2px;
-  height: 3.5rem;
+  height: 2.6rem;
   background: #80808052;
   z-index: 800;
   opacity: 0;
@@ -2697,7 +2697,6 @@ body.dark .filter-box-control{
 
 .about-anim-text{
   font-size:5rem;
-  white-space:nowrap;
   font-weight:100;
 }
 
@@ -4701,6 +4700,12 @@ body.dark .filter-box-control{
   .about-intro-sub {
       font-size: 1.4rem;
   }
+  .ab-2-head{
+    font-size: 1.8rem;
+  }
+  .ab-2-head-sm{
+    font-size: 1.4rem;
+  }
   .about-para {
     font-size: 1rem;
     line-height: 1.2rem;
@@ -4708,8 +4713,13 @@ body.dark .filter-box-control{
     max-width:100%;
   }
   .about-anim-text {
-      font-size: 2.1rem;
+      font-size: 4rem;
   }
+  .about-anim-text span{
+    display: block;
+  }
+
+
   .about-project-box {
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
@@ -4966,8 +4976,8 @@ body.dark .filter-box-control{
   }
 
   .page-title-animation{
-    font-size:3rem;
-    line-height:3rem;
+    font-size:4rem;
+    line-height:4rem;
   }
 
 }

@@ -92,7 +92,12 @@ export default function AboutComponent(){
 
         // Function to change the text
         function changeText() {
-            AboutAnimeTextElem.textContent = aboutAnimArray[currentIndex];
+            // Split the current title into words
+            const words = aboutAnimArray[currentIndex].trim().split(' ');
+            
+            // Wrap each word in a <span> and join them back with spaces
+            AboutAnimeTextElem.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
+        
             currentIndex = (currentIndex + 1) % aboutAnimArray.length; // Loop back to the start if reached the end
         }
 
@@ -100,21 +105,23 @@ export default function AboutComponent(){
         changeText();
 
         // Set interval to change text every 0.5 seconds
-        let intervalId = setInterval(changeText, 500);
+        const IntervalId = setInterval(changeText, 500);
     
-
+        return () => clearInterval(IntervalId);
 
         }
         // Create a timeline for the animation
-        let timeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#ksa-slider',
-                start: "top 80%",
-                end: "top 30%",
-                scrub: true,
-            }
-        });
+        // let timeline = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: '#ksa-slider',
+        //         start: "top 80%",
+        //         end: "top 30%",
+        //         scrub: true,
+        //     }
+        // });
         
+         // Clean up on unmount
+
     }, [showTabs]);
 
 
@@ -330,7 +337,7 @@ export default function AboutComponent(){
                 <div className="px-4 billy-text">
                     <div className="mx-auto" style={{maxWidth:'100%'}}>
                         <h4 className="avelir-text fs-1"><i>We Are</i></h4>
-                        <h3 className="about-anim-text signifier" data-titles="Thinkers & Makers,Scrupulous & Creative,Colaborative & Humane,Innovators & Pragmatic">Pragmatic & Else and Stuff</h3>
+                        <h3 className="about-anim-text signifier" data-titles="Thinkers & Makers,Scrupulous & Creative,Colaborative & Humane,Innovators & Pragmatic"></h3>
                     </div>
                 </div>
             </div>

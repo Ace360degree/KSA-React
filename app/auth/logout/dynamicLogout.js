@@ -19,7 +19,7 @@ export default function DynamicLogout(){
       try {
         await signOut({ redirect: false }); // Perform sign out without immediate redirect
         // window.location.href = '/auth/login'; // Redirect manually after sign-out is complete
-        setLoggedOut();
+        setLoggedOut;
         if(paramsPage){
             
           router.push(paramsPage);
