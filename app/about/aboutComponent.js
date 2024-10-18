@@ -266,7 +266,7 @@ export default function AboutComponent(){
 
     return(
         <>
-            <ScrollifyDisabled/>
+            {/* <ScrollifyDisabled/> */}
             <DarkTheme/>
             <NavbarIntroPage heading={'ETHIOS'}/>
             {/* <div class="header-gap"></div> */}

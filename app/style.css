@@ -538,15 +538,15 @@ body.dark #navbar{
 }
 
 .logo-main{
-  font-size: 30px;
-  line-height: 38px;
+  font-size: 2rem;
+  line-height: 2.5rem;
   font-weight: 900;
 }
 
 .logo-main span{
     display: block;
-    font-size: 12px;
-    line-height: 5px;
+    font-size: 0.6rem;
+    line-height: 0.3rem;
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Signifier', serif;
@@ -683,7 +683,7 @@ body.dark #navbar{
 }
 
 .hero-sub{
-  font-size:16px;
+  font-size:1.5rem;
   font-weight:400;
   margin:0;
   text-transform: uppercase;
@@ -693,7 +693,7 @@ body.dark #navbar{
 }
 
 .hero-title{
-  font-size: 3.5rem;
+  font-size: 4rem;
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -2188,7 +2188,7 @@ body.dark .clock-indicator span{
   width: 100%;
   max-width: 850px;
   margin: auto;
-  padding-top: 34px;
+  padding-top: 2rem;
   z-index: 1000;
   background: white;
 }
@@ -2203,8 +2203,8 @@ body.dark .filter-box-control{
   display: flex;
   list-style: none;
   width: 100%;
-  max-width: 850px;
-  gap: 34px;
+  max-width: 75%;
+  gap: 4.5rem;
   margin: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -2215,7 +2215,7 @@ body.dark .filter-box-control{
   /*text-transform: uppercase;*/
   color: #737373;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .filter-box li{
@@ -3421,9 +3421,12 @@ body.dark .filter-box-control{
 
 
 .lg-text-title{
-  font-size:7vw
+  font-size:8rem
 }
 
+.sm-text-title{
+  font-size:4.4rem;   
+}
 
 .snap-section{
   height:100vh;
@@ -3451,7 +3454,7 @@ body.dark .filter-box-control{
 
 .ideas-item{
   width: 100%;
-  max-width: 600px;
+  max-width: calc(1000px - 5vw);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3583,7 +3586,7 @@ body.dark .filter-box-control{
   font-weight:400;
   text-transform:uppercase;
   margin-bottom:0;
-  margin-top: 1.5rem;
+  margin-top: 3.5rem;
 }
 
 .ideas-item h5{
@@ -4044,7 +4047,7 @@ body.dark .filter-box-control{
 
 .close-projects{
   position: fixed;
-    bottom: 18px;
+    bottom: 2.2vh;
     left: 0;
     right: 0;
     margin: auto;
@@ -4348,9 +4351,7 @@ body.dark .filter-box-control{
   display:none;
 }
 
-.sm-text-title{
-  font-size:4vw;   
-}
+
 
 .footer-icon{
   opacity:1;
@@ -4940,10 +4941,10 @@ body.dark .filter-box-control{
       margin-top: .5rem;
   }
   .lg-text-title{
-      font-size: 14vw;
+      font-size: 3rem;
   }
   .sm-text-title{
-      font-size:8vw;
+      font-size:2rem;
   }
   .scrollbanner,.scroll-downlink{
       bottom: 4vh;
@@ -5033,25 +5034,7 @@ body.dark .filter-box-control{
     height: 80px;
     bottom: 720px;
   }
-  .hero-title {
-      font-size: 6rem;
-      width:auto;
-  }
-  .hero-sub {
-      font-size: 1.8rem;
-  }
-  .filter-box{
-    gap:80px;
-  }
-  /* .audio-box {
-      height: 42px !important;
-      width: 42px !important;
-  }
-  .audio-box svg {
-      height: 42px !important;
-      width: 35px !important;
-  }
-   */
+
   .cursor-lg {
       -webkit-transform:scale(1);
           -ms-transform:scale(1);
@@ -5077,8 +5060,8 @@ body.dark .filter-box-control{
   }
   
   .menu-link {
-      font-size: 7rem;
-      line-height: 7rem;
+      font-size: 5.8rem;
+      line-height: 5.8rem;
   }
   
   .hello-about{
@@ -5101,22 +5084,18 @@ body.dark .filter-box-control{
       font-size: 3rem;
   }
   
-  .filter-box{
-      font-size:20px;
-  }
-
   .auth-icon-box{
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
   }
 
   .audio-box{
-    height: 48px;
-    width: 48px;
+    height: 40px;
+    width: 40px;
   }
   .audio-box svg{
-    height: 48px;
-    width: 38px;
+    height: 40px;
+    width: 30px;
   }
 
   .projects-clock{
@@ -5130,7 +5109,7 @@ body.dark .filter-box-control{
   }
 
   .ksa-logo{
-      width: 80px !important;
+      width: 70px !important;
   }
   
   .contact-title-text ,.contact-title-text span:nth-child(2){
@@ -5181,35 +5160,6 @@ body.dark .filter-box-control{
   .user-clock-hour span {
       height: 450px !important;
       width: 1px;
-  }
-  .ideas-item{
-      max-width: 1800px;
-  }
-  .ideas-item h2 {
-      font-size: 4.5rem;
-  }
-  .ideas-item h5 {
-      font-size: 20px;
-  }
-  .ideas-img-section {
-      width: 58%;
-      max-width:100%;
-      max-height: 80vh;
-  }
-  .scale-up-idea{
-      -webkit-perspective: 84px;
-              perspective: 84px;
-  }
-  .project-title h2 {
-      font-size: 8rem;
-  }
-  
-  .project-title h4 {
-      font-size: 3rem;
-  }
-  
-  .projects-items{
-      max-width: 780px;
   }
   
   .project-info-highlights h2{
@@ -5283,8 +5233,8 @@ body.dark .filter-box-control{
 
 
 .splide__arrow{
-  height: 30% !important;
-  width: 25% !important;
+  height: 60% !important;
+  width: 40% !important;
   border-radius: 0 !important;
   opacity: 0 !important;
   cursor: var(--pointer) !important;
