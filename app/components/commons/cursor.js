@@ -11,6 +11,8 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { GrPowerForceShutdown } from "react-icons/gr";
 import { GrPowerShutdown } from "react-icons/gr";
 import { usePathname, useRouter } from 'next/navigation';
+import Power1 from './svgs/power1';
+import Power2 from './svgs/power2';
 
 
 
@@ -262,7 +264,7 @@ export default function CursorAudio() {
       </audio>
 
       <Link href={`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`}><div className='auth-icon-box slide-up change-svg'>
-        {isLoggedIn? <GrPowerForceShutdown /> :  <GrPowerShutdown className='shutdown' /> }
+        {isLoggedIn? <Power1 /> :  <Power2 /> }
         
       </div></Link>
 

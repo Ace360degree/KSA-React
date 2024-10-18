@@ -205,8 +205,6 @@ export default function ProjectInfo(){
             <ScrollifyDisabled/>
             <LightTheme/>
             
-            
-
             {loading? <CommonLoader/>:
             <>
             <CheckNavTransparent/> 

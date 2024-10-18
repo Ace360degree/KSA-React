@@ -295,23 +295,34 @@ export default function HomeComponent(){
         const subTitleElement = box.querySelector('h4');
         const subTitleImg = box.querySelector('img');
 
-        let textTimeline = gsap.timeline({
-          scrollTrigger: {
+        function initTitleAnimation(){
+          homeProjectsBox.forEach((obj)=>{
+            obj.classList.remove('active');
+          })
+          box.classList.add('active');
+        }
+
+        // function removeAnimation(){
+        //   box.classList.remove('active');
+        // }
+
+        function replayAnimation(ind){
+          homeProjectsBox.forEach((obj)=>{
+            obj.classList.remove('active');
+          })
+          homeProjectsBox[ind].classList.add('active');
+        }
+
+        ScrollTrigger.create({
             trigger: box,
-            start: 'top 50%',
+            start: 'top 80%',
             end: 'top bottom',
-            toggleActions: "play none none reverse",
-            onEnter: () =>{ updatePagination(index);},
-            onLeaveBack: () =>{ updatePagination(index - 1);},
-          }
+            onEnter: () =>{ updatePagination(index);initTitleAnimation();},
+            // onEnterBack:()=>{replayAnimation(index);},
+            onLeaveBack: () =>{ updatePagination(index - 1);replayAnimation(index-1)},
         });
 
-        textTimeline
-          .fromTo(subTitleImg, { scale: 1.1 }, { scale: 1 })
-          .fromTo(TitleElement, { scale: 1.8, opacity: 0 }, { opacity: 1, duration: 0.8,delay: 0.2 })
-          .fromTo(TitleElement, { scale: 1.8}, { scale: 1 , duration: 0.5 })
-          .fromTo(subTitleElement, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
-      });
+       });
 
       const paginationItems = document.querySelectorAll('.pagination ul li');
       function updatePagination(activeIndex) {
