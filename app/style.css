@@ -2133,7 +2133,6 @@ body.dark .clock-indicator span{
   bottom:50px;
   z-index:50;
   font-family: 'Signifier';
-  padding-bottom: 2.5rem;
 }
 
 .slider-texts h2{
@@ -2155,6 +2154,7 @@ body.dark .clock-indicator span{
     font-weight: 100;
     font-size: 1rem;
     line-height: 1rem;
+    max-width: 400px;
     letter-spacing: 1px;
     max-width: 100%;
     opacity: 0;
@@ -2162,13 +2162,9 @@ body.dark .clock-indicator span{
   -webkit-transition:all 0.8s var(--common-easing);
   -o-transition:all 0.8s var(--common-easing);
   transition:all 0.8s var(--common-easing);
+  margin-bottom: 0.5rem;
 }
 
-.slider-texts h4 span{
-  position: absolute;
-    top: 0;
-    left: 0;
-}
 
 
 .idea-section{
@@ -2668,30 +2664,40 @@ body.dark .filter-box-control{
   font-size:18px;
 }
 
+.ab-width{
+  width: 100%;
+  max-width: 715px;
+  
+}
 
 .ab-2-head{
-  font-size: 2.1rem;
-  margin-bottom: 14px;
-  max-width:800px;
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
   opacity: 0.8;
   -webkit-transform: scale(1.2);
       -ms-transform: scale(1.2);
           transform: scale(1.2);
+          font-weight: 200;        
+}
+
+.ab-2-head-sm{
+  font-size: 2rem;
 }
 
 .about-para{
-  font-size: 14px;
-  line-height: 16px;
-  max-width:800px;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
   opacity: 0.2;
   font-style: italic;
   font-weight: 100;
+  word-break: break-all;
   letter-spacing: 2px;
+  max-width: 660px;
 
 }
 
 .about-anim-text{
-  font-size:6vw;
+  font-size:5rem;
   white-space:nowrap;
   font-weight:100;
 }
@@ -3709,7 +3715,7 @@ body.dark .filter-box-control{
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 26px;
+  gap: 5vw;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -3717,7 +3723,7 @@ body.dark .filter-box-control{
 
 .about-item{
   width:100%;
-  max-width:18%;
+  max-width:12%;
   -webkit-transition:all 0.6s ease;
   -o-transition:all 0.6s ease;
   transition:all 0.6s ease;
@@ -3726,7 +3732,7 @@ body.dark .filter-box-control{
 .about-item h4{
   font-style: italic;
   letter-spacing: 2px;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 
 .about-item:hover{
@@ -3853,7 +3859,7 @@ body.dark .filter-box-control{
   -webkit-box-pack:center;
       -ms-flex-pack:center;
           justify-content:center;
-  font-size:1rem;
+  font-size:1.4rem;
   font-weight: 100;
 }
 
@@ -4085,8 +4091,8 @@ body.dark .filter-box-control{
   position: fixed;
   bottom: 20px;
   left: 25px;
-  height: 36px;
-  width: 36px;
+  height: 34px;
+  width: 34px;
   opacity: 0.5;
   background: transparent;
   cursor: var(--pointer);
@@ -4128,15 +4134,15 @@ body.dark .filter-box-control{
   width: 85%;
 }
 
-.auth-icon-box svg path{
+.auth-icon-box svg path, .auth-icon-box svg g{
   stroke:black;
-  stroke-width: 1px;
+  /* stroke-width: 1px; */
 }
 
-.change-svg.light svg path{
+.change-svg.light svg path, .change-svg.light svg g{
   stroke: white;
 }
-.audio-box.change-svg.light svg path,.audio-box.change-svg.light svg line{
+.audio-box.change-svg.light svg path,.audio-box.change-svg.light svg line, .audio-box.change-svg.light svg g{
   fill: white;
   stroke: white;
 }
@@ -4419,14 +4425,8 @@ body.dark .filter-box-control{
   .about-intro-sub {
     font-size: 2.4rem;
   }
-  .ab-2-head {
-    font-size: 2rem;
-  }
   .about-item{
     max-width: 24%;
-  }
-  .about-anim-text {
-    font-size: 5rem;
   }
   .contact-form-box{
     max-width: 750px;
@@ -4469,6 +4469,11 @@ body.dark .filter-box-control{
           -ms-flex-direction: column;
               flex-direction: column;
       padding:5rem 0;
+  }
+
+  .slider-texts{
+    left: 0;
+    padding: 0 1.2rem;
   }
 
   .info-slider-section{
@@ -4698,10 +4703,6 @@ body.dark .filter-box-control{
   }
   .about-intro-sub {
       font-size: 1.4rem;
-  }
-  .ab-2-head {
-      font-size: 1.2rem;
-      margin: auto;
   }
   .about-para {
     font-size: 1rem;
@@ -5107,7 +5108,7 @@ body.dark .filter-box-control{
   }
   
   .hello-about{
-      font-size: 30px;
+      font-size: 2rem;
   }
   
   .white-stick{
@@ -5162,10 +5163,6 @@ body.dark .filter-box-control{
     padding-top: 44px;
   }
 
-  .about-para {
-    font-size: 22px;
-    line-height: 25px;
-  }
   .logo-main {
       font-size: 46px;
       line-height: 40px;

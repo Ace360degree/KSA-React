@@ -303,7 +303,7 @@ export default function AboutComponent(){
             <div className="about-snap">
             <div ref={aboutSection} className="full-section about-pinned-anim px-4 overflow-hidden" >
                 <div className=" billy-text">
-                    <div className="mx-auto">
+                    <div className="mx-auto ab-width">
                     <h3 className="ab-2-head signifier">KSA aims to transform every aspect of human life.</h3>
                     <p className="about-para mx-auto signifier">KSA has grown from a founder to a big family. 
                         A dynamic and evolving practice that responds to the shifting and advancing social, cultural, political economic and technological conditions of modern life. 
@@ -316,8 +316,8 @@ export default function AboutComponent(){
             <div className="about-snap">
             <div ref={aboutSection2} className="full-section about-pinned-anim px-4 overflow-hidden">
                 <div className=" billy-text">
-                    <div className="mx-auto">
-                    <h3 className="ab-2-head signifier">KSA’s pedagogies focuses on creation of intelligent forms while inventing new possibilities for future use.</h3>
+                    <div className="mx-auto ab-width">
+                    <h3 className="ab-2-head ab-2-head-sm signifier">KSA’s pedagogies focuses on creation of intelligent forms while inventing new possibilities for future use.</h3>
                     <p className="about-para mx-auto signifier">KSA emphasize on design performance: An amalgamation of program, organization, analysis,
                         innovation and form calibrated to each client’s aspirations and each project’s constraints.
                         KSA is a diverse team dedicated to creating environments where individuals can thrive, not
@@ -368,7 +368,7 @@ export default function AboutComponent(){
             </div></Link>
             <div className="hello-about" style={{opacity:'0.5'}}>
             <Link href={'/contact'}>
-            <div className="signifier">Say Hello</div>
+            <div className="signifier">Say Hello!</div>
             <div className="white-stick mb-2"><div className="white-stick-content"></div></div>
             </Link>
         </div>  

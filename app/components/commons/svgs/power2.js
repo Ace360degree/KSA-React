@@ -3,7 +3,7 @@ export default function Power2(){
     return(
 
         <>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 4V12M17.2916 5.99999C18.9525 7.46588 20 9.61061 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 9.61061 5.04752 7.46588 6.70837 5.99999" stroke="#000000" stroke-width="0.384" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <svg className="power2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 4V12M17.2916 5.99999C18.9525 7.46588 20 9.61061 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 9.61061 5.04752 7.46588 6.70837 5.99999" stroke="#000000" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </>
     )
 }

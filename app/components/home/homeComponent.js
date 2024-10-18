@@ -289,7 +289,7 @@ export default function HomeComponent(){
         paginationBox.classList.remove('active');
       }
 
-      const homeProjectsBox = document.querySelectorAll('.home-slides-box');
+      const homeProjectsBox = document.querySelectorAll('.slider-hero-snapping');
       homeProjectsBox.forEach((box, index) => {
         const TitleElement = box.querySelector('h2');
         const subTitleElement = box.querySelector('h4');
@@ -302,9 +302,9 @@ export default function HomeComponent(){
           box.classList.add('active');
         }
 
-        // function removeAnimation(){
-        //   box.classList.remove('active');
-        // }
+        function removeAnimation(){
+          box.classList.remove('active');
+        }
 
         function replayAnimation(ind){
           homeProjectsBox.forEach((obj)=>{
@@ -485,7 +485,7 @@ export default function HomeComponent(){
                       </ul>
                     </div>
                 
-                    <div className="home-slides-box hero-image home-snapping">
+                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping">
                         <div className="slider-texts">
                             <h2>DESIGN THAT INSPIRES</h2>
                             <h4><span>Creating environments which are joyous, memorable and Explorative.</span></h4>
@@ -493,7 +493,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/cluster_a.webp'}/>
                     </div>
                     
-                    <div className="home-slides-box hero-image home-snapping">
+                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping">
                          <div className="slider-texts">
                             <h2>SMART CITY, REIMAGINED</h2>
                             <h4><span>An optimized space for Everyone which is Inclusive, Timeless, and Resilient.</span></h4>
@@ -501,7 +501,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/vut_banner.webp'} />
                     </div>
                     
-                    <div className="home-slides-box hero-image home-snapping" >
+                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" >
                          <div className="slider-texts">
                             <h2>INNOVATIVE SPACES, EXPLORATORY PLACES</h2>
                             <h4><span>Exploring the convergence of technology, design, construction, materials, and environment.</span></h4>
@@ -509,7 +509,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/bivab_heights.webp'}/>
                     </div>
                     
-                    <div className="home-slides-box hero-image home-snapping" >
+                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" >
                          <div className="slider-texts">
                             <h2>ECO-CONCIOUS ENDURING SPACES</h2>
                             <h4><span>Designing spaces in sync with natural environment, eco-friendly materials and energy transformations.</span></h4>
@@ -517,7 +517,7 @@ export default function HomeComponent(){
                         <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/BAMBOO RESORT_01.webp'}/>
                     </div>
                     
-                    <div className="home-slides-box hero-image home-snapping" >
+                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" >
                          <div className="slider-texts">
                             <h2>NATURE, NURTURE, FUTURE</h2>
                             <h4><span>Nurturing a Sustainable Future: Visionary Research for Tomorrow's Challenges.</span></h4>
@@ -526,7 +526,7 @@ export default function HomeComponent(){
                     </div>
             </div>
 
-            <div className="page-section page-section-100 home-snapping hero-image" id="mainContent">
+            <div className="page-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent">
               <HomeMenu/>    
             </div>    
         </div>
