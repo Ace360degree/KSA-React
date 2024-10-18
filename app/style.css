@@ -2133,12 +2133,11 @@ body.dark .clock-indicator span{
   bottom:50px;
   z-index:50;
   font-family: 'Signifier';
-  padding-bottom: 28px;
+  padding-bottom: 2.5rem;
 }
 
 .slider-texts h2{
-  font-size: 4.5rem;
-  max-width: 75%;
+  font-size: 2.5rem;
   text-transform: uppercase;
   font-weight: 300;
   text-shadow: 2px 2px 5px black;
@@ -2146,6 +2145,7 @@ body.dark .clock-indicator span{
   -webkit-transform-origin:bottom left;
       -ms-transform-origin:bottom left;
           transform-origin:bottom left;
+          margin-bottom: 0.5rem;
 }
 
 .slider-texts h4{
@@ -2153,10 +2153,10 @@ body.dark .clock-indicator span{
     bottom: 0;
     left: 0;
     font-weight: 100;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
+    font-size: 1rem;
+    line-height: 1rem;
     letter-spacing: 1px;
-    max-width: 95%;
+    max-width: 100%;
     opacity: 0;
     text-shadow: 2px 2px 2px black;
   -webkit-transition:all 0.8s var(--common-easing);
