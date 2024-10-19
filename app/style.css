@@ -4913,10 +4913,9 @@ body.dark .filter-box-control{
   }
 
   .slider-texts h2{
-      font-size: 32px;
-      line-height: 30px;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
       margin-bottom:8px;
-      transform: scale(1) !important;
   }
   
   .slider-texts h4 {

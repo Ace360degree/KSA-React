@@ -63,6 +63,8 @@ export default function AboutComponent(){
 
     useEffect(() => {
 
+        document.querySelector('body').classList.add('loading');
+
         if(mainBanner.current){
         let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
 
@@ -83,6 +85,7 @@ export default function AboutComponent(){
 
         setTimeout(() => {
             document.querySelector('.scrollbanner').classList.add('active');
+            document.querySelector('body').classList.remove('loading');
         }, 2000);
 
         let AboutAnimeTextElem = document.querySelector('.about-anim-text');
@@ -273,7 +276,7 @@ export default function AboutComponent(){
 
     return(
         <>
-            {/* <ScrollifyDisabled/> */}
+            <ScrollifyDisabled/>
             <DarkTheme/>
             <NavbarIntroPage heading={'ETHIOS'}/>
             {/* <div class="header-gap"></div> */}
