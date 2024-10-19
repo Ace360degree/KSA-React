@@ -4719,6 +4719,7 @@ body.dark .filter-box-control{
     max-width:100%;
   }
   .about-anim-text {
+      font-style: italic;
       font-size: 4rem;
       line-height: 4rem;
   }
