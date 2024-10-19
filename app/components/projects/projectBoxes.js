@@ -682,9 +682,13 @@ export default function ProjectBoxes() {
   {loading? '': 
     
       <div className="loader-spin-screen">
-        <div className="spinner-logo">
-        <AiOutlineLoading3Quarters  />
-        </div>
+        <div className="spinner-box spinner-center">
+            <div className="pulse-container">  
+                <div className="pulse-bubble pulse-bubble-1"></div>
+                <div className="pulse-bubble pulse-bubble-2"></div>
+                <div className="pulse-bubble pulse-bubble-3"></div>
+            </div>
+          </div>
       </div>
     
   }

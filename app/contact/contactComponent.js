@@ -227,19 +227,19 @@ export default function ContactComponent() {
                 <div className="contact-accordion active" id="contact">
 
                     <div className="contact-title contact-snap">
-                        <i><h2 className="page-title-animation signifier fw-light" ref={animationTitle}>
-                            <span>Hey,</span>
-                            <span>we were</span>
-                            <span className="text-uppercase ">Expecting</span>
-                            <span className="text-uppercase">You</span>
-                        </h2></i>
+                        <h2 className="page-title-animation signifier fw-light" ref={animationTitle}>
+                            <span className="sm-sm mb-2"><i>Hey,</i></span>
+                            <span className="text-uppercase sm-sm">we were</span>
+                            <span className="text-uppercase  fw-normal">Expecting</span>
+                            <span className="text-uppercase fw-normal">You</span>
+                        </h2>
 
                         <div>
                            <a onClick={scrollSmoothTo}><div className="scroll-downlink">
-                        
                             </div></a>
                             <div className="scrollbanner">
                                 <div className="scrollbanner-box"></div>
+                                
                             </div>
                         </div>
 

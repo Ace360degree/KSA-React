@@ -339,7 +339,7 @@ export default function AboutComponent(){
             <div className="full-section overflow-x-hidden px-4 about-snap" id="ksa-points">
                 <div className="px-4 billy-text">
                     <div className="mx-auto" style={{maxWidth:'100%'}}>
-                        <h4 className="avelir-text fs-1"><i>We Are</i></h4>
+                        <h4 className="signifier fw-light fs-2 m-0"><i>We Are,</i></h4>
                         <h3 className="about-anim-text signifier" data-titles="Thinkers & Makers,Scrupulous & Creative,Colaborative & Humane,Innovators & Pragmatic"></h3>
                     </div>
                 </div>
