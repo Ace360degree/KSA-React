@@ -11,6 +11,7 @@ export default function HomeLoader() {
     const homeGrad = useRef(null);
     const [spinning, setSpinning] = useState(true);
     
+    gsap.ticker.lagSmoothing(false);
 
     const handleClick = () => {
         setVisited();

@@ -4055,7 +4055,7 @@ body.dark .filter-box-control{
     font-size: 17px;
     background: transparent;
     z-index: 900;
-    color: black;
+    color: #00000085;
     border-radius: 60px;
     border: 1px solid black;
     text-align: center;
@@ -4511,7 +4511,10 @@ body.dark .filter-box-control{
 
   .close-projects{
     opacity: 0.8;
-    bottom: 12px;
+    bottom: 15px;
+    height: 25px;
+    width: 25px;
+    line-height: 20px;
   }
 
   .footer-policy-box{
