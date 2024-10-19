@@ -1092,6 +1092,11 @@ body.dark .extended-line::before{
 }
 
 
+.home-menu-box-main{
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
 
 
 
@@ -4464,6 +4469,16 @@ body.dark .filter-box-control{
       padding:5rem 0;
   }
 
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-sub {
+    font-size: 1rem;
+  }
+  .menu-link {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
   .slider-texts{
     left: 0;
     padding: 0 1.2rem;
