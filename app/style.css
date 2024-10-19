@@ -4719,6 +4719,7 @@ body.dark .filter-box-control{
     max-width:100%;
   }
   .about-anim-text {
+    margin-top: 1.5rem;
       font-style: italic;
       font-size: 4rem;
       line-height: 4rem;
@@ -4981,6 +4982,7 @@ body.dark .filter-box-control{
   }
   .scrollbanner,.scroll-downlink{
       bottom: 4vh;
+      height: 2rem;
   }
   .ideas-section-img{
     max-height: auto;
