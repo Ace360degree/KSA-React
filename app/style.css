@@ -1096,7 +1096,7 @@ body.dark .extended-line::before{
   width: 100%;
   z-index: 500;
   /*opacity:0;*/
-  font-family:'Billie Eilish';
+  /* font-family:'Billie Eilish'; */
   /*-webkit-transition: all 0.9s var(--common-easing);*/
   /*-o-transition: all 0.9s var(--common-easing);*/
   /*transition: all 0.9s var(--common-easing);*/
@@ -1195,7 +1195,8 @@ body.dark .extended-line::before{
 .intro-sm-title{
   font-size: 5rem;
   line-height: 5rem;
-  font-family:'Oswald';
+  /* font-family:'Oswald'; */
+  font-weight: 400;
   letter-spacing:10px;
   color:#c1c1c1;
   /*overflow:hidden;*/
@@ -1206,6 +1207,7 @@ body.dark .extended-line::before{
   color:white;
   font-size: 6rem;
   line-height: 6rem;
+  font-weight: 400;
 }
 
 .intro-txbx {
@@ -1681,7 +1683,7 @@ i.close-menu{
 }
 
 .bil-sml-gap{
-  line-height: 3.2rem;
+  line-height: 4rem;
 }
 
 #leftMenu .menu-link li{
@@ -4700,16 +4702,16 @@ body.dark .filter-box-control{
     font-size:36px;
   }
   .intro-lg-title{
-    font-size: 3.5rem;
-    line-height: 3.5rem;
+    font-size: 2.8rem;
+    line-height: 2.8rem;
     margin-bottom: 0.2rem;
   }
   .intro-sm-title {
-      font-size: 3rem;
+      font-size: 2.5rem;
       line-height: 3rem;
   }
   .mobile-to-life{
-      line-height:7vw !important;
+      line-height:2.5rem !important;
   }
   .about-intro-hero {
       font-size: 9vw;
@@ -5054,21 +5056,21 @@ body.dark .filter-box-control{
   }
 
   .intro-lg-title{
-    line-height: 176px;
-    font-size: 176px;
+      font-size: 8rem;
+      line-height: 8rem
   }
   .intro-sm-title{
-    font-size: 128px;
-    line-height: 130px;
+    font-size: 7rem;
+    line-height: 7rem;
   }
-
 
   .bil-sml-gap{
-    line-height: 74px;
+    line-height: 5.5rem;
   }
-  .slider-texts{
+
+  /* .slider-texts{
     bottom: 84px;
-  }
+  } */
 
 
   .they-say-titlebox{
