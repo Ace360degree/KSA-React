@@ -28,12 +28,12 @@ export default function RootLayout({ children }) {
       <link rel="preload" href="./fonts/cg-times/Times CG Bold Italic.woff" as="font" type="font/woff" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/avelir/AVELIRE.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/Billie Eilish/billie eilish.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/test-signifier-Extralight.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/test-signifier-Thin.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/test-signifier-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/test-signifier-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/test-signifier-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/test-signifier-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Extralight.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Thin.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Regular.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Medium.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Bold.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Black.otf" as="font" type="font/otf" crossorigin="anonymous"/>
 
       </Head> 
       <body className="">

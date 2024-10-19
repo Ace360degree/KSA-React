@@ -126,38 +126,26 @@ src: url('./fonts/cg-times/Times CG Bold Italic.woff');
 font-family: 'Signifier';
 font-weight:100;
 font-style:normal;
-src: url('./fonts/signifier/test-signifier-Extralight.woff2');
-}
-@font-face {
-font-family: 'Signifier';
-font-weight:200;
-font-style:normal;
-src: url('./fonts/signifier/test-signifier-Thin.woff2');
-}
-@font-face {
-font-family: 'Signifier';
-font-weight:300;
-font-style:normal;
-src: url('./fonts/signifier/test-signifier-Regular.woff2');
+src: url('./fonts/signifier/TestSignifier-Extralight.otf');
 }
 @font-face {
 font-family: 'Signifier';
 font-weight:400;
 font-style:normal;
-src: url('./fonts/signifier/test-signifier-Medium.woff2');
+src: url('./fonts/signifier/TestSignifier-Medium.otf');
 }
 
 @font-face {
 font-family: 'Signifier';
 font-weight:700;
 font-style:normal;
-src: url('./fonts/signifier/test-signifier-Bold.woff2');
+src: url('./fonts/signifier/TestSignifier-Bold.otf');
 }
 @font-face {
 font-family: 'Signifier';
 font-weight:800;
 font-style:normal;
-src: url('./fonts/signifier/test-signifier-Black.woff2');
+src: url('./fonts/signifier/TestSignifier-Black.otf');
 }
 
 
