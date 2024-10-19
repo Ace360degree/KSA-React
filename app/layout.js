@@ -19,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
+      <Head> 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <link rel="preload" href="./fonts/cg-times/Times CG.woff" as="font" type="font/woff" crossorigin="anonymous"/>
@@ -28,12 +28,12 @@ export default function RootLayout({ children }) {
       <link rel="preload" href="./fonts/cg-times/Times CG Bold Italic.woff" as="font" type="font/woff" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/avelir/AVELIRE.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/Billie Eilish/billie eilish.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/TestSignifier-Extralight.otf" as="font" type="font/otf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/TestSignifier-Thin.otf" as="font" type="font/otf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/TestSignifier-Regular.otf" as="font" type="font/otf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/TestSignifier-Medium.otf" as="font" type="font/otf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/TestSignifier-Bold.otf" as="font" type="font/otf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/signifier/TestSignifier-Black.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/test-signifier-Extralight.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/test-signifier-Thin.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/test-signifier-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/test-signifier-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/test-signifier-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/test-signifier-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
 
       </Head> 
       <body className="">

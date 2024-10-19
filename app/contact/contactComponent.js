@@ -6,6 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { FaFacebook, FaInstagram, FaSquareXTwitter, FaLinkedin } from "react-icons/fa6";
+import { FaFacebookF } from "react-icons/fa";
+import { FaLinkedinIn } from "react-icons/fa";
+
+import { FaXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 import $ from "jquery";
 import "jquery-scrollify";
@@ -149,7 +153,9 @@ export default function ContactComponent() {
     };
 
     useEffect(() => {
+        document.querySelector('body').classList.remove('loading');
         if (animationTitle.current) {
+            
             let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
 
             animationPageTitleSpans.forEach(function (title, index) {
@@ -165,6 +171,7 @@ export default function ContactComponent() {
         }
 
         setTimeout(() => {
+            document.querySelector('body').classList.remove('loading');
             document.querySelector('.scrollbanner').classList.add('active');
         }, 2000);
 
@@ -246,7 +253,7 @@ export default function ContactComponent() {
                     </div>
 
                     <div className="contact-main-section contact-snap" id="contact-form-section" ref={formsection}>
-                        <h3 className="form-legend-title signifier" ref={formTitle}>DONT BE SHY, SAY HI !!!</h3>
+                        <h3 className="form-legend-title signifier" ref={formTitle}><span>DONT BE SHY,</span> <span>SAY HI !!!</span></h3>
 
                         <form onSubmit={handleSubmit} className="contact-form-box signifier">
                             <div>
@@ -320,11 +327,12 @@ export default function ContactComponent() {
                         <div className="footer-brand"><Link href={'/policies'}>Legal and policies</Link> © 2024 KSA. All Rights Reserved.
                         </div>
                         <div className="social-links">
-                            <a href=''  target="_blank"><FaFacebook className="footer-icon" size={22} /></a>
-                            <a href='https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1' target="_blank"><FaInstagram className="footer-icon" size={22} /></a>
+                            <a href=''  target="_blank"><FaFacebookF className="footer-icon" size={22} /></a>
                             {/* <a href='' target="_blank"><FaSquareXTwitter className="footer-icon" size={22} /></a> */}
                             <a href='https://www.youtube.com/@kuwalsanamarchitekts4285' target="_blank"><FaYoutube className="footer-icon" size={22} /></a>
-                            <a href='https://www.linkedin.com/feed/' target="_blank"><FaLinkedin className="footer-icon" size={22} /></a>
+                            {/* <a href='' target="_blank"><FaXTwitter className="footer-icon" size={22} /></a> */}
+                            <a href='https://www.linkedin.com/feed/' target="_blank"><FaLinkedinIn className="footer-icon" size={22} /></a>
+                            <a href='https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1' target="_blank"><FaInstagram className="footer-icon" size={22} /></a>
                         </div>
                         {/* <div className="footer-policy-box">
                             <Link ><div className="policies-launcher">Policies</div></Link>

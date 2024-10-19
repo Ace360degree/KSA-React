@@ -458,7 +458,7 @@ export default function HomeComponent(){
                         <div className="qoute-text text-capitalize scale-down second-transition" id="they-say"><span><i>They say,</i></span></div> 
                         <div className="duo-quotation scale-down second-transition" id="quote-texts">
                             <div className="qoute-text text-uppercase"><span >"It takes 7 Seconds</span></div> 
-                            <div className="qoute-text text-uppercase"><span >to make an Impression."</span></div> 
+                            <div className="qoute-text text-uppercase"><span >to make an Impression",</span></div> 
                         </div>
                         <div className="qoute-text text-uppercase scale-down fw-bold second-transition" id="we-do"><span>We do it in 5</span></div>
                     </h1>
