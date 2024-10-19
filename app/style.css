@@ -3420,11 +3420,15 @@ body.dark .filter-box-control{
 
 
 .lg-text-title{
-  font-size:8rem
+  font-size:8rem;
+  font-weight:400;
+  font-style: italic;
 }
 
 .sm-text-title{
-  font-size:3.5rem;   
+  font-size:3.5rem;
+  font-weight: 400;
+  font-style: italic;   
 }
 
 .snap-section{
@@ -4462,6 +4466,7 @@ body.dark .filter-box-control{
   .hero-title {
     font-size: 3rem;
   }
+
   .hero-sub {
     font-size: 1rem;
   }
@@ -4472,6 +4477,10 @@ body.dark .filter-box-control{
   .slider-texts{
     left: 0;
     padding: 0 1.2rem;
+  }
+
+  .slider-texts h2 span{
+    display: block;
   }
 
   .info-slider-section{
@@ -4931,8 +4940,8 @@ body.dark .filter-box-control{
   }
 
   .slider-texts h2{
-    font-size: 1.4rem;
-    line-height: 1.4rem;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
       margin-bottom:8px;
   }
   

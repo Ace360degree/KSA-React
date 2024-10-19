@@ -394,6 +394,24 @@ export default function HomeComponent(){
   }, [fullScreenCheck]);
 
 
+  useEffect(()=>{
+      const sliderText = document.querySelectorAll('.slider-texts');
+      sliderText.forEach((text) => {
+        let currheading = text.querySelector('h2');
+        if (currheading) {
+          let words = currheading.textContent.split(' '); // Split the heading text into words
+          currheading.innerHTML = ''; // Clear the existing text content
+
+          words.forEach((word) => {
+            let span = document.createElement('span'); // Create a span element
+            span.textContent = word + ' '; // Add the word inside the span
+            currheading.appendChild(span); // Append the span to the heading
+          });
+        }
+      })
+  },[]);
+
+
 
 
   useEffect(()=>{
