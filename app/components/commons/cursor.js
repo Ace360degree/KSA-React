@@ -140,25 +140,25 @@ export default function CursorAudio() {
     };
 
     
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.addEventListener('keydown', event => {
-      // Check if the F12 key is pressed
-      if (event.key === 'F12') {
-          event.preventDefault(); // Prevent the default action (opening Developer Tools)
-      }
-  });
+  //   document.addEventListener('contextmenu', event => event.preventDefault());
+  //   document.addEventListener('keydown', event => {
+  //     // Check if the F12 key is pressed
+  //     if (event.key === 'F12') {
+  //         event.preventDefault(); // Prevent the default action (opening Developer Tools)
+  //     }
+  // });
 
-  document.addEventListener('keydown', function(event) {
-    // Check if the Control key is pressed
-    if (event.ctrlKey) {
-        // Check for the specific key combinations
-        if (event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) {
-            event.preventDefault(); // Disable the default action
-        } else if (event.key === 'u' && event.shiftKey) {
-            event.preventDefault(); // Disable Ctrl + Shift + U
-        }
-    }
-  });
+  // document.addEventListener('keydown', function(event) {
+  //   // Check if the Control key is pressed
+  //   if (event.ctrlKey) {
+  //       // Check for the specific key combinations
+  //       if (event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) {
+  //           event.preventDefault(); // Disable the default action
+  //       } else if (event.key === 'u' && event.shiftKey) {
+  //           event.preventDefault(); // Disable Ctrl + Shift + U
+  //       }
+  //   }
+  // });
 
 
     document.addEventListener('click', handleUserInteraction); // Set up listener on document click
