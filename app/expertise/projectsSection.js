@@ -96,9 +96,9 @@ export default function ProjectSection({ section, slides, essecials, points }) {
           </div>
           <div className='info-block-image'>
                {windowSize.width <= 840 && section.section_image_mobile ? 
-                 <Image className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Mobile Image"/>
+                 <Image className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
                  : windowSize.width > 840 && section.section_image ? 
-                 <Image className='info-block-img' height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="PC Image"/> 
+                 <Image className='info-block-img' height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
                  : null }
           </div>
         </div>
@@ -120,9 +120,9 @@ export default function ProjectSection({ section, slides, essecials, points }) {
                   {slides.slides.map((slide, index) => (
                     <SplideSlide key={index}>
                       {windowSize.width <= 750 && slide.mobile ? 
-                        <Image height={500} width={500} style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="Mobile Slide" />
+                        <Image height={500} width={500} style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
                         : windowSize.width > 750 && slide.desktop ?
-                        <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="PC Slide" />
+                        <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
                         : null}
                     </SplideSlide>
                   ))}
@@ -138,13 +138,13 @@ export default function ProjectSection({ section, slides, essecials, points }) {
         {windowSize.width <= 750 && section.section_image_mobile ? 
           (
             <div className="project-info-section full-bleed-container position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Mobile Hero Image" />
+              <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
           )
           : windowSize.width > 750 && section.section_image ? 
           (
             <div className="project-info-section full-bleed-container position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="PC Hero Image" />
+              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
           )
           : null}
@@ -159,9 +159,9 @@ export default function ProjectSection({ section, slides, essecials, points }) {
           {slides.slides.map((slide, index) => (
             <SplideSlide key={index}>
               {windowSize.width <= 750 && slide.mobile ? 
-                <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="Mobile Slide"/>
+                <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA"/>
                 : windowSize.width > 750 && slide.desktop ? 
-                <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="PC Slide"/>
+                <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
                 : null}
             </SplideSlide>
           ))}
