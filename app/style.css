@@ -1683,7 +1683,7 @@ i.close-menu{
 }
 
 .bil-sml-gap{
-  line-height: 4rem;
+  line-height: 3.5rem;
 }
 
 #leftMenu .menu-link li{
@@ -2880,16 +2880,13 @@ body.dark .filter-box-control{
 
 .contact-form-box{
   width: 100%;
-  max-width: calc(600px - 5vw);
+  max-width: calc(600px - 7vw);
   height: auto;
   padding: 1.4rem 3rem;
-  /* background: #121212; */
   border-radius: 1.2rem;
-  /* box-shadow: inset 1px 1px 0 #343434, inset -2px -2px 0 #161616, 8px 8px 16px rgb(4 4 4), -8px -8px 16px rgb(37 37 37); */
   margin: 1.5rem auto;
   font-style: italic;
   font-weight: 200;
-  /* overflow: hidden;*/
 }
 
 
@@ -2900,9 +2897,9 @@ body.dark .filter-box-control{
 }
 
 .form-row label{
-  display:block;
-  font-size: 1rem;
-  margin-bottom:8px;
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
 }
 
 .theme-input::placeholder{
@@ -2912,14 +2909,13 @@ body.dark .filter-box-control{
 
 .theme-input {
   text-align: center;
-  color: white;
-  width: 100%;
-  background: #272727;
-  border-radius: 0.8rem;
-  padding: 3px;
-  font-size: 1.1rem;
-  border: none;
-  color: white;
+    width: 100%;
+    background: #272727;
+    border-radius: .7rem;
+    padding: 0.2rem;
+    font-size: 1rem;
+    border: none;
+    color: #fff;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
 }
 
@@ -2972,7 +2968,7 @@ body.dark .filter-box-control{
   outline: none;
   padding: 3px 18px;
   display: block;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-style: italic;
   margin: auto;
   /*box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.1);*/
@@ -5045,6 +5041,7 @@ body.dark .filter-box-control{
 
 
 @media screen and (min-width:2100px){
+
   #clock{
       -webkit-transform: scale(1.2);
           -ms-transform: scale(1.2);
@@ -5056,16 +5053,16 @@ body.dark .filter-box-control{
   }
 
   .intro-lg-title{
-      font-size: 8rem;
-      line-height: 8rem
+      font-size: 7rem;
+      line-height: 7rem
   }
   .intro-sm-title{
-    font-size: 7rem;
-    line-height: 7rem;
+    font-size: 5rem;
+    line-height: 5rem;
   }
 
   .bil-sml-gap{
-    line-height: 5.5rem;
+    line-height: 3.3rem;
   }
 
   /* .slider-texts{
@@ -5074,7 +5071,7 @@ body.dark .filter-box-control{
 
 
   .they-say-titlebox{
-    transform: scale(2);
+    transform: scale(1.5);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

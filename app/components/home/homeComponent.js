@@ -453,7 +453,7 @@ export default function HomeComponent(){
                 <div className="intro-text-content">
                     <h1 className="intro-title">
                         <div className="intro-sm-title intro-txbx"><span>Bringing</span></div> 
-                        <div className="intro-lg-title intro-txbx signifier"><span className="expnad-imgn-txt">Imagination</span></div> 
+                        <div className="intro-lg-title intro-txbx billy-text"><span className="expnad-imgn-txt">Imagination</span></div> 
                         <div className="intro-sm-title intro-txbx mobile-to-life bil-sml-gap" ><span>to Life</span></div>
                     </h1>
                 </div>
