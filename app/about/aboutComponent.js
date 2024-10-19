@@ -278,7 +278,7 @@ export default function AboutComponent(){
         <>
             <ScrollifyDisabled/>
             <DarkTheme/>
-            <NavbarIntroPage heading={'ETHIOS'}/>
+            <NavbarIntroPage heading={'CULTURE'}/>
             {/* <div class="header-gap"></div> */}
             <div class="filter-launch" onClick={toggleMobileFilter}>
                 {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
