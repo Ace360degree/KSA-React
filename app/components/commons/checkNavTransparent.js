@@ -9,28 +9,30 @@ export default function CheckNavTransparent() {
         const allSections = document.querySelectorAll('section'); // Get all sections
         const SVGIcons = document.querySelectorAll('.change-svg');
         const transparentClass = 'transparent';
+        const underlinedClass = 'underlined';
 
         function checkNavbarPosition() {
             let shouldAddTransparent = false;
+            let shouldAddUnderlined = false; // To track if underlined class should be added
 
             // Recalculate navbar's position in every check
             const navbarRect = navbar.getBoundingClientRect();
 
-            // Iterate over all hero images
+            // Check against all hero images
             heroImages.forEach(heroImage => {
                 const heroRect = heroImage.getBoundingClientRect();
                 
-                // Check if the navbar is close to or overlapping with the current hero image
-                if (navbarRect.top <= heroRect.bottom && navbarRect.bottom >= heroRect.top) {
-                    shouldAddTransparent = true;
+                // Check if the navbar overlaps with the hero image
+                if (navbarRect.bottom > heroRect.top && navbarRect.top < heroRect.bottom) {
+                    shouldAddTransparent = true; // Set to true if overlapping
                 }
             });
 
             // Check against project sections to remove transparency
             projectSections.forEach(projectSection => {
                 const projectRect = projectSection.getBoundingClientRect();
-                if (navbarRect.top <= projectRect.bottom && navbarRect.bottom >= projectRect.top) {
-                    shouldAddTransparent = false;
+                if (navbarRect.bottom > projectRect.top && navbarRect.top < projectRect.bottom) {
+                    shouldAddTransparent = false; // Remove transparent if overlapping with project section
                 }
             });
 
@@ -52,7 +54,13 @@ export default function CheckNavTransparent() {
                 const sectionRect = section.getBoundingClientRect();
 
                 // Check if the navbar overlaps with a section
-                if (navbarRect.top <= sectionRect.bottom && navbarRect.bottom >= sectionRect.top) {
+                if (navbarRect.bottom > sectionRect.top && navbarRect.top < sectionRect.bottom) {
+                    if (section.classList.contains('project-underline-section')) {
+                        shouldAddUnderlined = true; // Add underlined if the current section is a project-underline-section
+                    } else {
+                        shouldAddUnderlined = false; // Remove underlined if not
+                    }
+
                     if (!section.classList.contains('remove-transparent')) {
                         // If the section does not have the `remove-transparent` class, add light to the navbar
                         navbar.classList.add('light');
@@ -62,18 +70,23 @@ export default function CheckNavTransparent() {
                     }
                 }
             });
+
+            // Update underlined class based on the shouldAddUnderlined flag
+            if (shouldAddUnderlined) {
+                navbar.classList.add(underlinedClass);
+            } else {
+                navbar.classList.remove(underlinedClass);
+            }
         }
 
-        // // Attach the scroll event listener
-        // window.addEventListener('wheel', checkNavbarPosition);
-
-        // // Initial check in case the page is loaded at a scroll position
+        // Initial check in case the page is loaded at a scroll position
         checkNavbarPosition();
+        window.addEventListener('scroll', checkNavbarPosition);
 
         // Cleanup event listener on component unmount
-        // return () => {
-        //     window.removeEventListener('wheel', checkNavbarPosition);
-        // };
+        return () => {
+            window.removeEventListener('scroll', checkNavbarPosition);
+        };
     }, []);
 
     return null;

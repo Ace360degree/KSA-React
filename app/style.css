@@ -122,12 +122,31 @@ src: url('./fonts/cg-times/Times CG Bold Italic.woff');
 }
 
 
+
+@font-face {
+  font-family: 'Signifier';
+  font-weight:100;
+  font-style:normal;
+  src: url('./fonts/signifier/TestSignifier-Thin.otf');
+  }
+
 @font-face {
 font-family: 'Signifier';
-font-weight:100;
+font-weight:200;
 font-style:normal;
 src: url('./fonts/signifier/TestSignifier-Extralight.otf');
 }
+
+
+
+@font-face {
+font-family: 'Signifier';
+font-weight:300;
+font-style:normal;
+src: url('./fonts/signifier/TestSignifier-Light.otf');
+}
+
+
 @font-face {
 font-family: 'Signifier';
 font-weight:400;
@@ -1074,7 +1093,7 @@ body.dark .extended-line::before{
   position: absolute;
   left: 0;
   bottom: 32px;
-  height: 250px;
+  height: 300px;
   width: 1px;
   background: var(--clock-bg-light);
 }
@@ -1196,7 +1215,7 @@ body.dark .extended-line::before{
   font-size: 5rem;
   line-height: 5rem;
   /* font-family:'Oswald'; */
-  font-weight: 400;
+  font-weight: 100;
   letter-spacing:10px;
   color:#c1c1c1;
   /*overflow:hidden;*/
@@ -2650,8 +2669,8 @@ body.dark .filter-box-control{
 }
 
 .page-title-animation span.sm-sm{
-  font-size: 3.8rem;
-  line-height: 3.8rem;
+  font-size: 4.5rem;
+  line-height: 4.5rem;
 }
 
 
@@ -2880,7 +2899,7 @@ body.dark .filter-box-control{
 
 .contact-form-box{
   width: 100%;
-  max-width: calc(600px - 7vw);
+  max-width: calc(600px - 8vw);
   height: auto;
   padding: 1.4rem 3rem;
   border-radius: 1.2rem;
@@ -2905,6 +2924,8 @@ body.dark .filter-box-control{
 .theme-input::placeholder{
   color: grey;
   text-decoration: underline;
+  font-weight: 100;
+  opacity: 0.5;
 }
 
 .theme-input {
@@ -3660,6 +3681,12 @@ body.dark .filter-box-control{
   -o-transition:all 1.5s ease;
   transition:all 1.5s ease;
   min-height: 100vh;
+}
+
+.hero-image-trans{
+  -webkit-transition:all 1.5s ease;
+  -o-transition:all 1.5s ease;
+  transition:all 1.5s ease;
 }
 
 #project-counter .border-section{
@@ -4544,6 +4571,9 @@ body.dark .filter-box-control{
   .map-line{
     height: 124px;
   }
+  .map-line.london{
+    height: 60%;
+  }
   .auth-icon-box{
     bottom: 10px;
     left: 10px;
@@ -4784,7 +4814,7 @@ body.dark .filter-box-control{
   }
 
   .location-tag.london {
-    top: -40%;
+    top: -22%;
   }
   .filter-launch{
       position: fixed;
@@ -5048,14 +5078,15 @@ body.dark .filter-box-control{
               transform: scale(1.2);
   }
 
-  .clock-2-hour::before{
-    height: 400px;
+  .projects-clock,.user-clock-2{
+    transform: scale(1.55);
   }
 
   .intro-lg-title{
       font-size: 7rem;
       line-height: 7rem
   }
+
   .intro-sm-title{
     font-size: 5rem;
     line-height: 5rem;
@@ -5065,20 +5096,10 @@ body.dark .filter-box-control{
     line-height: 3.3rem;
   }
 
-  /* .slider-texts{
-    bottom: 84px;
-  } */
-
-
   .they-say-titlebox{
     transform: scale(1.5);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  #clock-bound-box{
-    height: 80px;
-    bottom: 720px;
   }
 
   .cursor-lg {

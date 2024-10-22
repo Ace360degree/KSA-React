@@ -11,6 +11,7 @@ import Image from "next/image";
 import CommonLoader from "@/app/components/commons/loaderCommon";
 import "jquery-scrollify";
 import $ from "jquery";
+import LocomotiveScroll from "locomotive-scroll";
 import NavbarIntroPageUnderline from "@/app/components/NavbarUnderline";
 import { useVisitedProjectsStore } from "@/app/states/store/projectsStore";
 
@@ -34,6 +35,7 @@ export default function ProjectInfo(){
     const {setVisited} = useVisitedProjectsStore();
 
     const [resized,setResized] =useState(1);
+    const locoContainer = useRef(null);
     const pathfull = useParams();
     const projectSlug  = pathfull.projectId;
     const [loading,setLoading] =useState(true);
@@ -67,19 +69,19 @@ export default function ProjectInfo(){
         setVisited();
     },[])
 
-    useEffect(() => {
+    // useEffect(() => {
   
-      if (!isTouchDevice) {
-        // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
-        ScrollTrigger.normalizeScroll(true);
-      }
+    //   if (!isTouchDevice) {
+    //     // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+    //     ScrollTrigger.normalizeScroll(true);
+    //   }
     
-      return () => {
-        if (!isTouchDevice) {
-          ScrollTrigger.normalizeScroll(false);
-        }
-      };
-    }, []);
+    //   return () => {
+    //     if (!isTouchDevice) {
+    //       ScrollTrigger.normalizeScroll(false);
+    //     }
+    //   };
+    // }, []);
 
 
     useEffect(()=>{
@@ -114,88 +116,99 @@ export default function ProjectInfo(){
 
     // },[loading]);
 
-    useEffect(() => {
-        const scrollifyFunction = ()=>{            
-            // Initialize Scrollify
-            console.log('Scrollify');
-            $.scrollify.enable();
-            $.scrollify({
-              section: ".project-info-section",
-              sectionName: "project-info-section",
-              interstitialSection: "",
-              easing: "easeOutExpo",
-              scrollSpeed: isTouchDevice?100:1500,
-              offset: 0,
-              scrollbars: true,
-              standardScrollElements: "",
-              setHeights: true,
-              overflowScroll: true,
-              updateHash: false,
-              touchScroll: true,
-              before: function(index, sections) {
-                const nextSection = sections[index]; // Get the next section
-                if ($(nextSection).hasClass('hero-image')) {
-                    $('#navbar').addClass('transparent');
-                    $('.change-svg').addClass('light');
-                }
-                else{
-                  $('#navbar').removeClass('transparent');
-                  $('.change-svg').removeClass('light');
-                }
+  //   useEffect(() => {
+  //     const scroll = new LocomotiveScroll({
+  //         el: projectRef.current,
+  //         smooth: true, // Enable smooth scrolling
+  //     });
 
-                if ($(nextSection).hasClass('project-underline-section')) {
-                    $('#navbar').addClass('underlined');
-                }
-                else{
-                  $('#navbar').removeClass('underlined');
-                }
+  //     return () => {
+  //         scroll.destroy(); // Cleanup on unmount
+  //     };
+  // }, [loading]);
+
+    // useEffect(() => {
+    //     const scrollifyFunction = ()=>{            
+    //         // Initialize Scrollify
+    //         console.log('Scrollify');
+    //         $.scrollify.enable();
+    //         $.scrollify({
+    //           section: ".project-info-section",
+    //           sectionName: "project-info-section",
+    //           interstitialSection: "",
+    //           easing: "easeOutExpo",
+    //           scrollSpeed: isTouchDevice?100:1500,
+    //           offset: 0,
+    //           scrollbars: true,
+    //           standardScrollElements: "",
+    //           setHeights: true,
+    //           overflowScroll: true,
+    //           updateHash: false,
+    //           touchScroll: true,
+    //           before: function(index, sections) {
+    //             const nextSection = sections[index]; // Get the next section
+    //             if ($(nextSection).hasClass('hero-image')) {
+    //                 $('#navbar').addClass('transparent');
+    //                 $('.change-svg').addClass('light');
+    //             }
+    //             else{
+    //               $('#navbar').removeClass('transparent');
+    //               $('.change-svg').removeClass('light');
+    //             }
+
+    //             if ($(nextSection).hasClass('project-underline-section')) {
+    //                 $('#navbar').addClass('underlined');
+    //             }
+    //             else{
+    //               $('#navbar').removeClass('underlined');
+    //             }
                 
-              },
-            });
+    //           },
+    //         });
                       
-        }
+    //     }
         
-        scrollifyFunction();
-        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-      }, [loading]);
+    //     scrollifyFunction();
+    //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    //   }, [loading]);
 
  
 
-      useEffect(() => {
-        // Store the initial width and height to compare later
-        let windowWidth = window.innerWidth;
-        let windowHeight = window.innerHeight;
+      // useEffect(() => {
+      //   // Store the initial width and height to compare later
+      //   let windowWidth = window.innerWidth;
+      //   let windowHeight = window.innerHeight;
 
 
       
-        // Define the resize handler
-        const handleResize = () => {
-          // Check if the window dimensions have actually changed
-          if (window.innerWidth === windowWidth && window.innerHeight === windowHeight) {
-            return; // If the dimensions haven't changed, it's not a real resize
-          }
+      //   // Define the resize handler
+      //   const handleResize = () => {
+      //     // Check if the window dimensions have actually changed
+      //     if (window.innerWidth === windowWidth && window.innerHeight === windowHeight) {
+      //       return; // If the dimensions haven't changed, it's not a real resize
+      //     }
       
-          // Update stored dimensions after confirming a real resize
-          windowWidth = window.innerWidth;
-          windowHeight = window.innerHeight;
+      //     // Update stored dimensions after confirming a real resize
+      //     windowWidth = window.innerWidth;
+      //     windowHeight = window.innerHeight;
       
-          setLoading(true); // Set loading to true on resize
-          clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
+      //     setLoading(true); // Set loading to true on resize
+      //     clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
       
-          window.resizeTimeout = setTimeout(() => {
-            setLoading(false); // Set loading to false after 1 second (1000ms)
-          }, 1000);
-        };
+      //     window.resizeTimeout = setTimeout(() => {
+      //       setLoading(false); // Set loading to false after 1 second (1000ms)
+      //     }, 1000);
+      //   };
       
-        // Add the event listener for window resize
-        window.addEventListener("resize", handleResize);
+      //   // Add the event listener for window resize
+      //   window.addEventListener("resize", handleResize);
       
-        // Cleanup the resize event and timeout on component unmount
-        return () => {
-          window.removeEventListener("resize", handleResize);
-          clearTimeout(window.resizeTimeout); // Clean up the timeout when the component unmounts
-        };
-      }, []);
+      //   // Cleanup the resize event and timeout on component unmount
+      //   return () => {
+      //     window.removeEventListener("resize", handleResize);
+      //     clearTimeout(window.resizeTimeout); // Clean up the timeout when the component unmounts
+      //   };
+      // }, []);
       
 
 

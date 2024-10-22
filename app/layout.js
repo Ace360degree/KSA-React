@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
       <link rel="preload" href="./fonts/Billie Eilish/billie eilish.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Extralight.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Thin.otf" as="font" type="font/otf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/signifier/TestSignifier-Light.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Regular.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Medium.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Bold.otf" as="font" type="font/otf" crossorigin="anonymous"/>
