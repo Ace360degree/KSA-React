@@ -76,8 +76,8 @@ export default function ProjectBoxes() {
 
       const getProjects = await (fetchProjects.json());
       
-      // setProjects(getProjects.projects);
-      // setCategories(getProjects.categories);
+      setProjects(getProjects.projects);
+      setCategories(getProjects.categories);
       setLoading(true);
     }
 
@@ -395,13 +395,13 @@ export default function ProjectBoxes() {
     };
     
     handleUpdate();
-    // const intervalId = setInterval(handleUpdate, 400);
+    const intervalId = setInterval(handleUpdate, 400);
     
   
    
   
     return () => {
-      // clearInterval(intervalId);
+      clearInterval(intervalId);
       window.removeEventListener('scroll', updateScrollerIndex);
       clearTimeout(timeoutId); // Clear timeout on cleanup
       document.removeEventListener('wheel', handleScroll); 

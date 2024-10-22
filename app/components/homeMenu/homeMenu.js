@@ -28,6 +28,15 @@ export default function HomeMenu() {
   }, []);
 
   useEffect(()=>{
+    document.querySelector('body').classList.add('loading');
+
+    return()=>{
+      document.querySelector('body').classList.remove('loading');
+    }
+  },[]);
+
+
+  useEffect(()=>{
     let hoverTitles = document.querySelectorAll('.hover-titles');
     
     hoverTitles.forEach(function(titles,index){
