@@ -2705,13 +2705,14 @@ body.dark .filter-box-control{
 
 .about-para{
   font-size: 1.1rem;
-  line-height: 1.2rem;
+  line-height: 1.3rem;
   opacity: 0.2;
   font-weight: 100;
-  word-break: break-all;
   letter-spacing: 2px;
   max-width: 660px;
-
+  text-align: justify;
+  text-align-last: center;
+  -webkit-text-align-last: center;
 }
 
 .about-anim-text{
@@ -4380,11 +4381,11 @@ body.dark .filter-box-control{
 
 .footer-icon{
   opacity: 1;
-  height: 1.8rem;
-  width: 1.8rem;
+  height: 1.5rem;
+  width: 1.5rem;
   margin: .1rem;
   transition: all 0.3s ease;
-  padding: 0.18rem;
+  padding: 0.19rem;
   border: 1px solid white;
   border-radius: 0.45rem;
 }
@@ -4457,10 +4458,10 @@ body.dark .filter-box-control{
   .about-item{
     max-width: 24%;
   }
-  .footer-icon{
+  /* .footer-icon{
     height: 40px;
     width: 40px;
-  }
+  } */
   .follow-us-text{
     font-size: 1.6rem;
   }
