@@ -18,3 +18,6 @@ Usage of React Hooks such as UseState() and UseRef() is recommended instead of u
 ## Development Guide
 For Development Purposes, the App is Uploaded on [`Vercel`](https://ksa-react.vercel.app/). Lastest Commits are automatically deployed. Please check the Vercel Version of the App before making changes on the LIVE URL.
 There are two branches for testing and Production respectively. testing is for "Preview" and main is for production.
+
+## Testing Branch
+Output of testing branch can be viewed in [`Testing SubDomain`](https://testing.kuwalsanamarchitekts.com/).
