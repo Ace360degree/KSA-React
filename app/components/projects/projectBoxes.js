@@ -187,21 +187,17 @@ export default function ProjectBoxes() {
       lastScrollTime = performance.now();
       touchStartY = currentTouchY;
   
-      let speed = dp / dt / 20; // Adjust divisor for better scaling
+      let speed = dp / dt / 20; 
   
-      // Clamp the speed between a minimum and maximum value
-      speed = clamp(speed, 0.05, 1.5); // Adjust values to suit your needs
+      speed = clamp(speed, 0.05, 1.5); 
   
-      // Scale the wrapper while touching
       scaleDown();
   
       wrapper.style.setProperty("--scroll", `${window.scrollY}px`);
   
-      // Clear any existing timeout to prevent immediate reset
       clearTimeout(scrollTimeout);
   
-      // Set a new timeout to reset the scale after touch stops
-      scrollTimeout = setTimeout(resetScale, 200); // Adjust the delay as needed
+      scrollTimeout = setTimeout(resetScale, 200); 
     };
   
     // Add both scroll and touch event listeners
@@ -395,7 +391,7 @@ export default function ProjectBoxes() {
     };
     
     handleUpdate();
-    const intervalId = setInterval(handleUpdate, 400);
+    const intervalId = setInterval(handleUpdate, 200);
     
   
    
@@ -449,45 +445,90 @@ export default function ProjectBoxes() {
 
 
 
+  // const usermainClockRef = useRef(null);
+  // let scrollerClockIndex = 0;
+  // let touchStartY = 0;
+  
+  // useEffect(() => {
+  //   const scrollSpeedFactor = 0.03; 
+  
+  //   const handleWheel = (e) => {
+  //     const rotationClock = e.deltaY * scrollSpeedFactor;
+  //     scrollerClockIndex += rotationClock;
+  //     usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
+  //   };
+  
+  //   const handleTouchStart = (e) => {
+  //     touchStartY = e.touches[0].clientY;
+  //   };
+  
+  //   const handleTouchMove = (e) => {
+  //     const touchMoveY = e.touches[0].clientY;
+  //     const deltaY = touchStartY - touchMoveY;
+  //     const rotationClock = deltaY * scrollSpeedFactor;
+  //     scrollerClockIndex += rotationClock;
+  //     usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;
+  //     touchStartY = touchMoveY;  // Update touchStartY for continuous rotation
+  //   };
+  
+  //   // Add wheel and touch event listeners
+  //   window.addEventListener('wheel', handleWheel);
+  //   window.addEventListener('touchstart', handleTouchStart);
+  //   window.addEventListener('touchmove', handleTouchMove);
+  
+  //   // Cleanup the event listeners on component unmount
+  //   return () => {
+  //     window.removeEventListener('wheel', handleWheel);
+  //     window.removeEventListener('touchstart', handleTouchStart);
+  //     window.removeEventListener('touchmove', handleTouchMove);
+  //   };
+  
+  // }, []);
+
+  const scrollerClockIndexRef = useRef(0);
+  const touchStartYRef = useRef(0);
   const usermainClockRef = useRef(null);
-  let scrollerClockIndex = 0;
-  let touchStartY = 0;
-  
+  const scrollSpeedFactor = 0.03;
+
   useEffect(() => {
-    const scrollSpeedFactor = 0.03; 
-  
     const handleWheel = (e) => {
-      const rotationClock = e.deltaY * scrollSpeedFactor;
-      scrollerClockIndex += rotationClock;
-      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
+      scrollerClockIndexRef.current += e.deltaY * scrollSpeedFactor;
+      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
     };
-  
+
     const handleTouchStart = (e) => {
-      touchStartY = e.touches[0].clientY;
+      touchStartYRef.current = e.touches[0].clientY;
     };
-  
+
     const handleTouchMove = (e) => {
       const touchMoveY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchMoveY;
-      const rotationClock = deltaY * scrollSpeedFactor;
-      scrollerClockIndex += rotationClock;
-      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;
-      touchStartY = touchMoveY;  // Update touchStartY for continuous rotation
+      const deltaY = touchStartYRef.current - touchMoveY;
+      scrollerClockIndexRef.current += deltaY * scrollSpeedFactor;
+      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
+      touchStartYRef.current = touchMoveY;
     };
-  
-    // Add wheel and touch event listeners
-    window.addEventListener('wheel', handleWheel);
-    window.addEventListener('touchstart', handleTouchStart);
-    window.addEventListener('touchmove', handleTouchMove);
-  
-    // Cleanup the event listeners on component unmount
+
+    // Throttling to avoid excessive calls
+    let wheelTimeout = null;
+    const throttledHandleWheel = (e) => {
+      if (wheelTimeout) return;
+      wheelTimeout = setTimeout(() => {
+        handleWheel(e);
+        wheelTimeout = null;
+      }, 10);
+    };
+
+    // Add wheel and touch event listeners with { passive: true }
+    window.addEventListener('wheel', throttledHandleWheel, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+
     return () => {
-      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('wheel', throttledHandleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  
-  }, []);
+  }, [scrollSpeedFactor]);
   
   
   

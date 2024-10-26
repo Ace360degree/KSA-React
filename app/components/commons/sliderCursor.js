@@ -9,7 +9,7 @@ import { FaChevronRight } from "react-icons/fa6";
 
 export default function SliderCursor(){
 
-    const [arrowIcon,setArrowIcon] =useState('left');  
+    const [arrowIcon,setArrowIcon] = useState('left');  
     
   useEffect(()=>{
 
