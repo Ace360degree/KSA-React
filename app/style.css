@@ -172,7 +172,7 @@ src: url('./fonts/signifier/TestSignifier-Black.otf');
   font-family: 'Signifier', serif !important;
 }
 
-.signifier {
+.signifier ,.billy-text ,.avelir-text{
   font-feature-settings: "lnum"; /* Enable standard numeral styling */
 }
 
@@ -2291,7 +2291,7 @@ body.dark .filter-box-control{
   list-style: none;
   width: 100%;
   max-width: 75%;
-  gap: 3rem;
+  gap: 4rem;
   margin: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -2307,7 +2307,7 @@ body.dark .filter-box-control{
 
 .filter-box li{
   cursor:var(--pointer);
-  margin: 0 1rem;
+  margin: 0 0.15rem;
   -webkit-user-select:none;
      -moz-user-select:none;
       -ms-user-select:none;
@@ -2643,6 +2643,7 @@ body.dark .filter-box-control{
 
 .project-border-bottom{
   border-bottom:1px solid grey;
+  padding: 0.8rem 0;
 }
 
 .project-info-image{
