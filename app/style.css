@@ -2291,7 +2291,7 @@ body.dark .filter-box-control{
   list-style: none;
   width: 100%;
   max-width: 75%;
-  gap: 4rem;
+  gap: 2.5rem;
   margin: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -2307,7 +2307,7 @@ body.dark .filter-box-control{
 
 .filter-box li{
   cursor:var(--pointer);
-  margin: 0 0.15rem;
+  margin: 0 8px;
   -webkit-user-select:none;
      -moz-user-select:none;
       -ms-user-select:none;
@@ -4600,6 +4600,7 @@ body.dark .filter-box-control{
   .about-item{
     max-width: 24%;
   }
+  
   /* .footer-icon{
     height: 40px;
     width: 40px;
@@ -5328,6 +5329,9 @@ body.dark .filter-box-control{
       font-size:2rem;
   }
   
+  .filter-box{
+    gap: 4rem;
+  }
 
   /* .contact-section-tab{
     max-height: 94vh;
