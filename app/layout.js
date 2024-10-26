@@ -27,7 +27,8 @@ export default function RootLayout({ children }) {
       <link rel="preload" href="./fonts/cg-times/Times CG Bold.woff" as="font" type="font/woff" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/cg-times/Times CG Bold Italic.woff" as="font" type="font/woff" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/avelir/AVELIRE.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
-      <link rel="preload" href="./fonts/Billie Eilish/billie eilish.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/Billie Eilish/billie_eilish-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      <link rel="preload" href="./fonts/Billie Eilish/billie_eilish-webfont.woff" as="font" type="font/woff" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Extralight.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Thin.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Light.otf" as="font" type="font/otf" crossorigin="anonymous"/>
