@@ -2334,7 +2334,7 @@ body.dark .filter-box-control{
 }
 
 
-/*#projects-Scroller{*/
+/*#projects-Scroller{*/ 
   /*height:90vh;*/
 /*    overflow:scroll;*/
 /*}*/
@@ -4612,9 +4612,7 @@ body.dark .filter-box-control{
     max-width: 380px;
   }
 
-  .filter-box{
-    gap:20px;
-  }
+
 }
 
 
