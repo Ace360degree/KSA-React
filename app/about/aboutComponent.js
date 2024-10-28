@@ -354,7 +354,7 @@ export default function AboutComponent(){
         {showTabs=='All' || showTabs=='discipline'?
         <div className="target-section position-relative about-snap" ref={AboutProjects} id="discipline">
         <div className="full-section " id="ksa-slider">
-            {/* <Link href={'/expertise'}> */}
+            <Link href={'/expertise'}>
             <div className=" billy-text">
                 <div className="about-project-box">
                     <div className="about-item">
@@ -379,7 +379,7 @@ export default function AboutComponent(){
                     </div>
                 </div>
             </div>
-            {/* </Link> */}
+            </Link>
             <div className="hello-about" style={{opacity:'0.5'}}>
             <Link href={'/contact'}>
             <div className="signifier">Say Hello!</div>
