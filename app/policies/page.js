@@ -12,7 +12,7 @@ export default function Policies(){
     return(
     <>  
         <DarkTheme/>
-        <NavbarIntroPage heading={'Legal'}/>
+        <NavbarIntroPage heading={'Policies'}/>
         <ul className='top-section-filter'>
             <li className='filter-trigger active' style={{fontFamily:'Signifier'}} id="cultureTrigger"  data-target="#culture">Legal </li>
             <li className='filter-trigger active' style={{fontFamily:'Signifier'}} id="disciplineTrigger" data-target="#discipline">Polices</li>

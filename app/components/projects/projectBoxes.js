@@ -259,6 +259,7 @@ export default function ProjectBoxes() {
 
 
   let tabIndex = 0;
+  
 
   useEffect(() => {
     let scrollerIndex = 0;
@@ -274,7 +275,7 @@ export default function ProjectBoxes() {
       timeoutId = setTimeout(() => {
         updateScrollerIndex();
         isScrolling= false;
-      }, 1000);
+      }, 2000);
     };
 
     const handleTouchEnd = () => {
@@ -283,9 +284,10 @@ export default function ProjectBoxes() {
     };
 
     document.addEventListener('wheel', handleScroll);
-    document.addEventListener('touchstart', handleScroll);
-    document.addEventListener('touchmove', handleScroll);
-    // document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener('touchstart', handleScroll,{ passive: true });
+    document.addEventListener('touchmove', handleScroll,{ passive: true });
+    // document.addEventListener('touchend', handleTouchEnd, { passive: true });
+
     
     const initProjects = () => {
       const allProjects = document.querySelectorAll('.projects-items.active');
@@ -407,7 +409,6 @@ export default function ProjectBoxes() {
 
     };
   }, [projects]);
-  
 
 
 
@@ -485,27 +486,30 @@ export default function ProjectBoxes() {
   
   // }, []);
 
+  
   const scrollerClockIndexRef = useRef(0);
   const touchStartYRef = useRef(0);
   const usermainClockRef = useRef(null);
   const scrollSpeedFactor = 0.03;
+  const isRotatingRef = useRef(false);
 
   useEffect(() => {
-    let lastScrollTime = 0;
-
     const handleScroll = (deltaY) => {
       scrollerClockIndexRef.current += deltaY * scrollSpeedFactor;
-      if (usermainClockRef.current) {
-        usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
+      if (!isRotatingRef.current) {
+        isRotatingRef.current = true;
+        requestAnimationFrame(() => {
+          if (usermainClockRef.current) {
+            usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
+          }
+          isRotatingRef.current = false;
+        });
       }
     };
 
     const handleWheel = (e) => {
-      const now = performance.now();
-      if (now - lastScrollTime > 10) {
-        handleScroll(e.deltaY);
-        lastScrollTime = now;
-      }
+      e.preventDefault(); // Prevent default scroll behavior
+      handleScroll(e.deltaY);
     };
 
     const handleTouchStart = (e) => {
@@ -513,16 +517,17 @@ export default function ProjectBoxes() {
     };
 
     const handleTouchMove = (e) => {
+      e.preventDefault(); // Prevent default scroll behavior
       const touchMoveY = e.touches[0].clientY;
       const deltaY = touchStartYRef.current - touchMoveY;
       handleScroll(deltaY);
       touchStartYRef.current = touchMoveY;
     };
 
-    // Event listeners with { passive: true } for performance on touch devices
-    window.addEventListener('wheel', handleWheel, { passive: true });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    // Event listeners with passive set to false so preventDefault can be applied
+    window.addEventListener('wheel', handleWheel);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchmove', handleTouchMove);
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
@@ -530,6 +535,8 @@ export default function ProjectBoxes() {
       window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [scrollSpeedFactor]);
+
+  
   
   
   
