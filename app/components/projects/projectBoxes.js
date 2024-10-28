@@ -526,13 +526,13 @@ export default function ProjectBoxes() {
 
     // Event listeners with passive set to false so preventDefault can be applied
     window.addEventListener('wheel', handleWheel);
-    window.addEventListener('touchstart', handleTouchStart);
-    window.addEventListener('touchmove', handleTouchMove);
+    // window.addEventListener('touchstart', handleTouchStart);
+    // window.addEventListener('touchmove', handleTouchMove);
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
+    //   window.removeEventListener('touchstart', handleTouchStart);
+    //   window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [scrollSpeedFactor]);
 
