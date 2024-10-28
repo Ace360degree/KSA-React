@@ -491,9 +491,21 @@ export default function ProjectBoxes() {
   const scrollSpeedFactor = 0.03;
 
   useEffect(() => {
+    let lastScrollTime = 0;
+
+    const handleScroll = (deltaY) => {
+      scrollerClockIndexRef.current += deltaY * scrollSpeedFactor;
+      if (usermainClockRef.current) {
+        usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
+      }
+    };
+
     const handleWheel = (e) => {
-      scrollerClockIndexRef.current += e.deltaY * scrollSpeedFactor;
-      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
+      const now = performance.now();
+      if (now - lastScrollTime > 10) {
+        handleScroll(e.deltaY);
+        lastScrollTime = now;
+      }
     };
 
     const handleTouchStart = (e) => {
@@ -503,28 +515,17 @@ export default function ProjectBoxes() {
     const handleTouchMove = (e) => {
       const touchMoveY = e.touches[0].clientY;
       const deltaY = touchStartYRef.current - touchMoveY;
-      scrollerClockIndexRef.current += deltaY * scrollSpeedFactor;
-      usermainClockRef.current.style.transform = `rotate(${scrollerClockIndexRef.current}deg)`;
+      handleScroll(deltaY);
       touchStartYRef.current = touchMoveY;
     };
 
-    // Throttling to avoid excessive calls
-    let wheelTimeout = null;
-    const throttledHandleWheel = (e) => {
-      if (wheelTimeout) return;
-      wheelTimeout = setTimeout(() => {
-        handleWheel(e);
-        wheelTimeout = null;
-      }, 10);
-    };
-
-    // Add wheel and touch event listeners with { passive: true }
-    window.addEventListener('wheel', throttledHandleWheel, { passive: true });
+    // Event listeners with { passive: true } for performance on touch devices
+    window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     return () => {
-      window.removeEventListener('wheel', throttledHandleWheel);
+      window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };

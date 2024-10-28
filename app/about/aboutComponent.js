@@ -61,6 +61,10 @@ export default function AboutComponent(){
     //     };
     //   }, []);
 
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[])
+
     useEffect(() => {
 
         document.querySelector('body').classList.add('loading');
