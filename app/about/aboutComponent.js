@@ -354,7 +354,8 @@ export default function AboutComponent(){
         {showTabs=='All' || showTabs=='discipline'?
         <div className="target-section position-relative about-snap" ref={AboutProjects} id="discipline">
         <div className="full-section " id="ksa-slider">
-            <Link href={'/expertise'}><div className=" billy-text">
+            {/* <Link href={'/expertise'}> */}
+            <div className=" billy-text">
                 <div className="about-project-box">
                     <div className="about-item">
                         <img src="./images/about/KSA_planning.webp" />
@@ -377,7 +378,8 @@ export default function AboutComponent(){
                         <h4>KSA_Sustainability</h4>
                     </div>
                 </div>
-            </div></Link>
+            </div>
+            {/* </Link> */}
             <div className="hello-about" style={{opacity:'0.5'}}>
             <Link href={'/contact'}>
             <div className="signifier">Say Hello!</div>
