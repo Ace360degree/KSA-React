@@ -10,6 +10,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import $ from "jquery";
 import  "jquery-scrollify";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
+import { useRouter } from "next/navigation";
 
 
 
@@ -19,7 +20,7 @@ export default function AboutComponent(){
 
     const [showTabs,setShowTabs] = useState('All');
     const [mobileFilter,setMobileFilter] =useState(false);
-
+    const router = useRouter();
     const [activeCulture,setActiveCulture] = useState(true);
     const [activeDiscipline,setActiveDiscipline] = useState(false);
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -266,6 +267,9 @@ export default function AboutComponent(){
     }, [activeCulture, activeDiscipline, showTabs]);
     
 
+    const redirecttoExpertise =()=>{
+        router.push(`/expertise`);
+    }
 
 
 
@@ -354,9 +358,8 @@ export default function AboutComponent(){
         {showTabs=='All' || showTabs=='discipline'?
         <div className="target-section position-relative about-snap" ref={AboutProjects} id="discipline">
         <div className="full-section " id="ksa-slider">
-            <Link href={'/expertise'}>
             <div className=" billy-text">
-                <div className="about-project-box">
+                <div className="about-project-box" onClick={()=>{redirecttoExpertise()}}>
                     <div className="about-item">
                         <img src="./images/about/KSA_planning.webp" />
                         <h4>KSA_Planning</h4>
@@ -379,7 +382,6 @@ export default function AboutComponent(){
                     </div>
                 </div>
             </div>
-            </Link>
             <div className="hello-about" style={{opacity:'0.5'}}>
             <Link href={'/contact'}>
             <div className="signifier">Say Hello!</div>
