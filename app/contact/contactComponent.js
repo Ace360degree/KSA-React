@@ -266,9 +266,8 @@ export default function ContactComponent() {
                                     <label>Email*</label>
                                     <input type="email" className="theme-input" name="email" value={formData.email} onChange={handleChange} placeholder="Type here" required />
                                 </div>
-                                <br/>
 
-                                <div className="form-row">
+                                <div className="form-row mt-5">
                                     <label>Description*</label>
                                     <textarea className="theme-input" name="description" value={formData.description} onChange={handleChange} placeholder="Type here" rows="3" required></textarea>
                                 </div>
@@ -287,11 +286,11 @@ export default function ContactComponent() {
                                     </div>
                                 </div> */}
 
-                                <div className="form-row">
+                                <div className="form-row mt-5">
                                     {submitting?
-                                        <button type="submit" className="btn-theme mt-5 w-100" disabled><div className="btn-content">Please Wait...</div></button>
+                                        <button type="submit" className="btn-theme  w-100" disabled><div className="btn-content">Please Wait...</div></button>
                                     :
-                                    <button type="submit" className="btn-theme mt-5 w-100"><div className="btn-content">Submit</div></button>
+                                    <button type="submit" className="btn-theme w-100"><div className="btn-content">Submit</div></button>
                                     }
                                 </div>
                             </div>

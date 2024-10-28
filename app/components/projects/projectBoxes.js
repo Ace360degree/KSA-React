@@ -695,7 +695,7 @@ export default function ProjectBoxes() {
       
     <div className="user-clock projects-clock" >
      
-        <div className="user-clock-control" ref={usermainClockRef} style={{transition:'all 0.3s ease'}}>
+        <div className="user-clock-control" ref={usermainClockRef} style={{transition:'all 0.9s ease'}}>
           <div className="user-hands user-clock-hour" style={{ opacity: '0' }}>
             <span></span>
           </div>

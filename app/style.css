@@ -3012,7 +3012,7 @@ body.dark .filter-box-control{
 
 .contact-form-box{
   width: 100%;
-  max-width: calc(600px - 8vw);
+  max-width: calc(600px - 14vw);
   height: auto;
   padding: 1.4rem 3rem;
   border-radius: 1.2rem;
