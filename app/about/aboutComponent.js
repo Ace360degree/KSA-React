@@ -230,21 +230,21 @@ export default function AboutComponent(){
     useEffect(() => {
         if (AboutProjects.current) {
 
-            let Abouttimeline = gsap.timeline();
-            Abouttimeline.fromTo('.about-item', {y: "50", opacity: 0}, {y: "0", opacity: 1, duration: 1, ease: "power3.out", stagger: 0.05});
+            // let Abouttimeline = gsap.timeline();
+            // Abouttimeline.fromTo('.about-item', {y: "50", opacity: 0}, {y: "0", opacity: 1, duration: 1, ease: "power3.out", stagger: 0.05});
             
             // Function to activate the Discipline tab
             const initActiveNow = () => {
                 setActiveCulture(false);
                 setActiveDiscipline(true);
-                Abouttimeline.play();
+                // Abouttimeline.play();
             };
     
             // Function to deactivate the Discipline tab
             const removeActiveNow = () => {
                 setActiveCulture(true);
                 setActiveDiscipline(false);
-                Abouttimeline.play();
+                // Abouttimeline.play();
             };
     
             // Create a ScrollTrigger instance
