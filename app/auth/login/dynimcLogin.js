@@ -2,7 +2,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
