@@ -233,7 +233,7 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <Link href={`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`}><div className='auth-icon-box slide-up change-svg'>
+      <Link href={`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`} scroll={false}><div className='auth-icon-box slide-up change-svg'>
         {isLoggedIn? <Power1 /> :  <Power2 /> }
         
       </div></Link>
