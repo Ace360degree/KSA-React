@@ -8,8 +8,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { FaFacebook, FaInstagram, FaSquareXTwitter, FaLinkedin } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
-
-import { FaXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 import $ from "jquery";
 import "jquery-scrollify";
@@ -209,7 +207,7 @@ export default function ContactComponent() {
                 updateHash: false,
                 touchScroll: true,
             });
-            $.scrollify.move(0);
+            // $.scrollify.move(0);
             // Refresh ScrollTrigger after Scrollify initializes
             ScrollTrigger.refresh();
         });
@@ -220,7 +218,6 @@ export default function ContactComponent() {
 
     return (
         <>
-            <ScrollifyDisabled/>
             <DarkTheme />
             <NavbarIntroPage heading={'Contact'} />
             <div class="filter-launch" onClick={toggleMobileFilter}>
