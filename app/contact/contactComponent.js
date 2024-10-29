@@ -207,7 +207,7 @@ export default function ContactComponent() {
                 updateHash: false,
                 touchScroll: true,
             });
-            // $.scrollify.move(0);
+            $.scrollify.move(0);
             // Refresh ScrollTrigger after Scrollify initializes
             ScrollTrigger.refresh();
         });
@@ -321,13 +321,12 @@ export default function ContactComponent() {
                     </div>
 
                     <div className="contact-footer">
-                        <div className="footer-brand"><Link href={'/policies'}>Legal and policies</Link> © 2024 KSA. All Rights Reserved.
+                        <div className="footer-brand">
+                            {/* <Link href={'/policies'}>Legal and policies</Link> © 2024 KSA. All Rights Reserved. */}
                         </div>
                         <div className="social-links">
                             <a href=''  target="_blank"><FaFacebookF className="footer-icon" size={22} /></a>
-                            {/* <a href='' target="_blank"><FaSquareXTwitter className="footer-icon" size={22} /></a> */}
                             <a href='https://www.youtube.com/@kuwalsanamarchitekts4285' target="_blank"><FaYoutube className="footer-icon" size={22} /></a>
-                            {/* <a href='' target="_blank"><FaXTwitter className="footer-icon" size={22} /></a> */}
                             <a href='https://www.linkedin.com/feed/' target="_blank"><FaLinkedinIn className="footer-icon" size={22} /></a>
                             <a href='https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1' target="_blank"><FaInstagram className="footer-icon" size={22} /></a>
                         </div>
