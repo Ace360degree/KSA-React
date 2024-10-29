@@ -18,10 +18,10 @@ export default function NavbarIntroPage({heading,subheading}){
 
     },[]);
 
-    
+
     function preventScroll(event) {
         event.preventDefault();
-      }
+    }
 
 
     return(
