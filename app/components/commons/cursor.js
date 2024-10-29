@@ -221,37 +221,7 @@ export default function CursorAudio() {
   }, []);
 
 
-  useEffect(() => {
-    // Method 1: Using matchMedia to detect coarse pointer (touch devices)
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    
-    // Method 2: Check for touch events to confirm touch support
-    const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  
-    // Set initial state for touchscreen devices
-    if (isTouchDevice || hasTouchSupport) {
-      setIsTouchscreen(true);
-    }
-  
-    // Detect touch input interaction
-    const onTouchStart = () => {
-      setIsTouchscreen(true);
-      setcursorStatus(false); // Set cursorStatus to false when touch is detected
-    };
-  
-    // Detect mouse input interaction
-    const onMouseMove = () => {
-      setIsTouchscreen(false);
-      setcursorStatus(true); // Set cursorStatus to true when mouse movement is detected\
-    };
-  
-    // Add event listeners for touch and mouse interactions
-    window.addEventListener('touchstart', onTouchStart);
-    window.addEventListener('mousemove', onMouseMove);
-  
-    // Cleanup event listeners when component unmount   
-  }, []);
-  
+
 
 
 
@@ -296,12 +266,11 @@ export default function CursorAudio() {
         
       </div>
 
-      {isTouchscreen && !cursorStatus ?'':
       <>
       <div className="cursor-lg" ref={bigCursorRef}></div>
       <div className="cursor-sm" ref={smCursorRef}></div>
       </>
-      }
+      
 
     </>
   );

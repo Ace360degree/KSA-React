@@ -1,5 +1,5 @@
 'use client';
-import { useEffect,useState } from "react";
+import { useEffect,useRef,useState } from "react";
 import LightTheme from "../components/body/lightTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import gsap from "gsap";
@@ -39,6 +39,8 @@ export default function IdeasComponent(){
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [mobileFilter,setMobileFilter] =useState(false);
 
+    const IdeasCovers = useRef([]);
+    const IdeasSnapSection = useRef([]);
 
 
 
@@ -166,27 +168,27 @@ export default function IdeasComponent(){
                 rotationY:PsY,
             })
         })
-    
-    let panels = gsap.utils.toArray(".snap-section")
-    
-    panels.map((panel, i) => {
-        let imgPanel = panel.querySelector('.ideas-cover');
         
-        let imganelTimeline = gsap.timeline();
-        imganelTimeline.to(imgPanel, { height: "0", delay: 0, duration: 0.5 })
-        
-        return ScrollTrigger.create({
-            trigger: panel,
-            start: "top bottom",
-            animation: imganelTimeline,
-            // scrub: true,
-            onEnter:() => imganelTimeline.play(),
-            onLeave: () => imganelTimeline.reverse(),    // Reverse animation on leave
-            onEnterBack: () => imganelTimeline.play(),   // Play again on enter back
-            onLeaveBack: () => imganelTimeline.reverse()
-        });
-    });
 
+        IdeasCovers.current.forEach((cover, i) => {
+            const imgPanel = IdeasSnapSection.current[i];
+            const imgPanelTimeline = gsap.timeline({ paused: true });
+
+            imgPanelTimeline.to(cover, { height: "0", delay: 0, duration: 0.5 });
+
+            ScrollTrigger.create({
+                trigger: imgPanel,
+                start: "top bottom",
+                animation: imgPanelTimeline,
+                onEnter: () => imgPanelTimeline.play(),
+                onLeave: () => imgPanelTimeline.reverse(),
+                onEnterBack: () => imgPanelTimeline.play(),
+                onLeaveBack: () => imgPanelTimeline.reverse(),
+            });
+        });
+    
+
+        
     });
 
         return () => {
@@ -345,11 +347,11 @@ export default function IdeasComponent(){
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
         {filteredIdeas.map((idea, index) => (
-                            <div className="snap-section filter-main-box active" key={index} data-filter={idea.id}>
+                            <div className="snap-section filter-main-box active" ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
-                                            <div className="ideas-cover"></div>
+                                            <div className="ideas-cover" ref={(el)=>{IdeasCovers.current[index]=el}}></div>
                                             <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&image=${idea.image}`}>
                                             <div>
                                             <img

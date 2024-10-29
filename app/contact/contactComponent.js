@@ -209,7 +209,7 @@ export default function ContactComponent() {
                 updateHash: false,
                 touchScroll: true,
             });
-            $.scrollify.move(0);
+            // $.scrollify.move(0);
             // Refresh ScrollTrigger after Scrollify initializes
             ScrollTrigger.refresh();
         });

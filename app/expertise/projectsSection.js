@@ -137,13 +137,13 @@ export default function ProjectSection({ section, slides, essecials, points }) {
       <>
         {windowSize.width <= 750 && section.section_image_mobile ? 
           (
-            <div className="project-info-section full-bleed-container position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
+            <div className="img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
               <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
           )
           : windowSize.width > 750 && section.section_image ? 
           (
-            <div className="project-info-section full-bleed-container position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
+            <div className=" img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
               <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
           )
@@ -154,7 +154,7 @@ export default function ProjectSection({ section, slides, essecials, points }) {
 
   else if (section.section_type === 4) {
     return slides.slides.length !== 0 ? (
-      <div className="project-info-section full-bleed-container position-relative hero-image" ref={InfoSection}>
+      <div className="project-info-section img-border-section full-bleed-container position-relative hero-image" ref={InfoSection}>
         <Splide options={SliderSettings}>
           {slides.slides.map((slide, index) => (
             <SplideSlide key={index}>

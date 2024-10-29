@@ -81,9 +81,9 @@ export default function IdeasPage(){
                
                 <div className="ideas-inner-section">
                     {redirected?
-                    <motion.img initial={{scale:0.8, y:100}} animate={{scale:1,y:0}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+paramImage} />
+                    <motion.img initial={{scale:0.8, y:100}} animate={{scale:1,y:0}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img mt-4" src={process.env.NEXT_PUBLIC_SITE_URL+paramImage} />
                     : 
-                    <motion.img initial={{scale:0.8}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+idea.image} />
+                    <motion.img initial={{scale:0.8}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img mt-4" src={process.env.NEXT_PUBLIC_SITE_URL+idea.image} />
                     }
                     <div className="row ideas-border mt-3 align-items-center">
                         <div className="col-md-6 position-relative">
@@ -100,7 +100,7 @@ export default function IdeasPage(){
                 {ideaSections.map((ideas,index)=>(
                 <SplideSlide key={index}>   
                 <div className="ideas-inner-section" >
-                    <img className="ideas-section-img" src={process.env.NEXT_PUBLIC_SITE_URL+ideas.image} />
+                    <img className="ideas-section-img mt-4" src={process.env.NEXT_PUBLIC_SITE_URL+ideas.image} />
                     <div className="row ideas-border mt-3 align-items-center">
                         <div className="col-md-6 position-relative">
                             <div className="title-border-ideas"><span></span></div>

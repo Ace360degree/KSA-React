@@ -2651,7 +2651,7 @@ body.dark .filter-box-control{
 
 .project-border-bottom{
   border-bottom:1px solid grey;
-  padding: 0.8rem 0;
+  padding: 1.5rem 0;
 }
 
 .project-info-image{
@@ -2709,7 +2709,7 @@ body.dark .filter-box-control{
 }
 
 .glance-side-title{
-  font-size: 1.4rem;
+  font-size: 1rem;
     font-weight: 300;
     color: #bdbdbd;
     text-transform: uppercase;
@@ -2721,10 +2721,10 @@ body.dark .filter-box-control{
   padding: 0;
   margin: 0;
   /* text-transform: uppercase; */
-  font-size: 1.2rem;
+  font-size: 1rem;
   list-style: none;
   font-weight: 300;
-  line-height: 1.2rem;
+  line-height: 1.3rem;
 
 }
 
@@ -3779,8 +3779,8 @@ body.dark .filter-box-control{
   display: block;
   max-width: 100%;
   height: auto;
-  min-height: 64svh;
-  max-height: 64svh;
+  min-height: 58svh;
+  max-height: 58svh;
   margin: auto;
   aspect-ratio: auto;
   -o-object-fit: cover;
@@ -4473,6 +4473,13 @@ body.dark .filter-box-control{
 
 .project-anima-opacity{
   opacity:1;
+}
+
+.img-border-section{
+  padding: 1.5rem 0;
+  width: 100%;
+  border-bottom: 1px solid grey;
+  transition: all 1.5s ease;
 }
 
 
@@ -5209,6 +5216,10 @@ body.dark .filter-box-control{
     font-size: 2.8rem;
     line-height: 2.8rem;
   }
+
+  .title-border-ideas{
+    display: none;
+  }
 }
 
 
@@ -5481,6 +5492,33 @@ body.dark .filter-box-control{
   
   #projects-Scroller{
     transform:scale(1) !important ;
+  }
+
+  .cursor-lg,.slider-cursor,.slider-cursor-icon{
+    display: none;
+  }
+  .splide__arrow--next{
+    right: 5% !important;
+  }
+  .splide__arrow--prev{
+    left: 5% !important;
+  }
+
+  .splide__arrow,.splide__arrow:active,.splide__arrow:focus{
+    height: 30px !important;
+        width: 30px !important;
+        background: transparent !important;
+        border: 2px solid black !important;
+        opacity: 0.6 !important;
+        border-radius: 90px !important;
+        transition: all 0.5s ease;
+  }
+  .splide__arrow[disabled]{
+    opacity:0 !important;
+  }
+  .splide__arrow svg{
+    height:9px !important;
+    fill:black !important;
   }
   
 }
