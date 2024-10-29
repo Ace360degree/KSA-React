@@ -209,7 +209,7 @@ export default function ContactComponent() {
                 updateHash: false,
                 touchScroll: true,
             });
-            // $.scrollify.move(0);
+            $.scrollify.move(0);
             // Refresh ScrollTrigger after Scrollify initializes
             ScrollTrigger.refresh();
         });
@@ -220,6 +220,7 @@ export default function ContactComponent() {
 
     return (
         <>
+            <ScrollifyDisabled/>
             <DarkTheme />
             <NavbarIntroPage heading={'Contact'} />
             <div class="filter-launch" onClick={toggleMobileFilter}>
