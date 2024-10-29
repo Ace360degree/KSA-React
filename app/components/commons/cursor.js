@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRouter } from 'next/navigation';
 import { TweenMax } from 'gsap/all';
 import { HiOutlineUser } from "react-icons/hi2";
 import Link from 'next/link';
