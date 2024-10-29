@@ -322,6 +322,10 @@ export default function IdeasComponent(){
         </div>
         } 
         
+
+
+        {filteredIdeas!=''?
+        <>
         <div class="filter-launch" onClick={toggleMobileFilter}>
             {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
         </div>          
@@ -342,6 +346,8 @@ export default function IdeasComponent(){
                
            </div>
        </div>
+       </>
+       :''}
 
         <div className="snap-perspective">
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>

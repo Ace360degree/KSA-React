@@ -651,7 +651,8 @@ export default function ProjectBoxes() {
     <div class="filter-launch" onClick={toggleMobileFilter}>
       {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
     </div>
-    
+
+      {filteredProjects!=''?
       <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
         <div className="filter-box signifier">
           <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() => handleFilterChange('All')}>All</li>
@@ -662,6 +663,9 @@ export default function ProjectBoxes() {
           ))}
         </div>
       </div>
+      :''}
+      
+
       <div className="project-overflow">
       <div id="projects-Scroller" ref={projectScrollerRef}>
         <div className="projects-main">

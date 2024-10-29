@@ -267,12 +267,12 @@ export default function ContactComponent() {
                                     <input className="theme-input" name="name" value={formData.name} onChange={handleChange} placeholder="Type here" required />
                                 </div>
 
-                                <div className="form-row mb-4">
+                                <div className="form-row">
                                     <label>Email*</label>
                                     <input type="email" className="theme-input" name="email" value={formData.email} onChange={handleChange} placeholder="Type here" required />
                                 </div>
 
-                                <div className="form-row mt-5">
+                                <div className="form-row mt-lg-5 mt-4">
                                     <label>Description*</label>
                                     <textarea className="theme-input" name="description" value={formData.description} onChange={handleChange} placeholder="Type here" rows="3" required></textarea>
                                 </div>

@@ -9,6 +9,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css'; // Import Splide styles
 import dynamic from "next/dynamic";
+import LightTheme from "@/app/components/body/lightTheme";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
@@ -70,6 +71,7 @@ export default function IdeasPage(){
     
 
     return(<>
+        <LightTheme/>
         <ScrollifyDisabled/>
         <NavbarIntroPage heading={'Research'}/>
         <SliderCursor/>

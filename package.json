@@ -29,7 +29,6 @@
     "locomotive-scroll": "^4.1.4",
     "mysql2": "^3.11.3",
     "next": "14.2.7",
-    "next-auth": "^4.24.7",
     "nodemailer": "^6.9.15",
     "nookies": "^2.5.2",
     "react": "^18",

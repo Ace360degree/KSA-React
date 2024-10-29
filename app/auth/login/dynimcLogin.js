@@ -2,6 +2,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
@@ -55,6 +56,14 @@ export default function DynamicLogin() {
       setLoading(false);
     }
   };
+
+
+  const handleGoogleSignIn = () => {
+    signIn('google');
+    // alert('Test')
+  };
+
+
   
 
   return (
@@ -101,6 +110,10 @@ export default function DynamicLogin() {
                         </>
                       )}
                     </button>
+                    <div>
+                    {/* <button type='button' onClick={handleGoogleSignIn}>Login with Google</button> */}
+                    </div>  
+
                     {error && <p className="text-danger text-center">{error}</p>}
                     <div className="text-center mt-3 text-secondary">
                       Not a member? <Link href={'/auth/signup'} className="fw-bold text-white">Sign up</Link>
