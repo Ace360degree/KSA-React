@@ -15,6 +15,7 @@ import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -216,6 +217,12 @@ export default function ContactComponent() {
     }, [showTabs]);
 
 
+    const router = useRouter();
+    const redirectToLegal = ()=>{
+        router.push('/policies');
+    }
+
+
     return (
         <>
             <DarkTheme />
@@ -322,7 +329,7 @@ export default function ContactComponent() {
 
                     <div className="contact-footer">
                         <div className="footer-brand">
-                            {/* <Link href={'/policies'}>Legal and policies</Link> © 2024 KSA. All Rights Reserved. */}
+                            <span class="cursor-pointer" onClick={()=>{redirectToLegal()}}>Legal and policies</span> © 2024 KSA. All Rights Reserved.
                         </div>
                         <div className="social-links">
                             <a href=''  target="_blank"><FaFacebookF className="footer-icon" size={22} /></a>

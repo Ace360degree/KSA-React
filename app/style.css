@@ -5522,3 +5522,10 @@ body.dark .filter-box-control{
   }
   
 }
+
+
+
+
+.cursor-pointer{
+  cursor: var(--pointer);
+}
