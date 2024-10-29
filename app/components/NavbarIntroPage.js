@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 export default function NavbarIntroPage({heading,subheading}){
@@ -19,8 +20,9 @@ export default function NavbarIntroPage({heading,subheading}){
     },[]);
 
 
-    function preventScroll(event) {
-        event.preventDefault();
+    const router = useRouter();
+    function routetoPage(link){
+      router.push(link);
     }
 
 
@@ -29,13 +31,13 @@ export default function NavbarIntroPage({heading,subheading}){
             <div id="navbar" className={activeClass?'active':''} >
                 <div className="navbar-control">
                     <div className="nav-logo">
-                        <Link href={'/'} onMouseEnter={preventScroll} onTouchStart={preventScroll}><div className="logo-main">KSA<span>{subHeading}</span></div></Link>
+                        <span onClick={()=>{routetoPage('/')}} ><div className="logo-main">KSA<span>{subHeading}</span></div></span>
                         {smallHeading!=''? 
-                            <Link href={`/expertise?category=${smallHeading}`} onMouseEnter={preventScroll} onTouchStart={preventScroll}><div className="header-content signifier text-capitalize">{smallHeading}</div></Link>
+                            <span onClick={()=>{routetoPage(`/expertise?category=${smallHeading}`)}} ><div className="header-content signifier text-capitalize">{smallHeading}</div></span>
                         : ''}
                     </div>
                     <div className="nav-img-logo">
-                        <Link href={'/home'} onMouseEnter={preventScroll} onTouchStart={preventScroll}><img className="ksa-logo" width="40" src="/images/ksa-logo.png"/></Link>
+                        <span onClick={()=>{routetoPage('/home')}}><img className="ksa-logo" width="40" src="/images/ksa-logo.png"/></span>
                     </div>
                 </div>
             </div>

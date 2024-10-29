@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { useRouter } from 'next/navigation';
 import { TweenMax } from 'gsap/all';
 import { HiOutlineUser } from "react-icons/hi2";
 import Link from 'next/link';
@@ -224,7 +224,13 @@ export default function CursorAudio() {
     event.preventDefault();
   }
 
+  // This section is routed throug code beacuse of this is 
+  //giving problem in About and Contact page 
 
+  const router = useRouter();
+  function routetoPage(link){
+    router.push(link);
+  }
 
 
 
@@ -236,10 +242,10 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <Link href={`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`} onMouseEnter={preventScroll} onTouchStart={preventScroll}><div className='auth-icon-box slide-up change-svg'>
+      <span class='cursor-pointer' onclick={()=>{routetoPage(`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`)}} onMouseEnter={preventScroll} onTouchStart={preventScroll}><div className='auth-icon-box slide-up change-svg'>
         {isLoggedIn? <Power1 /> :  <Power2 /> }
         
-      </div></Link>
+      </div></span>
 
 
 
