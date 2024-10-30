@@ -13,7 +13,7 @@ const HomeComponent = dynamic(() => import('./components/home/homeComponent'), {
 export default function Home() {
   
   const { visited } = useVisitedStore();
-  
+
 
 
   return (

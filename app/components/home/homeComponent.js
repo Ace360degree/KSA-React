@@ -23,7 +23,20 @@ export default function HomeComponent(){
   const secondTitleSection = useRef(null);
   const page = useRef(null);
   const [fullscreen, setFullScreen] = useState(1);
+  const [homeBanners,setHomeBanners] = useState([]);
 
+  useEffect(()=>{
+
+    const fetchHomeBanners= async()=>{
+        const fetchAPI = await fetch('api/home/fetchBanners',{method:'GET'});
+        const fetchedBanners = await (fetchAPI.json());
+        setHomeBanners(fetchedBanners.rows);
+    }
+
+    fetchHomeBanners();
+
+  },[])
+  
   // Smooth scroll to the section
   const scrollSmoothTo = () => {
     if (secondTitleSection.current) {
@@ -265,7 +278,7 @@ export default function HomeComponent(){
     showScrollableTitles();
 
     return () => ctx.revert();
-  }, [fullScreenCheck]);
+  }, [fullScreenCheck,homeBanners]);
 
   useEffect(() => {
     setSnapping(false);
@@ -334,7 +347,7 @@ export default function HomeComponent(){
     });
 
     return () => ctxSlides.revert();
-  }, [fullScreenCheck]);
+  }, [fullScreenCheck,homeBanners]);
 
   useEffect(() => {
   
@@ -391,7 +404,7 @@ export default function HomeComponent(){
     });
   
     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-  }, [fullScreenCheck]);
+  }, [fullScreenCheck,homeBanners]);
 
 
   useEffect(()=>{
@@ -427,7 +440,7 @@ export default function HomeComponent(){
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  },[fullScreenCheck]);
+  },[fullScreenCheck,homeBanners]);
 
 
 
@@ -436,7 +449,9 @@ export default function HomeComponent(){
         <>
         <NavbarIntroPage/>
         {/* <ScrollifyComponent/> */}
+        {homeBanners!=''?
         <CheckNavTransparent/>
+      :''}
             <div id="page" ref={page}>
             
             <div className="nav-title" data-title=""></div>
@@ -491,57 +506,27 @@ export default function HomeComponent(){
             
             
            
-            <div className="home-project-slider">
+            <div className="home-project-slider hero-image">
                 
                     <div className="pagination">
                       <ul>
-                        <li data-index="0">1</li>
-                        <li data-index="1">2</li>
-                        <li data-index="2">3</li>
-                        <li data-index="3">4</li>
-                        <li data-index="4">5</li>
+                      {homeBanners.map((banner,index)=>(
+                        <li data-index={index} key={index}>1</li>
+                      ))}
                       </ul>
                     </div>
-                
-                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping">
+
+                    {homeBanners.map((banner,index)=>(
+                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" key={index}>
                         <div className="slider-texts">
-                            <h2>DESIGN THAT INSPIRES</h2>
-                            <h4><span>Creating environments which are joyous, memorable and Explorative.</span></h4>
+                            <h2>{banner.title}</h2>
+                            <h4><span>{banner.content}</span></h4>
                         </div>
-                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/cluster_a.webp'}/>
+                        <img className="hero-image desktop-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
+                        <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
                     </div>
+                    ))}
                     
-                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping">
-                         <div className="slider-texts">
-                            <h2>SMART CITY, REIMAGINED</h2>
-                            <h4><span>An optimized space for Everyone which is Inclusive, Timeless, and Resilient.</span></h4>
-                        </div>
-                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/vut_banner.webp'} />
-                    </div>
-                    
-                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" >
-                         <div className="slider-texts">
-                            <h2>INNOVATIVE SPACES, EXPLORATORY PLACES</h2>
-                            <h4><span>Exploring the convergence of technology, design, construction, materials, and environment.</span></h4>
-                        </div>
-                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/bivab_heights.webp'}/>
-                    </div>
-                    
-                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" >
-                         <div className="slider-texts">
-                            <h2>ECO-CONCIOUS ENDURING SPACES</h2>
-                            <h4><span>Designing spaces in sync with natural environment, eco-friendly materials and energy transformations.</span></h4>
-                        </div>
-                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/BAMBOO RESORT_01.webp'}/>
-                    </div>
-                    
-                    <div className="home-slides-box hero-image home-snapping slider-hero-snapping" >
-                         <div className="slider-texts">
-                            <h2>NATURE, NURTURE, FUTURE</h2>
-                            <h4><span>Nurturing a Sustainable Future: Visionary Research for Tomorrow's Challenges.</span></h4>
-                        </div>
-                        <img className="hero-image" src={process.env.NEXT_PUBLIC_SITE_URL+'images/home/dino_resort.webp'}/>
-                    </div>
             </div>
 
             <div className="page-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent">

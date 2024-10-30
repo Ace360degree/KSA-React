@@ -4592,6 +4592,15 @@ body.dark .filter-box-control{
 }
 
 
+.desktop-home-banner{
+  display:block;
+}
+
+.mobile-home-banner{
+  display: none;
+}
+
+
 
 @media screen and (max-width:992px){
   .cursor-sm,.cursor-lg{
@@ -4692,6 +4701,16 @@ body.dark .filter-box-control{
   .legal-bottom{
     bottom: 30px;
   }
+
+  .desktop-home-banner{
+    display:none;
+  }
+  
+  .mobile-home-banner{
+    display: block;
+  }
+  
+  
 
   #navbar.underline-nav.transparent{
     background: transparent !important;

@@ -383,10 +383,10 @@ export default function AboutComponent(){
                 </div>
             </div>
             <div className="hello-about" style={{opacity:'0.5'}}>
-            <Link href={'/contact'}>
+            <span className="cursor-pointer" onClick={()=>{router.push('/contact')}}>
             <div className="signifier">Say Hello!</div>
             <div className="white-stick mb-2"><div className="white-stick-content"></div></div>
-            </Link>
+            </span>
         </div>  
         </div>
           
