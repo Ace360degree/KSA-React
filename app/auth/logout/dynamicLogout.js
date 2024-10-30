@@ -12,7 +12,8 @@ export default function DynamicLogout() {
   const paramsPage = searchParams?.get('route');
   const { logout } = useAuth();
 
-  const [showError,setShowError] = useState(false)
+  const [showError,setShowError] = useState(false);
+  const [showSuccess,setShowSuccess] = useState(false);
 
 
     const handleLogout = async () => {
@@ -26,8 +27,12 @@ export default function DynamicLogout() {
 
         logout();
 
+        setShowSuccess(true);
         // Redirect based on provided param, else default to home page
-        router.push(paramsPage || '/');
+        setTimeout(()=>{
+          router.push(paramsPage || '/');
+        },2000);
+        
       } catch (error) {
         console.error('Logout error:', error);
       } finally {
@@ -53,7 +58,11 @@ export default function DynamicLogout() {
               </div>
               <div className='w-100 text-center'>
                 {showError?
-                <p className='text-danger'>Something went Wrong. Please try again.</p>
+                <p className='text-danger small mt-4'>Something went Wrong. Please try again.</p>
+                :''}
+
+                {showSuccess?
+                <p className='text-success small mt-4'>Logged out Successfully. You will be Redirected.</p>
                 :''}
               </div>
           </div>

@@ -422,7 +422,7 @@ export default function HomeComponent(){
           });
         }
       })
-  },[]);
+  },[homeBanners]);
 
 
 

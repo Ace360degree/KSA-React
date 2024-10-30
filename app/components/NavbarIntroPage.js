@@ -36,8 +36,8 @@ export default function NavbarIntroPage({heading,subheading}){
                             <span className="cursor-pointer" onClick={()=>{routetoPage(`/expertise?category=${smallHeading}`)}} ><div className="header-content signifier text-capitalize">{smallHeading}</div></span>
                         : ''}
                     </div>
-                    <div className="nav-img-logo">
-                        <span className="cursor-pointer" onClick={()=>{routetoPage('/home')}}><img className="ksa-logo" width="40" src="/images/ksa-logo.png"/></span>
+                    <div className="nav-img-logo cursor-pointer" onClick={()=>{routetoPage('/home')}}>
+                        <img className="ksa-logo" width="40" src="/images/ksa-logo.png"/>
                     </div>
                 </div>
             </div>

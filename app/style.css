@@ -4241,11 +4241,14 @@ body.dark .filter-box-control{
     background: transparent;
     z-index: 900;
     color: #00000085;
-    border-radius: 60px;
-    border: 1px solid black;
     text-align: center;
     opacity: 0.6;
     cursor: var(--pointer);
+}
+
+.close-projects svg{
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -4724,8 +4727,8 @@ body.dark .filter-box-control{
   .close-projects{
     opacity: 0.8;
     bottom: 15px;
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     line-height: 18px;
   }
 
@@ -4759,9 +4762,9 @@ body.dark .filter-box-control{
     height: 124px;
   }
   .map-line.london{
-    height: 53%;
-    left: 47.5%;
-    top: -22px;
+    height: 60%;
+        left: 47.5%;
+        top: -38px;
   }
   .auth-icon-box{
     bottom: 10px;
@@ -4865,12 +4868,12 @@ body.dark .filter-box-control{
   }
 
   .theme-input {
-    font-size: 14px;
-    padding: 3px 8px;
-    border-radius: 10px;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 0.6rem;
   }
   .form-row label {
-    font-size: 14px;
+    font-size: 0.9rem;
   }
   .btn-theme {
     font-size: 14px;
@@ -4989,7 +4992,7 @@ body.dark .filter-box-control{
   }
   .contact-form-box{
     padding: 1rem;
-    width: 80%;
+    width: 75%;
     max-width: 450px;
   }
   .form-legend-title{
@@ -5003,7 +5006,7 @@ body.dark .filter-box-control{
   }
 
   .location-tag.london {
-    top: -40%;
+    top: -35%;
   }
   .filter-launch{
       position: fixed;
@@ -5215,7 +5218,7 @@ body.dark .filter-box-control{
       font-size:2rem;
   }
   .scrollbanner,.scroll-downlink{
-      bottom: 4vh;
+      bottom: 2vh;
       height: 2rem;
   }
   .ideas-section-img{
@@ -5540,6 +5543,11 @@ body.dark .filter-box-control{
   .splide__arrow svg{
     height:9px !important;
     fill:black !important;
+  }
+
+  .home-snapping{
+    height: 100svh !important;
+    max-height: 100svh !important;
   }
   
 }

@@ -2,7 +2,7 @@
 import NavbarIntroPage from "@/app/components/NavbarIntroPage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaXmark } from "react-icons/fa6";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import {motion} from 'framer-motion';
 import { TweenMax } from "gsap/all";
 import { useParams, useSearchParams } from "next/navigation";
@@ -123,6 +123,8 @@ export default function IdeasPage(){
             </div>
         </div>
         
-        <Link href={`/ideas?id=${idea.id}`}><div className="close-projects"><FaXmark /></div></Link>
+        <Link href={`/ideas?id=${idea.id}`}><div className="close-projects">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="12" r="10" stroke="#1C274C" stroke-width="0.576"></circle> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#1C274C" stroke-width="0.576" stroke-linecap="round"></path> </g></svg>
+        </div></Link>
     </>)
 }

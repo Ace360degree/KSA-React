@@ -20,6 +20,8 @@ export default function DynamicLogin() {
   const searchParams = useSearchParams();
   const paramsPage = searchParams.get('route');
 
+  const [showSuccess,setShowSuccess] = useState(false);
+
   const { login } = useAuth();
 
   // Add animation on component mount
@@ -40,12 +42,17 @@ export default function DynamicLogin() {
       if (response.data.error) {
         setError(response.data.error);
       } else {
+
+        setShowSuccess(true);
         // Redirect to the home page on successful login
-        if(paramsPage){
-          router.push(paramsPage);
-        }else{
-          router.push('/');
-        }
+        setTimeout(()=>{
+          if(paramsPage){
+            router.push(paramsPage);
+          }else{
+            router.push('/');
+          }
+        },2000);
+        
         
         login(); 
       }
@@ -109,6 +116,11 @@ export default function DynamicLogin() {
                         </>
                       )}
                     </button>
+
+                    {showSuccess?
+                        <p className='fw-normal text-success'>Logged in Successfully. Please Wait...</p>
+                      :''}
+
                     <div>
                     {/* <button type='button' onClick={handleGoogleSignIn}>Login with Google</button> */}
                     </div>  
@@ -116,6 +128,8 @@ export default function DynamicLogin() {
                     {error && <p className="text-danger text-center">{error}</p>}
                     <div className="text-center mt-3 text-secondary">
                       Not a member? <Link href={'/auth/signup'} className="fw-bold text-white">Sign up</Link>
+                      
+                     
                     </div>    
 
                  </div>
