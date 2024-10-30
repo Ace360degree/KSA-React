@@ -241,10 +241,10 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-      <span class='cursor-pointer' onclick={()=>{routetoPage(`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`)}} onMouseEnter={preventScroll} onTouchStart={preventScroll}><div className='auth-icon-box slide-up change-svg'>
+        <div className='auth-icon-box slide-up change-svg cursor-pointer' onClick={()=>{router.push(`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`)}}>
         {isLoggedIn? <Power1 /> :  <Power2 /> }
         
-      </div></span>
+      </div>
 
 
 

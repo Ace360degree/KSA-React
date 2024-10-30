@@ -47,7 +47,7 @@ export default function DynamicLogout() {
           <div className="contact-alert">
               <h1>Are you sure, You want to log out?</h1>
               <p></p>
-              <div className='d-flex w-100 justify-content-end' style={{gap:'8px'}}>
+              <div className='d-flex w-100 justify-content-center' style={{gap:'8px'}}>
                 <button type="button" className='btn btn-outline-light ' onClick={()=>{router.back()}}>Back</button>
                 <button className="btn btn-light px-4" onClick={()=>{handleLogout()}}>Logout</button>
               </div>
