@@ -4884,7 +4884,7 @@ body.dark .filter-box-control{
     height: 124px;
   }
   .map-line.london{
-    height: 60%;
+    height: 56%;
         left: 47.5%;
         top: -38px;
   }
@@ -5128,7 +5128,7 @@ body.dark .filter-box-control{
   }
 
   .location-tag.london {
-    top: -35%;
+    top: -30%;
   }
   .filter-launch{
       position: fixed;

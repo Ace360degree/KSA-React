@@ -19,7 +19,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head> 
+      <Head>
+      <meta name="viewport" content="width=device-width, minimal-ui"/> 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <link rel="preload" href="./fonts/cg-times/Times CG.woff" as="font" type="font/woff" crossorigin="anonymous"/>
