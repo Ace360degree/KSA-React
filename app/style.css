@@ -856,6 +856,7 @@ body.dark #navbar{
   min-width: 400vw;
   opacity:0;
   background: conic-gradient(from 0deg, transparent, #b9b9b9);
+  background: -webkit-conic-gradient(from 0deg, transparent, #b9b9b9);
   -webkit-transform: rotate(0deg);
       -ms-transform: rotate(0deg);
           transform: rotate(0deg);
@@ -863,6 +864,9 @@ body.dark #navbar{
           animation: ClockGradient 3.5s 1.8s ease-in-out forwards;
 }
 
+.primary-line, .clock-bg::before {
+  will-change: transform, opacity;
+}
 
 .clock-dot{
   position:relative;
@@ -1000,41 +1004,27 @@ body.dark .extended-line::before{
 }
 
 
-@-webkit-keyframes clockMain{
-  100%{
-      -webkit-transform:rotate(674deg);
-              transform:rotate(674deg);
-  }
+@-webkit-keyframes clockMain {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(674deg); }
 }
-
-
-@keyframes clockMain{
-  100%{
-      -webkit-transform:rotate(674deg);
-              transform:rotate(674deg);
-  }
+@keyframes clockMain {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(674deg); }
 }
 
 @-webkit-keyframes ClockGradient{
 
-  45%{
-      opacity:1;
-  }
-  100%{
-      -webkit-transform:rotate(404deg);
-              transform:rotate(404deg);
-  }
+  0% { opacity: 0; }
+  45% { opacity: 1; }
+  100% { transform: rotate(404deg); }
 }
 
 @keyframes ClockGradient{
 
-  45%{
-      opacity:1;
-  }
-  100%{
-      -webkit-transform:rotate(404deg);
-              transform:rotate(404deg);
-  }
+  0% { opacity: 0; }
+  45% { opacity: 1; }
+  100% { transform: rotate(404deg); }
 }
 
 @-webkit-keyframes growHand{
@@ -1093,6 +1083,93 @@ body.dark .extended-line::before{
   100%{
       opacity:0.1;
   }
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Include all animations here */
+
+  @-webkit-keyframes clockMain {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(674deg); }
+  }
+  @keyframes clockMain {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(674deg); }
+  }
+  
+  @-webkit-keyframes ClockGradient{
+  
+    0% { opacity: 0; }
+    45% { opacity: 1; }
+    100% { transform: rotate(404deg); }
+  }
+  
+  @keyframes ClockGradient{
+  
+    0% { opacity: 0; }
+    45% { opacity: 1; }
+    100% { transform: rotate(404deg); }
+  }
+  
+  @-webkit-keyframes growHand{
+    100%{
+        width:var(--hand-length);
+    }
+  }
+  
+  @keyframes growHand{
+    100%{
+        width:var(--hand-length);
+    }
+  }
+  @-webkit-keyframes growHandSMall{
+    100%{
+        width:var(--shorthand-length);
+    }
+  }
+  @keyframes growHandSMall{
+    100%{
+        width:var(--shorthand-length);
+    }
+  }
+  
+  @-webkit-keyframes showHand{
+    100%{
+        opacity:1;
+    }
+  }
+  
+  @keyframes showHand{
+    100%{
+        opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes showTitle{
+    100%{
+        opacity:1;
+    }
+  }
+  
+  @keyframes showTitle{
+    100%{
+        opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes showSmallLine{
+    100%{
+        opacity:0.1;
+    }
+  }
+  
+  @keyframes showSmallLine{
+    100%{
+        opacity:0.1;
+    }
+  }
+
 }
 
 
@@ -3588,6 +3665,7 @@ body.dark .filter-box-control{
   height:100%;
   margin:0;
   background:conic-gradient(from 45deg, transparent 0% ,black 0%);
+  background:-webkit-conic-gradient(from 45deg, transparent 0% ,black 0%);
   /*transition:all 0.3s var(--common-easing);*/
 }
 
