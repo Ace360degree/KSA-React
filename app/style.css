@@ -4,6 +4,13 @@
 * Autoprefixer: v10.4.7
 * Browsers: last 4 version
 */
+
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
@@ -175,7 +182,8 @@ src: url('./fonts/signifier/TestSignifier-Black.otf');
 }
 
 .signifier ,.billy-text ,.avelir-text{
-  font-feature-settings: "lnum"; /* Enable standard numeral styling */
+  -webkit-font-feature-settings: "lnum";
+          font-feature-settings: "lnum"; /* Enable standard numeral styling */
 }
 
 
@@ -303,7 +311,10 @@ body.dark .ksa-logo{
   -webkit-transform:scale(0);
       -ms-transform:scale(0);
           transform:scale(0);
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   /*mix-blend-mode: overlay;*/
 }
 
@@ -312,7 +323,10 @@ body.dark .ksa-logo{
 }
 
 .slider-cursor-icon{
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   opacity:0;
   position:fixed;
   left:0;
@@ -323,7 +337,9 @@ body.dark .ksa-logo{
   z-index:5000;
   background:transparent;
   pointer-events:none;
-  transform: scale(0);
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
   -webkit-transition: -webkit-transform 0.8s ease-in-out;
   transition: -webkit-transform 0.8s ease-in-out;
   -o-transition: transform 0.8s ease-in-out;
@@ -451,7 +467,10 @@ body.dark .cursor-lg,body.dark .cursor-sm{
   -o-transition:transform 0.3s var(--common-easing);
   -webkit-transition:transform 0.9s ease;
   -o-transition:transform 0.9s ease;
+  -webkit-transition:-webkit-transform 0.9s ease;
+  transition:-webkit-transform 0.9s ease;
   transition:transform 0.9s ease;
+  transition:transform 0.9s ease, -webkit-transform 0.9s ease;
 }
 
 #navbar.underline-nav{
@@ -3350,10 +3369,19 @@ body.dark .filter-box-control{
     width: 100%;
     background: transparent;
     pointer-events: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .title-border-ideas span{
@@ -3855,10 +3883,19 @@ body.dark .filter-box-control{
   margin: auto;
   margin-top: 3rem;
   margin-bottom:4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .ideas-cover{
@@ -4482,6 +4519,8 @@ body.dark .filter-box-control{
   padding: 1.5rem 0;
   width: 100%;
   border-bottom: 1px solid grey;
+  -webkit-transition: all 1.5s ease;
+  -o-transition: all 1.5s ease;
   transition: all 1.5s ease;
 }
 
@@ -5515,7 +5554,9 @@ body.dark .filter-box-control{
 @media (hover: none) and (pointer: coarse) {
   
   #projects-Scroller{
-    transform:scale(1) !important ;
+    -webkit-transform:scale(1) !important ;
+        -ms-transform:scale(1) !important ;
+            transform:scale(1) !important ;
   }
 
   .cursor-lg, .slider-cursor, .slider-cursor-icon{
@@ -5535,6 +5576,8 @@ body.dark .filter-box-control{
         border: 2px solid black !important;
         opacity: 0.6 !important;
         border-radius: 90px !important;
+        -webkit-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
   }
   .splide__arrow[disabled]{
