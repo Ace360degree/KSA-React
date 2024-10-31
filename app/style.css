@@ -1005,11 +1005,9 @@ body.dark .extended-line::before{
 
 
 @-webkit-keyframes clockMain {
-  0% { transform: rotate(0deg); }
   100% { transform: rotate(674deg); }
 }
 @keyframes clockMain {
-  0% { transform: rotate(0deg); }
   100% { transform: rotate(674deg); }
 }
 
@@ -1090,11 +1088,9 @@ body.dark .extended-line::before{
   /* Include all animations here */
 
   @-webkit-keyframes clockMain {
-    0% { transform: rotate(0deg); }
     100% { transform: rotate(674deg); }
   }
   @keyframes clockMain {
-    0% { transform: rotate(0deg); }
     100% { transform: rotate(674deg); }
   }
   
@@ -1168,7 +1164,7 @@ body.dark .extended-line::before{
     100%{
         opacity:0.1;
     }
-  }
+  } 
 
 }
 

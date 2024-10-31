@@ -29,40 +29,40 @@ export default function HomeLoader() {
         
         document.querySelector('.audio-box').classList.remove('slide-up');
         document.querySelector('.auth-icon-box').classList.remove('slide-up');
-        setTimeout(() => {
-            if (homeGrad.current) {
-                gsap.fromTo(homeGrad.current, {
-                    background: 'conic-gradient(from 45deg, black 0%, transparent 0%)',
-                }, {
-                    background: 'conic-gradient(from 45deg, black 100%, transparent 100%)',
-                    duration: 2.5,
-                    ease: "power3.inOut",
-                    delay: 0,
-                    onComplete: () => {
-                        gsap.fromTo(homeGrad.current, {
-                            background: 'conic-gradient(from 45deg, black 100%, transparent 100%)',
-                        }, {
-                            background: 'conic-gradient(from 45deg, black 100%, transparent 150%)',
-                            duration: 2.5,
-                            ease: "power3.inOut",
-                            delay: 0,
-                        });
-                    }
-                });
-            }
+        // setTimeout(() => {
+        //     if (homeGrad.current) {
+        //         gsap.fromTo(homeGrad.current, {
+        //             background: 'conic-gradient(from 45deg, black 0%, transparent 0%)',
+        //         }, {
+        //             background: 'conic-gradient(from 45deg, black 100%, transparent 100%)',
+        //             duration: 2.5,
+        //             ease: "power3.inOut",
+        //             delay: 0,
+        //             onComplete: () => {
+        //                 gsap.fromTo(homeGrad.current, {
+        //                     background: 'conic-gradient(from 45deg, black 100%, transparent 100%)',
+        //                 }, {
+        //                     background: 'conic-gradient(from 45deg, black 100%, transparent 150%)',
+        //                     duration: 2.5,
+        //                     ease: "power3.inOut",
+        //                     delay: 0,
+        //                 });
+        //             }
+        //         });
+        //     }
 
-            setTimeout(() => {
-                document.querySelector('body').classList.add('dark');
-                setShowTitle(true);
-            }, 2000);
-        }, 10000);
+        //     setTimeout(() => {
+        //         document.querySelector('body').classList.add('dark');
+        //         setShowTitle(true);
+        //     }, 2000);
+        // }, 10000);
     }, []);
 
     useEffect(() => {
         // Automatically execute handleClick after showTitle is set to true
         if (showTitle) {
             const clickTimeout = setTimeout(() => {
-                handleClick();
+                // handleClick();
             }, 1000); // Adjust the delay as needed
 
             // Cleanup the timeout if the component unmounts
