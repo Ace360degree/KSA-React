@@ -1,12 +1,23 @@
 'use client';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import UserClock from "../commons/userClock";
 import Link from "next/link";
 import ScrollifyDisabled from "../commons/disableScrollify";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function HomeMenu() {
 
   const menuLinksRef = useRef([]);
+
+  const pathname = usePathname();
+  const [showSettledHeight,setshowSettledHeight]= useState(false);
+
+
+  useEffect(()=>{
+    if(pathname==='/home'){
+      setshowSettledHeight(true);
+    }
+  },[])
 
   useEffect(() => {
     const updateClock = () => {
@@ -160,8 +171,8 @@ export default function HomeMenu() {
   return (
     <>
       <UserClock />
-      <ScrollifyDisabled/>
-      <div className="home-menu-box-main">
+      <ScrollifyDisabled/> 
+      <span className={showSettledHeight?'home-menu-box-main':''}>
         <div className="home-content-control">
           <div className="home-content">
             <h4 className="hero-sub">We Are</h4>
@@ -183,7 +194,7 @@ export default function HomeMenu() {
             </h2>
           </div>
         </div>
-      </div>
+      </span>
       <div className="side-menu left" id="leftmenutrigger">
         <div
           className="menu-icon"

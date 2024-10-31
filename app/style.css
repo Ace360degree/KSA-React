@@ -1222,7 +1222,8 @@ body.dark .extended-line::before{
 
 
 .home-menu-box-main{
-  height: 100vh;
+  display: block;
+  height: 100svh;
   max-height: 100svh;
   overflow: hidden;
 }
