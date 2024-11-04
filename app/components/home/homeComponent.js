@@ -497,7 +497,10 @@ export default function HomeComponent(){
   const yourFunction = () => {
     console.log('Hero section is in the viewport on a touch device!');
     // Add your functionality here
-    router.push('/home');
+    setTimeout(()=>{
+      router.push('/home');
+    },1000);
+    
   };
 
 
