@@ -1,14 +1,16 @@
 // app/auth/login/page.js
 'use client';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
 import Link from 'next/link';
 import DarkTheme from '@/app/components/body/darkTheme';
 import NavbarIntroPage from '@/app/components/NavbarIntroPage';
-import { useAuth } from '@/app/context/AuthContext';
+import { signIn } from 'next-auth/react';
+
+import '../../authButton.css';
+
 
 export default function DynamicLogin() {
   const [email, setEmail] = useState('');
@@ -22,8 +24,6 @@ export default function DynamicLogin() {
 
   const [showSuccess,setShowSuccess] = useState(false);
 
-  const { login } = useAuth();
-
   // Add animation on component mount
   useEffect(() => {
     setAnimate(true);
@@ -35,26 +35,25 @@ export default function DynamicLogin() {
     setError('');
   
     try {
-      // Send POST request to the login route
-      const response = await axios.post('/api/auth/login', { email, password });
-  
-      // Handle response
-      if (response.data.error) {
-        setError(response.data.error);
-      } else {
+      // Use NextAuth's signIn method with credentials provider
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
 
+      // Handle the result of the signIn function
+      if (result.error) {
+        setError(result.error);
+      } else {
         setShowSuccess(true);
-        // Redirect to the home page on successful login
-        setTimeout(()=>{
-          if(paramsPage){
+        setTimeout(() => {
+          if (paramsPage) {
             router.push(paramsPage);
-          }else{
+          } else {
             router.push('/');
           }
-        },2000);
-        
-        
-        login(); 
+        }, 2000);
       }
     } catch (error) {
       setError('An unexpected error occurred');
@@ -65,8 +64,12 @@ export default function DynamicLogin() {
 
 
   const handleGoogleSignIn = () => {
-    signIn('google');
-    // alert('Test')
+    if(paramsPage){
+      signIn('google',{ callbackUrl: paramsPage});
+    }
+    else{
+      signIn('google',{ callbackUrl: '/'});
+    }
   };
 
 
@@ -122,7 +125,7 @@ export default function DynamicLogin() {
                       :''}
 
                     <div>
-                    {/* <button type='button' onClick={handleGoogleSignIn}>Login with Google</button> */}
+                    <button type='button' className="login-with-google-btn mt-4" onClick={handleGoogleSignIn}>Sign in with Google</button>
                     </div>  
 
                     {error && <p className="text-danger text-center">{error}</p>}

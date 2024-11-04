@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import jwt from 'jsonwebtoken';
 
 // Secret key for signing JWT, store this in your environment variable
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
+const NEXT_PUBLIC_JWT_SECRET = process.env.NEXT_PUBLIC_NEXT_PUBLIC_JWT_SECRET;
 
 export async function POST(req) {
   try {
@@ -34,7 +34,7 @@ export async function POST(req) {
         id: user.id,
         email: user.email,
       },
-      JWT_SECRET,
+      NEXT_PUBLIC_JWT_SECRET,
       { expiresIn: '1d' } // Token valid for 1 day
     );
 

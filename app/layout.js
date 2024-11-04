@@ -3,9 +3,8 @@ import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CursorAudio from "./components/commons/cursor";
 import { AnimatePresence } from "framer-motion";
-import UserAuthorization from "./components/userauth/userAuth";
-import { AuthProvider } from "./context/AuthContext";
 import CheckCookie from "./components/commons/checkCookie";
+import SessionWrapper from "./components/nextauth/wrapper";
 
 
 
@@ -40,13 +39,13 @@ export default function RootLayout({ children }) {
 
       </Head> 
       <body className="">
-        <AuthProvider>
+        <SessionWrapper>
         <CursorAudio/>
         <CheckCookie/>
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>
-        </AuthProvider>
+        </SessionWrapper>
       </body>
     </html>
   );

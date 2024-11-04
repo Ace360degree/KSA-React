@@ -1,17 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAuth } from '@/app/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import DarkTheme from '@/app/components/body/darkTheme';
+import { signOut } from 'next-auth/react';
 
 export default function DynamicLogout() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const searchParams = useSearchParams(); 
   const paramsPage = searchParams?.get('route');
-  const { logout } = useAuth();
-
   const [showError,setShowError] = useState(false);
   const [showSuccess,setShowSuccess] = useState(false);
 
@@ -20,21 +18,18 @@ export default function DynamicLogout() {
       setLoading(true); // Set loading at the start of the logout process
       
       try {
-        const response = await fetch('/api/auth/signout', { method: 'POST' });
-        if (!response.ok) {
-          throw new Error(`Logout failed with status: ${response.status}`);
-        }
-
-        logout();
-
+        // Use NextAuth's signOut method with redirect: false to control routing manually
+        await signOut({ redirect: false });
+  
         setShowSuccess(true);
+  
         // Redirect based on provided param, else default to home page
-        setTimeout(()=>{
+        setTimeout(() => {
           router.push(paramsPage || '/');
-        },2000);
-        
+        }, 2000);
       } catch (error) {
         console.error('Logout error:', error);
+        setShowError(true);
       } finally {
         setLoading(false); // Ensure loading is reset regardless of success or error
       }

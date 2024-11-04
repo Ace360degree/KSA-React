@@ -12,6 +12,7 @@ import { GrPowerShutdown } from "react-icons/gr";
 import { usePathname, useRouter } from 'next/navigation';
 import Power1 from './svgs/power1';
 import Power2 from './svgs/power2';
+import { useSession } from 'next-auth/react';
 
 
 
@@ -28,7 +29,8 @@ export default function CursorAudio() {
   const bigCursorRef = useRef(null); // Ref for big cursor
   const smCursorRef = useRef(null); // Ref for small cursor
   const [isTouchscreen, setIsTouchscreen] = useState(false);
-  const { isLoggedIn } = useAuth();
+  const { data: session } = useSession()
+
   
   const [cursorStatus,setcursorStatus] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false); // State to manage play/pause\
@@ -241,8 +243,8 @@ export default function CursorAudio() {
         Your browser does not support the audio element.
       </audio>
 
-        <div className='auth-icon-box slide-up change-svg cursor-pointer' onClick={()=>{router.push(`/auth/${isLoggedIn?`logout?route=${path}`:`login?route=${path}`}`)}}>
-        {isLoggedIn? <Power1 /> :  <Power2 /> }
+        <div className='auth-icon-box slide-up change-svg cursor-pointer' onClick={()=>{router.push(`/auth/${session?`logout?route=${path}`:`login?route=${path}`}`)}}>
+        {session? <Power1 /> :  <Power2 /> }
         
       </div>
 
