@@ -3113,7 +3113,7 @@ body.dark .filter-box-control{
 
 .contact-form-box{
   width: 100%;
-  max-width: calc(600px - 14vw);
+  max-width: calc(600px - 12vw);
   height: auto;
   padding: 1.4rem 3rem;
   border-radius: 1.2rem;
@@ -4605,6 +4605,10 @@ body.dark .filter-box-control{
   -webkit-transition: all 1.5s ease;
   -o-transition: all 1.5s ease;
   transition: all 1.5s ease;
+}
+
+.img-border-section:last-child{
+  padding-bottom:0 ;
 }
 
 

@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
+import { useSession } from "next-auth/react";
 
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -32,10 +32,11 @@ export default function ProjectBoxes() {
   const searchParams = useSearchParams();
   const searchCatagories = searchParams.get('category');
 
+  const { data: session, status } = useSession()
+
+
   const path = usePathname();
   
-  const { isLoggedIn } = useAuth();
-
   gsap.ticker.lagSmoothing(false);
 
   useEffect(()=>{
@@ -52,7 +53,7 @@ export default function ProjectBoxes() {
     }
     };
     function ReRouteIt() {
-      if(isLoggedIn===false && path ==='/expertise' ){
+      if(session===false && path ==='/expertise' ){
         router.push(`/auth/login?route=${path}`);
       }
     }

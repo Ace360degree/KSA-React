@@ -24,6 +24,7 @@ export default function HomeComponent(){
   const page = useRef(null);
   const [fullscreen, setFullScreen] = useState(1);
   const [homeBanners,setHomeBanners] = useState([]);
+  const bottomPage = useRef(null);
 
   useEffect(()=>{
 
@@ -46,6 +47,8 @@ export default function HomeComponent(){
       });
     }
   };
+
+
 
   useEffect(() => {
     gsap.ticker.lagSmoothing(false);
@@ -443,6 +446,61 @@ export default function HomeComponent(){
   },[fullScreenCheck,homeBanners]);
 
 
+  // useEffect(()=>{
+  //   if(bottomPage.current){
+  //     ScrollTrigger.create({
+  //       trigger:bottomPage.current,
+  //       start:'top 40%',
+  //       markers:true,
+  //       onEnter:()=>{console.log('Lol');},
+  //     })
+  //   }
+  // },[fullScreenCheck,homeBanners]);
+
+  useEffect(() => {
+    const handleIntersect = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Run your function only on touch screens
+          if (isTouchCheckDevice()) {
+            yourFunction();
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, {
+      root: null, // Use the viewport as the container
+      threshold: 0.1 // Trigger when 10% of the section is visible
+    });
+
+    if (bottomPage.current) {
+      observer.observe(bottomPage.current);
+    }
+
+    return () => {
+      if (bottomPage.current) {
+        observer.unobserve(bottomPage.current);
+      }
+    };
+  }, []);
+
+  const isTouchCheckDevice = () => {
+    // Use navigator to detect touch support
+    return (
+      'ontouchstart' in window ||
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0)
+    );
+  };
+
+  const yourFunction = () => {
+    console.log('Hero section is in the viewport on a touch device!');
+    // Add your functionality here
+    router.push('/home');
+  };
+
+
 
 
     return( 
@@ -529,7 +587,7 @@ export default function HomeComponent(){
                     
             </div>
 
-            <div className="page-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent">
+            <div className="page-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent" ref={bottomPage}>
               <HomeMenu/>    
             </div>    
         </div>
