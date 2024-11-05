@@ -61,6 +61,15 @@ export async function GET(req) {
             );
             slidesData.push({ section_id: tab.id, slides: slidesRows });
         }
+        
+        const videoData = [];
+        for (const tab of tabsRows) {
+            const [videos] = await connection.query(
+                'SELECT * FROM section_video WHERE project_id = ? AND section_id = ? LIMIT 1', // Only one video
+                [project.id, tab.id]
+            );
+            videoData.push({ section_id: tab.id, video: videos[0] || null });
+        }
 
         // Assemble the final data object
         const data = {
@@ -69,6 +78,7 @@ export async function GET(req) {
             attributes: attributesRows,
             points: pointsRows,
             slides: slidesData,
+            videos:videoData,
         };
 
         // Return the JSON response

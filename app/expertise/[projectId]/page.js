@@ -43,6 +43,7 @@ export default function ProjectInfo(){
     const [project,setProject] = useState([]);
     const [slides,setSlides] = useState([]);
     const [essecials,setEssenscials] = useState([]);
+    const [videos,setVideos] = useState([]);
     const [points,setPoints] = useState([]);
     const projectTitle = useRef(null);
     const projectDescrion = useRef(null)
@@ -62,6 +63,7 @@ export default function ProjectInfo(){
             setSlides(getProjects.slides);
             setEssenscials(getProjects.attributes);
             setPoints(getProjects.points);
+            setVideos(getProjects.videos);
             setLoading(false);
         }
 
@@ -237,12 +239,14 @@ export default function ProjectInfo(){
 
             <div className="overflow-hidden">
             {sections.map((section,index)=>(
-                <ProjectSection section={section} essecials={essecials} points={points}  key={index} slides={slides[index]}/>
+                <ProjectSection section={section} essecials={essecials} points={points} video={videos[index].video}  key={index} slides={slides[index]}/>
             ))}
             </div>
 
             </>
             }
+
+      
         </>
     )
 

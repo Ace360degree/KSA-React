@@ -6,13 +6,16 @@ import gsap from 'gsap/all';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import ProjectEssencials from './projectsEssecials';
 import Image from 'next/image';
+import ReactPlayer from "react-player";
+
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectSection({ section, slides, essecials, points }) {
+export default function ProjectSection({ section, slides, essecials, points, video }) {
 
   const InfoSection = useRef(null);
+  console.log(video);
 
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -176,4 +179,15 @@ export default function ProjectSection({ section, slides, essecials, points }) {
       </div>
     );
   }
+
+  else if (section.section_type === 6) {
+    return (
+      <div className="project-info-section">
+        <ReactPlayer width={'100%'} height={'auto'} url={process.env.NEXT_PUBLIC_SITE_URL+ video.video} controls={true} />
+      </div>
+    );
+  }
+
+
+  
 }

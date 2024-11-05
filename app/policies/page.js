@@ -21,28 +21,26 @@ export default function Policies(){
             
         <div className="policies-page signifier">
             <div>
-                <a href="./files/privacy_policy.pdf" target="_blank"><div className="policy-item">
+                <a href={process.env.NEXT_PUBLIC_SITE_URL+'uploads/policies/KSA V1.0 _Privacy Policy.pdf'} target="_blank">
+                <div className="policy-item">
                     Privacy Policy 
 
                 </div>
                 </a>
-                <a href="./files/Terms and Conditions.pdf" target="_blank">
-                <div className="policy-item">
-                    Terms & Conditions
-
-                </div>
-                </a>
-                <a href="./files/Intellectual Property Policy.pdf" target="_blank">
+                <a href={process.env.NEXT_PUBLIC_SITE_URL+'uploads/policies/KSA V1.0 _Terms of Use.pdf'} target="_blank">
                     <div className="policy-item">
-                        Intellectual Property Policy
-
+                        Terms of Use
+                    </div>
+                </a>
+                <a href={process.env.NEXT_PUBLIC_SITE_URL+'uploads/policies/KSA V1.0 _Cookie List.pdf'} target="_blank">
+                    <div className="policy-item">
+                        Cookie Policy
                     </div>
                 </a>
 
-                <a href="./files/Intellectual Property Policy.pdf" target="_blank">
+                <a href={process.env.NEXT_PUBLIC_SITE_URL+'uploads/policies/KSA V1.0 _Human Rights.pdf'} target="_blank">
                     <div className="policy-item">
                         Human Rights Policy
-
                     </div>
                 </a>
                 </div>
