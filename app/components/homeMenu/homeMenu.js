@@ -4,6 +4,7 @@ import UserClock from "../commons/userClock";
 import Link from "next/link";
 import ScrollifyDisabled from "../commons/disableScrollify";
 import { usePathname, useRouter } from "next/navigation";
+import DarkTheme from "../body/darkTheme";
 
 export default function HomeMenu() {
 
@@ -171,6 +172,7 @@ export default function HomeMenu() {
   return (
     <>
       <UserClock />
+      <DarkTheme/>
       <ScrollifyDisabled/> 
       <span className={showSettledHeight?'home-menu-box-main':''}>
         <div className="home-content-control">
