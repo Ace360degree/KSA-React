@@ -14,6 +14,7 @@ import { useVisitedIdeasStore } from "../states/store/ideasStore";
 import dynamic from "next/dynamic";
 import $ from "jquery";
 import "jquery-scrollify";
+import CommonLoader from "../components/commons/loaderCommon";
 
 
 const ScrollifyDisabled = dynamic(() => import('../components/commons/disableScrollify'), {
@@ -38,6 +39,7 @@ export default function IdeasComponent(){
     const [filteredIdeas, setFilteredIdeas] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [mobileFilter,setMobileFilter] =useState(false);
+    const [loading,setLoading] = useState(true);
 
     const IdeasCovers = useRef([]);
     const IdeasSnapSection = useRef([]);
@@ -59,7 +61,7 @@ export default function IdeasComponent(){
                     setIdeas(data.ideas);
                     setCategories(data.categories);
                     setFilteredIdeas(data.ideas);
-
+                    setLoading(false);
                     if(ideasSearchId){
                         const allData = data.ideas;
                         const filterIndex = allData.findIndex(k=> k.id == ideasSearchId);
@@ -324,6 +326,7 @@ export default function IdeasComponent(){
        </>
        :''}
 
+        {loading? <CommonLoader/>:<>
         <div className="snap-perspective">
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
@@ -351,6 +354,7 @@ export default function IdeasComponent(){
             
         </div>
         </div>
+        </> }
         </>
     )
 
