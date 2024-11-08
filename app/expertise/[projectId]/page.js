@@ -224,7 +224,7 @@ export default function ProjectInfo(){
             <>
             <CheckNavTransparent/> 
             <SliderCursor/>
-            <NavbarIntroPageUnderline heading={'Expertise'} subheading={project.category}/>
+            <NavbarIntroPageUnderline heading={'Expertise'} active={true} subheading={project.category}/>
             
             
             <div className="project-banner hero-image project-info-section ">

@@ -59,7 +59,15 @@ export default function IdeasComponent(){
                     setIdeas(data.ideas);
                     setCategories(data.categories);
                     setFilteredIdeas(data.ideas);
-                    setInitScroll(true);
+
+                    if(ideasSearchId){
+                        const allData = data.ideas;
+                        const filterIndex = allData.findIndex(k=> k.id == ideasSearchId);
+                        const toFilterTop = allData[filterIndex];
+                        const filteredCut = allData.splice(filterIndex,1);
+                        const rearrageFilter = allData.unshift(toFilterTop);
+                        setFilteredIdeas(allData);            
+                    }
                     //setIsLoaded(true); // Mark content as loaded
                 } catch (error) {
                     console.error(error.message);
@@ -111,34 +119,6 @@ export default function IdeasComponent(){
             ease: "power3.inOut",
             delay:0, 
         });
-        
-                    let url_string = window.location.href; 
-            let url = new URL(url_string);
-            let project = url.searchParams.get("project");
-            let itemId  = url.searchParams.get("id");
-            
-            function ScrolltoProject(param){
-                document.querySelectorAll('.projects-items').forEach(function(el){
-                    let thisParams = el.getAttribute('data-id');
-                    console.log(thisParams);
-                    if(thisParams==param && el.classList.contains('active')){
-                        smoothScroll(el.offsetTop - 100, 100);
-                    }
-                })
-            }
-            
-            if(project){
-                ScrolltoProject(itemId);
-            document.querySelectorAll('.filter-box li').forEach(function(list){
-                list.classList.remove('selected');
-                if(list.getAttribute('data-filter')==project){
-                    list.classList.add('selected');
-                    // alert(project)
-                    addFilter(project);
-            
-                }
-            });
-            }
         
         
         setTimeout(function(){
@@ -238,14 +218,7 @@ export default function IdeasComponent(){
 
 
     useEffect(() => {
-        if (ideasSearchId) {
-            // alert(ideasSearchId)
-            const targetSection = document.querySelector(`[data-filter="${ideasSearchId}"]`);
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
-            }
-        }    
-        setTimeout(() => {
+        
         $(document).ready(function () {
             // Initialize Scrollify
             $.scrollify.enable();
@@ -265,11 +238,13 @@ export default function IdeasComponent(){
             });
             ScrollTrigger.refresh();
                  
-        });
-    }, 500);   
+        });   
 
         return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
     }, [filteredIdeas]);
+
+
+
 
     useEffect(() => {
   
@@ -310,7 +285,7 @@ export default function IdeasComponent(){
         <>  
             {/* <ScrollifyDisabled/> */}
             <LightTheme/>
-            <NavbarIntroPage heading={'Research'}/>
+            <NavbarIntroPage heading={'Research'} active={true} lgheight={true}/>
         {visited? '':    
         <div class="project-heads">
             <div class="head-anim-control">

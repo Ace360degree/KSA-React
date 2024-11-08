@@ -21,7 +21,7 @@ export default function Expertise(){
     return(<>
         <ScrollifyDisabled/>
         <LightTheme/>
-        <NavbarIntroPage heading={'Expertise'}/>
+        <NavbarIntroPage heading={'Expertise'} active={true} lgheight={true}/>
         {visited?'' :
         <ProjectIntro/>
         }   

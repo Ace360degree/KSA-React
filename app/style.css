@@ -482,6 +482,16 @@ body.dark .cursor-lg,body.dark .cursor-sm{
   height:auto;
 }
 
+#navbar.lg-height{
+  height: 86px !important;
+}
+
+body.dark #navbar{
+  color:var(--body-text-dark) !important;
+  background:var(--body-bg-dark);
+  border-bottom: none;
+}
+
 #navbar.transparent{
 background: transparent !important;
 color: white !important;
@@ -494,11 +504,7 @@ border-bottom: none;
         filter: invert(1);
 }
 
-body.dark #navbar{
-  color:var(--body-text-dark);
-  background:var(--body-bg-dark);
-  border-bottom: none;
-}
+
 
 #navbar.active{
   -webkit-transform:translateY(0);
@@ -624,6 +630,8 @@ body.dark #navbar{
 .nav-img-logo{
   cursor:var(--pointer);
 }
+
+
 
 
 .contact-alert-box{
@@ -3443,6 +3451,22 @@ body.dark .filter-box-control{
   overflow: hidden;
 }
 
+.ideas-content-trans{
+  opacity:0;
+}
+.ideas-content-trans.active{
+  animation: fadeinIdeas 1s 0.5s ease forwards;
+}
+
+@keyframes fadeinIdeas{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
 .title-border-ideas{
   position: absolute;
     height: 100%;
@@ -4189,8 +4213,8 @@ body.dark .filter-box-control{
   height:60%;
   background:white;
   z-index:10;
-  -webkit-animation:helloAnimation 1s 0s ease infinite;
-          animation:helloAnimation 1s 0s ease infinite;
+  -webkit-animation:helloAnimation 2s 1s ease infinite;
+          animation:helloAnimation 2s 1s ease infinite;
 }
 
 @-webkit-keyframes helloAnimation{
@@ -4334,7 +4358,7 @@ body.dark .filter-box-control{
 
 .location-tag.london{
   left: 8px;
-  top: -18%;
+  top: -20.5%;
   -webkit-transform: translateY(100%);
       -ms-transform: translateY(100%);
           transform: translateY(100%);
@@ -5656,7 +5680,7 @@ body.dark .filter-box-control{
     left: 5% !important;
   }
 
-  .splide__arrow,.splide__arrow:active,.splide__arrow:focus{
+  .splide__arrow,.splide__arrow:hover,.splide__arrow:active,.splide__arrow:focus{
     height: 30px !important;
         width: 30px !important;
         background: transparent !important;
@@ -5673,6 +5697,22 @@ body.dark .filter-box-control{
   .splide__arrow svg{
     height:9px !important;
     fill:black !important;
+  }
+
+  /* .home-page-bottom-section{
+    height: 100svh !important;
+  } */
+
+  .home-page-bottom-section .home-content-control{
+    display: none;
+  }
+  
+  .home-page-bottom-section .user-clock{
+    display: none;
+  }
+
+  .home-page-bottom-section .menu-screen{
+    display: none;
   }
   
 }

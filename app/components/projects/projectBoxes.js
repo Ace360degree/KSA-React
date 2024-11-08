@@ -297,14 +297,17 @@ export default function ProjectBoxes() {
       const currProject = allProjects[scrollerIndex] || allProjects[0];
       if (currProject && !isScrolling) {
         const targetY = currProject.offsetTop;
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const scrollDuration = isTouchDevice ? 0.1 : 0.5;
+
         gsap.to(window, {
           scrollTo: {
             y: targetY- 150, // Adjust scroll position, subtracting 100px as an offset
             autoKill: false,    // Auto-stop scrolling if the user interacts
           },
-          duration: 0.5,  
+          duration: scrollDuration,  
           delay:0,      // Duration in seconds for the scroll
-          ease: "power4.out",// Use ease for smooth scrolling
+          ease: "power1.out",// Use ease for smooth scrolling
         });
       }
     };

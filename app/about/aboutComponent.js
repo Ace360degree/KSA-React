@@ -286,7 +286,7 @@ export default function AboutComponent(){
         <>
             <ScrollifyDisabled/>
             <DarkTheme/>
-            <NavbarIntroPage heading={'CULTURE'}/>
+            <NavbarIntroPage heading={'CULTURE'} active={true}/>
             {/* <div class="header-gap"></div> */}
             <div class="filter-launch" onClick={toggleMobileFilter}>
                 {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
@@ -359,7 +359,7 @@ export default function AboutComponent(){
         <div className="target-section position-relative about-snap" ref={AboutProjects} id="discipline">
         <div className="full-section " id="ksa-slider">
             <div className=" billy-text">
-                <div className="about-project-box" onClick={()=>{redirecttoExpertise()}}>
+                <div className="about-project-box cursor-pointer" onClick={()=>{redirecttoExpertise()}}>
                     <div className="about-item">
                         <img src="./images/about/KSA_planning.webp" />
                         <h4>KSA_Planning</h4>

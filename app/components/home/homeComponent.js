@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HomeComponent(){
   
-
+  const [showNabar,setShowNavbar] =useState(false);
   const [snapping, setSnapping] = useState(false);
   const [fullScreenCheck, setFullScreenCheck] = useState(1); 
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -389,17 +389,17 @@ export default function HomeComponent(){
         overflowScroll: true,
         updateHash: false,
         touchScroll: true,
-        before: function(index, sections) {
-          const nextSection = sections[index]; // Get the next section
-          if ($(nextSection).hasClass('hero-image')) {
-              $('#navbar').addClass('transparent');
-              $('.change-svg').addClass('light');
-          }
-          else{
-            $('#navbar').removeClass('transparent');
-            $('.change-svg').removeClass('light');
-          }
-        },
+        // before: function(index, sections) {
+        //   const nextSection = sections[index]; // Get the next section
+        //   if ($(nextSection).hasClass('hero-image')) {
+        //       $('#navbar').addClass('transparent');
+        //       $('.change-svg').addClass('light');
+        //   }
+        //   else{
+        //     $('#navbar').removeClass('transparent');
+        //     $('.change-svg').removeClass('light');
+        //   }
+        // },
       });
   
       // Refresh ScrollTrigger after Scrollify initializes
@@ -505,14 +505,15 @@ export default function HomeComponent(){
 
 
 
-
     return( 
         <>
-        <NavbarIntroPage/>
+
+       <NavbarIntroPage active={showNabar} transparent={true}/>
+        
         {/* <ScrollifyComponent/> */}
-        {homeBanners!=''?
-        <CheckNavTransparent/>
-      :''}
+        {/* {homeBanners!=''?
+        // <CheckNavTransparent/>
+      :''} */}
             <div id="page" ref={page}>
             
             <div className="nav-title" data-title=""></div>
@@ -590,7 +591,7 @@ export default function HomeComponent(){
                     
             </div>
 
-            <div className="page-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent" ref={bottomPage}>
+            <div className="page-section home-page-bottom-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent" ref={bottomPage}>
               <HomeMenu/>    
             </div>    
         </div>

@@ -65,7 +65,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     perPage: 1,
     autoplay: true,
     interval: 4000,
-    pagination: false,
+    pagination: true,
     arrows: true,
     loop: false,
   };

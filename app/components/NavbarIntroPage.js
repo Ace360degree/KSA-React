@@ -5,19 +5,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 
-export default function NavbarIntroPage({heading,subheading}){
+export default function NavbarIntroPage({heading,subheading,active,lgheight,transparent}){
 
     const [subHeading,setSubHead]= useState(heading);
-    const [activeClass,setactiveClass] = useState(true);
+    const [activeClass,setactiveClass] = useState(active);
+    const [lgHeight,setlgHeight] =useState(lgheight);
+    const [navbarTransparent,setNavbarTransparent] =useState(transparent);
     const [smallHeading,setsmallHeading]= useState(subheading);
     const path = usePathname();
-    
-    useEffect(()=>{
-        if(path=='/'){
-            setactiveClass(false);
-        }
-
-    },[]);
 
 
     const router = useRouter();
@@ -25,10 +20,9 @@ export default function NavbarIntroPage({heading,subheading}){
       router.push(link);
     }
 
-
     return(
         <>
-            <div id="navbar" className={activeClass?'active':''} >
+            <div id="navbar" className={`${activeClass?'active':''} ${lgHeight?'lg-height':''} ${navbarTransparent?'transparent':''} `} >
                 <div className="navbar-control">
                     <div className="nav-logo">
                         <span className="cursor-pointer" onClick={()=>{routetoPage('/')}} ><div className="logo-main">KSA<span>{subHeading}</span></div></span>

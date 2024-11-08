@@ -226,7 +226,7 @@ export default function ContactComponent() {
     return (
         <>
             <DarkTheme />
-            <NavbarIntroPage heading={'Contact'} />
+            <NavbarIntroPage heading={'Contact'} active={true} />
             <div class="filter-launch" onClick={toggleMobileFilter}>
                 {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
             </div> 

@@ -23,14 +23,15 @@ const ScrollifyDisabled = dynamic(() => import('@/app/components/commons/disable
 
 export default function IdeasPage(){
     const params = useParams()
-    const ideasSlug = params.ideaId; 
+    const ideasSlug = params.ideaId;
+    const [loaded,setLoaded] = useState(false); 
     const [idea,setIdea] = useState([]);
     const [ideaSections,setIdeasSections] = useState([]);
     const [paramImage,setParamImage] =  useState('');
     const [redirected,setDirected] = useState(false);
 
     const Searchparams = useSearchParams();
-    const paramImageQuery = Searchparams.get('image')
+    const paramImageQuery = Searchparams.get('image');
     
 
     useEffect(()=>{
@@ -48,6 +49,7 @@ export default function IdeasPage(){
             const getIdeas = await (getchIdeas.json());
             setIdea(getIdeas.idea);
             setIdeasSections(getIdeas.ideasContent);
+            setLoaded(true);
         }
 
         fetchIdeasAPI();
@@ -73,7 +75,7 @@ export default function IdeasPage(){
     return(<>
         <LightTheme/>
         <ScrollifyDisabled/>
-        <NavbarIntroPage heading={'Research'}/>
+        <NavbarIntroPage heading={'Research'} active={true} />
         <SliderCursor/>
 
         <div className="project-info-section position-relative">
@@ -87,7 +89,7 @@ export default function IdeasPage(){
                     : 
                     <motion.img initial={{scale:0.8}} animate={{scale:1}} transition={{ease:'easeOut',duration:0.2}} className="ideas-section-img mt-4" src={process.env.NEXT_PUBLIC_SITE_URL+idea.image} />
                     }
-                    <div className="row ideas-border mt-3 align-items-center">
+                    <div className={`row ideas-border ideas-content-trans ${loaded?'active':''} mt-3 align-items-center`}>
                         <div className="col-md-6 position-relative">
                             <div className="title-border-ideas"><span></span></div>
                             <h2 className="ideas-inner-title signifier">{idea.title}</h2>
