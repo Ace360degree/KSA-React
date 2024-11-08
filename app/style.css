@@ -2107,6 +2107,7 @@ body.dark .clock-indicator span{
 .home-project-slider{
   position: relative;
   width: 100%;
+  min-height: 300svh;
   height: auto;
   overflow: hidden;
 }
