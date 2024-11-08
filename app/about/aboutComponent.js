@@ -94,28 +94,34 @@ export default function AboutComponent(){
         }, 2000);
 
         let AboutAnimeTextElem = document.querySelector('.about-anim-text');
-        let aboutAnimTitles = AboutAnimeTextElem.getAttribute('data-titles');
-        let aboutAnimArray = aboutAnimTitles.split(',');
-        let currentIndex = 0;
+let aboutAnimTitles = AboutAnimeTextElem.getAttribute('data-titles');
+let aboutAnimArray = aboutAnimTitles.split(',');
+let currentIndex = 0;
 
-        // Function to change the text
-        function changeText() {
-            // Split the current title into words
-            const words = aboutAnimArray[currentIndex].trim().split(' ');
-            
-            // Wrap each word in a <span> and join them back with spaces
-            AboutAnimeTextElem.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
-        
-            currentIndex = (currentIndex + 1) % aboutAnimArray.length; // Loop back to the start if reached the end
+// Function to change the text
+function changeText() {
+    // Split the current title into words
+    const words = aboutAnimArray[currentIndex].trim().split(' ');
+
+    // Wrap each word in a <span> and apply special styling to "&"
+    AboutAnimeTextElem.innerHTML = words.map(word => {
+        // Check if the word is '&' and apply the serif font class
+        if (word === '&') {
+            return `<span style="font-family:serif">${word}</span>`;
         }
+        return `<span>${word}</span>`;
+    }).join(' ');
 
-        // Call the function initially
-        changeText();
+    currentIndex = (currentIndex + 1) % aboutAnimArray.length; // Loop back to the start if reached the end
+    }
 
-        // Set interval to change text every 0.5 seconds
-        const IntervalId = setInterval(changeText, 500);
-    
-        return () => clearInterval(IntervalId);
+    // Call the function initially
+    changeText();
+
+    // Set interval to change text every 0.5 seconds
+    const IntervalId = setInterval(changeText, 500);
+
+    return () => clearInterval(IntervalId);
 
         }
         // Create a timeline for the animation
