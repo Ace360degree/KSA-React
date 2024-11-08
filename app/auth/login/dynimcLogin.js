@@ -78,7 +78,7 @@ export default function DynamicLogin() {
   return (
 
     <>    
-        <NavbarIntroPage/>
+        <NavbarIntroPage active={true}/>
         <DarkTheme/>
         <div class="auth-full">
         <form className='w-100' onSubmit={handleSubmit}>

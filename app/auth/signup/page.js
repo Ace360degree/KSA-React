@@ -45,7 +45,7 @@ export default function SignUpPage() {
   return (
     <>
           <DarkTheme/>
-          <NavbarIntroPage/>
+          <NavbarIntroPage active={true}/>
           <div className='auth-full'>
            <form className='w-100' onSubmit={handleSubmit}>
           <div className="contact-form-box">
