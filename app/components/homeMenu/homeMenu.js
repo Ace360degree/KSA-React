@@ -17,6 +17,7 @@ export default function HomeMenu() {
   useEffect(()=>{
     if(pathname==='/home'){
       setshowSettledHeight(true);
+      document.querySelector('#navbar').classList.add('active');  
     }
   },[])
 
