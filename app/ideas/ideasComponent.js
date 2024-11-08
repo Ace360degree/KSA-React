@@ -326,7 +326,7 @@ export default function IdeasComponent(){
        </>
        :''}
 
-        {loading? <CommonLoader/>:<>
+        {loading && visited? <CommonLoader/>:<>
         <div className="snap-perspective">
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
