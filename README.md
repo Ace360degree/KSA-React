@@ -21,3 +21,7 @@ There are two branches for testing and Production respectively. testing is for "
 
 ## Testing Branch
 Output of testing branch can be viewed in [`Testing SubDomain`](https://testing.kuwalsanamarchitekts.com/).
+
+
+## Commits from Hameed
+Committed on 8 November 2024. 
