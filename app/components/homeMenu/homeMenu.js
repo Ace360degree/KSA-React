@@ -5,14 +5,14 @@ import Link from "next/link";
 import ScrollifyDisabled from "../commons/disableScrollify";
 import { usePathname, useRouter } from "next/navigation";
 import DarkTheme from "../body/darkTheme";
+import { useHomeText } from "../commons/getHomeTexts";
 
 export default function HomeMenu() {
 
   const menuLinksRef = useRef([]);
-
   const pathname = usePathname();
   const [showSettledHeight,setshowSettledHeight]= useState(false);
-
+  const titles = useHomeText();
 
   useEffect(()=>{
     if(pathname==='/home'){
@@ -81,7 +81,7 @@ export default function HomeMenu() {
         });
         hoverTitleAnimation();
     })
-  },[])  
+  },[titles])  
 
     const clickHandle= (elm)=>{
         elm.parentElement.classList.toggle('active');
@@ -181,7 +181,7 @@ export default function HomeMenu() {
             <h4 className="hero-sub">We Are</h4>
             <h2
               className="hero-title hover-titles"
-              data-text="Loud,Bold,Fearless,Intense,Awesome"
+              data-text={titles.title1}
             >
               Loud
             </h2>
@@ -191,7 +191,7 @@ export default function HomeMenu() {
             <h4 className="hero-sub">It's time to</h4>
             <h2
               className="hero-title hover-titles"
-              data-text="Create,Innovate,Inspire,Discover,Thoughtful,Curious,Unique,Timeless"
+              data-text={titles.title2}
             >
               Create
             </h2>

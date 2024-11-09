@@ -5,6 +5,7 @@ import CursorAudio from "./components/commons/cursor";
 import { AnimatePresence } from "framer-motion";
 import CheckCookie from "./components/commons/checkCookie";
 import SessionWrapper from "./components/nextauth/wrapper";
+import { HomeTextProvider } from "./components/commons/getHomeTexts";
 
 
 
@@ -42,9 +43,11 @@ export default function RootLayout({ children }) {
         <SessionWrapper>
         <CursorAudio/>
         <CheckCookie/>
+        <HomeTextProvider>
         <AnimatePresence mode="wait">
           {children}
         </AnimatePresence>
+        </HomeTextProvider>
         </SessionWrapper>
       </body>
     </html>
