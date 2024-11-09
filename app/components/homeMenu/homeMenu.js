@@ -12,10 +12,9 @@ export default function HomeMenu() {
   const menuLinksRef = useRef([]);
   const pathname = usePathname();
   const [showSettledHeight,setshowSettledHeight]= useState(false);
-  const [initText,setIntiText] =useState(false);
   const {title1,title2} = useHomeText();
 
-  
+
   useEffect(()=>{
     if(pathname==='/home'){
       setshowSettledHeight(true);
@@ -55,6 +54,7 @@ export default function HomeMenu() {
   useEffect(()=>{
     let hoverTitles = document.querySelectorAll('.hover-titles');
     
+    if(title1 && title2){
     hoverTitles.forEach(function(titles,index){
         let currentTitles = titles.getAttribute('data-text');
         let titlesArray = currentTitles.split(',');
@@ -84,7 +84,8 @@ export default function HomeMenu() {
         });
         hoverTitleAnimation();
     })
-  },[initText]);  
+  }
+  },[title1,title2]);  
 
     const clickHandle= (elm)=>{
         elm.parentElement.classList.toggle('active');
