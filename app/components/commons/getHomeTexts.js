@@ -7,14 +7,16 @@ const HomeTextContext = createContext();
 
 // Context provider component
 export const HomeTextProvider = ({ children }) => {
-    const [titles, setTitles] = useState(null);
+    const [title1,setTitle1] = useState(null);
+    const [title2,setTitle2] = useState(null);
 
     useEffect(() => {
         const getHomeTexts = async () => {
             try {
                 const fetchAPI = await fetch('/api/fetchHomeTexts', { method: 'GET' });
                 const data = await fetchAPI.json();
-                setTitles(data.data[0]);
+                setTitle1(data.data[0].title1);
+                setTitle2(data.data[0].title2);
             } catch (error) {
                 console.error("Failed to fetch home texts:", error);
             }
@@ -24,7 +26,7 @@ export const HomeTextProvider = ({ children }) => {
     }, []);
 
     return (
-        <HomeTextContext.Provider value={titles}>
+        <HomeTextContext.Provider value={{title1,title2}}>
             {children}
         </HomeTextContext.Provider>
     );

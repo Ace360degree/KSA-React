@@ -12,14 +12,17 @@ export default function HomeMenu() {
   const menuLinksRef = useRef([]);
   const pathname = usePathname();
   const [showSettledHeight,setshowSettledHeight]= useState(false);
-  const titles = useHomeText();
+  const [initText,setIntiText] =useState(false);
+  const {title1,title2} = useHomeText();
 
+  
   useEffect(()=>{
     if(pathname==='/home'){
       setshowSettledHeight(true);
       document.querySelector('#navbar').classList.add('active');  
     }
   },[])
+
 
   useEffect(() => {
     const updateClock = () => {
@@ -81,7 +84,7 @@ export default function HomeMenu() {
         });
         hoverTitleAnimation();
     })
-  },[titles])  
+  },[initText]);  
 
     const clickHandle= (elm)=>{
         elm.parentElement.classList.toggle('active');
@@ -181,7 +184,7 @@ export default function HomeMenu() {
             <h4 className="hero-sub">We Are</h4>
             <h2
               className="hero-title hover-titles"
-              data-text={titles.title1}
+              data-text={title1}
             >
               Loud
             </h2>
@@ -191,7 +194,7 @@ export default function HomeMenu() {
             <h4 className="hero-sub">It's time to</h4>
             <h2
               className="hero-title hover-titles"
-              data-text={titles.title2}
+              data-text={title2}
             >
               Create
             </h2>
