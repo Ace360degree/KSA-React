@@ -2796,10 +2796,14 @@ body.dark .filter-box-control{
 }
 
 .border-section{
-  /* border-top: 1px solid grey; */
+  border-top: 1px solid grey;
   border-bottom: 1px solid grey;
   padding-top: 75px;
   overflow: hidden;
+}
+
+.project-info-section:has(+ .project-essentials) {
+  border-bottom: none;
 }
 
 .glance-sections{
@@ -5725,3 +5729,5 @@ body.dark .filter-box-control{
 .cursor-pointer{
   cursor: var(--pointer) !important;
 }
+
+

@@ -174,7 +174,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }
   else if (section.section_type === 5) {
     return (
-      <div ref={InfoSection} className='remove-transparent project-underline-section project-info-section' style={{ transition: 'all 1.2s ease' }}>
+      <div ref={InfoSection} className='remove-transparent project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
         <ProjectEssencials essecials={essecials} points={points} />
       </div>
     );
