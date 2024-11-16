@@ -56,8 +56,8 @@ export default function ProjectBoxes() {
       if(!session && path ==='/expertise' ){
         router.push(`/auth/login?route=${path}`);
       }
-    }
-  },[])
+    } 
+  },[]);
   
 
   const [windowSize, setWindowSize] = useState({
