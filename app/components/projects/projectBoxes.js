@@ -32,9 +32,9 @@ export default function ProjectBoxes() {
   const searchParams = useSearchParams();
   const searchCatagories = searchParams.get('category');
 
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
-
+  console.log(session);
   const path = usePathname();
   
   gsap.ticker.lagSmoothing(false);
@@ -53,7 +53,7 @@ export default function ProjectBoxes() {
     }
     };
     function ReRouteIt() {
-      if(session===false && path ==='/expertise' ){
+      if(!session && path ==='/expertise' ){
         router.push(`/auth/login?route=${path}`);
       }
     }
