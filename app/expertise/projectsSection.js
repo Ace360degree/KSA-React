@@ -94,8 +94,8 @@ export default function ProjectSection({ section, slides, essecials, points, vid
       <>
         <div className="project-info-section remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
           <div className='info-block-content'>
-               <h2 className='info-block-title'>{section.section_title}</h2>
-                <h4 className='info-block-desc'>{section.content}</h4>
+               <h2 className='info-block-title text-start'>{section.section_title}</h2>
+                <h4 className='info-block-desc text-start'>{section.content}</h4>
           </div>
           <div className='info-block-image'>
                {windowSize.width <= 840 && section.section_image_mobile ? 
@@ -113,8 +113,8 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           <div className="row m-0 g-0">
             <div className=" col-lg-7">
               <div className="project-image-info">
-                <h2>{section.section_title}</h2>
-                <h4>{section.content}</h4>
+                <h2 className='text-start'>{section.section_title}</h2>
+                <h4 className='text-start'>{section.content}</h4>
               </div>
             </div>
             <div className=" col-lg-5">
