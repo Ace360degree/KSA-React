@@ -11,6 +11,8 @@ import DarkTheme from '@/app/components/body/darkTheme';
 import NavbarIntroPage from '@/app/components/NavbarIntroPage';
 
 export default function SignUpPage() {
+  const [fullname, setFullname] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -29,7 +31,7 @@ export default function SignUpPage() {
     setError('');
 
     try {
-      const response = await axios.post('/api/auth/signup', { email, password });
+      const response = await axios.post('/api/auth/signup', { fullname,phone,email,password });
       if (response.data.error) {
         setError(response.data.error);
       } else {
@@ -51,6 +53,47 @@ export default function SignUpPage() {
           <div className="contact-form-box">
              <div>
                 <h2 className="text-center">Sign Up</h2>
+                 <div className="form-row">
+                     <label>Fullname*</label>
+                     <input 
+                     className="theme-input" 
+                     type="text"
+                     value={fullname}
+                     onChange={(e) => setFullname(e.target.value)}
+                     required/>
+                 </div>
+
+                 {/* <div className="form-row">
+                     <label>Phone No*</label>
+                     <input 
+                     className="theme-input" 
+                     value={phone}
+                     onChange={(e) => setPhone(e.target.value)}
+                     required/>
+                 </div> */}
+
+                  <div className="form-row">
+                    <label>Phone No*</label>
+                    <input
+                      className="theme-input"
+                      type="text"
+                      value={phone}
+                      onChange={(e) => {
+                        // Remove any non-digit characters
+                        const value = e.target.value.replace(/\D/g, '');
+                        // Allow only up to 12 digits
+                        if (value.length <= 12) {
+                          setPhone(value);
+                        }
+                      }}
+                      required
+                    />
+                    {/* Custom error message if phone number is not 12 digits */}
+                    {phone && phone.length < 6 && (
+                      <span className='text-danger'>Please enter Valid Number.</span>
+                    )}
+                  </div>
+
                  <div className="form-row">
                      <label>Email*</label>
                      <input 

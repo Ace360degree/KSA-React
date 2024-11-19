@@ -8,13 +8,13 @@ export const dynamic = 'force-dynamic';
 export async function POST(req) {
   try {
     // Parse the incoming request
-    const { email, password } = await req.json(); // Ensure you parse the request properly
+    const { fullname,phone,email, password } = await req.json(); // Ensure you parse the request properly
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Perform the database query with await
-    const [result] = await db.query('INSERT INTO users (email, hashedPassword) VALUES (?, ?)', [email, hashedPassword]);
+    const [result] = await db.query('INSERT INTO users (fullname,phone,email, hashedPassword) VALUES (?, ?, ? , ?)', [fullname, phone, email, hashedPassword]);
 
     // Return success response
     return NextResponse.json({ message: 'User created', userId: result.insertId });
