@@ -4698,6 +4698,34 @@ body.dark .filter-box-control{
 }
 
 
+
+@media (prefers-reduced-motion: no-preference) {
+
+  @keyframes StartcrazyAnimationIdeas{
+    0%{
+        -webkit-transform:translateY(-100%) scale(2.1);
+                transform:translateY(-100%) scale(2.1);
+    }
+    20%{
+        opacity:1;
+    }
+    100%{
+         opacity:1;
+        -webkit-transform:translateY(0%) scale(1);
+                transform:translateY(0%) scale(1);
+    }
+  }
+
+  @keyframes rotateThatBox{
+    100%{
+        -webkit-transform: rotateX(0);
+                transform: rotateX(0);
+    }
+  }
+
+
+}
+
 .filter-launch{
   display:none;
 }
