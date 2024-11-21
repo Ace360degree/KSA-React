@@ -57,7 +57,7 @@ export default function IdeasIntro(){
                     document.querySelector('body').classList.remove('loading');
                     setTimeout(()=>{
                         setIdeasVisited();
-                    },20000)
+                    },4000)
                 }, 2000);
 
             }, 5000);
