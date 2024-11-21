@@ -462,9 +462,9 @@ export default function HomeComponent(){
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           // Run your function only on touch screens
-          if (isTouchCheckDevice()) {
+          // if (isTouchCheckDevice()) {
             yourFunction();
-          }
+          // }
         }
       });
     };

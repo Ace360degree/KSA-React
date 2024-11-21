@@ -313,10 +313,13 @@ export default function ContactComponent() {
                                     <div className="location-tag london">
                                         <h4>UNITED KINGDOM</h4>
                                         <h6>LONDON</h6>
+                                        <h6>19-21 Cunningham House,<br/>
+                                        Westfield Lane, Harrow, HA3 9ED</h6>
                                     </div>
                                 </div>
                                 <div className="map-line mumbai">
                                     <div className="location-tag mumbai">
+                                        
                                         <h6>MUMBAI</h6>
                                         <h4>INDIA</h4>
                                     </div>

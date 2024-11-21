@@ -212,7 +212,6 @@ export default function IdeasComponent(){
 
     useEffect(()=>{
         setTimeout(function(){
-            setIdeasVisited();
             console.log(visited);
             ScrollTrigger.normalizeScroll(false);
         },20000);
@@ -288,16 +287,7 @@ export default function IdeasComponent(){
             {/* <ScrollifyDisabled/> */}
             <LightTheme/>
             <NavbarIntroPage heading={'Research'} active={true} lgheight={true}/>
-        {visited? '':    
-        <div class="project-heads">
-            <div class="head-anim-control">
-                <div class="head-anim"></div>
-            </div>
-            <h2 class="project-head-title lg-text-title"><i>RESEARCH</i></h2>
-            <h2 class="project-head-title sm-text-title">That makes us</h2>
-            <h2 class="project-head-title lg-text-title"><i>Awe</i></h2>
-        </div>
-        } 
+   
         
 
 
