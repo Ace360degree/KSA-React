@@ -125,7 +125,7 @@ export default function DynamicLogin() {
                       :''}
 
                     <div>
-                    <button type='button' className="login-with-google-btn mt-4 w-100" onClick={handleGoogleSignIn}>Sign in with Google</button>
+                    <button type='button' className="login-with-google-btn mt-4 w-100 rounded-pill" onClick={handleGoogleSignIn}>Sign in with Google</button>
                     </div>  
 
                     {error && <p className="text-danger text-center">{error}</p>}
