@@ -404,8 +404,6 @@ body.dark .cursor-lg,body.dark .cursor-sm{
 }
 
 
-
-
 .home-nav{
   -webkit-transform:translateY(-100%);
       -ms-transform:translateY(-100%);
@@ -5758,4 +5756,9 @@ body.dark .filter-box-control{
   cursor: var(--pointer) !important;
 }
 
+
+
+.video-section:hover{
+  cursor: auto;
+}
 
