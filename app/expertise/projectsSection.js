@@ -6,7 +6,8 @@ import gsap from 'gsap/all';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import ProjectEssencials from './projectsEssecials';
 import Image from 'next/image';
-import ReactPlayer from "react-player";
+import { Video } from "reactjs-media";
+
 
 
 // Register ScrollTrigger
@@ -70,27 +71,11 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     loop: false,
   };
 
+
+
+
   if (section.section_type === 1) {
     return (
-      // <div className="project-info-section remove-transparent full-bleed-image  project-border-bottom" ref={InfoSection}>
-      //   <div className="row m-0 g-0">
-      //     <div className="col-lg-7">
-      //       <div className="project-image-info">
-      //         <h2>{section.section_title}</h2>
-      //         <h4>{section.content}</h4>
-      //       </div>
-      //     </div>
-      //     <div className="col-lg-5">
-      //       <div className="project-info-image">
-      //         {windowSize.width <= 750 && section.section_image_mobile ? 
-      //           <Image height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Mobile Image"/>
-      //           : windowSize.width > 750 && section.section_image ? 
-      //           <Image height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="PC Image"/> 
-      //           : null }
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
       <>
         <div className="project-info-section remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
           <div className='info-block-content'>
@@ -183,11 +168,13 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   else if (section.section_type === 6) {
     return (
       <div className="project-info-section">
-        <ReactPlayer width={'100%'} height={'auto'} url={process.env.NEXT_PUBLIC_SITE_URL+ video.video} controls={true} />
+        <Video width={'100%'} height={'auto'} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
     );
   }
 
+
+  
 
   
 }
