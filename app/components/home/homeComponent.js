@@ -581,8 +581,8 @@ export default function HomeComponent(){
                     {homeBanners.map((banner,index)=>(
                     <div className="home-slides-box hero-image home-snapping slider-hero-snapping" key={index}>
                         <div className="slider-texts">
-                            <h2>{banner.title}</h2>
-                            <h4><span>{banner.content}</span></h4>
+                            <h2 className="ms-0">{banner.title}</h2>
+                            <h4 className="ms-0"><span>{banner.content}</span></h4>
                         </div>
                         <img className="hero-image desktop-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
                         <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
