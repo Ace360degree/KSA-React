@@ -165,16 +165,20 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   }
 
-   else if (section.section_type === 6) {
+    else if (section.section_type === 6) {
     return (
+      <>
       <div className="project-info-section video-section hero-image">
-        <Video width={'100%'} height={'auto'} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
+        <Video width={'100%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh'}} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
+      </>
     );
+  }
+  
   }
 
 
   
 
   
-}
+

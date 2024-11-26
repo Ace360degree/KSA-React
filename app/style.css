@@ -5757,8 +5757,17 @@ body.dark .filter-box-control{
 }
 
 
+.video-section{
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
 
 .video-section:hover{
   cursor: auto;
 }
 
+
+.video-module_videoOverlay__cbySQ{
+  background-color: transparent !important;
+}
