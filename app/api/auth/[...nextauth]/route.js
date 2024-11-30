@@ -72,6 +72,20 @@ const handler = NextAuth({
       session.user.name = token.name;
       return session;
     },
+    async signIn({ user, account }) {
+      if (account.provider === 'google') {
+        const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [user.email]);
+
+        if (rows.length === 0) {
+          // Insert new user into the database
+          await db.query(
+            'INSERT INTO users (email, fullname, type, signedupdate) VALUES (?, ?, ?, NOW())',
+            [user.email, user.name, account.provider]
+          );
+        }
+      }
+      return true; // Allow sign-in
+    },
   },
   pages: {
     signIn: '/auth/signin', // Custom sign-in page
