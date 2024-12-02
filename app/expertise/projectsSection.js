@@ -94,16 +94,12 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   } else if (section.section_type === 2) {
     return (
-        <div className="project-info-section remove-transparent project-border-bottom" ref={InfoSection}>
-          <div className="row m-0 g-0">
-            <div className=" col-lg-7">
-              <div className="project-image-info">
+        <div className="project-info-section remove-transparent project-info-flex project-border-bottom" ref={InfoSection}>
+              <div className="info-block-content">
                 <h2 className='text-start'>{section.section_title}</h2>
                 <h4 className='text-start'>{section.content}</h4>
               </div>
-            </div>
-            <div className=" col-lg-5">
-              <div className="project-info-image info-slider-section">
+              <div className="project-info-image info-block-image info-slider-section">
                 <Splide options={SliderSettings}>
                   {slides.slides.map((slide, index) => (
                     <SplideSlide key={index}>
@@ -116,8 +112,6 @@ export default function ProjectSection({ section, slides, essecials, points, vid
                   ))}
                 </Splide>
               </div>
-            </div>
-          </div>
         </div>
     );
   } else if (section.section_type === 3) {
