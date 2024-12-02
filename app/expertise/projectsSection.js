@@ -62,13 +62,20 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }, [section]);
 
   let SliderSettings = {
-    type: 'loop',
-    perPage: 1,
+    type: 'slide',
     autoplay: true,
+    autoWidth:true,
+    gap:'8px',
     interval: 4000,
     pagination: true,
     arrows: true,
-    loop: false,
+    breakpoints: {
+      992: {              // For screens 768px and below (Mobile Devices)
+        perPage: 1,       // Set perPage to 1 for mobile
+        autoWidth: false, // Disable autoWidth on mobile
+        gap: '0px',       // Disable gap on mobile
+      },
+    },
   };
 
 
@@ -99,7 +106,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
                 <h2 className='text-start'>{section.section_title}</h2>
                 <h4 className='text-start'>{section.content}</h4>
               </div>
-              <div className="project-info-image info-block-image info-slider-section">
+              <div className="project-info-image info-block-image info-slider-section w-auto">
                 <Splide options={SliderSettings}>
                   {slides.slides.map((slide, index) => (
                     <SplideSlide key={index}>
