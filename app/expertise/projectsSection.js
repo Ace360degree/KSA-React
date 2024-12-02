@@ -80,6 +80,42 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
 
 
+  const videoRef = useRef(null);
+  const [thumbnail, setThumbnail] = useState(null);
+
+
+  useEffect(() => {
+    // Create a canvas element to capture the thumbnail
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const videoElement = videoRef.current;
+    
+    if (videoElement) {
+      // Set the video to a specific time to capture the thumbnail (e.g., 2 seconds)
+      videoElement.currentTime = 2;
+
+      videoElement.onloadeddata = () => {
+        // Set the canvas dimensions to match the video
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+
+        // Draw the video frame onto the canvas
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+        // Convert canvas to a data URL and set it as the thumbnail
+        const thumbnailUrl = canvas.toDataURL();
+        setThumbnail(thumbnailUrl);
+      };
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      setThumbnail(null);
+    };
+  }, [video]);
+
+
 
   if (section.section_type === 1) {
     return (
@@ -170,7 +206,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     return (
       <>
       <div className="project-info-section video-section hero-image">
-        <Video width={'100%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh'}} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
+        <Video  ref={videoRef} width={'100%'} height={'auto'} poster={thumbnail} style={{background:'transparent',maxHeight:'85vh'}}  controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
       </>
     );
