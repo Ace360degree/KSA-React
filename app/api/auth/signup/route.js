@@ -14,7 +14,7 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Perform the database query with await
-    const [result] = await db.query('INSERT INTO users (fullname,phone,email,type, hashedPassword) VALUES (?, ?, ? , ?)', [fullname, phone, email,'webiste-signup', hashedPassword]);
+    const [result] = await db.query('INSERT INTO users (fullname,phone,email,type, hashedPassword) VALUES (?,?,?,?,?)', [fullname, phone, email,'webiste-signup', hashedPassword]);
 
     // Return success response
     return NextResponse.json({ message: 'User created', userId: result.insertId });

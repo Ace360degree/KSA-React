@@ -90,6 +90,7 @@ export default function DynamicLogin() {
                      <input 
                      className="theme-input" 
                      value={email}
+                     
                      onChange={(e) => setEmail(e.target.value)} 
                      required/>
                  </div>

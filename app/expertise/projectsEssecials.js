@@ -13,28 +13,38 @@ export default function ProjectEssencials({essecials,points}){
                 projectTititleTL.play();
                 
                 
-                function StartCounter(){
-                document.querySelectorAll('.fx-counter').forEach(function(fx, index) {
-                let dataCount = parseInt(fx.getAttribute('data-number'));
-                let currentCount = 0;
-                let increment = Math.ceil(dataCount / 100); // adjust this for speed
+                function StartCounter() {
+                    document.querySelectorAll('.fx-counter').forEach(function(fx) {
+                        // Extract the original data-number with commas
+                        let dataCount = fx.getAttribute('data-number'); 
+                        // Remove commas for numeric calculations
+                        let targetNumber = parseInt(dataCount.replace(/,/g, '')); 
+                        let currentCount = 0;
+                        let increment = Math.ceil(targetNumber / 100); // Speed adjustment
                 
-                function incrementNumber() {
-                    let interval = setInterval(function() {
-                        currentCount += increment;
-                        if (currentCount >= dataCount) {
-                            currentCount = dataCount;
-                            clearInterval(interval);
+                        function formatWithCommas(number) {
+                            // Add commas back to the number
+                            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         }
-                        fx.innerHTML = currentCount;
-                    }, 30); // adjust this for speed
-                }
                 
-                incrementNumber();
-
-
-            });
-            }
+                        function incrementNumber() {
+                            let interval = setInterval(function () {
+                                currentCount += increment;
+                
+                                // Stop at the exact target number
+                                if (currentCount >= targetNumber) {
+                                    currentCount = targetNumber;
+                                    clearInterval(interval);
+                                }
+                
+                                // Format the number with commas and update the display
+                                fx.innerHTML = formatWithCommas(currentCount);
+                            }, 30); // Adjust for speed
+                        }
+                
+                        incrementNumber();
+                    });
+                }
 
         let fxTl = gsap.timeline();
         fxTl.add(function(){StartCounter()});

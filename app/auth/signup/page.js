@@ -18,6 +18,9 @@ export default function SignUpPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
+
+  const[Disabled,setDisabled] = useState(false);
+
   const router = useRouter();
 
   // Add animation on component mount
@@ -43,6 +46,26 @@ export default function SignUpPage() {
       setLoading(false);
     }
   };
+
+
+  
+  const checkEmailValid = async()=>{
+    try {
+      if(email!=''){
+      // Send POST request using axios
+      const response = await axios.post('/api/auth/checkEmail', { email });
+      
+      // Check response and update disabled state
+      if (response.data.account === true) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+    }
+    } catch (err) {
+      console.error('Error checking email:', err);
+    }
+  }
 
   return (
     <>
@@ -100,9 +123,11 @@ export default function SignUpPage() {
                      className="theme-input" 
                      type='email'
                      value={email}
+                     onKeyUp={checkEmailValid()}
                      onChange={(e) => setEmail(e.target.value)}
                      required/>
-                 </div>
+                     {Disabled? <p className='text-danger'>Email Already registered</p>:'' }
+                 </div> 
 
                  <div className="form-row">
                      <label>Password*</label>
@@ -115,6 +140,8 @@ export default function SignUpPage() {
                  </div>
 
                  <div className="form-row">
+
+                    {!Disabled?
                     <button
                       type="submit"
                       className="btn-theme"
@@ -130,6 +157,8 @@ export default function SignUpPage() {
                         </>
                       )}
                     </button>
+                    :<button type="submit" className="btn-theme" disabled={true}> Submit </button>}
+
                     {error && <p className="text-danger text-center">{error}</p>}
                     <div className="text-center mt-3 text-secondary">
                       Already a member? <Link href={'/auth/login'} className="text-white fw-bold">Sign In</Link>
