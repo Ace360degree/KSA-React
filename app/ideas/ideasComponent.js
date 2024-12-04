@@ -64,10 +64,6 @@ export default function IdeasComponent(){
                     setLoading(false);
                     if(ideasSearchId){
                         const allData = data.ideas;
-                        const filterIndex = allData.findIndex(k=> k.id == ideasSearchId);
-                        const toFilterTop = allData[filterIndex];
-                        const filteredCut = allData.splice(filterIndex,1);
-                        const rearrageFilter = allData.unshift(toFilterTop);
                         setFilteredIdeas(allData);            
                     }
                     //setIsLoaded(true); // Mark content as loaded
@@ -262,7 +258,18 @@ export default function IdeasComponent(){
       }, [filteredIdeas]);
 
 
-
+      useEffect(() => {
+        if (ideasSearchId && filteredIdeas.length > 0) {
+          const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+          if (targetIdea) {
+            gsap.to(window, {
+              scrollTo: { y: targetIdea, offsetY: 0 }, 
+              duration: 1.5, 
+              ease: "power3.inOut", 
+            });
+          }
+        }
+      }, [ideasSearchId, filteredIdeas]); 
     
 
     const handleFilter = (category) => {
@@ -321,7 +328,7 @@ export default function IdeasComponent(){
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
         {filteredIdeas.map((idea, index) => (
-                            <div className="snap-section filter-main-box active" ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
+                            <div className="snap-section filter-main-box active" id={`ideasSection${idea.id}`} ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">

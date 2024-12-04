@@ -10,6 +10,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import ScrollifyComponent from "./jQScrollify";
 import CheckNavTransparent from "../commons/checkNavTransparent";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -584,8 +585,8 @@ export default function HomeComponent(){
                             <h2 className="ms-0">{banner.title}</h2>
                             <h4 className="ms-0"><span>{banner.content}</span></h4>
                         </div>
-                        <img className="hero-image desktop-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
-                        <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
+                        <Image className="hero-image desktop-home-banner" width={1240} quality={60} height={768} src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
+                        <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
                     </div>
                     ))}
                     
