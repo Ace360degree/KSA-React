@@ -29,6 +29,7 @@ export default function IdeasComponent(){
     const {visited,setIdeasVisited } = useVisitedIdeasStore();
     console.log(visited);
 
+    const [initIdeaScroll,setInitIdeaScroll] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
     const ideasSearchId = searchParams.get('id');
@@ -237,7 +238,7 @@ export default function IdeasComponent(){
                  
         });   
 
-        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+        //return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
     }, [filteredIdeas]);
 
 
@@ -261,19 +262,29 @@ export default function IdeasComponent(){
       useEffect(() => {
         if (ideasSearchId && filteredIdeas.length > 0) {
           const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
-          if (targetIdea) {
+          
+          if (targetIdea && initIdeaScroll) {
             gsap.to(window, {
               scrollTo: { y: targetIdea, offsetY: 0 }, 
               duration: 1.5, 
               ease: "power3.inOut", 
             });
+            $.scrollify.update();
           }
+          
         }
-      }, [ideasSearchId, filteredIdeas]); 
+
+      }, [filteredIdeas]); 
     
 
     const handleFilter = (category) => {
         setSelectedCategory(category);
+        setInitIdeaScroll(false);
+        gsap.to(window, {
+            scrollTo: { y: 0, offsetY: 0 }, 
+            duration: 1.5, 
+            ease: "power3.inOut", 
+          });
         setMobileFilter(false);
         if (category === 'All') {
             setFilteredIdeas(ideas); // Show all ideas
