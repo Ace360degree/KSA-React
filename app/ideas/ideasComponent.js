@@ -263,7 +263,7 @@ export default function IdeasComponent(){
     const handleScroll = ()=>{
         $(document).ready(function(){
             
-            console.log(initIdeaScroll);
+            console.log('status State:',initIdeaScroll);
             if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
                 const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
                         // Use GSAP to scroll to the target section
