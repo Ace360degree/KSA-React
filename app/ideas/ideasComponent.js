@@ -215,8 +215,52 @@ export default function IdeasComponent(){
     },[])
 
 
-    useEffect(() => {
+    // useEffect(() => {
         
+    //     $(document).ready(function () {
+    //         // Initialize Scrollify
+
+    //         $.scrollify.enable();
+    //         $.scrollify({
+    //             section: ".snap-section",
+    //             sectionName: "snap-section",
+    //             interstitialSection: "",
+    //             easing: "easeOutExpo",
+    //             scrollSpeed: isTouchDevice?100:1000,
+    //             offset: 0,
+    //             scrollbars: true,
+    //             standardScrollElements: "",
+    //             setHeights: true,
+    //             overflowScroll: true,
+    //             updateHash: false,
+    //             touchScroll: true,
+    //         });
+            
+    //          if (ideasSearchId && filteredIdeas.length > 0) {
+    //             const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+                
+    //             if (targetIdea && initIdeaScroll) {
+    //                 gsap.to(window, {
+    //                 scrollTo: { y: targetIdea, offsetY: 0 }, 
+    //                 duration: 1.5, 
+    //                 ease: "power3.inOut", 
+    //                 });
+    //                 $.scrollify.update();
+    //             }
+                
+    //             }
+
+
+    //         ScrollTrigger.refresh();
+                 
+    //     });   
+
+    //     //return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    // }, [filteredIdeas]);
+
+
+
+    useEffect(() => {
         $(document).ready(function () {
             // Initialize Scrollify
             $.scrollify.enable();
@@ -225,7 +269,7 @@ export default function IdeasComponent(){
                 sectionName: "snap-section",
                 interstitialSection: "",
                 easing: "easeOutExpo",
-                scrollSpeed: isTouchDevice?100:1000,
+                scrollSpeed: isTouchDevice ? 100 : 1000,
                 offset: 0,
                 scrollbars: true,
                 standardScrollElements: "",
@@ -234,11 +278,32 @@ export default function IdeasComponent(){
                 updateHash: false,
                 touchScroll: true,
             });
+    
+            if (ideasSearchId && filteredIdeas.length > 0) {
+                const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+    
+                if (targetIdea && initIdeaScroll) {
+                    // Disable Scrollify temporarily
+                    $.scrollify.disable();
+    
+                    // Use GSAP to scroll to the target section
+                    gsap.to(window, {
+                        scrollTo: { y: targetIdea, offsetY: 0 },
+                        duration: 0.5,
+                        ease: "power3.inOut",
+                        onComplete: () => {
+                            // Re-enable Scrollify after GSAP scroll is complete
+                            $.scrollify.enable();
+                        }
+                    });
+                }
+            }
+    
             ScrollTrigger.refresh();
-                 
-        });   
-
-        //return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+        });
+    
+        // Cleanup Scrollify on component unmount
+        return () => $.scrollify.disable();
     }, [filteredIdeas]);
 
 
@@ -260,19 +325,19 @@ export default function IdeasComponent(){
 
 
       useEffect(() => {
-        if (ideasSearchId && filteredIdeas.length > 0) {
-          const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+        // if (ideasSearchId && filteredIdeas.length > 0) {
+        //   const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
           
-          if (targetIdea && initIdeaScroll) {
-            gsap.to(window, {
-              scrollTo: { y: targetIdea, offsetY: 0 }, 
-              duration: 1.5, 
-              ease: "power3.inOut", 
-            });
-            $.scrollify.update();
-          }
+        //   if (targetIdea && initIdeaScroll) {
+        //     gsap.to(window, {
+        //       scrollTo: { y: targetIdea, offsetY: 0 }, 
+        //       duration: 1.5, 
+        //       ease: "power3.inOut", 
+        //     });
+        //     $.scrollify.update();
+        //   }
           
-        }
+        // }
 
       }, [filteredIdeas]); 
     
@@ -282,7 +347,7 @@ export default function IdeasComponent(){
         setInitIdeaScroll(false);
         gsap.to(window, {
             scrollTo: { y: 0, offsetY: 0 }, 
-            duration: 1.5, 
+            duration: 0.5, 
             ease: "power3.inOut", 
           });
         setMobileFilter(false);
