@@ -295,12 +295,17 @@ export default function IdeasComponent(){
     }  
     
 
-    useEffect(()=>{
-        setTimeout(()=>{
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
             setInitIdeaScroll(false);
             setInitCategoryScroll(false);
-        },3000); 
-    },[ideas]);
+        }, 3000);
+    
+        // Cleanup function to clear the timeout on unmount
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [ideas]);
 
     useEffect(()=>{
         if(ideasCategoryId){
