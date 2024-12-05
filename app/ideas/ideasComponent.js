@@ -17,10 +17,6 @@ import "jquery-scrollify";
 import CommonLoader from "../components/commons/loaderCommon";
 
 
-const ScrollifyDisabled = dynamic(() => import('../components/commons/disableScrollify'), {
-    ssr: false,
-  })
-
   gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
 
 export default function IdeasComponent(){
@@ -302,6 +298,13 @@ export default function IdeasComponent(){
     
 
     useEffect(()=>{
+        setTimeout(()=>{
+            setInitIdeaScroll(false);
+            setInitCategoryScroll(false);
+        },1000); 
+    },[ideas]);
+
+    useEffect(()=>{
         if(ideasCategoryId){
             handleFilter(parseInt(ideasCategoryId));
             // setInitIdeaScroll(false);
@@ -331,12 +334,7 @@ export default function IdeasComponent(){
         handleFilter(category);
     }
     
-    useEffect(()=>{
-        setTimeout(()=>{
-            // setInitIdeaScroll(false);
-            // setInitCategoryScroll(false);
-        },1000); 
-    },[ideas]);
+  
  
 
 
