@@ -299,7 +299,7 @@ export default function IdeasComponent(){
         setTimeout(()=>{
             setInitIdeaScroll(false);
             setInitCategoryScroll(false);
-        },1000); 
+        },3000); 
     },[ideas]);
 
     useEffect(()=>{
