@@ -299,19 +299,15 @@ export default function IdeasComponent(){
 
     useEffect(()=>{
         setTimeout(()=>{
-            setInitIdeaScroll(false);
-            setInitCategoryScroll(false);
+            // setInitIdeaScroll(false);
+            // setInitCategoryScroll(false);
         },1000); 
     },[ideas]);
 
     useEffect(()=>{
         if(ideasCategoryId){
             handleFilter(parseInt(ideasCategoryId));
-            // setInitIdeaScroll(false);
-            // setInitCategoryScroll(false);
         }    
-
-        
     },[ideas]);
     
 
