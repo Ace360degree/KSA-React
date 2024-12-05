@@ -30,9 +30,11 @@ export default function IdeasComponent(){
     console.log(visited);
 
     const [initIdeaScroll,setInitIdeaScroll] = useState(true);
+    const [initCatagoryScroll,setInitCategoryScroll] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
     const ideasSearchId = searchParams.get('id');
+    const ideasCategoryId = searchParams.get('category');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [initScroll,setInitScroll]=useState(false);
     const [ideas, setIdeas] = useState([]);
@@ -212,55 +214,11 @@ export default function IdeasComponent(){
             console.log(visited);
             ScrollTrigger.normalizeScroll(false);
         },20000);
-    },[])
-
-
-    // useEffect(() => {
-        
-    //     $(document).ready(function () {
-    //         // Initialize Scrollify
-
-    //         $.scrollify.enable();
-    //         $.scrollify({
-    //             section: ".snap-section",
-    //             sectionName: "snap-section",
-    //             interstitialSection: "",
-    //             easing: "easeOutExpo",
-    //             scrollSpeed: isTouchDevice?100:1000,
-    //             offset: 0,
-    //             scrollbars: true,
-    //             standardScrollElements: "",
-    //             setHeights: true,
-    //             overflowScroll: true,
-    //             updateHash: false,
-    //             touchScroll: true,
-    //         });
-            
-    //          if (ideasSearchId && filteredIdeas.length > 0) {
-    //             const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
-                
-    //             if (targetIdea && initIdeaScroll) {
-    //                 gsap.to(window, {
-    //                 scrollTo: { y: targetIdea, offsetY: 0 }, 
-    //                 duration: 1.5, 
-    //                 ease: "power3.inOut", 
-    //                 });
-    //                 $.scrollify.update();
-    //             }
-                
-    //             }
-
-
-    //         ScrollTrigger.refresh();
-                 
-    //     });   
-
-    //     //return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-    // }, [filteredIdeas]);
-
+    },[]);
 
 
     useEffect(() => {
+
         $(document).ready(function () {
             // Initialize Scrollify
             $.scrollify.enable();
@@ -278,26 +236,7 @@ export default function IdeasComponent(){
                 updateHash: false,
                 touchScroll: true,
             });
-    
-            if (ideasSearchId && filteredIdeas.length > 0) {
-                const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
-    
-                if (targetIdea && initIdeaScroll) {
-                    // Disable Scrollify temporarily
-                    $.scrollify.disable();
-    
-                    // Use GSAP to scroll to the target section
-                    gsap.to(window, {
-                        scrollTo: { y: targetIdea, offsetY: 0 },
-                        duration: 0.5,
-                        ease: "power3.inOut",
-                        onComplete: () => {
-                            // Re-enable Scrollify after GSAP scroll is complete
-                            $.scrollify.enable();
-                        }
-                    });
-                }
-            }
+           
     
             ScrollTrigger.refresh();
         });
@@ -323,46 +262,85 @@ export default function IdeasComponent(){
         };
       }, [filteredIdeas]);
 
+    
+    const handleScroll = ()=>{
+        $(document).ready(function(){
+            
+            
+            if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
+                
+                // alert('Alert Search Id')
+                const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+                        // Use GSAP to scroll to the target section
+                        $.scrollify.disable();
+                        gsap.to(window, {
+                            scrollTo: { y: targetIdea, offsetY: 0 },
+                            duration: 0.5,
+                            ease: "power3.inOut",
+                            onComplete: () => {
+                                $.scrollify.enable();
+                            }
+                });
+            }
+            else{
+                // alert('No Serach - Defauklt')
+                $.scrollify.disable();
+                gsap.to(window, {
+                    scrollTo: { y: 0, offsetY: 0 }, 
+                    duration: 0.5, 
+                    ease: "power3.inOut", 
+                    onComplete:()=>{
+                        $.scrollify.enable();
+                    }
+                }); 
+            }
+            
+            
+        
+        }); 
+    }  
+    
 
-      useEffect(() => {
-        // if (ideasSearchId && filteredIdeas.length > 0) {
-        //   const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
-          
-        //   if (targetIdea && initIdeaScroll) {
-        //     gsap.to(window, {
-        //       scrollTo: { y: targetIdea, offsetY: 0 }, 
-        //       duration: 1.5, 
-        //       ease: "power3.inOut", 
-        //     });
-        //     $.scrollify.update();
-        //   }
-          
-        // }
+    useEffect(()=>{
+        if(ideasCategoryId){
+            handleFilter(parseInt(ideasCategoryId));
+            // setInitIdeaScroll(false);
+            // setInitCategoryScroll(false);
+        }    
 
-      }, [filteredIdeas]); 
+        
+    },[ideas]);
     
 
     const handleFilter = (category) => {
+        
         setSelectedCategory(category);
-        setInitIdeaScroll(false);
-        gsap.to(window, {
-            scrollTo: { y: 0, offsetY: 0 }, 
-            duration: 0.5, 
-            ease: "power3.inOut", 
-          });
         setMobileFilter(false);
         if (category === 'All') {
             setFilteredIdeas(ideas); // Show all ideas
+            handleScroll();
         } else {
             const filtered = ideas.filter(idea => idea.category === category);
             setFilteredIdeas(filtered); // Show filtered ideas based on category
+            handleScroll();
         }
     };
 
-
     
+    const changeFilter = (category) => {
+        handleFilter(category);
+    }
+    
+    useEffect(()=>{
+        setTimeout(()=>{
+            setInitIdeaScroll(false);
+            setInitCategoryScroll(false);
+        },1000); 
+    },[ideas]);
  
 
+
+      
 
 
     return(
@@ -383,13 +361,13 @@ export default function IdeasComponent(){
            <div class="filter-box signifier">
                <li data-filter="All" 
                className={selectedCategory === 'All' ? 'selected' : ''}
-               onClick={() => handleFilter('All')}
+               onClick={() => changeFilter('All')}
                >All</li>
 
                {categories.map((cat,index)=>(
                <li key={index} data-filter={cat.id}
                className={selectedCategory === cat.id ? 'selected' : ''}
-               onClick={() => handleFilter(cat.id)}
+               onClick={() =>{ changeFilter(cat.id)}}
                >{cat.category}</li>
                 ))}
                
