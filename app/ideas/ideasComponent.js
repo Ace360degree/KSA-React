@@ -265,7 +265,7 @@ export default function IdeasComponent(){
             
             if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
                 
-                alert('Alert Search Id')
+                // alert('Alert Search Id')
                 const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
                         // Use GSAP to scroll to the target section
                         $.scrollify.disable();
@@ -279,7 +279,7 @@ export default function IdeasComponent(){
                 });
             }
             else{
-                alert('No Serach - Defauklt')
+                // alert('No Serach - Defauklt')
                 $.scrollify.disable();
                 gsap.to(window, {
                     scrollTo: { y: 0, offsetY: 0 }, 
