@@ -26,6 +26,7 @@ export default function IdeasComponent(){
     const {visited,setIdeasVisited } = useVisitedIdeasStore();
     console.log(visited);
 
+    const ideasRefs = useRef([]);
     const [initIdeaScroll,setInitIdeaScroll] = useState(true);
     const [initCatagoryScroll,setInitCategoryScroll] = useState(true);
     const router = useRouter();
@@ -265,7 +266,8 @@ export default function IdeasComponent(){
             
             console.log('status State:',initIdeaScroll);
             if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
-                const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+                // const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
+                const targetIdea = IdeasSnapSection.current[ideasSearchId];
                         // Use GSAP to scroll to the target section
                         $.scrollify.disable();
                         gsap.to(window, {
@@ -376,7 +378,7 @@ export default function IdeasComponent(){
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
         {filteredIdeas.map((idea, index) => (
-                            <div className="snap-section filter-main-box active" id={`ideasSection${idea.id}`} ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
+                            <div className="snap-section filter-main-box active" ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
