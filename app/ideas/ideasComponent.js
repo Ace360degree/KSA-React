@@ -266,7 +266,6 @@ export default function IdeasComponent(){
             
             console.log('status State:',initIdeaScroll);
             if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
-
                 const targetIdea = ideasRefs.current[ideasSearchId];
                         $.scrollify.disable();
                         gsap.to(window, {
@@ -279,6 +278,7 @@ export default function IdeasComponent(){
                 });
             }
             else{
+                console.log('status State:','Default Scroll behaviour');
                 $.scrollify.disable();
                 gsap.to(window, {
                     scrollTo: { y: 0, offsetY: 0 }, 
