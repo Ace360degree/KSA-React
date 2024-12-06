@@ -250,14 +250,15 @@ export default function IdeasComponent(){
             else{
                 console.log('status State:','Default Scroll behaviour');
                 $.scrollify.disable();
-                gsap.to(window, {
-                    scrollTo: { y: 0, offsetY: 0 }, 
-                    duration: 0.5, 
-                    ease: "power3.inOut", 
-                    onComplete:()=>{
+                // gsap.to(window, {
+                //     scrollTo: { y: 0, offsetY: 0 }, 
+                //     duration: 0.5, 
+                //     ease: "power3.inOut", 
+                //     onComplete:()=>{
                         $.scrollify.enable();
-                    }
-                }); 
+                        $.scrollify.instantMove(0);
+                    // }
+                // }); 
             }
     
             ScrollTrigger.refresh();
@@ -284,17 +285,6 @@ export default function IdeasComponent(){
         };
       }, [filteredIdeas]);
 
-    
-    const handleScroll = ()=>{
-        $(document).ready(function(){
-            
-            
-            
-            
-        
-        }); 
-    }  
-    
 
     useEffect(()=>{
         if(ideasCategoryId){
@@ -309,11 +299,9 @@ export default function IdeasComponent(){
         setMobileFilter(false);
         if (category === 'All') {
             setFilteredIdeas(ideas); 
-            handleScroll();
         } else {
             const filtered = ideas.filter(idea => idea.category === category);
             setFilteredIdeas(filtered); 
-            handleScroll();
         }
     };
 
