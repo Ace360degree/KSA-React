@@ -266,9 +266,8 @@ export default function IdeasComponent(){
             
             console.log('status State:',initIdeaScroll);
             if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
-                // const targetIdea = document.getElementById(`ideasSection${ideasSearchId}`);
-                const targetIdea = IdeasSnapSection.current[ideasSearchId];
-                        // Use GSAP to scroll to the target section
+
+                const targetIdea = ideasRefs.current[ideasSearchId];
                         $.scrollify.disable();
                         gsap.to(window, {
                             scrollTo: { y: targetIdea, offsetY: 0 },
@@ -297,18 +296,6 @@ export default function IdeasComponent(){
     }  
     
 
-    // useEffect(() => {
-    //     const timeoutId = setTimeout(() => {
-    //         setInitIdeaScroll(false);
-    //         setInitCategoryScroll(false);
-    //     }, 3000);
-    
-    //     // Cleanup function to clear the timeout on unmount
-    //     return () => {
-    //         clearTimeout(timeoutId);
-    //     };
-    // }, [ideas]);
-
     useEffect(()=>{
         if(ideasCategoryId){
             handleFilter(parseInt(ideasCategoryId));
@@ -332,6 +319,8 @@ export default function IdeasComponent(){
 
     
     const changeFilter = (category) => {
+        setInitIdeaScroll(false);
+        setInitCategoryScroll(false);
         handleFilter(category);
     }
 
@@ -378,7 +367,7 @@ export default function IdeasComponent(){
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
         {filteredIdeas.map((idea, index) => (
-                            <div className="snap-section filter-main-box active" ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
+                            <div className="snap-section filter-main-box active"  ref={(el)=>{IdeasSnapSection.current[index]=el;ideasRefs.current[idea.id] = el}} key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
