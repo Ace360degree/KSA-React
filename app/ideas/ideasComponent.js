@@ -77,57 +77,57 @@ export default function IdeasComponent(){
             fetchIdeasAPI();
         }, []);
     
-    useEffect(()=>{
+    // useEffect(()=>{
         
-        if(!visited){
-        document.querySelector('body').classList.add('loading')
-        let projectHeadTitles = document.querySelectorAll('.project-head-title');
+    //     if(!visited){
+    //     document.querySelector('body').classList.add('loading')
+    //     let projectHeadTitles = document.querySelectorAll('.project-head-title');
         
-        projectHeadTitles.forEach(function(title,index){
+    //     projectHeadTitles.forEach(function(title,index){
             
-            let projectHeadTl = gsap.timeline({ delay: index * 1.1 });
+    //         let projectHeadTl = gsap.timeline({ delay: index * 1.1 });
             
-            projectHeadTl.fromTo(title,
-                {rotateX:"-90",opacity:1},
-                {rotateX:"0", delay:0.4,duration:0.4,}
-                );
+    //         projectHeadTl.fromTo(title,
+    //             {rotateX:"-90",opacity:1},
+    //             {rotateX:"0", delay:0.4,duration:0.4,}
+    //             );
                 
-            projectHeadTl.to(title,{height:"auto",y:"0", delay:0.3,duration:0.4}) 
-        });
+    //         projectHeadTl.to(title,{height:"auto",y:"0", delay:0.3,duration:0.4}) 
+    //     });
         
     
-    setTimeout(function(){
-         projectHeadTitles.forEach(function(title,index){
-             gsap.to(title,{
-                 opacity:0,
-                 duration:0.6,
-             });
-         });
-    },4000)    
+    // setTimeout(function(){
+    //      projectHeadTitles.forEach(function(title,index){
+    //          gsap.to(title,{
+    //              opacity:0,
+    //              duration:0.6,
+    //          });
+    //      });
+    // },4000)    
     
     
-    let headAnim = document.querySelector('.head-anim');
-    // let headAnimTl= gsap.timeline();
-        setTimeout(function() {
+    // let headAnim = document.querySelector('.head-anim');
+    // // let headAnimTl= gsap.timeline();
+    //     setTimeout(function() {
         
-        gsap.fromTo(headAnim,{
-            background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
-        },{
-            background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
-            duration:1.5,
-            ease: "power3.inOut",
-            delay:0, 
-        });
+    //     gsap.fromTo(headAnim,{
+    //         background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
+    //     },{
+    //         background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
+    //         duration:1.5,
+    //         ease: "power3.inOut",
+    //         delay:0, 
+    //     });
         
         
-        setTimeout(function(){
-            document.querySelector('.project-heads').style.display='none';
-            document.querySelector('body').classList.remove('loading');
-        },2000)
+    //     setTimeout(function(){
+    //         document.querySelector('.project-heads').style.display='none';
+    //         document.querySelector('body').classList.remove('loading');
+    //     },2000)
         
-    }, 5000);
-    }
-    },[]);
+    // }, 5000);
+    // }
+    // },[]);
 
     useEffect(()=>{
 
@@ -264,7 +264,6 @@ export default function IdeasComponent(){
     const handleScroll = ()=>{
         $(document).ready(function(){
             
-            console.log('status State:',initIdeaScroll);
             if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
                 const targetIdea = ideasRefs.current[ideasSearchId];
                         $.scrollify.disable();
