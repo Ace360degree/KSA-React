@@ -234,7 +234,31 @@ export default function IdeasComponent(){
                 updateHash: false,
                 touchScroll: true,
             });
-           
+            
+            if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
+                const targetIdea = ideasRefs.current[ideasSearchId];
+                        $.scrollify.disable();
+                        gsap.to(window, {
+                            scrollTo: { y: targetIdea, offsetY: 0 },
+                            duration: 0.5,
+                            ease: "power3.inOut",
+                            onComplete: () => {
+                                $.scrollify.enable();
+                            }
+                });
+            }
+            else{
+                console.log('status State:','Default Scroll behaviour');
+                $.scrollify.disable();
+                gsap.to(window, {
+                    scrollTo: { y: 0, offsetY: 0 }, 
+                    duration: 0.5, 
+                    ease: "power3.inOut", 
+                    onComplete:()=>{
+                        $.scrollify.enable();
+                    }
+                }); 
+            }
     
             ScrollTrigger.refresh();
         });
@@ -264,30 +288,7 @@ export default function IdeasComponent(){
     const handleScroll = ()=>{
         $(document).ready(function(){
             
-            if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
-                const targetIdea = ideasRefs.current[ideasSearchId];
-                        $.scrollify.disable();
-                        gsap.to(window, {
-                            scrollTo: { y: targetIdea, offsetY: 0 },
-                            duration: 0.5,
-                            ease: "power3.inOut",
-                            onComplete: () => {
-                                $.scrollify.enable();
-                            }
-                });
-            }
-            else{
-                console.log('status State:','Default Scroll behaviour');
-                $.scrollify.disable();
-                gsap.to(window, {
-                    scrollTo: { y: 0, offsetY: 0 }, 
-                    duration: 0.5, 
-                    ease: "power3.inOut", 
-                    onComplete:()=>{
-                        $.scrollify.enable();
-                    }
-                }); 
-            }
+            
             
             
         
