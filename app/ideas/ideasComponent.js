@@ -295,17 +295,17 @@ export default function IdeasComponent(){
     }  
     
 
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            setInitIdeaScroll(false);
-            setInitCategoryScroll(false);
-        }, 3000);
+    // useEffect(() => {
+    //     const timeoutId = setTimeout(() => {
+    //         setInitIdeaScroll(false);
+    //         setInitCategoryScroll(false);
+    //     }, 3000);
     
-        // Cleanup function to clear the timeout on unmount
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [ideas]);
+    //     // Cleanup function to clear the timeout on unmount
+    //     return () => {
+    //         clearTimeout(timeoutId);
+    //     };
+    // }, [ideas]);
 
     useEffect(()=>{
         if(ideasCategoryId){
@@ -319,11 +319,11 @@ export default function IdeasComponent(){
         setSelectedCategory(category);
         setMobileFilter(false);
         if (category === 'All') {
-            setFilteredIdeas(ideas); // Show all ideas
+            setFilteredIdeas(ideas); 
             handleScroll();
         } else {
             const filtered = ideas.filter(idea => idea.category === category);
-            setFilteredIdeas(filtered); // Show filtered ideas based on category
+            setFilteredIdeas(filtered); 
             handleScroll();
         }
     };
