@@ -18,6 +18,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   const InfoSection = useRef(null);
   console.log(video);
 
+  const videoSection = useRef(null);
+  const videoElem = useRef(null);
+
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
     height: typeof window !== 'undefined' ? window.innerHeight : 0
@@ -36,6 +39,36 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if(videoElem.current){
+      const trigger = ScrollTrigger.create({
+        trigger: videoSection.current,
+        start: "top center",
+        end: "bottom center",
+        markers:true,
+        onEnter: () => {
+          videoElem.current?.play();
+        },
+        onLeave: () => {
+          videoElem.current?.pause();
+        },
+        onEnterBack: () => {
+          videoElem.current?.play();
+        },
+        onLeaveBack: () => {
+          videoElem.current?.pause();
+        },
+      });
+
+      return () => {
+        trigger.kill();
+      };
+    }
+
+    // Cleanup ScrollTrigger on component unmount
+    
   }, []);
 
   useEffect(() => {
@@ -63,7 +96,12 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
   let SliderSettings = {
     type: 'slide',
-    autoplay: true,
+    pagination: true,
+    arrows: true,
+  };
+
+  let SliderContentSettins = {
+    type: 'slide',
     autoWidth:true,
     gap:'8px',
     interval: 4000,
@@ -103,11 +141,11 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     return (
         <div className="project-info-section remove-transparent project-info-flex project-border-bottom" ref={InfoSection}>
               <div className="info-block-content">
-                <h2 className='text-start'>{section.section_title}</h2>
-                <h4 className='text-start'>{section.content}</h4>
+                <h2 className='text-start info-block-title'>{section.section_title}</h2>
+                <h4 className='text-start info-block-desc'>{section.content}</h4>
               </div>
               <div className="project-info-image info-block-image info-slider-section w-auto">
-                <Splide options={SliderSettings}>
+                <Splide options={SliderContentSettins}>
                   {slides.slides.map((slide, index) => (
                     <SplideSlide key={index}>
                       {windowSize.width <= 750 && slide.mobile ? 
@@ -169,8 +207,8 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     else if (section.section_type === 6) {
     return (
       <>
-      <div className="project-info-section video-section hero-image">
-        <Video width={'100%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh'}} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
+      <div className="project-info-section video-section hero-image justify-content-center" ref={videoSection}>
+        <Video width={'90%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh',margin:'auto'}} ref={videoElem} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
       </>
     );

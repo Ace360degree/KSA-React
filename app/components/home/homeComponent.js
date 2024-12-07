@@ -3,16 +3,23 @@ import HomeMenu from "../homeMenu/homeMenu";
 import '../../home.css';
 import NavbarIntroPage from "../NavbarIntroPage";
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import gsap from "gsap/all";
 import $ from 'jquery';
 import 'jquery-scrollify';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import ScrollToPlugin from 'gsap/ScrollToPlugin';
+
 import ScrollifyComponent from "./jQScrollify";
 import CheckNavTransparent from "../commons/checkNavTransparent";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-gsap.registerPlugin(ScrollTrigger);
+import Scrollbar from 'smooth-scrollbar';
+
+
+
+
+gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
 export default function HomeComponent(){
   
@@ -26,6 +33,13 @@ export default function HomeComponent(){
   const [fullscreen, setFullScreen] = useState(1);
   const [homeBanners,setHomeBanners] = useState([]);
   const bottomPage = useRef(null);
+
+  const SliderRefs = useRef(null);
+
+
+  const scrollContainerRef = useRef(null);
+
+
 
   useEffect(()=>{
 
@@ -48,6 +62,36 @@ export default function HomeComponent(){
       });
     }
   };
+
+
+  const scrollbarRef = useRef(null);  // Store the scrollbar instance in a ref
+
+  useEffect(() => {
+    // Initialize Smooth Scrollbar
+    scrollbarRef.current = Scrollbar.init(scrollContainerRef.current, {
+      damping: 0.10, 
+      thumbMinSize: 20, // Minimum thumb size for the scrollbar
+    });
+
+    // Set up GSAP ScrollTrigger to sync with Smooth Scrollbar
+    ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
+      scrollTop(value) {
+        return value === undefined ? scrollbarRef.current.scrollTop : scrollbarRef.current.scrollTo(value, 0, 0);
+      },
+    });
+
+    // Update ScrollTrigger on scroll
+    scrollbarRef.current.addListener(ScrollTrigger.update);
+
+    // Clean up on unmount
+    return () => {
+      if (scrollbarRef.current) {
+        scrollbarRef.current.destroy();
+      }
+    };
+  }, []);
+
+
 
 
 
@@ -110,6 +154,7 @@ export default function HomeComponent(){
       scrollTrigger: {
         trigger: '#second-title',
         scrub: true,
+        scroller: scrollContainerRef.current,
         start: "top bottom",
         end: "bottom bottom",
       }
@@ -160,6 +205,7 @@ export default function HomeComponent(){
         scrollTrigger: {
           trigger: '#mainContent',
           scrub: true,
+          scroller: scrollContainerRef.current,
           start: "top 20%",
           end: "top 70%",
         }
@@ -176,6 +222,7 @@ export default function HomeComponent(){
         scrollTrigger: {
           trigger: '#mainContent',
           scrub: true,
+          scroller: scrollContainerRef.current,
           start: "top 30%",
           end: "top 80%",
         }
@@ -189,6 +236,7 @@ export default function HomeComponent(){
       scrollTrigger: {
         trigger: '#mainContent',
         scrub: true,
+        scroller: scrollContainerRef.current,
         start: "top 30%",
         end: "top 80%",
       }
@@ -210,6 +258,7 @@ export default function HomeComponent(){
         ease: "power1.out",
         scrollTrigger: {
           trigger: '#second-title',
+          scroller: scrollContainerRef.current,
           start: 'top 50%',
           toggleActions: ScrollToggleActions,
           end: totalDurationSecondTitle,
@@ -222,6 +271,7 @@ export default function HomeComponent(){
         duration: 1,
         scrollTrigger: {
           trigger: '#second-title',
+          scroller: scrollContainerRef.current,
           start: 'top top',
           toggleActions: ScrollToggleActions,
           end: totalDurationSecondTitle,
@@ -235,6 +285,7 @@ export default function HomeComponent(){
         duration: 1,
         scrollTrigger: {
           trigger: '#quote-texts',
+          scroller: scrollContainerRef.current,
           start: 'top top',
           toggleActions: ScrollToggleActions,
           end: totalDurationSecondTitle,
@@ -247,6 +298,7 @@ export default function HomeComponent(){
         duration: 1,
         scrollTrigger: {
           trigger: '#quote-texts',
+          scroller: scrollContainerRef.current,
           start: '100px',
           toggleActions: ScrollToggleActions,
           end: totalDurationSecondTitle,
@@ -262,6 +314,7 @@ export default function HomeComponent(){
         scrub: true,
         scrollTrigger: {
           trigger: '#we-do',
+          scroller: scrollContainerRef.current,
           start: '500px',
           toggleActions: ScrollToggleActions,
           end: totalDurationSecondTitle,
@@ -273,6 +326,7 @@ export default function HomeComponent(){
       ScrollTrigger.create({
         trigger: '#second-title',
         start: 'top top',
+        scroller: scrollContainerRef.current,
         end: totalDurationSecondTitle,
         pin: true,
         pinSpacing: true,
@@ -290,6 +344,7 @@ export default function HomeComponent(){
       ScrollTrigger.create({
         trigger: '.home-project-slider',
         start: 'top 5%',
+        scroller: scrollContainerRef.current,
         end: 'bottom 95%',
         onEnter: showPagin,
         onLeave: hidePagin,
@@ -327,13 +382,16 @@ export default function HomeComponent(){
           homeProjectsBox.forEach((obj)=>{
             obj.classList.remove('active');
           })
-          homeProjectsBox[ind].classList.add('active');
+          if(homeProjectsBox[ind]){
+            homeProjectsBox[ind].classList.add('active');
+          }
         }
 
         ScrollTrigger.create({
             trigger: box,
             start: 'top 80%',
             end: 'top bottom',
+            scroller: scrollContainerRef.current,
             onEnter: () =>{ updatePagination(index);initTitleAnimation();},
             // onEnterBack:()=>{replayAnimation(index);},
             onLeaveBack: () =>{ updatePagination(index - 1);replayAnimation(index-1)},
@@ -373,42 +431,42 @@ export default function HomeComponent(){
   },[])
 
 
-  useEffect(() => {
-    $(document).ready(function () {
-      // Initialize Scrollify
-      $.scrollify.enable();
-      $.scrollify({
-        section: ".home-snapping",
-        sectionName: "home-snapping",
-        interstitialSection: "",
-        easing: "easeOutExpo",
-        scrollSpeed: isTouchDevice?100:1500,
-        offset: 0,
-        scrollbars: true,
-        standardScrollElements: "",
-        setHeights: true,
-        overflowScroll: true,
-        updateHash: false,
-        touchScroll: true,
-        // before: function(index, sections) {
-        //   const nextSection = sections[index]; // Get the next section
-        //   if ($(nextSection).hasClass('hero-image')) {
-        //       $('#navbar').addClass('transparent');
-        //       $('.change-svg').addClass('light');
-        //   }
-        //   else{
-        //     $('#navbar').removeClass('transparent');
-        //     $('.change-svg').removeClass('light');
-        //   }
-        // },
-      });
+  // useEffect(() => {
+  //   $(document).ready(function () {
+  //     // Initialize Scrollify
+  //     $.scrollify.enable();
+  //     $.scrollify({
+  //       section: ".home-snapping",
+  //       sectionName: "home-snapping",
+  //       interstitialSection: "",
+  //       easing: "easeOutExpo",
+  //       scrollSpeed: isTouchDevice?100:1500,
+  //       offset: 0,
+  //       scrollbars: true,
+  //       standardScrollElements: "",
+  //       setHeights: true,
+  //       overflowScroll: true,
+  //       updateHash: false,
+  //       touchScroll: true,
+  //       // before: function(index, sections) {
+  //       //   const nextSection = sections[index]; // Get the next section
+  //       //   if ($(nextSection).hasClass('hero-image')) {
+  //       //       $('#navbar').addClass('transparent');
+  //       //       $('.change-svg').addClass('light');
+  //       //   }
+  //       //   else{
+  //       //     $('#navbar').removeClass('transparent');
+  //       //     $('.change-svg').removeClass('light');
+  //       //   }
+  //       // },
+  //     });
   
-      // Refresh ScrollTrigger after Scrollify initializes
-      ScrollTrigger.refresh();
-    });
+  //     // Refresh ScrollTrigger after Scrollify initializes
+  //     ScrollTrigger.refresh();
+  //   });
   
-    return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-  }, [fullScreenCheck,homeBanners]);
+  //   return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+  // }, [fullScreenCheck,homeBanners]);
 
 
   useEffect(()=>{
@@ -503,6 +561,7 @@ export default function HomeComponent(){
     },1000);
     
   };
+  
 
 
 
@@ -515,7 +574,7 @@ export default function HomeComponent(){
         {/* {homeBanners!=''?
         // <CheckNavTransparent/>
       :''} */}
-            <div id="page" ref={page}>
+            <div id="page" ref={scrollContainerRef} style={{ height: '100vh', overflow: 'hidden' }} >
             
             <div className="nav-title" data-title=""></div>
             
@@ -539,7 +598,10 @@ export default function HomeComponent(){
             </div>
 
             <div>
-                <a onClick={()=>{scrollSmoothTo()}} ><div className="scroll-downlink">
+                <a 
+                  onClick={()=>{scrollSmoothTo()}} 
+                  href="#second-title"
+                  ><div className="scroll-downlink">
                     
                 </div></a>
                 <div className="scrollbanner">
@@ -571,23 +633,25 @@ export default function HomeComponent(){
            
             <div className="home-project-slider hero-image">
                 
-                    <div className="pagination">
-                      <ul>
-                      {homeBanners.map((banner,index)=>(
-                        <li data-index={index} key={index}>1</li>
-                      ))}
-                      </ul>
-                    </div>
+                    
 
                     {homeBanners.map((banner,index)=>(
+                    <>
                     <div className="home-slides-box hero-image home-snapping slider-hero-snapping" key={index}>
                         <div className="slider-texts">
                             <h2 className="ms-0">{banner.title}</h2>
                             <h4 className="ms-0"><span>{banner.content}</span></h4>
                         </div>
-                        <Image className="hero-image desktop-home-banner" width={1240} quality={60} height={768} src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
-                        <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
+                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
+                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
+                       
+                        {/* <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/> */}
+                        {/* <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/> */}
                     </div>
+                    {banner.bottom_title && banner.bottom_title!=null?
+                      <div class="home-banner-desc-box signifier"><h4>{banner.bottom_title}</h4></div>
+                    :''}
+                    </>
                     ))}
                     
             </div>
@@ -595,6 +659,14 @@ export default function HomeComponent(){
             <div className="page-section home-page-bottom-section page-section-100 slider-hero-snapping home-snapping hero-image" id="mainContent" ref={bottomPage}>
               <HomeMenu/>    
             </div>    
+        </div>
+
+        <div className="pagination">
+          <ul>
+          {homeBanners.map((banner,index)=>(
+            <li data-index={index} key={index}>1</li>
+          ))}
+          </ul>
         </div>
         </>
     )

@@ -2211,6 +2211,17 @@ body.dark .clock-indicator span{
           animation: showHomeSlideTitle 2s 0.5s ease forwards;
 }
 
+.home-banner-desc-box{
+  padding: 2.5rem 2rem;
+  color: white;
+  text-align: center;
+}
+
+.home-banner-desc-box h4{
+  font-size: 3.5rem;
+  font-weight: 300;
+}
+
 @-webkit-keyframes showHomeSlideTitle {
   0%{
     opacity: 0;
@@ -5777,3 +5788,17 @@ body.dark .filter-box-control{
   background-color: transparent !important;
 }
 
+
+.scrollbar-thumb {
+  width: 4px !important;
+  background: rgb(147 147 147) !important;
+  border-radius: 0px !important;
+}
+
+.scrollbar-track{
+  background: rgb(51 51 51 / 75%) !important;
+}
+
+.scrollbar-track-y{
+  width: 4px !important;
+}

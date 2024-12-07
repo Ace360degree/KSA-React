@@ -89,10 +89,10 @@ export default function ProjectInfo(){
     useEffect(()=>{
         if(projectTitle.current){
             let projectTititleTL = gsap.timeline();
-            projectTititleTL.to(projectTitle.current,{scale:1, duration:2, delay:1})
+            projectTititleTL.to(projectTitle.current,{scale:1, duration:1.5, delay:1})
             projectTititleTL.play();
         }
-    },[])
+    },[project])
 
     // useEffect(()=>{
     //     let ctx = gsap.context(() => {
@@ -109,7 +109,7 @@ export default function ProjectInfo(){
     //         snap: 1 / (sections.length - 1), // Snap to the closest section
     //         markers: true, // Remove markers,
     //         duration:0.2,
-    //     }
+    //     }s
     //     });
     //     }
     // });
@@ -227,7 +227,7 @@ export default function ProjectInfo(){
             <NavbarIntroPageUnderline heading={'Expertise'} active={true} subheading={project.category}/>
             
             
-            <div className="project-banner hero-image project-info-section ">
+            <div className="project-banner hero-image project-info-section overflow-hidden">
                <div className="project-title " ref={projectTitle}>
                 <h2 class="text-uppercase text-start">{project.project_name}</h2>
                <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
