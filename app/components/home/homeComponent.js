@@ -642,11 +642,11 @@ export default function HomeComponent(){
                             <h2 className="ms-0">{banner.title}</h2>
                             <h4 className="ms-0"><span>{banner.content}</span></h4>
                         </div>
-                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
-                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
+                        {/* <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
+                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/> */}
                        
-                        {/* <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/> */}
-                        {/* <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/> */}
+                        <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
+                        <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
                     </div>
                     {banner.bottom_title && banner.bottom_title!=null?
                       <div class="home-banner-desc-box signifier"><h4>{banner.bottom_title}</h4></div>
