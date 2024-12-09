@@ -240,7 +240,7 @@ export default function IdeasComponent(){
                         $.scrollify.disable();
                         gsap.to(window, {
                             scrollTo: { y: targetIdea, offsetY: 0 },
-                            duration: 0.5,
+                            duration: 0,
                             ease: "power3.inOut",
                             onComplete: () => {
                                 $.scrollify.enable();

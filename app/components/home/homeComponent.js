@@ -392,8 +392,8 @@ export default function HomeComponent(){
 
         ScrollTrigger.create({
             trigger: box,
-            start: 'top 80%',
-            end: 'top bottom',
+            start: 'top center',
+            end: 'top top',
             scroller: scrollContainerRef.current,
             onEnter: () =>{ updatePagination(index);initTitleAnimation();},
             // onEnterBack:()=>{replayAnimation(index);},
@@ -417,7 +417,6 @@ export default function HomeComponent(){
   useEffect(() => {
   
     if (!isTouchDevice) {
-      // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
       ScrollTrigger.normalizeScroll(true);
     }
   
@@ -433,44 +432,7 @@ export default function HomeComponent(){
     $.scrollify.destroy();
   },[])
 
-
-  // useEffect(() => {
-  //   $(document).ready(function () {
-  //     // Initialize Scrollify
-  //     $.scrollify.enable();
-  //     $.scrollify({
-  //       section: ".home-snapping",
-  //       sectionName: "home-snapping",
-  //       interstitialSection: "",
-  //       easing: "easeOutExpo",
-  //       scrollSpeed: isTouchDevice?100:1500,
-  //       offset: 0,
-  //       scrollbars: true,
-  //       standardScrollElements: "",
-  //       setHeights: true,
-  //       overflowScroll: true,
-  //       updateHash: false,
-  //       touchScroll: true,
-  //       // before: function(index, sections) {
-  //       //   const nextSection = sections[index]; // Get the next section
-  //       //   if ($(nextSection).hasClass('hero-image')) {
-  //       //       $('#navbar').addClass('transparent');
-  //       //       $('.change-svg').addClass('light');
-  //       //   }
-  //       //   else{
-  //       //     $('#navbar').removeClass('transparent');
-  //       //     $('.change-svg').removeClass('light');
-  //       //   }
-  //       // },
-  //     });
   
-  //     // Refresh ScrollTrigger after Scrollify initializes
-  //     ScrollTrigger.refresh();
-  //   });
-  
-  //   return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-  // }, [fullScreenCheck,homeBanners]);
-
 
   useEffect(()=>{
       const sliderText = document.querySelectorAll('.slider-texts');
@@ -508,16 +470,7 @@ export default function HomeComponent(){
   },[fullScreenCheck,homeBanners]);
 
 
-  // useEffect(()=>{
-  //   if(bottomPage.current){
-  //     ScrollTrigger.create({
-  //       trigger:bottomPage.current,
-  //       start:'top 40%',
-  //       markers:true,
-  //       onEnter:()=>{console.log('Lol');},
-  //     })
-  //   }
-  // },[fullScreenCheck,homeBanners]);
+
 
   useEffect(() => {
     const handleIntersect = (entries) => {
@@ -644,11 +597,11 @@ export default function HomeComponent(){
                             <h2 className="ms-0">{banner.title}</h2>
                             <h4 className="ms-0"><span>{banner.content}</span></h4>
                         </div>
-                        {/* <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
-                        <img className="hero-image mobile-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/> */}
+                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
+                        <img className="hero-image mobile-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
                        
-                        <img className="hero-image desktop-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
-                        <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
+                        {/* <img className="hero-image desktop-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
+                        <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/> */}
                     </div>
                     {banner.bottom_title && banner.bottom_title!=null?
                       <div class="home-banner-desc-box signifier"><h4>{banner.bottom_title}</h4></div>
