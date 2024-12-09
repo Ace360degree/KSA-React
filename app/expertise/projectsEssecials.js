@@ -5,7 +5,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectEssencials({essecials,points}){
+export default function ProjectEssencials({essecials,points,scroller}){
     
     useEffect(()=>{
                 let projectTititleTL = gsap.timeline();
@@ -53,8 +53,7 @@ export default function ProjectEssencials({essecials,points}){
            trigger:'#project-counter',
            start:"top 50%",
            end:"top 80%",
-        //   onEnter:StartCounter,
-        //   scrub:fasle,
+           scroller:'#expertise-inner-page',
            animation:fxTl,
         });
         

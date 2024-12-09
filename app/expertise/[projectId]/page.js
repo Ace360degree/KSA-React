@@ -14,6 +14,7 @@ import $ from "jquery";
 import LocomotiveScroll from "locomotive-scroll";
 import NavbarIntroPageUnderline from "@/app/components/NavbarUnderline";
 import { useVisitedProjectsStore } from "@/app/states/store/projectsStore";
+import Scrollbar from "smooth-scrollbar";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
@@ -71,19 +72,41 @@ export default function ProjectInfo(){
         setVisited();
     },[])
 
-    // useEffect(() => {
+
+    const scrollContainerRef = useRef(null);
+    const scrollbarRef = useRef(null);  // Store the scrollbar instance in a ref
+
+    useEffect(() => {
+      // Initialize Smooth Scrollbar
+      if(scrollContainerRef.current){
+      scrollbarRef.current = Scrollbar.init(scrollContainerRef.current, {
+        damping: 0.1, 
+        thumbMinSize: 20, // Minimum thumb size for the scrollbar
+      });
   
-    //   if (!isTouchDevice) {
-    //     // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
-    //     ScrollTrigger.normalizeScroll(true);
-    //   }
-    
-    //   return () => {
-    //     if (!isTouchDevice) {
-    //       ScrollTrigger.normalizeScroll(false);
-    //     }
-    //   };
-    // }, []);
+      // Set up GSAP ScrollTrigger to sync with Smooth Scrollbar
+      ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
+        scrollTop(value) {
+          return value === undefined ? scrollbarRef.current.scrollTop : scrollbarRef.current.scrollTo(value, 0, 0);
+        },
+      });
+  
+      // Update ScrollTrigger on scroll
+      scrollbarRef.current.addListener(ScrollTrigger.update);
+  
+      // Clean up on unmount
+      return () => {
+        if (scrollbarRef.current) {
+          scrollbarRef.current.destroy();
+        }
+      };
+
+    }
+    }, [project]);
+
+
+
+
 
 
     useEffect(()=>{
@@ -94,125 +117,8 @@ export default function ProjectInfo(){
         }
     },[project])
 
-    // useEffect(()=>{
-    //     let ctx = gsap.context(() => {
-    //         if(window.innerWidth > 850){
-    //     const sections = gsap.utils.toArray(".project-info-section");
 
-    //     // Create scroll snapping functionality
-    //     gsap.to(sections, {
-    //     scrollTrigger: {
-    //         trigger: sections[0], // Start from the first section
-    //         start: "top top", // When top of section hits the top of viewport
-    //         end: () => `+=${(sections.length - 1) * window.innerHeight}`, // Scroll until the last section
-    //         scrub: 0, // Smooth scrub
-    //         snap: 1 / (sections.length - 1), // Snap to the closest section
-    //         markers: true, // Remove markers,
-    //         duration:0.2,
-    //     }s
-    //     });
-    //     }
-    // });
-
-    // return () => ctx.revert();
-
-    // },[loading]);
-
-  //   useEffect(() => {
-  //     const scroll = new LocomotiveScroll({
-  //         el: projectRef.current,
-  //         smooth: true, // Enable smooth scrolling
-  //     });
-
-  //     return () => {
-  //         scroll.destroy(); // Cleanup on unmount
-  //     };
-  // }, [loading]);
-
-    // useEffect(() => {
-    //     const scrollifyFunction = ()=>{            
-    //         // Initialize Scrollify
-    //         console.log('Scrollify');
-    //         $.scrollify.enable();
-    //         $.scrollify({
-    //           section: ".project-info-section",
-    //           sectionName: "project-info-section",
-    //           interstitialSection: "",
-    //           easing: "easeOutExpo",
-    //           scrollSpeed: isTouchDevice?100:1500,
-    //           offset: 0,
-    //           scrollbars: true,
-    //           standardScrollElements: "",
-    //           setHeights: true,
-    //           overflowScroll: true,
-    //           updateHash: false,
-    //           touchScroll: true,
-    //           before: function(index, sections) {
-    //             const nextSection = sections[index]; // Get the next section
-    //             if ($(nextSection).hasClass('hero-image')) {
-    //                 $('#navbar').addClass('transparent');
-    //                 $('.change-svg').addClass('light');
-    //             }
-    //             else{
-    //               $('#navbar').removeClass('transparent');
-    //               $('.change-svg').removeClass('light');
-    //             }
-
-    //             if ($(nextSection).hasClass('project-underline-section')) {
-    //                 $('#navbar').addClass('underlined');
-    //             }
-    //             else{
-    //               $('#navbar').removeClass('underlined');
-    //             }
-                
-    //           },
-    //         });
-                      
-    //     }
-        
-    //     scrollifyFunction();
-    //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-    //   }, [loading]);
-
- 
-
-      // useEffect(() => {
-      //   // Store the initial width and height to compare later
-      //   let windowWidth = window.innerWidth;
-      //   let windowHeight = window.innerHeight;
-
-
-      
-      //   // Define the resize handler
-      //   const handleResize = () => {
-      //     // Check if the window dimensions have actually changed
-      //     if (window.innerWidth === windowWidth && window.innerHeight === windowHeight) {
-      //       return; // If the dimensions haven't changed, it's not a real resize
-      //     }
-      
-      //     // Update stored dimensions after confirming a real resize
-      //     windowWidth = window.innerWidth;
-      //     windowHeight = window.innerHeight;
-      
-      //     setLoading(true); // Set loading to true on resize
-      //     clearTimeout(window.resizeTimeout); // Clear any existing timeout to avoid multiple triggers
-      
-      //     window.resizeTimeout = setTimeout(() => {
-      //       setLoading(false); // Set loading to false after 1 second (1000ms)
-      //     }, 1000);
-      //   };
-      
-      //   // Add the event listener for window resize
-      //   window.addEventListener("resize", handleResize);
-      
-      //   // Cleanup the resize event and timeout on component unmount
-      //   return () => {
-      //     window.removeEventListener("resize", handleResize);
-      //     clearTimeout(window.resizeTimeout); // Clean up the timeout when the component unmounts
-      //   };
-      // }, []);
-      
-
+  
 
 
     return (
@@ -226,7 +132,7 @@ export default function ProjectInfo(){
             <SliderCursor/>
             <NavbarIntroPageUnderline heading={'Expertise'} active={true} subheading={project.category}/>
             
-            
+            <div ref={scrollContainerRef} id="expertise-inner-page" style={{height:'100vh'}}>
             <div className="project-banner hero-image project-info-section overflow-hidden">
                <div className="project-title " ref={projectTitle}>
                 <h2 class="text-uppercase text-start">{project.project_name}</h2>
@@ -239,10 +145,10 @@ export default function ProjectInfo(){
 
             <div className="overflow-hidden">
             {sections.map((section,index)=>(
-                <ProjectSection section={section} essecials={essecials} points={points} video={videos[index].video}  key={index} slides={slides[index]}/>
+                <ProjectSection scroller={scrollContainerRef.current} section={section} essecials={essecials} points={points} video={videos[index].video}  key={index} slides={slides[index]}/>
             ))}
             </div>
-
+            </div>
             </>
             }
 

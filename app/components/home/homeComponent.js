@@ -53,15 +53,7 @@ export default function HomeComponent(){
 
   },[])
   
-  // Smooth scroll to the section
-  const scrollSmoothTo = () => {
-    if (secondTitleSection.current) {
-      secondTitleSection.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  };
+
 
 
   const scrollbarRef = useRef(null);  // Store the scrollbar instance in a ref
@@ -69,7 +61,7 @@ export default function HomeComponent(){
   useEffect(() => {
     // Initialize Smooth Scrollbar
     scrollbarRef.current = Scrollbar.init(scrollContainerRef.current, {
-      damping: 0.10, 
+      damping: 0.1, 
       thumbMinSize: 20, // Minimum thumb size for the scrollbar
     });
 
@@ -92,6 +84,17 @@ export default function HomeComponent(){
   }, []);
 
 
+    // Smooth scroll to the section
+    const scrollSmoothTo = () => {
+      if (secondTitleSection.current) {
+        // Get the offset top position of secondTitleSection
+        const offsetTop = secondTitleSection.current.getBoundingClientRect().top + window.scrollY;
+    
+        // Scroll to the calculated offset
+        scrollbarRef.current.scrollTo(0, offsetTop, 1000);
+      }
+    };
+    
 
 
 
@@ -600,7 +603,6 @@ export default function HomeComponent(){
             <div>
                 <a 
                   onClick={()=>{scrollSmoothTo()}} 
-                  href="#second-title"
                   ><div className="scroll-downlink">
                     
                 </div></a>
@@ -642,11 +644,11 @@ export default function HomeComponent(){
                             <h2 className="ms-0">{banner.title}</h2>
                             <h4 className="ms-0"><span>{banner.content}</span></h4>
                         </div>
-                        {/* <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
-                        <img className="hero-image mobile-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/> */}
+                        <img className="hero-image desktop-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
+                        <img className="hero-image mobile-home-banner" width={1240} height={768} src={'https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg'}/>
                        
-                        <Image className="hero-image desktop-home-banner" width={900} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
-                        <Image className="hero-image mobile-home-banner" width={420} quality={60} height={800} src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
+                        {/* <img className="hero-image desktop-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.desktop_images}/>
+                        <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/> */}
                     </div>
                     {banner.bottom_title && banner.bottom_title!=null?
                       <div class="home-banner-desc-box signifier"><h4>{banner.bottom_title}</h4></div>

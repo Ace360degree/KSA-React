@@ -13,7 +13,7 @@ import { Video } from "reactjs-media";
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectSection({ section, slides, essecials, points, video }) {
+export default function ProjectSection({ section, slides, essecials, points, video,scroller }) {
 
   const InfoSection = useRef(null);
   console.log(video);
@@ -48,6 +48,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
         start: "top center",
         end: "bottom center",
         markers:true,
+        scroller:scroller,
         onEnter: () => {
           videoElem.current?.play();
         },
@@ -85,9 +86,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           scrollTrigger: {
             trigger: InfoSection.current, // Use the reference element for trigger
             scrub: true,
+            scroller:scroller,
             start: "top 100%", // Adjust the start position for better control
             end: "top 90%",
-            // markers: true, // Enable markers for debugging if needed
           }
         }
       );
@@ -199,7 +200,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   else if (section.section_type === 5) {
     return (
       <div ref={InfoSection} className='remove-transparent project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
-        <ProjectEssencials essecials={essecials} points={points} />
+        <ProjectEssencials essecials={essecials} points={points} scroller={scroller}/>
       </div>
     );
   }
