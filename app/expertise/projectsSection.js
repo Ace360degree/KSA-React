@@ -69,7 +69,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
     // Cleanup ScrollTrigger on component unmount
     
-  }, []);
+  }, [section,video]);
 
   useEffect(() => {
     if (InfoSection.current) {
