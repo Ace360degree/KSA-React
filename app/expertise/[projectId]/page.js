@@ -3,7 +3,7 @@ import LightTheme from "@/app/components/body/lightTheme";
 import NavbarIntroPage from "@/app/components/NavbarIntroPage";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import ProjectSection from "../projectsSection";
+// import ProjectSection from "../projectsSection";
 import dynamic from "next/dynamic";
 import gsap from "gsap/all";
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -17,6 +17,10 @@ import { useVisitedProjectsStore } from "@/app/states/store/projectsStore";
 import Scrollbar from "smooth-scrollbar";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
+    ssr: false,
+  }) 
+
+const ProjectSection = dynamic(() => import('../projectsSection'), {
     ssr: false,
   }) 
 

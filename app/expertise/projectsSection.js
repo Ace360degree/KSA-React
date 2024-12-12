@@ -85,7 +85,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           scrollTrigger: {
             trigger: InfoSection.current, // Use the reference element for trigger
             scrub: true,
-            scroller:'scroller',
+            scroller:scroller,
             start: "top 100%", // Adjust the start position for better control
             end: "top 90%",
           }
