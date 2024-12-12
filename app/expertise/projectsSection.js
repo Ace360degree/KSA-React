@@ -48,7 +48,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
         start: "top center",
         end: "bottom center",
         markers:true,
-        scroller:scroller,
+        scroller:"#expertise-inner-page",
         onEnter: () => {
           videoElem.current?.play();
         },
@@ -86,7 +86,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           scrollTrigger: {
             trigger: InfoSection.current, // Use the reference element for trigger
             scrub: true,
-            scroller:scroller,
+            scroller:'#expertise-inner-page',
             start: "top 100%", // Adjust the start position for better control
             end: "top 90%",
           }
@@ -215,7 +215,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   }
   
-  } 
+  }
 
 
   
