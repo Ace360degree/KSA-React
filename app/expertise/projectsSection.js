@@ -215,7 +215,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   }
   
-  }
+  } 
 
 
   
