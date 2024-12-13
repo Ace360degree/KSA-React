@@ -59,6 +59,7 @@ export default function ProjectInfo(){
       });
  
     useEffect(()=>{
+      try{
         const fetchProjectsApi = async()=>{
             const fetchProjects = await fetch(`/api/get-projects/getsingle?id=${projectSlug}`);
             const getProjects = await (fetchProjects.json());
@@ -71,34 +72,33 @@ export default function ProjectInfo(){
             setVideos(getProjects.videos);
             setLoading(false);
         }
-
         fetchProjectsApi();
         setVisited();
+      }
+      catch(err){
+        console.log(err);
+      }
     },[])
 
 
     const scrollContainerRef = useRef(null);
-    const scrollbarRef = useRef(null);  // Store the scrollbar instance in a ref
+    const scrollbarRef = useRef(null); 
 
     useEffect(() => {
-      // Initialize Smooth Scrollbar
       if(scrollContainerRef.current){
       scrollbarRef.current = Scrollbar.init(scrollContainerRef.current, {
         damping: 0.1, 
-        thumbMinSize: 20, // Minimum thumb size for the scrollbar
+        thumbMinSize: 20, 
       });
   
-      // Set up GSAP ScrollTrigger to sync with Smooth Scrollbar
       ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
         scrollTop(value) {
           return value === undefined ? scrollbarRef.current.scrollTop : scrollbarRef.current.scrollTo(value, 0, 0);
         },
       });
   
-      // Update ScrollTrigger on scroll
       scrollbarRef.current.addListener(ScrollTrigger.update);
   
-      // Clean up on unmount
       return () => {
         if (scrollbarRef.current) {
           scrollbarRef.current.destroy();
@@ -107,11 +107,6 @@ export default function ProjectInfo(){
 
     }
     }, [project]);
-
-
-
-
-
 
     useEffect(()=>{
         if(projectTitle.current){
@@ -124,9 +119,11 @@ export default function ProjectInfo(){
 
   
 
+  if(project){
 
     return (
         <>  
+        
             <ScrollifyDisabled/>
             <LightTheme/>
             
@@ -139,8 +136,8 @@ export default function ProjectInfo(){
             <div ref={scrollContainerRef} id="expertise-inner-page" style={{height:'100vh'}}>
             <div className="project-banner hero-image project-info-section overflow-hidden">
                <div className="project-title " ref={projectTitle}>
-                <h2 class="text-uppercase text-start">{project.project_name}</h2>
-               <h4 className="fw-light m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
+                <h2 class="text-capitalize text-start">{project.project_name}</h2>
+               <h4 className="fw-normal m-0 project-anima-opacity" ref={projectDescrion}>{project.description}</h4>
                </div>
                 {windowSize.width <=750 && project.mobile_banner!=''?
                 <Image height={600} width={600} className="project-image-hero hero-image"   style={{width:'100%',height:'100%'}} placeholder="blur" blurDataURL="/images/white-blur.png" src={process.env.NEXT_PUBLIC_SITE_URL+project.mobile_banner} />
@@ -151,6 +148,9 @@ export default function ProjectInfo(){
             {sections.map((section,index)=>(
                 <ProjectSection scroller={scrollContainerRef.current} section={section} essecials={essecials} points={points} video={videos[index].video}  key={index} slides={slides[index]}/>
             ))}
+
+              
+              
             </div>
             </div>
             </>
@@ -159,6 +159,14 @@ export default function ProjectInfo(){
       
         </>
     )
+    
+  }else{
+    return(
+        <div className=" text-center d-flex flex-column justify-content-center align-items-center" style={{height:'100svh'}}>
+          <h2 className="signifier fs-1">Error Fetching Project!</h2> <h4 className="fw-light">Please make sure you have entered correct URL.</h4>
+        </div>
+    )
+  }
 
 
 }

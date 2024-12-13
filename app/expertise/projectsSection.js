@@ -103,8 +103,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   let SliderContentSettins = {
     type: 'slide',
     autoWidth:true,
-    gap:'8px',
-    interval: 4000,
+    gap:'2.5rem',
     pagination: true,
     arrows: true,
     breakpoints: {
@@ -124,10 +123,10 @@ export default function ProjectSection({ section, slides, essecials, points, vid
       <>
         <div className="project-info-section remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
           <div className='info-block-content'>
-               <h2 className='info-block-title text-start'>{section.section_title}</h2>
-                <h4 className='info-block-desc text-start'>{section.content}</h4>
+               <h2 className='info-block-title text-start signifier'>{section.section_title}</h2>
+                <h4 className='info-block-desc text-start signifier'>{section.content}</h4>
           </div>
-          <div className='info-block-image'>
+          <div className='info-block-image img-block-border'>
                {windowSize.width <= 840 && section.section_image_mobile ? 
                  <Image className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
                  : windowSize.width > 840 && section.section_image ? 
@@ -140,23 +139,33 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   } else if (section.section_type === 2) {
     return (
         <div className="project-info-section remove-transparent project-info-flex project-border-bottom" ref={InfoSection}>
-              <div className="info-block-content">
-                <h2 className='text-start info-block-title'>{section.section_title}</h2>
-                <h4 className='text-start info-block-desc'>{section.content}</h4>
+              <div className='row'>
+
+                <div className='col-md-4'>
+                  <div className="info-block-content">
+                    <h2 className='text-start info-block-title signifier'>{section.section_title}</h2>
+                    <h4 className='text-start info-block-desc signifier'>{section.content}</h4>
+                  </div>
+                </div>
+
+                <div className='col-md-8'>
+                    <div className="project-info-image info-block-image info-slider-section w-auto">
+                    <Splide options={SliderContentSettins}>
+                      {slides.slides.map((slide, index) => (
+                        <SplideSlide key={index}>
+                          {windowSize.width <= 750 && slide.mobile ? 
+                            <Image height={500} width={500} style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
+                            : windowSize.width > 750 && slide.desktop ?
+                            <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
+                            : null}
+                        </SplideSlide>
+                      ))}
+                    </Splide>
+                  </div>
+                </div>
               </div>
-              <div className="project-info-image info-block-image info-slider-section w-auto">
-                <Splide options={SliderContentSettins}>
-                  {slides.slides.map((slide, index) => (
-                    <SplideSlide key={index}>
-                      {windowSize.width <= 750 && slide.mobile ? 
-                        <Image height={500} width={500} style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
-                        : windowSize.width > 750 && slide.desktop ?
-                        <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
-                        : null}
-                    </SplideSlide>
-                  ))}
-                </Splide>
-              </div>
+              
+              
         </div>
     );
   } else if (section.section_type === 3) {
@@ -207,11 +216,24 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     else if (section.section_type === 6) {
     return (
       <>
-      <div className="project-info-section video-section hero-image justify-content-center" ref={videoSection}>
+      <div className="project-info-section video-section hero-image justify-content-center " ref={videoSection}>
         <Video width={'90%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh',margin:'auto'}} ref={videoElem} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
       </>
     );
+  }
+
+  else if(section.section_type===7){
+    return(<>
+      <div className="project-info-section project-border-bottom float-image-container" style={{height:'auto',minHeight:'auto'}}>
+          <div class={`row justify-content-${section.alignment==1? 'start': section.alignment==2?'center': section.alignment==3?'end':''}`}>
+              <div className="col-md-8">
+                <img className="w-100 d-md-block d-none" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+                <img className="w-100 d-md-none d-block" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image_mobile}/>
+              </div>
+          </div>
+      </div>
+    </>)
   }
   
   }

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from "react";
+import Scrollbar from "smooth-scrollbar";
 
 export default function CheckNavTransparent() {
     
@@ -11,7 +12,11 @@ export default function CheckNavTransparent() {
         const SVGIcons = document.querySelectorAll('.change-svg');
         const transparentClass = 'transparent';
         const underlinedClass = 'underlined';
-    
+        
+        // Initialize the custom scrollbar
+        const scrollbarContainer = document.getElementById('expertise-inner-page');
+        const scrollbar = Scrollbar.init(scrollbarContainer);
+
         function checkNavbarPosition() {
             let shouldAddTransparent = false;
             let shouldAddUnderlined = false;
@@ -89,15 +94,15 @@ export default function CheckNavTransparent() {
     
         // Initial check in case the page is loaded at a scroll position
         checkNavbarPosition();
-        window.addEventListener('scroll', checkNavbarPosition);
+
+        // Add event listener on custom scrollbar instance
+        scrollbar.addListener(checkNavbarPosition);
     
         // Cleanup event listener on component unmount
         return () => {
-            window.removeEventListener('scroll', checkNavbarPosition);
+            scrollbar.removeListener(checkNavbarPosition);
         };
     }, []);
-    
-
 
     return null;
 }

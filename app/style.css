@@ -2647,7 +2647,7 @@ body.dark .filter-box-control{
     float: left;
     max-width: 100%;
     height: 100vh;
-    padding: 4.5rem 3rem;
+    padding: 4.5rem 2rem;
     max-width: 1050px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2666,13 +2666,13 @@ body.dark .filter-box-control{
 
 .info-block-title{
   font-size: 2.6rem;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 14px;
 }
 
 .info-block-desc{
-  font-size: 1.5rem;
-  font-weight: 100;
+  font-size: 2rem;
+  font-weight: 300;
 }
 
 .project-info-flex{
@@ -2688,6 +2688,11 @@ body.dark .filter-box-control{
           justify-content: space-between;
 }
 
+.float-image-container{
+  padding-left:2rem !important;
+  padding-right:2rem !important;
+}
+
 .info-block-image{
   height: 100vh;
   float: right;
@@ -2698,6 +2703,23 @@ body.dark .filter-box-control{
   height: 100%;
   width: auto;
 }
+
+.img-block-border{
+  position: relative;
+}
+
+.img-block-border::before{
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top:0;
+  bottom: 0;
+  width:2px;
+  background: grey;
+  height: 100%;
+  margin: auto;
+}
+
 
 
 .close-viewer:hover{
@@ -2774,8 +2796,8 @@ body.dark .filter-box-control{
 }
 
 .project-border-bottom{
-  border-bottom:1px solid grey;
-  padding: 1.5rem 0;
+  border-bottom:2px solid grey;
+  padding: 2rem 0;
 }
 
 .project-info-image{
@@ -2809,8 +2831,8 @@ body.dark .filter-box-control{
 }
 
 .border-section{
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
   padding-top: 75px;
   overflow: hidden;
 }
@@ -2832,7 +2854,7 @@ body.dark .filter-box-control{
   top:-50%;
   left: 0;
   height: 500vh;
-  width: 1px;
+  width: 2px;
   background: grey;
 }
 
