@@ -47,7 +47,7 @@ export default function CheckNavTransparent() {
                 navbar.classList.remove(transparentClass);
             }
     
-            // Check all sections to manage `light` class on the navbar and SVG icons
+            // Check all sections to manage light class on the navbar and SVG icons
             allSections.forEach(section => {
                 const sectionRect = section.getBoundingClientRect();
     
@@ -83,7 +83,7 @@ export default function CheckNavTransparent() {
                     }
                 });
     
-                // Add or remove `light` class on individual SVG icons based on collision
+                // Add or remove light class on individual SVG icons based on collision
                 if (svgShouldAddLight) {
                     curr.classList.add('light');
                 } else {

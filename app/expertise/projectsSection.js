@@ -108,9 +108,8 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     arrows: true,
     breakpoints: {
       992: {              // For screens 768px and below (Mobile Devices)
-        perPage: 1,       // Set perPage to 1 for mobile
-        autoWidth: false, // Disable autoWidth on mobile
-        gap: '0px',       // Disable gap on mobile
+        autoWidth: true, // Disable autoWidth on mobile
+        gap: '12px',       // Disable gap on mobile
       },
     },
   };
@@ -121,7 +120,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   if (section.section_type === 1) {
     return (
       <>
-        <div className="project-info-section remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
+        <div className="project-info-section partially-width remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
           <div className='info-block-content'>
                <h2 className='info-block-title text-start signifier'>{section.section_title}</h2>
                 <h4 className='info-block-desc text-start signifier'>{section.content}</h4>
@@ -138,7 +137,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   } else if (section.section_type === 2) {
     return (
-        <div className="project-info-section remove-transparent project-info-flex project-border-bottom" ref={InfoSection}>
+        <div className="project-info-section partially-width remove-transparent project-info-flex project-border-bottom project-section-no-padding" ref={InfoSection}>
               <div className='row'>
 
                 <div className='col-md-4'>
@@ -148,13 +147,13 @@ export default function ProjectSection({ section, slides, essecials, points, vid
                   </div>
                 </div>
 
-                <div className='col-md-8'>
-                    <div className="project-info-image info-block-image info-slider-section w-auto">
+                <div className='col-md-8 p-0'>
+                    <div className="project-info-image info-block-image info-slider-section project-info-slider-padding">
                     <Splide options={SliderContentSettins}>
                       {slides.slides.map((slide, index) => (
                         <SplideSlide key={index}>
                           {windowSize.width <= 750 && slide.mobile ? 
-                            <Image height={500} width={500} style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
+                            <Image height={500} width={500} className='mobile-slider-img-content' style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
                             : windowSize.width > 750 && slide.desktop ?
                             <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
                             : null}
@@ -207,7 +206,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }
   else if (section.section_type === 5) {
     return (
-      <div ref={InfoSection} className='remove-transparent project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
+      <div ref={InfoSection} className='remove-transparent partially-width project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
         <ProjectEssencials essecials={essecials} points={points} />
       </div>
     );
@@ -225,7 +224,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
   else if(section.section_type===7){
     return(<>
-      <div className="project-info-section project-border-bottom float-image-container" style={{height:'auto',minHeight:'auto'}}>
+      <div className="project-info-section project-border-bottom partially-width float-image-container" style={{height:'auto',minHeight:'auto'}}>
           <div class={`row justify-content-${section.alignment==1? 'start': section.alignment==2?'center': section.alignment==3?'end':''}`}>
               <div className="col-md-8">
                 <img className="w-100 d-md-block d-none" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
