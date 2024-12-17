@@ -2,6 +2,7 @@
 import { useEffect } from "react"
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { IoChevronDownCircleOutline } from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,7 +68,9 @@ export default function ProjectEssencials({essecials,points,scroller}){
                     
                     <div class="col-lg-3">
                         <div class="project-title-padding">
-                        <h4 class="fw-light essential-title signifier">Project Essentials</h4>
+                        <h4 class="fw-light essential-title signifier">
+                            <span className="project-icon"><IoChevronDownCircleOutline /></span>
+                         Project Essentials</h4>
                         </div>
                     </div>
                     

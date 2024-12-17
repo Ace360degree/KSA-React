@@ -90,6 +90,7 @@ export default function CheckNavTransparent() {
                     curr.classList.remove('light');
                 }
             });
+            
         }
     
         // Initial check in case the page is loaded at a scroll position

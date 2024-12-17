@@ -11,10 +11,10 @@ import Image from "next/image";
 import CommonLoader from "@/app/components/commons/loaderCommon";
 import "jquery-scrollify";
 import $ from "jquery";
-import LocomotiveScroll from "locomotive-scroll";
 import NavbarIntroPageUnderline from "@/app/components/NavbarUnderline";
 import { useVisitedProjectsStore } from "@/app/states/store/projectsStore";
 import Scrollbar from "smooth-scrollbar";
+
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
