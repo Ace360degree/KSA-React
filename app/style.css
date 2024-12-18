@@ -2679,7 +2679,7 @@ body.dark .filter-box-control{
     float: left;
     max-width: 100%;
     height: var(--min-height);
-    padding: 2.5rem 1.5rem;
+    padding: 0 1.5rem;
     max-width: 1050px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2731,6 +2731,7 @@ body.dark .filter-box-control{
   float: right;
   max-width: 100%;
   width: auto;
+  padding: 0.5rem 2rem;
 }
 .info-block-img{
   height: 100%;
@@ -2744,7 +2745,7 @@ body.dark .filter-box-control{
 .img-block-border::before{
   content: "";
   position: absolute;
-  left: -1.5rem;
+  left: -0.5rem;
   top:0;
   bottom: 0;
   width:2px;
@@ -4566,7 +4567,7 @@ body.dark .filter-box-control{
 }
 
 .info-slider-section{
-  padding: 24px;
+  /* padding: 0 24px; */
 }
 
 .audio-box{
@@ -4706,7 +4707,7 @@ body.dark .filter-box-control{
 }
 
 .img-border-section{
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   width: 100%;
   border-bottom: 1px solid grey;
   -webkit-transition: all 1.5s ease;
