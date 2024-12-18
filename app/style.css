@@ -2703,7 +2703,8 @@ body.dark .filter-box-control{
 }
 
 .info-block-desc{
-  font-size: 2rem;
+  font-size: 1.55rem;
+  line-height: 1.8rem;
   font-weight: 300;
 }
 
