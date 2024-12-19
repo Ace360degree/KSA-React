@@ -84,29 +84,29 @@ export default function ProjectInfo(){
     const scrollContainerRef = useRef(null);
     const scrollbarRef = useRef(null); 
 
-    useEffect(() => {
-      if(scrollContainerRef.current){
-      scrollbarRef.current = Scrollbar.init(scrollContainerRef.current, {
-        damping: 0.1, 
-        thumbMinSize: 20, 
-      });
+    // useEffect(() => {
+    //   if(scrollContainerRef.current){
+    //   scrollbarRef.current = Scrollbar.init(scrollContainerRef.current, {
+    //     damping: 0.1, 
+    //     thumbMinSize: 20, 
+    //   });
   
-      ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
-        scrollTop(value) {
-          return value === undefined ? scrollbarRef.current.scrollTop : scrollbarRef.current.scrollTo(value, 0, 0);
-        },
-      });
+    //   ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
+    //     scrollTop(value) {
+    //       return value === undefined ? scrollbarRef.current.scrollTop : scrollbarRef.current.scrollTo(value, 0, 0);
+    //     },
+    //   });
   
-      scrollbarRef.current.addListener(ScrollTrigger.update);
+    //   scrollbarRef.current.addListener(ScrollTrigger.update);
   
-      return () => {
-        if (scrollbarRef.current) {
-          scrollbarRef.current.destroy();
-        }
-      };
+    //   return () => {
+    //     if (scrollbarRef.current) {
+    //       scrollbarRef.current.destroy();
+    //     }
+    //   };
 
-    }
-    }, [project]);
+    // }
+    // }, [project]);
 
     useEffect(()=>{
         if(projectTitle.current){
@@ -133,7 +133,7 @@ export default function ProjectInfo(){
             <SliderCursor/>
             <NavbarIntroPageUnderline heading={'Expertise'} active={true} subheading={project.category}/>
             
-            <div ref={scrollContainerRef} id="expertise-inner-page" style={{height:'100vh'}}>
+            {/* <div ref={scrollContainerRef} id="expertise-inner-page" style={{height:'100vh'}}> */}
             <div className="project-banner hero-image project-info-section overflow-hidden">
                <div className="project-title " ref={projectTitle}>
                 <h2 class="text-capitalize text-start">{project.project_name}</h2>
@@ -152,7 +152,7 @@ export default function ProjectInfo(){
               
               
             </div>
-            </div>
+            {/* </div> */}
             </>
             }
 

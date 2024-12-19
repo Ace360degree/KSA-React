@@ -54,7 +54,6 @@ export default function ProjectEssencials({essecials,points,scroller}){
            trigger:'#project-counter',
            start:"top 50%",
            end:"top 80%",
-           scroller:'#expertise-inner-page',
            animation:fxTl,
         });
         
