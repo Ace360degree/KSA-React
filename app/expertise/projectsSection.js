@@ -176,8 +176,8 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           )
           : windowSize.width > 750 && section.section_image ? 
           (
-            <div className=" img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+            <div className=" img-border-section position-relative hero-image hero-padding" ref={InfoSection}>
+              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '80vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
           )
           : null}
@@ -220,12 +220,12 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   }
 
-  else if(section.section_type===7){
+  else if(section.section_type === 7){
     return(<>
       <div className="project-info-section project-border-bottom partially-width float-image-container" style={{height:'auto',minHeight:'auto'}}>
-          <div class={`row justify-content-${section.alignment==1? 'start': section.alignment==2?'center': section.alignment==3?'end':''}`}>
-              <div className="col-md-8">
-                <img className="w-100 d-md-block d-none" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+          <div class="w-100">
+              <div className="w-100">
+                <img className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
                 <img className="w-100 d-md-none d-block" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image_mobile}/>
               </div>
           </div>

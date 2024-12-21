@@ -36,7 +36,7 @@
   --projectcontentWidth:98vw;
   --slide-up-size:0px;
   --common-easing: cubic-bezier(0.83, 0.2, 0.13, 0.92);
-  --min-height:88vh;  
+  --min-height:75vh;  
   --pointer: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/yiH2YIAAAAASUVORK5CYII='), pointer;
 }
 
@@ -2750,7 +2750,7 @@ body.dark .filter-box-control{
   bottom: 0;
   width:2px;
   background: grey;
-  height: 100%;
+  height: 109.5%;
   margin: auto;
 }
 
@@ -2767,10 +2767,18 @@ body.dark .filter-box-control{
   max-height: 100vh;
 }
 
+.hero-padding{
+  padding: 2rem !important;
+}
+
+.float-img{
+  height: calc(var(--min-height) + 8vh);
+}
+
 
 .project-title{
   position: absolute;
-  bottom: 8svh;
+  bottom: 10vh;
   left: 24px;
   text-shadow: 1px 1px 3px black;
   color: white;
@@ -4717,6 +4725,14 @@ body.dark .filter-box-control{
 
 .img-border-section:last-child{
   padding-bottom:0 ;
+}
+
+.img-border-section.hero-image:last-child{
+  padding: 0 !important;
+}
+
+.img-border-section.hero-image:last-child img{
+  height: 100vh !important;
 }
 
 

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
 
 export default function CheckNavTransparent() {
     
@@ -14,7 +15,7 @@ export default function CheckNavTransparent() {
     
         function checkNavbarPosition() {
             let shouldAddTransparent = false;
-            let shouldAddUnderlined = false;
+            let shouldAddUnderlined = false; 
     
             // Recalculate navbar's position in every check
             const navbarRect = navbar.getBoundingClientRect();
@@ -59,12 +60,6 @@ export default function CheckNavTransparent() {
                 }
             });
     
-            // Update underlined class on the navbar
-            // if (shouldAddUnderlined) {
-            //     navbar.classList.add(underlinedClass);
-            // } else {
-            //     navbar.classList.remove(underlinedClass);
-            // }
     
             // Separate check for SVGIcons colliding with hero images
             SVGIcons.forEach((curr) => {
