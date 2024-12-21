@@ -7,6 +7,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import ProjectEssencials from './projectsEssecials';
 import Image from 'next/image';
 import { Video } from "reactjs-media";
+import CheckNavTransparent from '../components/commons/checkNavTransparent';
 
 
 
@@ -170,15 +171,21 @@ export default function ProjectSection({ section, slides, essecials, points, vid
       <>
         {windowSize.width <= 750 && section.section_image_mobile ? 
           (
+            <>
+            <CheckNavTransparent/>
             <div className="img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
               <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
+            </>
           )
           : windowSize.width > 750 && section.section_image ? 
           (
+            <>
+            <CheckNavTransparent/>
             <div className=" img-border-section position-relative hero-image hero-padding" ref={InfoSection}>
               <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '80vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
+            </>
           )
           : null}
       </>
