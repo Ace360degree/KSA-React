@@ -29,6 +29,7 @@
   --shorthand-length:90px;
   
   --nav-height:60px;
+  --border-light:#dcdcdc;
   
   --morph-shadow-line:0px 2px 5px 0px #52525259, 0px 1px 8px 0px #02020242;
   --morph-shadow-dot:0px 0px 5px 0px #000000, 0px 0px 5px 0px #cbc9c9;
@@ -654,7 +655,7 @@ border-bottom: none;
   left: 0;
   right: 0;
   height: 2px;
-  background: grey;
+  background: var(--border-light);
   width: var(--projectcontentWidth);
   margin:auto;
 }
@@ -2749,7 +2750,7 @@ body.dark .filter-box-control{
   top:0;
   bottom: 0;
   width:2px;
-  background: grey;
+  background: var(--border-light);
   height: 109.5%;
   margin: auto;
 }
@@ -2772,7 +2773,10 @@ body.dark .filter-box-control{
 }
 
 .float-img{
-  height: calc(var(--min-height) + 8vh);
+  max-height: calc(var(--min-height) + 8vh);
+  max-width: 84%;
+  width: auto;
+  height: auto;
 }
 
 
@@ -2838,7 +2842,7 @@ body.dark .filter-box-control{
 }
 
 .project-border-bottom{
-  border-bottom:2px solid grey;
+  border-bottom:2px solid var(--border-light);
   padding: 2rem 0;
 }
 
@@ -2873,8 +2877,8 @@ body.dark .filter-box-control{
 }
 
 .border-section{
-  border-top: 2px solid grey;
-  border-bottom: 2px solid grey;
+  border-top: 2px solid var(--border-light);
+  border-bottom: 2px solid var(--border-light);
   padding-top: 75px;
   overflow: hidden;
 }
@@ -2897,7 +2901,7 @@ body.dark .filter-box-control{
   left: 0;
   height: 500vh;
   width: 2px;
-  background: grey;
+  background: var(--border-light);
 }
 
 .glance-side-title{
@@ -5370,7 +5374,7 @@ body.dark .filter-box-control{
   }
   .padding-points{
     padding: 1rem 0;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--border-light);
   }
   .essential-title{
     font-size: 1.2rem;
@@ -5454,6 +5458,10 @@ body.dark .filter-box-control{
     height: auto;
   }
 
+  .img-block-border::before{
+    width: 0;
+  }
+
   .slider-texts h2{
     font-size: 1.8rem;
     line-height: 1.8rem;
@@ -5495,7 +5503,7 @@ body.dark .filter-box-control{
       font-size: 14px;
   }
   .padding-points{
-      border-top: 1px solid grey;
+      border-top: 1px solid var(--border-light);
       margin-top: .5rem;
   }
   .lg-text-title{

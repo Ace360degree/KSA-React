@@ -229,7 +229,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
   else if(section.section_type === 7){
     return(<>
-      <div className="project-info-section project-border-bottom partially-width float-image-container" style={{height:'auto',minHeight:'auto'}}>
+      <div className="project-info-section project-border-bottom float-image-container mx-0" style={{height:'auto',minHeight:'auto'}}>
           <div class="w-100">
               <div className="w-100">
                 <img className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
