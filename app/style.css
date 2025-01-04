@@ -178,7 +178,9 @@ src: url('./fonts/signifier/TestSignifier-Black.otf');
 }
 
 
-
+body{
+  padding: 0 !important;
+}
 
 .billy-text{
   font-family: 'Billie Eilish', serif !important;
