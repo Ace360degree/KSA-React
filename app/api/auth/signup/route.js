@@ -17,7 +17,7 @@ export async function POST(req) {
 
 
     // Perform the database query with await
-    const [result] = await db.query('INSERT INTO users (fullname,phone,email,type,hashedPassword,last_loggedin) VALUES (?,?,?,?,?,?)', [fullname, phone, email,'webiste-signup', hashedPassword, currDate]);
+    const [result] = await db.query('INSERT INTO users (fullname,phone,email,type,hashedPassword,total_loggins,last_loggedin) VALUES (?,?,?,?,?,?,?)', [fullname, phone, email,'webiste-signup', hashedPassword,0,currDate]);
 
     const emailSent = await sendMail({
       to: email,
