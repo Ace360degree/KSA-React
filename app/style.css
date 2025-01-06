@@ -194,7 +194,7 @@ body{
 
 .signifier ,.billy-text ,.avelir-text{
   -webkit-font-feature-settings: "lnum";
-          font-feature-settings: "lnum"; /* Enable standard numeral styling */
+          font-feature-settings: "lnum"; 
 }
 
 
@@ -1412,7 +1412,7 @@ body.dark .extended-line::before{
 
 .scrollbanner{
   position: absolute;
-  bottom: 2vh;
+  bottom: 2svh;
   left: 0;
   right: 0;
   margin: auto;
