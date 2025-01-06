@@ -73,7 +73,6 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // Add token details to the session object
       session.user.id = token.id;
       session.user.email = token.email;
       session.user.name = token.name;
@@ -84,14 +83,12 @@ const handler = NextAuth({
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [user.email]);
 
         if (rows.length === 0) {
-          // Insert new user into the database
           await db.query(
             'INSERT INTO users (email, fullname, type, signedupdate) VALUES (?, ?, ?, NOW())',
             [user.email, user.name, account.provider]
           );
         }
         else {
-          // If the user exists, update `last_loggedin` and `total_loggins`
           await db.query(
             'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
             [user.email]
@@ -99,14 +96,14 @@ const handler = NextAuth({
         }
       }
 
-      return true; // Allow sign-in
+      return true; 
     },
   },
   pages: {
-    signIn: '/auth/signin', // Custom sign-in page
-    error: '/auth/error', // Error page
+    signIn: '/auth/signin', 
+    error: '/auth/error',
   },
-  secret: JWT_SECRET, // Add a secret for signing JWTs
+  secret: JWT_SECRET, 
 });
 
 
