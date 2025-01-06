@@ -103,7 +103,6 @@ export default function SliderCursor(){
         <div className="slider-cursor-icon fa-solid">
             {arrowIcon=='left'?  
               <FaChevronRight />
-
               : 
               <FaChevronLeft />
             } 

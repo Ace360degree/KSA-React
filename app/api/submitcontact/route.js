@@ -40,18 +40,18 @@ export async function POST(req) {
 
     // Create a transporter
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", // Replace with your SMTP server
-      port: 587, // Replace with your SMTP port
-      secure: false, // Set to true if using 465
+      host: "admin.kuwalsanamarchitekts.com", 
+      port: 587, 
+      secure: false, 
       auth: {
-        user: "customercare@a360pl.com", // Replace with your email
-        pass: "AceCars24@123#@!", // Replace with your email password
+        user: "mailer@admin.kuwalsanamarchitekts.com", 
+        pass: "dDqV$s_q*tM!", 
       },
     });
 
     // Send email to admin
     await transporter.sendMail({
-      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>', // Replace with your email
+      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>', 
       to: adminEmail,
       subject: adminSubject,
       html: adminMessage,
@@ -59,7 +59,7 @@ export async function POST(req) {
 
     // Send email to user
     await transporter.sendMail({
-      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>', // Replace with your email
+      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>',
       to: email,
       subject: userSubject,
       html: userMessage,

@@ -2,10 +2,11 @@
 import { useEffect } from "react"
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { IoChevronDownCircleOutline } from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectEssencials({essecials,points}){
+export default function ProjectEssencials({essecials,points,scroller}){
     
     useEffect(()=>{
                 let projectTititleTL = gsap.timeline();
@@ -53,8 +54,6 @@ export default function ProjectEssencials({essecials,points}){
            trigger:'#project-counter',
            start:"top 50%",
            end:"top 80%",
-        //   onEnter:StartCounter,
-        //   scrub:fasle,
            animation:fxTl,
         });
         
@@ -68,7 +67,9 @@ export default function ProjectEssencials({essecials,points}){
                     
                     <div class="col-lg-3">
                         <div class="project-title-padding">
-                        <h4 class="fw-light essential-title signifier">Project Essentials</h4>
+                        <h4 class="fw-light essential-title signifier">
+                            <span className="project-icon"><IoChevronDownCircleOutline /></span>
+                         Project Essentials</h4>
                         </div>
                     </div>
                     

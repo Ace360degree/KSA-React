@@ -7,16 +7,20 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import ProjectEssencials from './projectsEssecials';
 import Image from 'next/image';
 import { Video } from "reactjs-media";
+import CheckNavTransparent from '../components/commons/checkNavTransparent';
 
 
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectSection({ section, slides, essecials, points, video }) {
+export default function ProjectSection({ section, slides, essecials, points, video}) {
 
   const InfoSection = useRef(null);
   console.log(video);
+
+  const videoSection = useRef(null);
+  const videoElem = useRef(null);
 
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -39,6 +43,35 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }, []);
 
   useEffect(() => {
+    if(videoElem.current){
+      const trigger = ScrollTrigger.create({
+        trigger: videoSection.current,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => {
+          videoElem.current?.play();
+        },
+        onLeave: () => {
+          videoElem.current?.pause();
+        },
+        onEnterBack: () => {
+          videoElem.current?.play();
+        },
+        onLeaveBack: () => {
+          videoElem.current?.pause();
+        },
+      });
+
+      return () => {
+        trigger.kill();
+      };
+    }
+
+    // Cleanup ScrollTrigger on component unmount
+    
+  }, [section,video]);
+
+  useEffect(() => {
     if (InfoSection.current) {
       // Initialize ScrollTrigger
       gsap.fromTo(InfoSection.current, 
@@ -54,7 +87,6 @@ export default function ProjectSection({ section, slides, essecials, points, vid
             scrub: true,
             start: "top 100%", // Adjust the start position for better control
             end: "top 90%",
-            // markers: true, // Enable markers for debugging if needed
           }
         }
       );
@@ -63,17 +95,20 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
   let SliderSettings = {
     type: 'slide',
-    autoplay: true,
+    pagination: true,
+    arrows: true,
+  };
+
+  let SliderContentSettins = {
+    type: 'slide',
     autoWidth:true,
-    gap:'8px',
-    interval: 4000,
+    gap:'2.5rem',
     pagination: true,
     arrows: true,
     breakpoints: {
       992: {              // For screens 768px and below (Mobile Devices)
-        perPage: 1,       // Set perPage to 1 for mobile
-        autoWidth: false, // Disable autoWidth on mobile
-        gap: '0px',       // Disable gap on mobile
+        autoWidth: true, // Disable autoWidth on mobile
+        gap: '12px',       // Disable gap on mobile
       },
     },
   };
@@ -120,12 +155,12 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   if (section.section_type === 1) {
     return (
       <>
-        <div className="project-info-section remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
+        <div className="project-info-section partially-width remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
           <div className='info-block-content'>
-               <h2 className='info-block-title text-start'>{section.section_title}</h2>
-                <h4 className='info-block-desc text-start'>{section.content}</h4>
+               <h2 className='info-block-title text-start signifier'>{section.section_title}</h2>
+                <h4 className='info-block-desc text-start signifier'>{section.content}</h4>
           </div>
-          <div className='info-block-image'>
+          <div className='info-block-image img-block-border'>
                {windowSize.width <= 840 && section.section_image_mobile ? 
                  <Image className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
                  : windowSize.width > 840 && section.section_image ? 
@@ -137,24 +172,34 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   } else if (section.section_type === 2) {
     return (
-        <div className="project-info-section remove-transparent project-info-flex project-border-bottom" ref={InfoSection}>
-              <div className="info-block-content">
-                <h2 className='text-start'>{section.section_title}</h2>
-                <h4 className='text-start'>{section.content}</h4>
+        <div className="project-info-section partially-width remove-transparent project-info-flex project-border-bottom project-section-no-padding" ref={InfoSection}>
+              <div className='row'>
+
+                <div className='col-md-4'>
+                  <div className="info-block-content">
+                    <h2 className='text-start info-block-title signifier'>{section.section_title}</h2>
+                    <h4 className='text-start info-block-desc signifier'>{section.content}</h4>
+                  </div>
+                </div>
+
+                <div className='col-md-8 p-0'>
+                    <div className="project-info-image info-block-image info-slider-section project-info-slider-padding">
+                    <Splide options={SliderContentSettins}>
+                      {slides.slides.map((slide, index) => (
+                        <SplideSlide key={index}>
+                          {windowSize.width <= 750 && slide.mobile ? 
+                            <Image height={500} width={500} className='mobile-slider-img-content' style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
+                            : windowSize.width > 750 && slide.desktop ?
+                            <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
+                            : null}
+                        </SplideSlide>
+                      ))}
+                    </Splide>
+                  </div>
+                </div>
               </div>
-              <div className="project-info-image info-block-image info-slider-section w-auto">
-                <Splide options={SliderSettings}>
-                  {slides.slides.map((slide, index) => (
-                    <SplideSlide key={index}>
-                      {windowSize.width <= 750 && slide.mobile ? 
-                        <Image height={500} width={500} style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
-                        : windowSize.width > 750 && slide.desktop ?
-                        <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
-                        : null}
-                    </SplideSlide>
-                  ))}
-                </Splide>
-              </div>
+              
+              
         </div>
     );
   } else if (section.section_type === 3) {
@@ -162,15 +207,21 @@ export default function ProjectSection({ section, slides, essecials, points, vid
       <>
         {windowSize.width <= 750 && section.section_image_mobile ? 
           (
+            <>
+            <CheckNavTransparent/>
             <div className="img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
               <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
+            </>
           )
           : windowSize.width > 750 && section.section_image ? 
           (
-            <div className=" img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+            <>
+            <CheckNavTransparent/>
+            <div className=" img-border-section position-relative hero-image hero-padding" ref={InfoSection}>
+              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '80vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
+            </>
           )
           : null}
       </>
@@ -196,7 +247,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }
   else if (section.section_type === 5) {
     return (
-      <div ref={InfoSection} className='remove-transparent project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
+      <div ref={InfoSection} className='remove-transparent partially-width project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
         <ProjectEssencials essecials={essecials} points={points} />
       </div>
     );
@@ -205,11 +256,24 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     else if (section.section_type === 6) {
     return (
       <>
-      <div className="project-info-section video-section hero-image">
-        <Video  ref={videoRef} width={'100%'} height={'auto'} poster={thumbnail} style={{background:'transparent',maxHeight:'85vh'}}  controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
+      <div className="project-info-section video-section hero-image justify-content-center " ref={videoSection}>
+        <Video width={'90%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh',margin:'auto'}} ref={videoElem} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
       </>
     );
+  }
+
+  else if(section.section_type === 7){
+    return(<>
+      <div className="project-info-section project-border-bottom float-image-container mx-0" style={{height:'auto',minHeight:'auto'}}>
+          <div class="w-100">
+              <div className="w-100">
+                <img className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+                <img className="w-100 d-md-none d-block" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image_mobile}/>
+              </div>
+          </div>
+      </div>
+    </>)
   }
   
   }

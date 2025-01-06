@@ -43,6 +43,13 @@ const handler = NextAuth({
           throw new Error('Invalid credentials');
         }
 
+        // update loggedin Details
+
+        await db.query(
+          'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE id = ?',
+          [user.id]
+        );
+
         // If successful, return the user object (you can include other user details as needed)
         return {
           id: user.id,
@@ -83,7 +90,15 @@ const handler = NextAuth({
             [user.email, user.name, account.provider]
           );
         }
+        else {
+          // If the user exists, update `last_loggedin` and `total_loggins`
+          await db.query(
+            'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
+            [user.email]
+          );
+        }
       }
+
       return true; // Allow sign-in
     },
   },

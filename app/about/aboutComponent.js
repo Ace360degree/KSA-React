@@ -11,6 +11,7 @@ import $ from "jquery";
 import  "jquery-scrollify";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
 import { useRouter } from "next/navigation";
+import Scrollbar from 'smooth-scrollbar';
 
 
 
@@ -37,14 +38,42 @@ export default function AboutComponent(){
     }
 
 
+  const aboutScrollerRef = useRef(null);
+    
+  const scrollbarRef = useRef(null);  // Store the scrollbar instance in a ref
+
+  useEffect(() => {
+    // if(aboutScrollerRef.current){
+    scrollbarRef.current = Scrollbar.init(aboutScrollerRef.current, {
+      damping: 0.1, 
+      thumbMinSize: 20, // Minimum thumb size for the scrollbar
+    });
+
+    // Set up GSAP ScrollTrigger to sync with Smooth Scrollbar
+    ScrollTrigger.scrollerProxy(aboutScrollerRef.current, {
+      scrollTop(value) {
+        return value === undefined ? scrollbarRef.current.scrollTop : scrollbarRef.current.scrollTo(value, 0, 0);
+      },
+    });
+
+    // Update ScrollTrigger on scroll
+    scrollbarRef.current.addListener(ScrollTrigger.update);
+    // Clean up on unmount
+    return () => {
+      if (scrollbarRef.current) {
+        scrollbarRef.current.destroy();
+      }
+    // };
+}
+  }, []);
 
 
     function scrollSmoothTo() {
         if (aboutSection.current) {
-            aboutSection.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
+            const offsetTop = aboutSection.current.getBoundingClientRect().top + window.scrollY;
+    
+            // Scroll to the calculated offset
+            scrollbarRef.current.scrollTo(0, offsetTop, 1000);
         }
     }
 
@@ -62,14 +91,7 @@ export default function AboutComponent(){
     //     };
     //   }, []);
 
-    useEffect(()=>{
-        window.scrollTo(0,0);
-    },[])
-
     useEffect(() => {
-
-        document.querySelector('body').classList.add('loading');
-
         if(mainBanner.current){
         let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
 
@@ -90,7 +112,6 @@ export default function AboutComponent(){
 
         setTimeout(() => {
             document.querySelector('.scrollbanner').classList.add('active');
-            document.querySelector('body').classList.remove('loading');
         }, 2000);
 
         let AboutAnimeTextElem = document.querySelector('.about-anim-text');
@@ -124,17 +145,6 @@ function changeText() {
     return () => clearInterval(IntervalId);
 
         }
-        // Create a timeline for the animation
-        // let timeline = gsap.timeline({
-        //     scrollTrigger: {
-        //         trigger: '#ksa-slider',
-        //         start: "top 80%",
-        //         end: "top 30%",
-        //         scrub: true,
-        //     }
-        // });
-        
-         // Clean up on unmount
 
     }, [showTabs]);
 
@@ -161,6 +171,7 @@ function changeText() {
                     start: "top top",
                     end: "+=900",
                     pin: true,
+                    scroller:aboutScrollerRef.current,
                     animation: ksaAbout2TL,
                
                 });
@@ -173,7 +184,6 @@ function changeText() {
         return () => ctx.revert();
     }, [showTabs]);
 
-    // useEffect(() => {
     //     let ctx = gsap.context(() => {
     //         document.querySelectorAll('.about-pinned-anim').forEach((pinned, index) => {
     //             let ab2head = pinned.querySelector('.ab-2-head');
@@ -259,6 +269,7 @@ function changeText() {
                 trigger: '#discipline',
                 start: 'top 50%',
                 end: 'bottom 0%',
+                scroller:aboutScrollerRef.current,
                 onEnter: initActiveNow,
                 onEnterBack: initActiveNow,
                 onLeave: removeActiveNow,
@@ -290,7 +301,6 @@ function changeText() {
 
     return(
         <>
-            <ScrollifyDisabled/>
             <DarkTheme/>
             <NavbarIntroPage heading={'CULTURE'} active={true}/>
             {/* <div class="header-gap"></div> */}
@@ -302,6 +312,8 @@ function changeText() {
             <li className={showTabs=='discipline' || activeDiscipline ?'filter-trigger active':'filter-trigger'} style={{fontFamily:'Signifier'}} id="disciplineTrigger" onClick={()=>{updateSections('discipline')}} data-target="#discipline">Discipline</li>
         </ul>
         
+        <div ref={aboutScrollerRef} style={{height:'100vh'}}>
+         <div>
         {showTabs=='All' || showTabs=='culture'?
         <div className="target-section signifier" ref={mainBanner} id="culture">
             
@@ -399,6 +411,8 @@ function changeText() {
         </div>
         :''}
 
+        </div>   
+        </div>
         </>
     )
 
