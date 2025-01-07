@@ -270,7 +270,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           <div class="w-100">
               <div className="w-100">
                 <img className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
-                <img className="w-100 d-md-none d-block" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image_mobile}/>
+                <img className="w-100 d-md-none d-block" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
               </div>
           </div>
       </div>

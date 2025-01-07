@@ -588,8 +588,6 @@ export default function HomeComponent(){
            
             <div className="home-project-slider hero-image">
                 
-                    
-
                     {homeBanners.map((banner,index)=>(
                     <>
                     <div className="home-slides-box hero-image home-snapping slider-hero-snapping" key={index}>

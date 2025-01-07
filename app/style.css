@@ -716,6 +716,10 @@ border-bottom: none;
   transition:all 0.8s ease-in-out;
 }
 
+#mainContent{
+  overflow: hidden;
+}
+
 /* 100 percent  */
 .page-section-100{
   max-height: 100vh;
@@ -2735,6 +2739,7 @@ body.dark .filter-box-control{
   max-width: 100%;
   width: auto;
   padding: 0.5rem 2rem;
+  padding-right:1rem;
 }
 .info-block-img{
   height: 100%;
@@ -4057,6 +4062,7 @@ body.dark .filter-box-control{
   -o-transition:all 1.5s ease;
   transition:all 1.5s ease;
   min-height: var(--min-height);
+  overflow: hidden;
 }
 
 .project-info-section.partially-width{
@@ -4737,7 +4743,7 @@ body.dark .filter-box-control{
 }
 
 .img-border-section{
-  padding: 2rem 0;
+  padding: 2rem;
   width: 100%;
   border-bottom: 1px solid grey;
   -webkit-transition: all 1.5s ease;

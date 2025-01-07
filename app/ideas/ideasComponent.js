@@ -32,8 +32,8 @@ export default function IdeasComponent(){
     const router = useRouter();
     const searchParams = useSearchParams();
     const ideasSearchId = searchParams.get('id');
-    const ideasCategoryId = searchParams.get('category');
-    const filterSelected = searchParams.get('selected');
+    const ideasCategoryId = searchParams.get('category')?? null;
+    const filterSelected = searchParams.get('selected')?? null;
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [initScroll,setInitScroll]=useState(false);
     const [ideas, setIdeas] = useState([]);
@@ -287,12 +287,14 @@ export default function IdeasComponent(){
       }, [filteredIdeas]);
 
 
-    useEffect(()=>{
-        if(ideasCategoryId && !filterSelected || filterSelected!='All'){
+    useEffect(()=>{        
+        if(ideasCategoryId && filterSelected && filterSelected!='All'){
             handleFilter(parseInt(ideasCategoryId));
-        }else if(filterSelected && filterSelected=='All'){
+        }else if(filterSelected && filterSelected=='All' ){
             handleFilter('All');
-        }    
+        }else if(!ideasCategoryId){
+            handleFilter('All');
+        }
     },[ideas]);
     
 
