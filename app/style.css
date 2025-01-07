@@ -2758,6 +2758,11 @@ body.dark .filter-box-control{
 }
 
 
+.slide-img-autWidth{
+  width: 100% !important;
+  height: var(--min-height) !important;
+  object-fit: cover;
+}
 
 .close-viewer:hover{
   opacity: 1;
@@ -2766,8 +2771,8 @@ body.dark .filter-box-control{
 .project-banner{
   position:relative;
   width:100%;
-  height:100vh;
-  max-height: 100vh;
+  height:100svh;
+  max-height: 100svh;
 }
 
 .hero-padding{
@@ -2784,7 +2789,7 @@ body.dark .filter-box-control{
 
 .project-title{
   position: absolute;
-  bottom: 10vh;
+  bottom: 6svh;
   left: 24px;
   text-shadow: 1px 1px 3px black;
   color: white;
@@ -4720,6 +4725,17 @@ body.dark .filter-box-control{
   opacity:1;
 }
 
+.hero-image.potrait-img{
+  display: none;
+  height: 100vh;
+  width: 100%;
+}
+
+.hero-image.normal-img{
+  height: auto !important;
+  width: 100% !important;
+}
+
 .img-border-section{
   padding: 2rem 0;
   width: 100%;
@@ -4731,6 +4747,13 @@ body.dark .filter-box-control{
 
 .img-border-section:last-child{
   padding-bottom:0 ;
+}
+
+.img-border-section:last-child .hero-image.normal-img{
+  display: none;
+}
+.img-border-section:last-child .hero-image.potrait-img{
+  display: block;
 }
 
 .img-border-section.hero-image:last-child{

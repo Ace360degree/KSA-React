@@ -190,7 +190,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
                           {windowSize.width <= 750 && slide.mobile ? 
                             <Image height={500} width={500} className='mobile-slider-img-content' style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
                             : windowSize.width > 750 && slide.desktop ?
-                            <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
+                            <Image height={500} width={500} className='slide-img-autWidth' unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
                             : null}
                         </SplideSlide>
                       ))}
@@ -209,8 +209,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           (
             <>
             <CheckNavTransparent/>
-            <div className="img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
+            <div className="img-border-section position-relative hero-image" ref={InfoSection}>
+              <Image className='hero-image normal-img' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+              <Image className='hero-image potrait-img' height={500} width={500}  unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
             </>
           )
@@ -237,7 +238,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
               {windowSize.width <= 750 && slide.mobile ? 
                 <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA"/>
                 : windowSize.width > 750 && slide.desktop ? 
-                <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
+                <Image className='hero-image slide-img-autWidth' height={500} width={500} unoptimized  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
                 : null}
             </SplideSlide>
           ))}

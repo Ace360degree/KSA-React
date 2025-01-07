@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import DarkTheme from '@/app/components/body/darkTheme';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function DynamicLogout() {
   const [loading, setLoading] = useState(true);
@@ -13,6 +13,10 @@ export default function DynamicLogout() {
   const [showError,setShowError] = useState(false);
   const [showSuccess,setShowSuccess] = useState(false);
 
+
+  const {data:session} = useSession();
+
+  console.log(session);
 
     const handleLogout = async () => {
       setLoading(true); // Set loading at the start of the logout process
@@ -44,8 +48,10 @@ export default function DynamicLogout() {
     <div className="logout-window">
 
       <div className="contact-alert-box">
-          <div className="contact-alert">
-              <h1>Are you sure, You want to log out?</h1>
+          <div className="contact-alert signifier">
+              {session?
+              <h2>Hello, {session.user.name}</h2>:""}
+              <h4 className='fw-light'>Are you sure, You want to log out?</h4>
               <p></p>
               <div className='d-flex w-100 justify-content-center' style={{gap:'8px'}}>
                 <button type="button" className='btn btn-outline-light ' onClick={()=>{router.back()}}>Back</button>

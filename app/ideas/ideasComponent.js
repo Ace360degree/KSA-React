@@ -33,6 +33,7 @@ export default function IdeasComponent(){
     const searchParams = useSearchParams();
     const ideasSearchId = searchParams.get('id');
     const ideasCategoryId = searchParams.get('category');
+    const filterSelected = searchParams.get('selected');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [initScroll,setInitScroll]=useState(false);
     const [ideas, setIdeas] = useState([]);
@@ -287,8 +288,10 @@ export default function IdeasComponent(){
 
 
     useEffect(()=>{
-        if(ideasCategoryId){
+        if(ideasCategoryId && !filterSelected || filterSelected!='All'){
             handleFilter(parseInt(ideasCategoryId));
+        }else if(filterSelected && filterSelected=='All'){
+            handleFilter('All');
         }    
     },[ideas]);
     
@@ -360,7 +363,7 @@ export default function IdeasComponent(){
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover" ref={(el)=>{IdeasCovers.current[index]=el}}></div>
-                                            <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&image=${idea.image}`}>
+                                            <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&selected=${selectedCategory}&image=${idea.image}`}>
                                             <div>
                                             <img
                                                 className={`ideas-thumbnail ideas-img-${idea.url_slug}`}
