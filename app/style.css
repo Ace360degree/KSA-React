@@ -2785,10 +2785,16 @@ body.dark .filter-box-control{
 }
 
 .float-img{
-  max-height: calc(var(--min-height) + 8vh);
-  max-width: 84%;
-  width: auto;
-  height: auto;
+  max-height: calc(var(--min-height) + 8vh) !important;
+  max-width: 84% !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
+}
+
+.float-img-mobile{
+  width: 100% !important;
+  height: auto !important;
 }
 
 

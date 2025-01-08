@@ -83,14 +83,17 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           opacity: 1,
           y: 0,
           scrollTrigger: {
-            trigger: InfoSection.current, // Use the reference element for trigger
-            scrub: true,
-            markers:true,
-            start: "top 95%", // Adjust the start position for better control
+            trigger: InfoSection.current, 
+            scrub: false,
+            markers:false,
+            start: "top 90%",
             end: "top 85%",
           }
         }
       );
+
+      ScrollTrigger.refresh();
+      
     }
   }, [section]);
 
@@ -163,9 +166,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           </div>
           <div className='info-block-image img-block-border'>
                {windowSize.width <= 840 && section.section_image_mobile ? 
-                 <Image className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
+                 <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
                  : windowSize.width > 840 && section.section_image ? 
-                 <Image className='info-block-img' height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
+                 <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='info-block-img' height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
                  : null }
           </div>
         </div>
@@ -189,9 +192,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
                       {slides.slides.map((slide, index) => (
                         <SplideSlide key={index}>
                           {windowSize.width <= 750 && slide.mobile ? 
-                            <Image height={500} width={500} className='mobile-slider-img-content' style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
+                            <Image onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className='mobile-slider-img-content' style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
                             : windowSize.width > 750 && slide.desktop ?
-                            <Image height={500} width={500} className='slide-img-autWidth' unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
+                            <Image onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className='slide-img-autWidth' unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
                             : null}
                         </SplideSlide>
                       ))}
@@ -211,8 +214,8 @@ export default function ProjectSection({ section, slides, essecials, points, vid
             <>
             <CheckNavTransparent/>
             <div className="img-border-section position-relative hero-image" ref={InfoSection}>
-              <Image className='hero-image normal-img' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
-              <Image className='hero-image potrait-img' height={500} width={500}  unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
+              <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image normal-img' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+              <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image potrait-img' height={500} width={500}  unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
             </>
           )
@@ -221,7 +224,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
             <>
             <CheckNavTransparent/>
             <div className=" img-border-section position-relative hero-image hero-padding" ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: 'auto', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+              <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: 'auto', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
             </>
           )
@@ -237,9 +240,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           {slides.slides.map((slide, index) => (
             <SplideSlide key={index}>
               {windowSize.width <= 750 && slide.mobile ? 
-                <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA"/>
+                <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA"/>
                 : windowSize.width > 750 && slide.desktop ? 
-                <Image className='hero-image slide-img-autWidth' height={500} width={500} unoptimized  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
+                <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image slide-img-autWidth' height={500} width={500} unoptimized  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
                 : null}
             </SplideSlide>
           ))}
@@ -267,11 +270,11 @@ export default function ProjectSection({ section, slides, essecials, points, vid
 
   else if(section.section_type === 7){
     return(<>
-      <div className="project-info-section project-border-bottom float-image-container mx-0" style={{height:'auto',minHeight:'auto'}}>
+      <div className="project-info-section project-border-bottom float-image-container mx-0" style={{height:'auto',minHeight:'auto'}} ref={InfoSection}>
           <div class="w-100">
               <div className="w-100">
-                <img className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
-                <img className="w-100 d-md-none d-block" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+                <Image unoptimized onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+                <Image unoptimized onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className=" d-md-none d-block float-img-mobile" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
               </div>
           </div>
       </div>
