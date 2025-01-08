@@ -15,18 +15,20 @@ import CheckNavTransparent from '../components/commons/checkNavTransparent';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectSection({ section, slides, essecials, points, video}) {
-
+  
   const InfoSection = useRef(null);
   console.log(video);
 
   const videoSection = useRef(null);
   const videoElem = useRef(null);
 
+
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
     height: typeof window !== 'undefined' ? window.innerHeight : 0
   });
 
+  
   useEffect(() => {
     // Handle resizing and updating window size
     const handleResize = () => {
@@ -187,7 +189,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
                 </div>
 
                 <div className='col-md-8 p-0'>
-                    <div className="project-info-image info-block-image info-slider-section project-info-slider-padding">
+                    <div className="project-info-image w-100 info-block-image info-slider-section project-info-slider-padding">
                     <Splide options={SliderContentSettins}>
                       {slides.slides.map((slide, index) => (
                         <SplideSlide key={index}>

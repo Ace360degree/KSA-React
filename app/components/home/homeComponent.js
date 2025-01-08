@@ -23,6 +23,8 @@ gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
 export default function HomeComponent(){
   
+  const theyLineRef =useRef(null);
+  const projectHomeSection =useRef(null);
   const [showNabar,setShowNavbar] =useState(false);
   const [snapping, setSnapping] = useState(false);
   const [fullScreenCheck, setFullScreenCheck] = useState(1); 
@@ -94,7 +96,30 @@ export default function HomeComponent(){
         scrollbarRef.current.scrollTo(0, offsetTop, 1000);
       }
     };
+
+    // const scrollSmoothToProjects = () => {
+    //   if (projectHomeSection.current) {
+    //     // Get the offset top position of secondTitleSection
+    //     const startOffset = secondTitleSection.current.getBoundingClientRect().top + window.scrollY;
+    //     const offsetTopProjects = projectHomeSection.current.getBoundingClientRect().top + window.scrollY;
+    //     // Scroll to the calculated offset
+    //     scrollbarRef.current.scrollTo(startOffset, offsetTopProjects, 1000);
+    //   }
+    // };
     
+    const scrollSmoothToProjects = () => {
+      if (projectHomeSection.current && secondTitleSection.current && scrollbarRef.current) {
+        const screenHeight = window.innerHeight
+        const startOffset = secondTitleSection.current.getBoundingClientRect().top + scrollbarRef.current.scrollTop;
+    
+        const offsetTopProjects = projectHomeSection.current.getBoundingClientRect().top + scrollbarRef.current.scrollTop;
+    
+        
+        scrollbarRef.current.scrollTo(startOffset, offsetTopProjects+screenHeight + 100 - (startOffset/2) + 300, 1000);
+        // Scroll smoothly to the target position
+   
+      }
+    };
 
 
 
@@ -321,6 +346,8 @@ export default function HomeComponent(){
           start: '500px',
           toggleActions: ScrollToggleActions,
           end: totalDurationSecondTitle,
+          onEnter:()=>{theyLineRef.current.classList.add('active')},  
+          onLeave:()=>{theyLineRef.current.classList.remove('active')},  
         }
       });
     }
@@ -340,6 +367,8 @@ export default function HomeComponent(){
 
     return () => ctx.revert();
   }, [fullScreenCheck,homeBanners]);
+
+
 
   useEffect(() => {
     setSnapping(false);
@@ -576,8 +605,20 @@ export default function HomeComponent(){
                         <div className="qoute-text text-uppercase scale-down fw-bold second-transition" id="we-do" style={{fontFamily:'serif'}}><span>We do it in 5</span></div>
                     </h1>
                 </div>
+                <div className="they-say-line" ref={theyLineRef}>
+                  <a 
+                    onClick={()=>{scrollSmoothToProjects()}} 
+                    ><div className="scroll-downlink">
+                      
+                  </div></a>
+                  <div className="scrollbanner active" >
+                      <div className="scrollbanner-box "></div>
+                  </div>
+                </div>
+                
             </div>
-            </div>
+              
+              </div>
             </div>
             
             
@@ -586,7 +627,7 @@ export default function HomeComponent(){
             
             
            
-            <div className="home-project-slider hero-image">
+            <div className="home-project-slider hero-image" ref={projectHomeSection}>
                 
                     {homeBanners.map((banner,index)=>(
                     <>

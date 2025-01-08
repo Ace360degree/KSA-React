@@ -193,7 +193,7 @@ export default function ContactComponent() {
     useEffect(() => {
         $(document).ready(function () {
             // Initialize Scrollify
-            $.scrollify.enable();
+            // $.scrollify.enable();
             $.scrollify({
                 section: ".contact-snap",
                 sectionName: "contact-snap",
@@ -208,8 +208,17 @@ export default function ContactComponent() {
                 updateHash: false,
                 touchScroll: true,
             });
-            $.scrollify.move(0);
-            // Refresh ScrollTrigger after Scrollify initializes
+
+            $.scrollify.disable();
+            gsap.to(window, {
+                scrollTo: { y: 0, offsetY: 0 },
+                duration: 0,
+                ease: "power3.inOut",
+                onComplete: () => {
+                    $.scrollify.enable();
+                }
+            });
+
             ScrollTrigger.refresh();
         });
 

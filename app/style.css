@@ -703,6 +703,21 @@ border-bottom: none;
 
 }
 
+.they-say-line{
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.they-say-line.active{
+  visibility: visible;
+  opacity: 1;
+}
+
+.they-say-line .scrollbanner{
+  opacity: 0.5 !important;
+}
+
+
 
 .page-section{
   position: relative;
@@ -717,6 +732,7 @@ border-bottom: none;
 }
 
 #mainContent{
+  max-height: 100svh !important;
   overflow: hidden;
 }
 
@@ -2765,6 +2781,7 @@ body.dark .filter-box-control{
 
 .slide-img-autWidth{
   width: 100% !important;
+  max-width: 800px !important;
   height: var(--min-height) !important;
   object-fit: cover;
 }
@@ -2785,11 +2802,11 @@ body.dark .filter-box-control{
 }
 
 .float-img{
-  max-height: calc(var(--min-height) + 8vh) !important;
-  max-width: 84% !important;
+  max-height: calc(var(--min-height)) !important;
+  max-width: 85% !important;
   width: 100% !important;
   height: auto !important;
-  object-fit: cover;
+  object-fit: cover !important;
 }
 
 .float-img-mobile{
