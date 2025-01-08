@@ -220,7 +220,7 @@ export default function ProjectSection({ section, slides, essecials, points, vid
             <>
             <CheckNavTransparent/>
             <div className=" img-border-section position-relative hero-image hero-padding" ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '80vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: 'auto', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
             </>
           )
