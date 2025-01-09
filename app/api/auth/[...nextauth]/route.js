@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { pool as db } from '../../db'; // Adjust the path to your db file
+import { sendMail } from '../../mail/sendMail';
 
 
 // Secret key for signing JWT, store this in your environment variables
@@ -87,6 +88,26 @@ const handler = NextAuth({
             'INSERT INTO users (email, fullname, type, signedupdate) VALUES (?, ?, ?, NOW())',
             [user.email, user.name, account.provider]
           );
+
+          const sendAdminMail = await sendMail({
+            to:process.env.NEXT_PUBLIC_ADMIN_MAIL,
+            subject:'New User Signup',
+            text:"",
+            html:`
+              <h2>New User Signup</h2>
+              <p>Congratulations, A new user has signed up to KSA.</p>
+              <p>Here are the details:</p>
+              <p><strong>Full Name:</strong> ${fullname}</p>
+              <p><strong>Phone:</strong> ${phone}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Signup Type:</strong> Google Signin</p>
+              <p><strong>Date:</strong> ${currDate}</p>
+            `,
+          })
+          if(!sendAdminMail){
+            console.warn('Failed to send the mail to Admin.');
+          }
+
         }
         else {
           await db.query(

@@ -32,6 +32,26 @@ export async function POST(req) {
 
     if (!emailSent) {
       console.warn('Failed to send the email, but user creation was successful.');
+    } 
+
+    const adminSend = await sendMail({
+      to:process.env.NEXT_PUBLIC_ADMIN_MAIL,
+      subject:'New User Signup',
+      text:"",
+      html:`
+        <h2>New User Signup</h2>
+        <p>Congratulations, A new user has signed up to KSA.</p>
+        <p>Here are the details:</p>
+        <p><strong>Full Name:</strong> ${fullname}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Signup Type:</strong> Website Signup</p>
+        <p><strong>Date:</strong> ${currDate}</p>
+      `,
+    });
+
+    if(!adminSend){
+      console.warn('Failed to send the mail to Admin.');
     }
 
     // Return success response

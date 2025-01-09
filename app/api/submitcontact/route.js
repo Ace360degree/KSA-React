@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { pool } from "../db";
 import nodemailer from "nodemailer";
+import { sendMail } from "../mail/sendMail";
 
 export async function POST(req) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req) {
     connection.release(); // Release the connection back to the pool
 
     // Send email to admin
-    const adminEmail = "customercare@a360pl.com"; // Replace with the admin's email address
+    const adminEmail = process.env.NEXT_PUBLIC_ADMIN_MAIL; // Replace with the admin's email address
     const adminSubject = "KSA Website Submissions";
     const adminMessage = `
       <h1>New Contact Submission</h1>
@@ -48,22 +49,31 @@ export async function POST(req) {
         pass: "dDqV$s_q*tM!", 
       },
     });
-
-    // Send email to admin
-    await transporter.sendMail({
-      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>', 
+    
+     // Send email to admin
+    const sendAdminMail = await sendMail({
+      from: `"Kuwal Sanam Architekts" <${process.env.NEXT_PUBLIC_ADMIN_MAIL}>`, 
       to: adminEmail,
       subject: adminSubject,
       html: adminMessage,
-    });
+    })
+
+    if(!sendAdminMail){
+      console.warn('Admin mail not sent');
+    }
+   
 
     // Send email to user
-    await transporter.sendMail({
-      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>',
+    const senduserMail  = await sendMail({
+      from: `"Kuwal Sanam Architekts" <${process.env.NEXT_PUBLIC_ADMIN_MAIL}>`, 
       to: email,
       subject: userSubject,
       html: userMessage,
     });
+    
+    if(!sendAdminMail){
+      console.warn('User mail not sent');
+    }
 
     return NextResponse.json({ message: 'Form submitted successfully and emails sent!' }, { status: 200 });
   } catch (err) {
