@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
-export default function NavbarIntroPageUnderline({heading,subheading}){
+export default function NavbarIntroPageUnderline({heading,subheading,subheadingLink,projectId}){
 
     const [subHeading,setSubHead]= useState(heading);
     const [smallHeading,setsmallHeading]= useState(subheading);
@@ -12,12 +12,12 @@ export default function NavbarIntroPageUnderline({heading,subheading}){
 
     return(
         <>
-            <div id="navbar" className="active underline-nav" >
+            <div id="navbar" className="active underline-nav">
                 <div className="navbar-control">
                     <div className="nav-logo">
                         <Link href={'/'}><div className="logo-main">KSA<span>{subHeading}</span></div></Link>
                         {smallHeading!=''? 
-                            <Link href={`/expertise?category=${smallHeading}`}><div className="header-content signifier text-capitalize">{smallHeading}</div></Link>
+                            <Link href={`/expertise?category=${subheadingLink?subheadingLink:smallHeading}&project=${projectId}`}><div className="header-content signifier text-capitalize">{smallHeading}</div></Link>
                         : ''}
                     </div>
                     <div className="nav-img-logo">

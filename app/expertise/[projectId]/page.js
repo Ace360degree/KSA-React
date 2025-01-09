@@ -1,7 +1,7 @@
 'use client'
 import LightTheme from "@/app/components/body/lightTheme";
 import NavbarIntroPage from "@/app/components/NavbarIntroPage";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // import ProjectSection from "../projectsSection";
 import dynamic from "next/dynamic";
@@ -42,6 +42,9 @@ export default function ProjectInfo(){
     const [resized,setResized] =useState(1);
     const locoContainer = useRef(null);
     const pathfull = useParams();
+    const searchParams = useSearchParams();
+    const categorySelected = searchParams.get('selected')?? null;
+    const projectSelected = searchParams.get('selectedindex')?? null;
     const projectSlug  = pathfull.projectId;
     const [loading,setLoading] =useState(true);
     const [sections,setSections] = useState([]);
@@ -131,7 +134,7 @@ export default function ProjectInfo(){
             <>
             <CheckNavTransparent/> 
             <SliderCursor/>
-            <NavbarIntroPageUnderline heading={'Expertise'} active={true} subheading={project.category}/>
+            <NavbarIntroPageUnderline heading={'Expertise'} active={true} subheading={project.category} subheadingLink={categorySelected?categorySelected:project.category} projectId={projectSelected??projectSelected}/>
             
             {/* <div ref={scrollContainerRef} id="expertise-inner-page" style={{height:'100vh'}}> */}
             <div className="project-banner hero-image project-info-section overflow-hidden">

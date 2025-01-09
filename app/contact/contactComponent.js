@@ -190,25 +190,78 @@ export default function ContactComponent() {
 
     }, [showTabs]);
 
+    // useEffect(() => {
+    //     $(document).ready(function () {
+    //         // Initialize Scrollify
+    //         // $.scrollify.enable();
+    //         $.scrollify({
+    //             section: ".contact-snap",
+    //             sectionName: "contact-snap",
+    //             interstitialSection: "",
+    //             easing: "easeOutExpo",
+    //             scrollSpeed: isTouchDevice?100:1500,
+    //             offset: 0,
+    //             scrollbars: true,
+    //             standardScrollElements: "",
+    //             setHeights: true,
+    //             overflowScroll: true,
+    //             updateHash: false,
+    //             touchScroll: true,
+    //         });
+
+    //         $.scrollify.disable();
+    //         gsap.to(window, {
+    //             scrollTo: { y: 0, offsetY: 0 },
+    //             duration: 0,
+    //             ease: "power3.inOut",
+    //             onComplete: () => {
+    //                 $.scrollify.enable();
+    //             }
+    //         });
+
+    //         ScrollTrigger.refresh();
+    //     });
+
+    //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+    // }, [showTabs]);
+
+    
     useEffect(() => {
+        let isTouchpad = false;
+
+        // Detect if the input is from a touchpad
+        const detectTouchpad = (event) => {
+            if (event.deltaY !== 0 && Math.abs(event.deltaY) < 30) {
+                isTouchpad = true;
+            }
+        };
+
+        window.addEventListener('wheel', detectTouchpad);
+
         $(document).ready(function () {
             // Initialize Scrollify
-            // $.scrollify.enable();
             $.scrollify({
                 section: ".contact-snap",
                 sectionName: "contact-snap",
                 interstitialSection: "",
                 easing: "easeOutExpo",
-                scrollSpeed: isTouchDevice?100:1500,
+                scrollSpeed: isTouchpad ? 800 : 1500, // Adjust scroll speed for touchpads
                 offset: 0,
                 scrollbars: true,
                 standardScrollElements: "",
                 setHeights: true,
-                overflowScroll: true,
+                overflowScroll: false, // Prevent conflicts with touchpad scrolling
                 updateHash: false,
                 touchScroll: true,
+                before: (index) => {
+                    console.log(`Scrolling to section ${index}`);
+                },
+                after: (index) => {
+                    console.log(`Scrolled to section ${index}`);
+                },
             });
 
+            // Start with Scrollify disabled and GSAP animation to scroll to top
             $.scrollify.disable();
             gsap.to(window, {
                 scrollTo: { y: 0, offsetY: 0 },
@@ -216,13 +269,16 @@ export default function ContactComponent() {
                 ease: "power3.inOut",
                 onComplete: () => {
                     $.scrollify.enable();
+                    ScrollTrigger.refresh();
                 }
             });
-
-            ScrollTrigger.refresh();
         });
 
-        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+        return () => {
+            // Cleanup Scrollify and event listeners
+            $.scrollify.disable();
+            window.removeEventListener('wheel', detectTouchpad);
+        };
     }, [showTabs]);
 
 

@@ -27,10 +27,11 @@ export default function ProjectBoxes() {
   const [categories,setCategories] = useState([]);
   const [projects,setProjects] = useState([]);
   const [mobileFilter,setMobileFilter] =useState(false);
-  
+  const [enableScrollto,setenableScrollto] = useState(true);
   const router  = useRouter();
   const searchParams = useSearchParams();
-  const searchCatagories = searchParams.get('category');
+  const searchCatagories = searchParams.get('category')??null;
+  const toProjectId = searchParams.get('project')??null;
 
   const { data: session } = useSession();
 
@@ -57,9 +58,9 @@ export default function ProjectBoxes() {
   },[session]);
 
   const ReRouteIt =()=>{
-    if(!session && path ==='/expertise'){
-      router.push(`/auth/login?route=${path}`);
-    }
+    // if(!session && path ==='/expertise'){
+    //   router.push(`/auth/login?route=${path}`);
+    // }
   }
   
 
@@ -96,7 +97,7 @@ export default function ProjectBoxes() {
     : projects.filter(project => project.category === selectedFilter);
 
 
-  const handleFilterChange = (filter) => {   
+  const handleFilterChange = (filter) => { 
     setSelectedFilter(filter);
     setMobileFilter(false);
       gsap.to(window, {
@@ -217,58 +218,16 @@ export default function ProjectBoxes() {
     };
   }, [projects]);
   
-  
-  
-
-
-
-  
-
-  // useEffect(() => {
-  //   let isDragging = false;
-  //   let startX, scrollLeft;
-
-  //   const onMouseDown = (e) => {
-  //     isDragging = true;
-  //     startX = e.pageX - window.scrollX;
-  //     scrollLeft = window.scrollX;
-  //     // document.body.style.cursor = "grabbing";
-  //     // document.body.style.userSelect = "none";
-  //   };
-
-  //   const onMouseMove = (e) => {
-  //     if (!isDragging) return;
-  //     e.preventDefault();
-  //     const x = e.pageX - window.scrollX;
-  //     const walk = (x - startX) * 2;
-  //     window.scrollTo({ left: scrollLeft - walk, behavior: "auto" });
-  //   };
-
-  //   const onMouseUp = () => {
-  //     isDragging = false;
-  //     // document.body.style.cursor = "default";
-  //     // document.body.style.removeProperty("user-select");
-  //   };
-
-  //   document.body.addEventListener("mousedown", onMouseDown);
-  //   document.body.addEventListener("mousemove", onMouseMove);
-  //   document.body.addEventListener("mouseup", onMouseUp);
-
-  //   return () => {
-  //     document.body.removeEventListener("mousedown", onMouseDown);
-  //     document.body.removeEventListener("mousemove", onMouseMove);
-  //     document.body.removeEventListener("mouseup", onMouseUp);
-  //   };
-  // }, [projects]);
 
 
   let tabIndex = 0;
   
 
   useEffect(() => {
-    let scrollerIndex = 0;
+    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId-1 :0;
     let isScrolling =false; 
 
+    
     let timeoutId; 
     const handleScroll = () => {
       isScrolling=true;
@@ -282,6 +241,7 @@ export default function ProjectBoxes() {
       }, 2000);
     };
 
+
     const handleTouchEnd = () => {
       isScrolling = false;
       updateScrollerIndex(); // Update the index when touch ends
@@ -292,13 +252,19 @@ export default function ProjectBoxes() {
     document.addEventListener('touchmove', handleScroll,{ passive: true });
     // document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
+    // if(toProjectId && searchCatagories){
+    //   setSelectedFilter(searchCatagories);
+    // }
     
     const initProjects = () => {
       const allProjects = document.querySelectorAll('.projects-items.active');
+      let projectInitailtoScroll;
+
       if (!allProjects.length) return;
   
       const currProject = allProjects[scrollerIndex] || allProjects[0];
       if (currProject && !isScrolling) {
+        // const targetY = currProject.offsetTop;
         const targetY = currProject.offsetTop;
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const scrollDuration = isTouchDevice ? 0.1 : 0.5;
@@ -308,13 +274,20 @@ export default function ProjectBoxes() {
             y: targetY- 150, // Adjust scroll position, subtracting 100px as an offset
             autoKill: false,    // Auto-stop scrolling if the user interacts
           },
-          duration: scrollDuration,  
+          duration:scrollDuration,  
           delay:0,      // Duration in seconds for the scroll
           ease: "power1.out",// Use ease for smooth scrolling
-        });
+        }).then(setenableScrollto(false));
+
+        
       }
     };
-  
+    
+
+    if(toProjectId&&toProjectId&&enableScrollto){
+      initProjects();
+    }
+
     
 
     function updateScrollerIndex() {
@@ -340,7 +313,6 @@ export default function ProjectBoxes() {
       while (scrollerIndex === lastScrollerIndex) {
         scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       }
-  
       lastScrollerIndex = scrollerIndex;
         initProjects();
     };
@@ -418,12 +390,9 @@ export default function ProjectBoxes() {
   }, [projects]);
 
 
-
-
   const toggleMobileFilter = () =>{
     setMobileFilter(!mobileFilter);
   }
-
 
 
   useEffect(() => {
@@ -452,46 +421,6 @@ export default function ProjectBoxes() {
   }, []);
 
 
-
-  // const usermainClockRef = useRef(null);
-  // let scrollerClockIndex = 0;
-  // let touchStartY = 0;
-  
-  // useEffect(() => {
-  //   const scrollSpeedFactor = 0.03; 
-  
-  //   const handleWheel = (e) => {
-  //     const rotationClock = e.deltaY * scrollSpeedFactor;
-  //     scrollerClockIndex += rotationClock;
-  //     usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
-  //   };
-  
-  //   const handleTouchStart = (e) => {
-  //     touchStartY = e.touches[0].clientY;
-  //   };
-  
-  //   const handleTouchMove = (e) => {
-  //     const touchMoveY = e.touches[0].clientY;
-  //     const deltaY = touchStartY - touchMoveY;
-  //     const rotationClock = deltaY * scrollSpeedFactor;
-  //     scrollerClockIndex += rotationClock;
-  //     usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;
-  //     touchStartY = touchMoveY;  // Update touchStartY for continuous rotation
-  //   };
-  
-  //   // Add wheel and touch event listeners
-  //   window.addEventListener('wheel', handleWheel);
-  //   window.addEventListener('touchstart', handleTouchStart);
-  //   window.addEventListener('touchmove', handleTouchMove);
-  
-  //   // Cleanup the event listeners on component unmount
-  //   return () => {
-  //     window.removeEventListener('wheel', handleWheel);
-  //     window.removeEventListener('touchstart', handleTouchStart);
-  //     window.removeEventListener('touchmove', handleTouchMove);
-  //   };
-  
-  // }, []);
 
   
   const scrollerClockIndexRef = useRef(0);
@@ -542,62 +471,6 @@ export default function ProjectBoxes() {
     //   window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [scrollSpeedFactor]);
-
-  
-  
-  
-  
-  useEffect(() => {
-    // const checkOverlap = () => {
-    //   const secondsClock = document.getElementById('clock-bound-box');
-    //   const indicators = clockIndicators.current;
-  
-    //   if (!secondsClock || !indicators.length) return;
-  
-    //   // Get bounding box of the rotating seconds hand
-    //   const secondsClockRect = secondsClock.getBoundingClientRect();
-  
-    //   indicators.forEach((indicator, index) => {
-    //     // Get the bounding box of the span inside each clock-indicator
-    //     const spanElement = indicator;
-    //     const spanParent = clockMainIndicators.current[index];
-    //     if (!spanElement) return;
-  
-    //     const spanRect = spanElement.getBoundingClientRect();
-  
-    //     // Collision detection with a 1px offset
-    //     const offset = 1; // 1px offset for detection
-  
-    //     const isOverlapping = !(
-    //       secondsClockRect.right < spanRect.left - offset ||
-    //       secondsClockRect.left > spanRect.right + offset ||
-    //       secondsClockRect.bottom < spanRect.top - offset ||
-    //       secondsClockRect.top > spanRect.bottom + offset
-    //     );
-  
-    //     if (isOverlapping) {
-    //       tabIndex = index;
-    //       spanParent.classList.add('active');
-    //     } else {
-    //       spanParent.classList.remove('active');
-    //     }
-  
-    //     clockMainIndicators.current[tabIndex].classList.add('active');
-    //   });
-    // };
-  
-    // // Use requestAnimationFrame for smoother updates
-    // const handleUpdate = () => {
-    //   requestAnimationFrame(checkOverlap);
-    // };
-  
-    // handleUpdate();
-    // const intervalId = setInterval(handleUpdate, 100);
-  
-    // return () => clearInterval(intervalId);
-  
-  }, []);
-
 
   useEffect(() => {
     const updateClock = () => {
@@ -682,12 +555,13 @@ export default function ProjectBoxes() {
               key={project.projectid}
               className="projects-items active"
               data-filter={project.category}
+              data-id={project.projectid}
               ref={(el) => (projectItemsRef.current[index] = el)}
             >
               <div className="projects-items-controls">
                 <div className="project-image-wrap">
                   <div className="wrap-box"></div>
-                  <Link href={`/expertise/${project.url_slug}`}>
+                  <Link href={`/expertise/${project.url_slug}?selected=${selectedFilter}&selectedindex=${index}`}>
                    <div><Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} /></div>
                   </Link>
                 </div>

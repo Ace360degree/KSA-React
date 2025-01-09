@@ -11,7 +11,7 @@ export default function CookieWindow(){
 
     const acceptCookies = async()=>{
         try{
-            const response = await fetch('api/allowcookie',{
+            const response = await fetch('/api/allowcookie',{
                 method:'GET',
             });
 
