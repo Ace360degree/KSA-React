@@ -31,7 +31,7 @@ export default function ProjectBoxes() {
   const router  = useRouter();
   const searchParams = useSearchParams();
   const searchCatagories = searchParams.get('category')??null;
-  const toProjectId = searchParams.get('project')??null;
+  const toProjectId = parseInt(searchParams.get('project'))??null;
 
   const { data: session } = useSession();
 
@@ -224,7 +224,7 @@ export default function ProjectBoxes() {
   
 
   useEffect(() => {
-    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId -1 :0;
+    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId:0;
     let isScrolling =false; 
 
     
@@ -252,9 +252,6 @@ export default function ProjectBoxes() {
     document.addEventListener('touchmove', handleScroll,{ passive: true });
     // document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
-    // if(toProjectId && searchCatagories){
-    //   setSelectedFilter(searchCatagories);
-    // }
     
     const initProjects = () => {
       const allProjects = document.querySelectorAll('.projects-items.active');
@@ -307,7 +304,7 @@ export default function ProjectBoxes() {
       });
     }
     
-    let lastScrollerIndex = -1;
+    let lastScrollerIndex = toProjectId?toProjectId-1:-1;
     const rotateSecondsHandsNormal = () => {
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       while (scrollerIndex === lastScrollerIndex) {
