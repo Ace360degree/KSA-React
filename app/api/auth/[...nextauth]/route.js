@@ -97,11 +97,9 @@ const handler = NextAuth({
               <h2>New User Signup</h2>
               <p>Congratulations, A new user has signed up to KSA.</p>
               <p>Here are the details:</p>
-              <p><strong>Full Name:</strong> ${fullname}</p>
-              <p><strong>Phone:</strong> ${phone}</p>
-              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Full Name:</strong> ${user.name}</p>
+              <p><strong>Email:</strong> ${user.email}</p>
               <p><strong>Signup Type:</strong> Google Signin</p>
-              <p><strong>Date:</strong> ${currDate}</p>
             `,
           })
           if(!sendAdminMail){
