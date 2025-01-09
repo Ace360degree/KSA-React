@@ -224,7 +224,7 @@ export default function ProjectBoxes() {
   
 
   useEffect(() => {
-    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId-1 :0;
+    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId :0;
     let isScrolling =false; 
 
     
