@@ -85,8 +85,8 @@ const handler = NextAuth({
 
         if (rows.length === 0) {
           await db.query(
-            'INSERT INTO users (email, fullname, type, signedupdate) VALUES (?, ?, ?, NOW())',
-            [user.email, user.name, account.provider]
+            'INSERT INTO users (email,fullname,type,total_loggins,signedupdate) VALUES (?, ?, ?, ?,NOW())',
+            [user.email, user.name,account.provider,0]
           );
 
           const sendAdminMail = await sendMail({
