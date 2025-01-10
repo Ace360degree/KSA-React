@@ -59,7 +59,6 @@ export default function ProjectIntro(){
             function ScrolltoProject(param){
                 document.querySelectorAll('.projects-items').forEach(function(el){
                     let thisParams = el.getAttribute('data-id');
-                    console.log(thisParams);
                     if(thisParams==param && el.classList.contains('active')){
                         smoothScroll(el.offsetTop - 100, 100);
                     }

@@ -33,6 +33,8 @@ export default function ProjectBoxes() {
   const searchCatagories = searchParams.get('category')??null;
   const toProjectId = parseInt(searchParams.get('project'))??null;
 
+
+
   const { data: session } = useSession();
 
   console.log(session);
@@ -110,6 +112,10 @@ export default function ProjectBoxes() {
         ease: "power4.out",// Use ease for smooth scrolling
       });
   };
+
+  const removeScrollerto = ()=>{
+    setenableScrollto(false);
+  }
 
   useEffect(()=>{
     if(searchCatagories){
@@ -221,12 +227,15 @@ export default function ProjectBoxes() {
 
 
   let tabIndex = 0;
-  
+
+
+
 
   useEffect(() => {
-    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId:0;
     let isScrolling =false; 
-
+    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId  :0;
+    let lastScrollerIndex = toProjectId?toProjectId-1:-1;
+  
     
     let timeoutId; 
     const handleScroll = () => {
@@ -274,23 +283,20 @@ export default function ProjectBoxes() {
           duration:scrollDuration,  
           delay:0,      // Duration in seconds for the scroll
           ease: "power1.out",// Use ease for smooth scrolling
-        }).then(setenableScrollto(false));
+        })
 
         
       }
     };
     
 
-    if(toProjectId&&toProjectId&&enableScrollto){
+    if(toProjectId&&enableScrollto){
       initProjects();
     }
 
-    
-
-    function updateScrollerIndex() {
+    const updateScrollerIndex=()=> {
       const allProjects = document.querySelectorAll('.projects-items.active');
       const scrollPosition = window.scrollY;
-  
       allProjects.forEach((project, index) => {
         const projectOffsetTop = project.offsetTop;
         const projectHeight = project.offsetHeight;
@@ -302,16 +308,17 @@ export default function ProjectBoxes() {
           scrollerIndex = index; // Update scrollerIndex
         }
       });
-    }
+    }  
     
-    let lastScrollerIndex = toProjectId?toProjectId-1:-1;
     const rotateSecondsHandsNormal = () => {
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       while (scrollerIndex === lastScrollerIndex) {
         scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+        
       }
       lastScrollerIndex = scrollerIndex;
         initProjects();
+        // alert(scrollerIndex); 
     };
     
     
@@ -377,14 +384,14 @@ export default function ProjectBoxes() {
     return () => {
       clearInterval(intervalId);
       window.removeEventListener('scroll', updateScrollerIndex);
-      clearTimeout(timeoutId); // Clear timeout on cleanup
+      clearTimeout(timeoutId); 
       document.removeEventListener('wheel', handleScroll); 
       document.removeEventListener('touchstart', handleScroll);
       document.removeEventListener('touchmove', handleScroll);
       // document.removeEventListener('touchend', handleTouchEnd);
 
     };
-  }, [projects]);
+  }, [filteredProjects]);
 
 
   const toggleMobileFilter = () =>{
@@ -532,9 +539,9 @@ export default function ProjectBoxes() {
       {filteredProjects!=''?
       <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
         <div className="filter-box signifier">
-          <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() => handleFilterChange('All')}>All</li>
+          <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() =>{ handleFilterChange('All');removeScrollerto()}}>All</li>
           {categories.map((filter,index) => (
-            <li key={index}  className={selectedFilter === filter.category ? 'selected' : ''} data-filter={filter.category} onClick={() => handleFilterChange(filter.category)}>
+            <li key={index}  className={selectedFilter === filter.category ? 'selected' : ''} data-filter={filter.category} onClick={() =>{ handleFilterChange(filter.category);removeScrollerto()}}>
               {filter.category}
             </li>
           ))}
