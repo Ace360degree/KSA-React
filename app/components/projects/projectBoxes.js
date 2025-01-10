@@ -273,7 +273,7 @@ export default function ProjectBoxes() {
         // const targetY = currProject.offsetTop;
         const targetY = currProject.offsetTop;
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const scrollDuration = isTouchDevice ? 0.1 : 0.5;
+        const scrollDuration = isTouchDevice || enableScrollto ? 0.1 : 0.5;
 
         gsap.to(window, {
           scrollTo: {
