@@ -263,7 +263,7 @@ export default function ProjectBoxes() {
 
     
     const initProjects = () => {
-      const allProjects = document.querySelectorAll('.projects-items.active');
+      const allProjects = projectItemsRef.current;
       let projectInitailtoScroll;
 
       if (!allProjects.length) return;
@@ -295,7 +295,7 @@ export default function ProjectBoxes() {
     }
 
     const updateScrollerIndex=()=> {
-      const allProjects = document.querySelectorAll('.projects-items.active');
+      const allProjects = projectItemsRef.current;
       const scrollPosition = window.scrollY;
       allProjects.forEach((project, index) => {
         const projectOffsetTop = project.offsetTop;
