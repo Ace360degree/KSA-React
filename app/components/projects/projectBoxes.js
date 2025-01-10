@@ -232,6 +232,7 @@ export default function ProjectBoxes() {
 
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
     let isScrolling =false; 
     let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId  :0;
     let lastScrollerIndex = toProjectId?toProjectId-1:-1;
@@ -389,6 +390,8 @@ export default function ProjectBoxes() {
       document.removeEventListener('touchstart', handleScroll);
       document.removeEventListener('touchmove', handleScroll);
     };
+
+  }
   }, [filteredProjects]);
 
 
