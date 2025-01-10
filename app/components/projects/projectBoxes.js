@@ -273,7 +273,7 @@ export default function ProjectBoxes() {
         // const targetY = currProject.offsetTop;
         const targetY = currProject.offsetTop;
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const scrollDuration = isTouchDevice || enableScrollto ? 0.1 : 0.5;
+        const scrollDuration = isTouchDevice ? 0.1 : 0.5;
 
         gsap.to(window, {
           scrollTo: {
@@ -383,13 +383,11 @@ export default function ProjectBoxes() {
   
     return () => {
       clearInterval(intervalId);
-      window.removeEventListener('scroll', updateScrollerIndex);
       clearTimeout(timeoutId); 
+      window.removeEventListener('scroll', updateScrollerIndex);
       document.removeEventListener('wheel', handleScroll); 
       document.removeEventListener('touchstart', handleScroll);
       document.removeEventListener('touchmove', handleScroll);
-      // document.removeEventListener('touchend', handleTouchEnd);
-
     };
   }, [filteredProjects]);
 
