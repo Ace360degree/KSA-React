@@ -37,8 +37,6 @@ export default function ProjectBoxes() {
 
   const { data: session } = useSession();
 
-  console.log(session);
-
   const path = usePathname();
   
   gsap.ticker.lagSmoothing(false);
@@ -60,9 +58,9 @@ export default function ProjectBoxes() {
   },[session]);
 
   const ReRouteIt =()=>{
-    // if(!session && path ==='/expertise'){
-    //   router.push(`/auth/login?route=${path}`);
-    // }
+    if(!session && path ==='/expertise'){
+      router.push(`/auth/login?route=${path}`);
+    }
   }
   
 
@@ -285,7 +283,6 @@ export default function ProjectBoxes() {
           delay:0,      // Duration in seconds for the scroll
           ease: "power1.out",// Use ease for smooth scrolling
         })
-        console.log(currProject.offsetTop);
         
       }
     };
