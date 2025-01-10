@@ -284,7 +284,7 @@ export default function ProjectBoxes() {
           delay:0,      // Duration in seconds for the scroll
           ease: "power1.out",// Use ease for smooth scrolling
         })
-
+        console.log(currProject.offsetTop);
         
       }
     };
