@@ -246,7 +246,7 @@ export default function ProjectBoxes() {
       timeoutId = setTimeout(() => {
         updateScrollerIndex();
         isScrolling= false;
-      }, 2000);
+      }, 3000);
     };
 
 
@@ -255,10 +255,12 @@ export default function ProjectBoxes() {
       updateScrollerIndex(); // Update the index when touch ends
     };
 
+    document.addEventListener('onscroll',function(){alert('Scroll ended')});
+
     document.addEventListener('wheel', handleScroll);
     document.addEventListener('touchstart', handleScroll,{ passive: true });
     document.addEventListener('touchmove', handleScroll,{ passive: true });
-    // document.addEventListener('touchend', handleTouchEnd, { passive: true });
+    // document.addEventListener('touchend', handleTouchEnd);
 
     
     const initProjects = () => {
