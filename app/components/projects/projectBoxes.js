@@ -246,7 +246,7 @@ export default function ProjectBoxes() {
       timeoutId = setTimeout(() => {
         updateScrollerIndex();
         isScrolling= false;
-      }, 3000);
+      }, 4500);
     };
 
 
