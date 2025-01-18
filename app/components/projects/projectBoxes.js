@@ -241,15 +241,25 @@ export default function ProjectBoxes() {
     
     let timeoutId; 
     const handleScroll = () => {
-      isScrolling=true;
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      isScrolling = true;
 
+      if (timeoutId) clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         updateScrollerIndex();
-        isScrolling= false;
+        isScrolling = false;
       }, 1000);
+
+      // Start scroller updater
+      if (!scrollerIntervalId) {
+        scrollerIntervalId = setInterval(handleUpdaterScroller, 200);
+      }
+
+      // Reset the scroller timeout to stop after 12 seconds
+      if (scrollerTimeoutId) clearTimeout(scrollerTimeoutId);
+      scrollerTimeoutId = setTimeout(() => {
+        clearInterval(scrollerIntervalId);
+        scrollerIntervalId = null;
+      }, 12000);
     };
 
 
