@@ -59,7 +59,7 @@ export default function ProjectBoxes() {
 
   const ReRouteIt =()=>{
     if(!session && path ==='/expertise'){
-      router.push(`/auth/login?route=${path}`);
+      // router.push(`/auth/login?route=${path}`);
     }
   }
   
@@ -246,7 +246,7 @@ export default function ProjectBoxes() {
       timeoutId = setTimeout(() => {
         updateScrollerIndex();
         isScrolling= false;
-      }, 4500);
+      }, 1000);
     };
 
 
@@ -374,15 +374,22 @@ export default function ProjectBoxes() {
     const handleUpdate = () => {
       requestAnimationFrame(checkOverlap);
     };
+
+    const handleUpdaterScroller = () =>{
+      requestAnimationFrame(updateScrollerIndex);
+    }
+
     
     handleUpdate();
     const intervalId = setInterval(handleUpdate, 200);
+    const scrollerupdater = setInterval(handleUpdaterScroller, 200);
     
   
    
   
     return () => {
       clearInterval(intervalId);
+      clearInterval(scrollerupdater);
       clearTimeout(timeoutId); 
       window.removeEventListener('scroll', updateScrollerIndex);
       document.removeEventListener('wheel', handleScroll); 
