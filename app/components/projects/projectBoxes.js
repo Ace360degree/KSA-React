@@ -234,6 +234,9 @@ export default function ProjectBoxes() {
     let isScrolling =false; 
     let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId  :0;
     let lastScrollerIndex = toProjectId?toProjectId-1:-1;
+    let scrollerTimeoutId;
+    let scrollerIntervalId;
+
   
     
     let timeoutId; 
@@ -308,7 +311,11 @@ export default function ProjectBoxes() {
           scrollerIndex = index; // Update scrollerIndex
         }
       });
-    }  
+    } 
+    
+    const handleUpdaterScroller = () => {
+      requestAnimationFrame(updateScrollerIndex);
+    };
     
     const rotateSecondsHandsNormal = () => {
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
@@ -375,21 +382,18 @@ export default function ProjectBoxes() {
       requestAnimationFrame(checkOverlap);
     };
 
-    const handleUpdaterScroller = () =>{
-      requestAnimationFrame(updateScrollerIndex);
-    }
-
     
     handleUpdate();
     const intervalId = setInterval(handleUpdate, 200);
-    const scrollerupdater = setInterval(handleUpdaterScroller, 200);
     
   
    
   
     return () => {
       clearInterval(intervalId);
-      clearInterval(scrollerupdater);
+      if (scrollerIntervalId) clearInterval(scrollerIntervalId);
+      if (scrollerTimeoutId) clearTimeout(scrollerTimeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
       clearTimeout(timeoutId); 
       window.removeEventListener('scroll', updateScrollerIndex);
       document.removeEventListener('wheel', handleScroll); 
