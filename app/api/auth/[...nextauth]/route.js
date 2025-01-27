@@ -62,6 +62,19 @@ const handler = NextAuth({
   ],
   session: {
     strategy: 'jwt',
+    maxAge:60*60,
+    updateAge:0,
+  },
+  cookies:{
+    sessionToken:{
+      name:'next-auth.session-token',
+      options:{
+        httpOnly:true,
+        sameSite:'lax',
+        path:'/',
+        maxAge:null
+      }
+    }
   },
   callbacks: {
     async jwt({ token, user }) {
