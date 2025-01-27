@@ -81,6 +81,7 @@ const handler = NextAuth({
       // If user exists, it means successful login, add user info to token
       if (user) {
         token.id = user.id;
+        token.userid = user.id;
         token.email = user.email;
         token.name = user.name;
       }
@@ -88,6 +89,7 @@ const handler = NextAuth({
     },
     async session({ session, token }) {
       session.user.id = token.id;
+      session.user.userid = token.userid;
       session.user.email = token.email;
       session.user.name = token.name;
       return session;
