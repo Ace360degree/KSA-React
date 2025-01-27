@@ -95,26 +95,20 @@ const handler = NextAuth({
       return session;
     },
     async signIn({ user, account }) {
-      
       if (account.provider === 'google') {
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [user.email]);
-  
+
         if (rows.length === 0) {
-          // User does not exist, insert new user into the database
           const result = await db.query(
             'INSERT INTO users (email, fullname, type, total_loggins, signedupdate) VALUES (?, ?, ?, ?, NOW())',
             [user.email, user.name, account.provider, 0]
           );
-  
-          // Get the ID of the newly inserted user
-          const newUserId = result.insertId;
-  
-          // You can perform any additional actions here like sending admin emails
+
           const sendAdminMail = await sendMail({
-            to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
-            subject: 'New User Signup',
-            text: '',
-            html: `
+            to:process.env.NEXT_PUBLIC_ADMIN_MAIL,
+            subject:'New User Signup',
+            text:"",
+            html:`
               <h2>New User Signup</h2>
               <p>Congratulations, A new user has signed up to KSA.</p>
               <p>Here are the details:</p>
@@ -122,31 +116,17 @@ const handler = NextAuth({
               <p><strong>Email:</strong> ${user.email}</p>
               <p><strong>Signup Type:</strong> Google Signin</p>
             `,
-          });
-  
-          if (!sendAdminMail) {
+          })
+          if(!sendAdminMail){
             console.warn('Failed to send the mail to Admin.');
           }
-  
-          // Return the user object with the newly inserted user’s ID
-          return {
-            id: newUserId,
-            email: user.email,
-            name: user.name,
-          };
-        } else {
-          // User exists, update login details
+
+        }
+        else {
           await db.query(
             'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
             [user.email]
           );
-  
-          // Return the existing user object with their ID
-          return {
-            id: rows[0].id,
-            email: user.email,
-            name: user.name,
-          };
         }
       }
 

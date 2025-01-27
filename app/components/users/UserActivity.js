@@ -13,7 +13,7 @@ export default function UserActivity(){
         if(session){
             console.log('user logged in')
                 const form = new FormData();
-                form.append('user_id',session.user.userid);
+                form.append('user_id',session.user.email);
                 form.append('pathname',location);
                 console.log(session);
                 const setUserData = async()=>{

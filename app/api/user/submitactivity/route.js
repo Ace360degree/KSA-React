@@ -10,7 +10,7 @@ export async function POST(req) {
 
         // Perform the database insert query
         const submit = await pool.query(
-            `INSERT INTO useractivities (user_id, pathname) VALUES (?, ?)`,
+            `INSERT INTO useractivities (email, pathname) VALUES (?, ?)`,
             [userID, pathname]
         );
 
