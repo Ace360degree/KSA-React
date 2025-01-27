@@ -11,6 +11,7 @@ export default function UserActivity(){
 
     useEffect(()=>{
         if(session){
+            console.log('user logged in')
                 const form = new FormData();
                 form.append('user_id',session.user.id);
                 form.append('pathname',location);
@@ -26,6 +27,9 @@ export default function UserActivity(){
                 }
             }
             setUserData();
+            
+        }else{
+            console.log('no user logged in')
         }
         
     },[location]);
