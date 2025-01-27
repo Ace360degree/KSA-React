@@ -15,6 +15,7 @@ export default function UserActivity(){
                 const form = new FormData();
                 form.append('user_id',session.user.id);
                 form.append('pathname',location);
+                console.log(session);
                 const setUserData = async()=>{
                 const submitData = await fetch('/api/user/submitactivity',{
                     method:'POST',
