@@ -59,7 +59,7 @@ export default function ProjectBoxes() {
 
   const ReRouteIt =()=>{
     if(!session && path ==='/expertise'){
-      // router.push(`/auth/login?route=${path}`);
+      router.push(`/auth/login?route=${path}`);
     }
   }
   
