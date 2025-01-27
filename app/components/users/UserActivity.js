@@ -32,6 +32,6 @@ export default function UserActivity(){
             console.log('no user logged in')
         }
         
-    },[location]);
+    },[location,session]);
 
 }
