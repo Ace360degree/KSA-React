@@ -2,37 +2,68 @@
 
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function UserActivity(){
-
+export default function UserActivity() {
     const location = usePathname();
-    const {data:session} = useSession();
+    const { data: session } = useSession();
+    const [entryTime, setEntryTime] = useState(null);
 
-    useEffect(()=>{
-        if(session){
-            console.log('user logged in')
+    useEffect(() => {
+        if (session) {
+            setEntryTime(Date.now()); // Set entry time when user enters the page
+
+            console.log('User logged in');
+            console.log(session);
+
+            // Function to send user activity data
+            const sendUserData = async (durationInMillis) => {
+                const durationInSeconds = Math.round(durationInMillis / 1000); // Convert to seconds
+
                 const form = new FormData();
-                form.append('user_id',session.user.email);
-                form.append('pathname',location);
-                console.log(session);
-                const setUserData = async()=>{
-                const submitData = await fetch('/api/user/submitactivity',{
-                    method:'POST',
-                    body:form,
-                
-                });
-                const response = await submitData.json();
-                if(!response.status=='success'){
-                    console.error('Something went Wrong. Could not Submit User Data');
-                }
-            }
-            setUserData();
-            
-        }else{
-            console.log('no user logged in')
-        }
-        
-    },[location,session]);
+                form.append('user_id', session.user.email);
+                form.append('pathname', location);
+                form.append('duration', durationInSeconds); // Send duration in seconds
 
+                try {
+                    const submitData = await fetch('/api/user/submitactivity', {
+                        method: 'POST',
+                        body: form,
+                    });
+                    const response = await submitData.json();
+                    if (response.status !== 'success') {
+                        console.error('Something went wrong. Could not submit user data');
+                    }
+                } catch (error) {
+                    console.error('Error submitting user data:', error);
+                }
+            };
+
+            // Event listener for page unload (when the user closes the tab or navigates away)
+            const handleUnload = () => {
+                const exitTime = Date.now();
+                const timeSpent = exitTime - entryTime;
+                sendUserData(timeSpent);
+            };
+
+            // Listen for visibility change (when user switches tabs)
+            const handleVisibilityChange = () => {
+                if (document.visibilityState === 'hidden') {
+                    handleUnload(); // Send data when the page is hidden (minimized or switched tab)
+                }
+            };
+
+            window.addEventListener('beforeunload', handleUnload);
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+
+            return () => {
+                window.removeEventListener('beforeunload', handleUnload);
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+            };
+        } else {
+            console.log('No user logged in');
+        }
+    }, [location, session]);
+
+    return null;
 }

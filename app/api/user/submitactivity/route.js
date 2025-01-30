@@ -7,11 +7,12 @@ export async function POST(req) {
         const body = await req.formData();
         const userID = body.get('user_id');
         const pathname = body.get('pathname');
+        const timeSpent = body.get('duration');
 
         // Perform the database insert query
         const submit = await pool.query(
-            `INSERT INTO useractivities (email, pathname) VALUES (?, ?)`,
-            [userID, pathname]
+            `INSERT INTO useractivities (email, pathname,time_spent) VALUES (?, ?, ?)`,
+            [userID, pathname,timeSpent]
         );
 
         // Return success response
