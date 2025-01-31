@@ -595,9 +595,9 @@ export default function ProjectBoxes() {
                    <div><Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} /></div>
                   </Link>
                 </div>
-                <div className="project-item-content">
-                  <h4>{project.project_name}</h4>
-                  <h6>{project.description}</h6>
+                <div className="project-item-content text-start">
+                  <h4 class="text-start">{project.project_name}</h4>
+                  <h6 class="text-start">{project.description}</h6>
                 </div>
               </div>
             </div>

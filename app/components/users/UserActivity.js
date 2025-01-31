@@ -11,12 +11,7 @@ export default function UserActivity() {
 
     useEffect(() => {
         if (session) {
-            setEntryTime(Date.now()); // Set entry time when user enters the page
-
-            console.log('User logged in');
-            console.log(session);
-
-            // Function to send user activity data
+            setEntryTime(Date.now()); 
             const sendUserData = async (durationInMillis) => {
                 const durationInSeconds = Math.round(durationInMillis / 1000); // Convert to seconds
 

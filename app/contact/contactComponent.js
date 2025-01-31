@@ -375,7 +375,7 @@ export default function ContactComponent() {
                         <div className="office-section ">
                             <div className="image-mapped">
                                 <div className="map-line london">
-                                    <div className="location-tag london">
+                                    <div className="location-tag london text-start">
                                         <h4>UNITED KINGDOM</h4>
                                         <h6>LONDON</h6>
                                         <h6>19-21 Cunningham House,<br/>
@@ -383,7 +383,7 @@ export default function ContactComponent() {
                                     </div>
                                 </div>
                                 <div className="map-line mumbai">
-                                    <div className="location-tag mumbai">
+                                    <div className="location-tag mumbai text-start">
                                         
                                         <h6>MUMBAI</h6>
                                         <h4>INDIA</h4>
