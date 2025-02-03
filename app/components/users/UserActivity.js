@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function UserActivity() {
     const location = usePathname();
@@ -11,6 +11,20 @@ export default function UserActivity() {
     const previousPath = useRef(null);
     const hasLoggedExit = useRef(false);
     const hasLoggedEntry = useRef(false); // Prevents duplicate entry logging
+    const [userIP, setUserIP] = useState(null);
+    const [userLocation, setUserLocation] = useState(null);
+
+    // Function to fetch IP and location
+    const fetchIPandLocation = async () => {
+        try {
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            setUserIP(data.ip);
+            setUserLocation(`${data.city}, ${data.region}, ${data.country_name}`);
+        } catch (error) {
+            console.error("Error fetching IP/location:", error);
+        }
+    };
 
     // Function to send user activity data
     const sendUserData = async (pathname, durationInMillis) => {
@@ -28,6 +42,8 @@ export default function UserActivity() {
         form.append('user_id', session.user.email);
         form.append('pathname', pathname);
         form.append('duration', durationInSeconds);
+        form.append('ip_address', userIP || 'Unknown');
+        form.append('location', userLocation || 'Unknown');
 
         try {
             const submitData = await fetch('/api/user/submitactivity', {
@@ -38,7 +54,7 @@ export default function UserActivity() {
             if (response.status !== 'success') {
                 console.error('Error: Could not submit user data');
             } else {
-                console.log(`Logged: ${pathname} | Duration: ${durationInSeconds}s`);
+                console.log(`Logged: ${pathname} | Duration: ${durationInSeconds}s | IP: ${userIP} | Location: ${userLocation}`);
             }
         } catch (error) {
             console.error('Error submitting user data:', error);
@@ -46,6 +62,10 @@ export default function UserActivity() {
 
         hasLoggedExit.current = true; // Prevent duplicate logging
     };
+
+    useEffect(() => {
+        fetchIPandLocation(); // Fetch IP and location on first render
+    }, []);
 
     useEffect(() => {
         if (session) {
