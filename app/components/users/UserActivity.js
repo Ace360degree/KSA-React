@@ -10,9 +10,37 @@ export default function UserActivity() {
     const entryTime = useRef(null);
     const previousPath = useRef(null);
     const hasLoggedExit = useRef(false);
-    const hasLoggedEntry = useRef(false); // Prevents duplicate entry logging
+    const hasLoggedEntry = useRef(false);
     const [userIP, setUserIP] = useState(null);
     const [userLocation, setUserLocation] = useState(null);
+    const [deviceInfo, setDeviceInfo] = useState(null);
+
+    // Function to detect user device
+    const getDeviceDetails = () => {
+        const userAgent = navigator.userAgent;
+        let deviceType = "Unknown";
+        
+        if (/android/i.test(userAgent)) {
+            deviceType = "Android";
+        } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+            deviceType = "iOS";
+        } else if (/Mac/i.test(userAgent)) {
+            deviceType = "Mac";
+        } else if (/Windows/i.test(userAgent)) {
+            deviceType = "Windows PC";
+        } else if (/Linux/i.test(userAgent)) {
+            deviceType = "Linux PC";
+        }
+
+        // Extract brand & model for mobile devices
+        let deviceModel = "Unknown Model";
+        if (deviceType === "Android" || deviceType === "iOS") {
+            const match = userAgent.match(/\(([^)]+)\)/);
+            if (match) deviceModel = match[1];
+        }
+
+        return `${deviceType} - ${deviceModel}`;
+    };
 
     // Function to fetch IP and location
     const fetchIPandLocation = async () => {
@@ -31,12 +59,7 @@ export default function UserActivity() {
         if (!session || durationInMillis < 0 || hasLoggedExit.current) return;
 
         const durationInSeconds = Math.round(durationInMillis / 1000);
-        
-        // Prevent incorrect large duration logs
-        if (durationInSeconds > 86400) { 
-            console.warn("Skipping logging: Suspicious large duration detected:", durationInSeconds);
-            return;
-        }
+        if (durationInSeconds > 86400) return;
 
         const form = new FormData();
         form.append('user_id', session.user.email);
@@ -44,6 +67,7 @@ export default function UserActivity() {
         form.append('duration', durationInSeconds);
         form.append('ip_address', userIP || 'Unknown');
         form.append('location', userLocation || 'Unknown');
+        form.append('device', deviceInfo || 'Unknown');
 
         try {
             const submitData = await fetch('/api/user/submitactivity', {
@@ -51,20 +75,21 @@ export default function UserActivity() {
                 body: form,
             });
             const response = await submitData.json();
-            if (response.status !== 'success') {
-                console.error('Error: Could not submit user data');
+            if (response.status === 'success') {
+                console.log(`Logged: ${pathname} | Duration: ${durationInSeconds}s | IP: ${userIP} | Location: ${userLocation} | Device: ${deviceInfo}`);
             } else {
-                console.log(`Logged: ${pathname} | Duration: ${durationInSeconds}s | IP: ${userIP} | Location: ${userLocation}`);
+                console.error('Error: Could not submit user data');
             }
         } catch (error) {
             console.error('Error submitting user data:', error);
         }
 
-        hasLoggedExit.current = true; // Prevent duplicate logging
+        hasLoggedExit.current = true;
     };
 
     useEffect(() => {
-        fetchIPandLocation(); // Fetch IP and location on first render
+        fetchIPandLocation();
+        setDeviceInfo(getDeviceDetails()); // Fetch device info
     }, []);
 
     useEffect(() => {
@@ -75,9 +100,8 @@ export default function UserActivity() {
                 hasLoggedEntry.current = false;
             }
 
-            // Ensure the first page visit is logged (homepage issue fix)
             if (!hasLoggedEntry.current) {
-                sendUserData(location, 0); // Log entry for the first visit
+                sendUserData(location, 0);
                 hasLoggedEntry.current = true;
             }
 
@@ -105,14 +129,12 @@ export default function UserActivity() {
 
     useEffect(() => {
         if (session) {
-            // Log previous page before switching
             if (entryTime.current && previousPath.current && !hasLoggedExit.current) {
                 const exitTime = Date.now();
                 const timeSpent = exitTime - entryTime.current;
                 sendUserData(previousPath.current, timeSpent);
             }
 
-            // Reset entry time for the new page
             entryTime.current = Date.now();
             previousPath.current = location;
             hasLoggedExit.current = false;

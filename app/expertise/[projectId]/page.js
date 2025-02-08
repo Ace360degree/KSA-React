@@ -110,6 +110,9 @@ export default function ProjectInfo(){
 
     // }
     // }, [project]);
+    useEffect(() => {
+      gsap.to(window, { scrollTo: { y: 0 }, duration: 0 });
+    }, [project]);
 
     useEffect(()=>{
         if(projectTitle.current){

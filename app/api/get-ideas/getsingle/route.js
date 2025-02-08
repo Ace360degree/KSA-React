@@ -15,7 +15,7 @@ export async function GET(req) {
 
         // Execute the first query to fetch idea details
         const [ideaRows] = await connection.query(`
-            SELECT * 
+            SELECT *
             FROM ksa_ideas 
             WHERE url_slug = ?`, [urlSlug]);
 
@@ -44,7 +44,7 @@ export async function GET(req) {
     } finally {
         // Ensure the connection is released back to the pool
         if (connection) {
-          //  await connection.release(); // Release the connection back to the pool
+            connection.release(); // Release the connection back to the pool
         }
     }
 }

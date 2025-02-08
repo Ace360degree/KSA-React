@@ -11,9 +11,13 @@ export async function POST(req) {
     // Parse the incoming request
     const { fullname,phone,email, password } = await req.json(); // Ensure you parse the request properly
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const currDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    const options = { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit', 
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const formatter = new Intl.DateTimeFormat('en-GB', options);
+    const parts = formatter.formatToParts(new Date());
+    const currDate = `${parts[4].value}-${parts[2].value}-${parts[0].value} ${parts[6].value}:${parts[8].value}:${parts[10].value}`;
 
 
     // Perform the database query with await

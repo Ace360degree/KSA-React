@@ -10,11 +10,12 @@ export async function POST(req) {
         const timeSpent = body.get('duration');
         const IpAddress = body.get('ip_address');
         const Location = body.get('location');
+        const device = body.get('device');
 
         // Perform the database insert query
         const submit = await pool.query(
-            `INSERT INTO useractivities (email, pathname,time_spent,ipaddress,location) VALUES (?,?,?,?,?)`,
-            [userID, pathname,timeSpent,IpAddress,Location]
+            `INSERT INTO useractivities (email, pathname,time_spent,ipaddress,location,device) VALUES (?,?,?,?,?,?)`,
+            [userID, pathname,timeSpent,IpAddress,Location,device]
         );
 
         // Return success response

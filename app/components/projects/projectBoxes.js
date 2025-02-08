@@ -11,11 +11,17 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProjectIndex, setSelected } from "@/app/redux/slices/expertiseSlice";
 
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function ProjectBoxes() {
+
+  const {selected,projectIndex} = useSelector((state)=>state.expertise);
+  const dispatch = useDispatch();
+
   const [loading,setLoading] = useState(false);
   const clockIndicators = useRef([]);
   const clockMainIndicators = useRef([]);
@@ -30,8 +36,10 @@ export default function ProjectBoxes() {
   const [enableScrollto,setenableScrollto] = useState(true);
   const router  = useRouter();
   const searchParams = useSearchParams();
-  const searchCatagories = searchParams.get('category')??null;
-  const toProjectId = parseInt(searchParams.get('project'))??null;
+  // const searchCatagories = searchParams.get('category')??null;
+  // const toProjectId = parseInt(searchParams.get('project'))??null;
+  const searchCatagories = selected??null;
+  const toProjectId = projectIndex??null;
 
 
 
@@ -552,6 +560,14 @@ export default function ProjectBoxes() {
     };
   }, []); // Empty dependency array to run once on mount
 
+  const redirectToInnerPage = (url,selectedVal,index)=>{
+      if(
+        dispatch(setProjectIndex(index)),
+        dispatch(setSelected(selectedVal))
+      ){
+        router.push(`/expertise/${url}`);
+      }
+  }
 
 
 
@@ -591,9 +607,11 @@ export default function ProjectBoxes() {
               <div className="projects-items-controls">
                 <div className="project-image-wrap">
                   <div className="wrap-box"></div>
-                  <Link href={`/expertise/${project.url_slug}?selected=${selectedFilter}&selectedindex=${index}`}>
-                   <div><Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} /></div>
-                  </Link>
+                  {/* <Link href={`/expertise/${project.url_slug}?selected=${selectedFilter}&selectedindex=${index}`}> */}
+                   <div onClick={()=>redirectToInnerPage(project.url_slug,selectedFilter,index)}>
+                    <Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} />
+                    </div>
+                  {/* </Link> */}
                 </div>
                 <div className="project-item-content text-start">
                   <h4 class="text-start">{project.project_name}</h4>
