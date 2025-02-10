@@ -6,22 +6,29 @@ import gsap from 'gsap/all';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import ProjectEssencials from './projectsEssecials';
 import Image from 'next/image';
-import ReactPlayer from "react-player";
+import { Video } from "reactjs-media";
+import CheckNavTransparent from '../components/commons/checkNavTransparent';
+
 
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectSection({ section, slides, essecials, points, video }) {
-
+export default function ProjectSection({ section, slides, essecials, points, video}) {
+  
   const InfoSection = useRef(null);
   console.log(video);
+
+  const videoSection = useRef(null);
+  const videoElem = useRef(null);
+
 
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
     height: typeof window !== 'undefined' ? window.innerHeight : 0
   });
 
+  
   useEffect(() => {
     // Handle resizing and updating window size
     const handleResize = () => {
@@ -38,6 +45,35 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }, []);
 
   useEffect(() => {
+    if(videoElem.current){
+      const trigger = ScrollTrigger.create({
+        trigger: videoSection.current,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => {
+          videoElem.current?.play();
+        },
+        onLeave: () => {
+          videoElem.current?.pause();
+        },
+        onEnterBack: () => {
+          videoElem.current?.play();
+        },
+        onLeaveBack: () => {
+          videoElem.current?.pause();
+        },
+      });
+
+      return () => {
+        trigger.kill();
+      };
+    }
+
+    // Cleanup ScrollTrigger on component unmount
+    
+  }, [section,video]);
+
+  useEffect(() => {
     if (InfoSection.current) {
       // Initialize ScrollTrigger
       gsap.fromTo(InfoSection.current, 
@@ -49,59 +85,92 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           opacity: 1,
           y: 0,
           scrollTrigger: {
-            trigger: InfoSection.current, // Use the reference element for trigger
-            scrub: true,
-            start: "top 100%", // Adjust the start position for better control
-            end: "top 90%",
-            // markers: true, // Enable markers for debugging if needed
+            trigger: InfoSection.current, 
+            scrub: false,
+            markers:false,
+            start: "top 90%",
+            end: "top 85%",
           }
         }
       );
+
+      ScrollTrigger.refresh();
+      
     }
   }, [section]);
 
   let SliderSettings = {
-    type: 'loop',
-    perPage: 1,
-    autoplay: true,
-    interval: 4000,
+    type: 'slide',
     pagination: true,
     arrows: true,
-    loop: false,
   };
+
+  let SliderContentSettins = {
+    type: 'slide',
+    autoWidth:true,
+    gap:'2.5rem',
+    pagination: true,
+    arrows: true,
+    breakpoints: {
+      992: {              // For screens 768px and below (Mobile Devices)
+        autoWidth: true, // Disable autoWidth on mobile
+        gap: '12px',       // Disable gap on mobile
+      },
+    },
+  };
+
+
+
+  const videoRef = useRef(null);
+  const [thumbnail, setThumbnail] = useState(null);
+
+
+  useEffect(() => {
+    // Create a canvas element to capture the thumbnail
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const videoElement = videoRef.current;
+    
+    if (videoElement) {
+      // Set the video to a specific time to capture the thumbnail (e.g., 2 seconds)
+      videoElement.currentTime = 2;
+
+      videoElement.onloadeddata = () => {
+        // Set the canvas dimensions to match the video
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+
+        // Draw the video frame onto the canvas
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+        // Convert canvas to a data URL and set it as the thumbnail
+        const thumbnailUrl = canvas.toDataURL();
+        setThumbnail(thumbnailUrl);
+      };
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      setThumbnail(null);
+    };
+  }, [video]);
+
+
 
   if (section.section_type === 1) {
     return (
-      // <div className="project-info-section remove-transparent full-bleed-image  project-border-bottom" ref={InfoSection}>
-      //   <div className="row m-0 g-0">
-      //     <div className="col-lg-7">
-      //       <div className="project-image-info">
-      //         <h2>{section.section_title}</h2>
-      //         <h4>{section.content}</h4>
-      //       </div>
-      //     </div>
-      //     <div className="col-lg-5">
-      //       <div className="project-info-image">
-      //         {windowSize.width <= 750 && section.section_image_mobile ? 
-      //           <Image height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="Mobile Image"/>
-      //           : windowSize.width > 750 && section.section_image ? 
-      //           <Image height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="PC Image"/> 
-      //           : null }
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
       <>
-        <div className="project-info-section remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
+        <div className="project-info-section partially-width remove-transparent project-border-bottom project-info-flex signifier" ref={InfoSection}>
           <div className='info-block-content'>
-               <h2 className='info-block-title'>{section.section_title}</h2>
-                <h4 className='info-block-desc'>{section.content}</h4>
+               <h2 className='info-block-title text-start signifier'>{section.section_title}</h2>
+                <h4 className='info-block-desc text-start signifier'>{section.content}</h4>
           </div>
-          <div className='info-block-image'>
+          <div className='info-block-image img-block-border'>
                {windowSize.width <= 840 && section.section_image_mobile ? 
-                 <Image className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
+                 <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='info-block-img' height={500} width={500} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA"/>
                  : windowSize.width > 840 && section.section_image ? 
-                 <Image className='info-block-img' height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
+                 <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='info-block-img' height={500} width={500} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA"/> 
                  : null }
           </div>
         </div>
@@ -109,30 +178,34 @@ export default function ProjectSection({ section, slides, essecials, points, vid
     );
   } else if (section.section_type === 2) {
     return (
-        <div className="project-info-section remove-transparent project-border-bottom" ref={InfoSection}>
-          <div className="row m-0 g-0">
-            <div className=" col-lg-7">
-              <div className="project-image-info">
-                <h2>{section.section_title}</h2>
-                <h4>{section.content}</h4>
+        <div className="project-info-section partially-width remove-transparent project-info-flex project-border-bottom project-section-no-padding" ref={InfoSection}>
+              <div className='row'>
+
+                <div className='col-md-4'>
+                  <div className="info-block-content">
+                    <h2 className='text-start info-block-title signifier'>{section.section_title}</h2>
+                    <h4 className='text-start info-block-desc signifier'>{section.content}</h4>
+                  </div>
+                </div>
+
+                <div className='col-md-8 p-0'>
+                    <div className="project-info-image w-100 info-block-image info-slider-section project-info-slider-padding">
+                    <Splide options={SliderContentSettins}>
+                      {slides.slides.map((slide, index) => (
+                        <SplideSlide key={index}>
+                          {windowSize.width <= 750 && slide.mobile ? 
+                            <Image onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className='mobile-slider-img-content' style={{ width: 'auto', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
+                            : windowSize.width > 750 && slide.desktop ?
+                            <Image onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className='slide-img-autWidth' unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
+                            : null}
+                        </SplideSlide>
+                      ))}
+                    </Splide>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className=" col-lg-5">
-              <div className="project-info-image info-slider-section">
-                <Splide options={SliderSettings}>
-                  {slides.slides.map((slide, index) => (
-                    <SplideSlide key={index}>
-                      {windowSize.width <= 750 && slide.mobile ? 
-                        <Image height={500} width={500} style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA" />
-                        : windowSize.width > 750 && slide.desktop ?
-                        <Image height={500} width={500} unoptimized style={{ width: '100%', height: '100%' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA" />
-                        : null}
-                    </SplideSlide>
-                  ))}
-                </Splide>
-              </div>
-            </div>
-          </div>
+              
+              
         </div>
     );
   } else if (section.section_type === 3) {
@@ -140,15 +213,22 @@ export default function ProjectSection({ section, slides, essecials, points, vid
       <>
         {windowSize.width <= 750 && section.section_image_mobile ? 
           (
-            <div className="img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
+            <>
+            <CheckNavTransparent/>
+            <div className="img-border-section position-relative hero-image" ref={InfoSection}>
+              <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image normal-img' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: 'cover' }} unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+              <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image potrait-img' height={500} width={500}  unoptimized placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image_mobile} alt="KSA" />
             </div>
+            </>
           )
           : windowSize.width > 750 && section.section_image ? 
           (
-            <div className=" img-border-section position-relative hero-image" style={{ minHeight: '100vh' }} ref={InfoSection}>
-              <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
+            <>
+            <CheckNavTransparent/>
+            <div className=" img-border-section position-relative hero-image hero-padding" ref={InfoSection}>
+              <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: 'auto', objectFit: 'cover' }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + section.section_image} alt="KSA" />
             </div>
+            </>
           )
           : null}
       </>
@@ -162,9 +242,9 @@ export default function ProjectSection({ section, slides, essecials, points, vid
           {slides.slides.map((slide, index) => (
             <SplideSlide key={index}>
               {windowSize.width <= 750 && slide.mobile ? 
-                <Image className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA"/>
+                <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image' height={500} width={500} style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.mobile} alt="KSA"/>
                 : windowSize.width > 750 && slide.desktop ? 
-                <Image className='hero-image' height={500} width={500} unoptimized style={{ width: '100%', height: '100vh', objectFit: "cover" }} placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
+                <Image onLoadingComplete={() => ScrollTrigger.refresh()} className='hero-image slide-img-autWidth' height={500} width={500} unoptimized  placeholder='blur' blurDataURL='/images/white-blur.png' src={process.env.NEXT_PUBLIC_SITE_URL + slide.desktop} alt="KSA"/>
                 : null}
             </SplideSlide>
           ))}
@@ -174,20 +254,39 @@ export default function ProjectSection({ section, slides, essecials, points, vid
   }
   else if (section.section_type === 5) {
     return (
-      <div ref={InfoSection} className='remove-transparent project-underline-section project-info-section' style={{ transition: 'all 1.2s ease' }}>
+      <div ref={InfoSection} className='remove-transparent partially-width project-underline-section project-info-section project-essentials' style={{ transition: 'all 1.2s ease' }}>
         <ProjectEssencials essecials={essecials} points={points} />
       </div>
     );
   }
 
-  else if (section.section_type === 6) {
+    else if (section.section_type === 6) {
     return (
-      <div className="project-info-section">
-        <ReactPlayer width={'100%'} height={'auto'} url={process.env.NEXT_PUBLIC_SITE_URL+ video.video} controls={true} />
+      <>
+      <div className="project-info-section video-section hero-image justify-content-center " ref={videoSection}>
+        <Video width={'90%'} height={'auto'} style={{background:'transparent',maxHeight:'85vh',margin:'auto'}} ref={videoElem} controls={true} src={process.env.NEXT_PUBLIC_SITE_URL+ video.video} />
       </div>
+      </>
     );
+  }
+
+  else if(section.section_type === 7){
+    return(<>
+      <div className="project-info-section project-border-bottom float-image-container mx-0" style={{height:'auto',minHeight:'auto'}} ref={InfoSection}>
+          <div class="w-100">
+              <div className="w-100">
+                <Image unoptimized onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className={`d-md-block d-none float-img ${section.alignment==1? 'me-auto': section.alignment==2?'mx-auto': section.alignment==3?'ms-auto':''}`} src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+                <Image unoptimized onLoadingComplete={() => ScrollTrigger.refresh()} height={500} width={500} className=" d-md-none d-block float-img-mobile" src={process.env.NEXT_PUBLIC_SITE_URL+section.section_image}/>
+              </div>
+          </div>
+      </div>
+    </>)
+  }
+  
   }
 
 
   
-}
+
+  
+

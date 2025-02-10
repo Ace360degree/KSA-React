@@ -2,10 +2,11 @@
 import { useEffect } from "react"
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { IoChevronDownCircleOutline } from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectEssencials({essecials,points}){
+export default function ProjectEssencials({essecials,points,scroller}){
     
     useEffect(()=>{
                 let projectTititleTL = gsap.timeline();
@@ -13,28 +14,38 @@ export default function ProjectEssencials({essecials,points}){
                 projectTititleTL.play();
                 
                 
-                function StartCounter(){
-                document.querySelectorAll('.fx-counter').forEach(function(fx, index) {
-                let dataCount = parseInt(fx.getAttribute('data-number'));
-                let currentCount = 0;
-                let increment = Math.ceil(dataCount / 100); // adjust this for speed
+                function StartCounter() {
+                    document.querySelectorAll('.fx-counter').forEach(function(fx) {
+                        // Extract the original data-number with commas
+                        let dataCount = fx.getAttribute('data-number'); 
+                        // Remove commas for numeric calculations
+                        let targetNumber = parseInt(dataCount.replace(/,/g, '')); 
+                        let currentCount = 0;
+                        let increment = Math.ceil(targetNumber / 100); // Speed adjustment
                 
-                function incrementNumber() {
-                    let interval = setInterval(function() {
-                        currentCount += increment;
-                        if (currentCount >= dataCount) {
-                            currentCount = dataCount;
-                            clearInterval(interval);
+                        function formatWithCommas(number) {
+                            // Add commas back to the number
+                            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         }
-                        fx.innerHTML = currentCount;
-                    }, 30); // adjust this for speed
-                }
                 
-                incrementNumber();
-
-
-            });
-            }
+                        function incrementNumber() {
+                            let interval = setInterval(function () {
+                                currentCount += increment;
+                
+                                // Stop at the exact target number
+                                if (currentCount >= targetNumber) {
+                                    currentCount = targetNumber;
+                                    clearInterval(interval);
+                                }
+                
+                                // Format the number with commas and update the display
+                                fx.innerHTML = formatWithCommas(currentCount);
+                            }, 30); // Adjust for speed
+                        }
+                
+                        incrementNumber();
+                    });
+                }
 
         let fxTl = gsap.timeline();
         fxTl.add(function(){StartCounter()});
@@ -43,8 +54,6 @@ export default function ProjectEssencials({essecials,points}){
            trigger:'#project-counter',
            start:"top 50%",
            end:"top 80%",
-        //   onEnter:StartCounter,
-        //   scrub:fasle,
            animation:fxTl,
         });
         
@@ -58,7 +67,9 @@ export default function ProjectEssencials({essecials,points}){
                     
                     <div class="col-lg-3">
                         <div class="project-title-padding">
-                        <h4 class="fw-light essential-title signifier">Project Essentials</h4>
+                        <h4 class="fw-light essential-title signifier">
+                            <span className="project-icon"><IoChevronDownCircleOutline /></span>
+                         Project Essentials</h4>
                         </div>
                     </div>
                     

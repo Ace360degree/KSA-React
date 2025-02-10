@@ -11,11 +11,17 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProjectIndex, setSelected } from "@/app/redux/slices/expertiseSlice";
 
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function ProjectBoxes() {
+
+  const {selected,projectIndex} = useSelector((state)=>state.expertise);
+  const dispatch = useDispatch();
+
   const [loading,setLoading] = useState(false);
   const clockIndicators = useRef([]);
   const clockMainIndicators = useRef([]);
@@ -27,13 +33,17 @@ export default function ProjectBoxes() {
   const [categories,setCategories] = useState([]);
   const [projects,setProjects] = useState([]);
   const [mobileFilter,setMobileFilter] =useState(false);
-  
+  const [enableScrollto,setenableScrollto] = useState(true);
   const router  = useRouter();
   const searchParams = useSearchParams();
-  const searchCatagories = searchParams.get('category');
+  // const searchCatagories = searchParams.get('category')??null;
+  // const toProjectId = parseInt(searchParams.get('project'))??null;
+  const searchCatagories = selected??null;
+  const toProjectId = projectIndex??null;
 
-  const { data: session, status } = useSession()
 
+
+  const { data: session } = useSession();
 
   const path = usePathname();
   
@@ -52,12 +62,19 @@ export default function ProjectBoxes() {
       }
     }
     };
-    function ReRouteIt() {
-      if(session===false && path ==='/expertise' ){
-        router.push(`/auth/login?route=${path}`);
-      }
+     
+  },[session]);
+
+  const ReRouteIt =()=>{
+    if(!session && path ==='/expertise'){
+      router.push(`/auth/login?route=${path}`);
+
+
+
+
+      
     }
-  },[])
+  }
   
 
   const [windowSize, setWindowSize] = useState({
@@ -93,7 +110,7 @@ export default function ProjectBoxes() {
     : projects.filter(project => project.category === selectedFilter);
 
 
-  const handleFilterChange = (filter) => {   
+  const handleFilterChange = (filter) => { 
     setSelectedFilter(filter);
     setMobileFilter(false);
       gsap.to(window, {
@@ -106,6 +123,10 @@ export default function ProjectBoxes() {
         ease: "power4.out",// Use ease for smooth scrolling
       });
   };
+
+  const removeScrollerto = ()=>{
+    setenableScrollto(false);
+  }
 
   useEffect(()=>{
     if(searchCatagories){
@@ -214,88 +235,69 @@ export default function ProjectBoxes() {
     };
   }, [projects]);
   
-  
-  
-
-
-
-  
-
-  // useEffect(() => {
-  //   let isDragging = false;
-  //   let startX, scrollLeft;
-
-  //   const onMouseDown = (e) => {
-  //     isDragging = true;
-  //     startX = e.pageX - window.scrollX;
-  //     scrollLeft = window.scrollX;
-  //     // document.body.style.cursor = "grabbing";
-  //     // document.body.style.userSelect = "none";
-  //   };
-
-  //   const onMouseMove = (e) => {
-  //     if (!isDragging) return;
-  //     e.preventDefault();
-  //     const x = e.pageX - window.scrollX;
-  //     const walk = (x - startX) * 2;
-  //     window.scrollTo({ left: scrollLeft - walk, behavior: "auto" });
-  //   };
-
-  //   const onMouseUp = () => {
-  //     isDragging = false;
-  //     // document.body.style.cursor = "default";
-  //     // document.body.style.removeProperty("user-select");
-  //   };
-
-  //   document.body.addEventListener("mousedown", onMouseDown);
-  //   document.body.addEventListener("mousemove", onMouseMove);
-  //   document.body.addEventListener("mouseup", onMouseUp);
-
-  //   return () => {
-  //     document.body.removeEventListener("mousedown", onMouseDown);
-  //     document.body.removeEventListener("mousemove", onMouseMove);
-  //     document.body.removeEventListener("mouseup", onMouseUp);
-  //   };
-  // }, [projects]);
 
 
   let tabIndex = 0;
-  
+
+
+
 
   useEffect(() => {
-    let scrollerIndex = 0;
+    if (typeof window !== "undefined") {
     let isScrolling =false; 
+    let scrollerIndex = toProjectId && searchCatagories && enableScrollto?toProjectId  :0;
+    let lastScrollerIndex = toProjectId?toProjectId-1:-1;
+    let scrollerTimeoutId;
+    let scrollerIntervalId;
 
+  
+    
     let timeoutId; 
     const handleScroll = () => {
-      isScrolling=true;
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      isScrolling = true;
 
+      if (timeoutId) clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         updateScrollerIndex();
-        isScrolling= false;
-      }, 2000);
+        isScrolling = false;
+      }, 1000);
+
+      // Start scroller updater
+      if (!scrollerIntervalId) {
+        scrollerIntervalId = setInterval(handleUpdaterScroller, 200);
+      }
+
+      // Reset the scroller timeout to stop after 12 seconds
+      if (scrollerTimeoutId) clearTimeout(scrollerTimeoutId);
+      scrollerTimeoutId = setTimeout(() => {
+        clearInterval(scrollerIntervalId);
+        scrollerIntervalId = null;
+      }, 12000);
     };
+
 
     const handleTouchEnd = () => {
       isScrolling = false;
       updateScrollerIndex(); // Update the index when touch ends
     };
 
+    document.addEventListener('onscroll',function(){alert('Scroll ended')});
+
     document.addEventListener('wheel', handleScroll);
     document.addEventListener('touchstart', handleScroll,{ passive: true });
     document.addEventListener('touchmove', handleScroll,{ passive: true });
-    // document.addEventListener('touchend', handleTouchEnd, { passive: true });
+    // document.addEventListener('touchend', handleTouchEnd);
 
     
     const initProjects = () => {
-      const allProjects = document.querySelectorAll('.projects-items.active');
+      const allProjects = projectItemsRef.current;
+      let projectInitailtoScroll;
+
       if (!allProjects.length) return;
   
       const currProject = allProjects[scrollerIndex] || allProjects[0];
       if (currProject && !isScrolling) {
+        // const targetY = currProject.offsetTop;
         const targetY = currProject.offsetTop;
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const scrollDuration = isTouchDevice ? 0.1 : 0.5;
@@ -305,19 +307,22 @@ export default function ProjectBoxes() {
             y: targetY- 150, // Adjust scroll position, subtracting 100px as an offset
             autoKill: false,    // Auto-stop scrolling if the user interacts
           },
-          duration: scrollDuration,  
+          duration:scrollDuration,  
           delay:0,      // Duration in seconds for the scroll
           ease: "power1.out",// Use ease for smooth scrolling
-        });
+        })
+        
       }
     };
-  
     
 
-    function updateScrollerIndex() {
-      const allProjects = document.querySelectorAll('.projects-items.active');
+    if(toProjectId&&enableScrollto){
+      initProjects();
+    }
+
+    const updateScrollerIndex=()=> {
+      const allProjects = projectItemsRef.current;
       const scrollPosition = window.scrollY;
-  
       allProjects.forEach((project, index) => {
         const projectOffsetTop = project.offsetTop;
         const projectHeight = project.offsetHeight;
@@ -329,17 +334,21 @@ export default function ProjectBoxes() {
           scrollerIndex = index; // Update scrollerIndex
         }
       });
-    }
+    } 
     
-    let lastScrollerIndex = -1;
+    const handleUpdaterScroller = () => {
+      requestAnimationFrame(updateScrollerIndex);
+    };
+    
     const rotateSecondsHandsNormal = () => {
       scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
       while (scrollerIndex === lastScrollerIndex) {
         scrollerIndex = (scrollerIndex + 1) % projectItemsRef.current.length;
+        
       }
-  
       lastScrollerIndex = scrollerIndex;
         initProjects();
+        // alert(scrollerIndex); 
     };
     
     
@@ -395,6 +404,7 @@ export default function ProjectBoxes() {
     const handleUpdate = () => {
       requestAnimationFrame(checkOverlap);
     };
+
     
     handleUpdate();
     const intervalId = setInterval(handleUpdate, 200);
@@ -404,23 +414,23 @@ export default function ProjectBoxes() {
   
     return () => {
       clearInterval(intervalId);
+      if (scrollerIntervalId) clearInterval(scrollerIntervalId);
+      if (scrollerTimeoutId) clearTimeout(scrollerTimeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(timeoutId); 
       window.removeEventListener('scroll', updateScrollerIndex);
-      clearTimeout(timeoutId); // Clear timeout on cleanup
       document.removeEventListener('wheel', handleScroll); 
       document.removeEventListener('touchstart', handleScroll);
       document.removeEventListener('touchmove', handleScroll);
-      // document.removeEventListener('touchend', handleTouchEnd);
-
     };
-  }, [projects]);
 
-
+  }
+  }, [filteredProjects]);
 
 
   const toggleMobileFilter = () =>{
     setMobileFilter(!mobileFilter);
   }
-
 
 
   useEffect(() => {
@@ -449,46 +459,6 @@ export default function ProjectBoxes() {
   }, []);
 
 
-
-  // const usermainClockRef = useRef(null);
-  // let scrollerClockIndex = 0;
-  // let touchStartY = 0;
-  
-  // useEffect(() => {
-  //   const scrollSpeedFactor = 0.03; 
-  
-  //   const handleWheel = (e) => {
-  //     const rotationClock = e.deltaY * scrollSpeedFactor;
-  //     scrollerClockIndex += rotationClock;
-  //     usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;   
-  //   };
-  
-  //   const handleTouchStart = (e) => {
-  //     touchStartY = e.touches[0].clientY;
-  //   };
-  
-  //   const handleTouchMove = (e) => {
-  //     const touchMoveY = e.touches[0].clientY;
-  //     const deltaY = touchStartY - touchMoveY;
-  //     const rotationClock = deltaY * scrollSpeedFactor;
-  //     scrollerClockIndex += rotationClock;
-  //     usermainClockRef.current.style.transform = `rotate(${scrollerClockIndex}deg)`;
-  //     touchStartY = touchMoveY;  // Update touchStartY for continuous rotation
-  //   };
-  
-  //   // Add wheel and touch event listeners
-  //   window.addEventListener('wheel', handleWheel);
-  //   window.addEventListener('touchstart', handleTouchStart);
-  //   window.addEventListener('touchmove', handleTouchMove);
-  
-  //   // Cleanup the event listeners on component unmount
-  //   return () => {
-  //     window.removeEventListener('wheel', handleWheel);
-  //     window.removeEventListener('touchstart', handleTouchStart);
-  //     window.removeEventListener('touchmove', handleTouchMove);
-  //   };
-  
-  // }, []);
 
   
   const scrollerClockIndexRef = useRef(0);
@@ -540,62 +510,6 @@ export default function ProjectBoxes() {
     };
   }, [scrollSpeedFactor]);
 
-  
-  
-  
-  
-  useEffect(() => {
-    // const checkOverlap = () => {
-    //   const secondsClock = document.getElementById('clock-bound-box');
-    //   const indicators = clockIndicators.current;
-  
-    //   if (!secondsClock || !indicators.length) return;
-  
-    //   // Get bounding box of the rotating seconds hand
-    //   const secondsClockRect = secondsClock.getBoundingClientRect();
-  
-    //   indicators.forEach((indicator, index) => {
-    //     // Get the bounding box of the span inside each clock-indicator
-    //     const spanElement = indicator;
-    //     const spanParent = clockMainIndicators.current[index];
-    //     if (!spanElement) return;
-  
-    //     const spanRect = spanElement.getBoundingClientRect();
-  
-    //     // Collision detection with a 1px offset
-    //     const offset = 1; // 1px offset for detection
-  
-    //     const isOverlapping = !(
-    //       secondsClockRect.right < spanRect.left - offset ||
-    //       secondsClockRect.left > spanRect.right + offset ||
-    //       secondsClockRect.bottom < spanRect.top - offset ||
-    //       secondsClockRect.top > spanRect.bottom + offset
-    //     );
-  
-    //     if (isOverlapping) {
-    //       tabIndex = index;
-    //       spanParent.classList.add('active');
-    //     } else {
-    //       spanParent.classList.remove('active');
-    //     }
-  
-    //     clockMainIndicators.current[tabIndex].classList.add('active');
-    //   });
-    // };
-  
-    // // Use requestAnimationFrame for smoother updates
-    // const handleUpdate = () => {
-    //   requestAnimationFrame(checkOverlap);
-    // };
-  
-    // handleUpdate();
-    // const intervalId = setInterval(handleUpdate, 100);
-  
-    // return () => clearInterval(intervalId);
-  
-  }, []);
-
-
   useEffect(() => {
     const updateClock = () => {
       const hoursHand = document.querySelectorAll(".clock-2-hour");
@@ -646,6 +560,14 @@ export default function ProjectBoxes() {
     };
   }, []); // Empty dependency array to run once on mount
 
+  const redirectToInnerPage = (url,selectedVal,index)=>{
+      if(
+        dispatch(setProjectIndex(index)),
+        dispatch(setSelected(selectedVal))
+      ){
+        router.push(`/expertise/${url}`);
+      }
+  }
 
 
 
@@ -659,9 +581,9 @@ export default function ProjectBoxes() {
       {filteredProjects!=''?
       <div className={mobileFilter?'filter-box-control active':'filter-box-control'}>
         <div className="filter-box signifier">
-          <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() => handleFilterChange('All')}>All</li>
+          <li data-filer="All" className={selectedFilter === 'All' ? 'selected' : ''}  onClick={() =>{ handleFilterChange('All');removeScrollerto()}}>All</li>
           {categories.map((filter,index) => (
-            <li key={index}  className={selectedFilter === filter.category ? 'selected' : ''} data-filter={filter.category} onClick={() => handleFilterChange(filter.category)}>
+            <li key={index}  className={selectedFilter === filter.category ? 'selected' : ''} data-filter={filter.category} onClick={() =>{ handleFilterChange(filter.category);removeScrollerto()}}>
               {filter.category}
             </li>
           ))}
@@ -679,18 +601,21 @@ export default function ProjectBoxes() {
               key={project.projectid}
               className="projects-items active"
               data-filter={project.category}
+              data-id={project.projectid}
               ref={(el) => (projectItemsRef.current[index] = el)}
             >
               <div className="projects-items-controls">
                 <div className="project-image-wrap">
                   <div className="wrap-box"></div>
-                  <Link href={`/expertise/${project.url_slug}`}>
-                   <div><Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} /></div>
-                  </Link>
+                  {/* <Link href={`/expertise/${project.url_slug}?selected=${selectedFilter}&selectedindex=${index}`}> */}
+                   <div onClick={()=>redirectToInnerPage(project.url_slug,selectedFilter,index)}>
+                    <Image height={300} width={400} style={{maxWidth:'100%',height:'auto'}} placeholder='blur' blurDataURL="/images/white-blur.png"   src={`${process.env.NEXT_PUBLIC_SITE_URL+project.thumbnail}`} alt={project.project_name} />
+                    </div>
+                  {/* </Link> */}
                 </div>
-                <div className="project-item-content">
-                  <h4>{project.project_name}</h4>
-                  <h6>{project.description}</h6>
+                <div className="project-item-content text-start">
+                  <h4 class="text-start">{project.project_name}</h4>
+                  <h6 class="text-start">{project.description}</h6>
                 </div>
               </div>
             </div>

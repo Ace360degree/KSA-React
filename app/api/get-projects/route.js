@@ -13,7 +13,7 @@ export async function GET() {
         const [projectsRows] = await connection.query(`
             SELECT projects_beta.*, projects_beta.id AS projectid, categories.*
             FROM projects_beta
-            LEFT JOIN categories ON categories.id = projects_beta.category;
+            LEFT JOIN categories ON categories.id = projects_beta.category ORDER BY projects_beta.sequence;
         `);
         
         const [categoriesRows] = await connection.query(`

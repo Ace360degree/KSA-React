@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { pool as db } from '../../db'; // Adjust the path to your db file
+import { sendMail } from '../../mail/sendMail';
 
 
 // Secret key for signing JWT, store this in your environment variables
@@ -43,41 +44,100 @@ const handler = NextAuth({
           throw new Error('Invalid credentials');
         }
 
+        // update loggedin Details
+
+        await db.query(
+          'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE id = ?',
+          [user.id]
+        );
+
         // If successful, return the user object (you can include other user details as needed)
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
+          name: user.fullname||user.name,
         };
       },
     }),
   ],
   session: {
     strategy: 'jwt',
+    maxAge:60*60,
+    updateAge:0,
+  },
+  cookies:{
+    sessionToken:{
+      name:'next-auth.session-token',
+      options:{
+        httpOnly:true,
+        sameSite:'lax',
+        path:'/',
+        maxAge:null
+      }
+    }
   },
   callbacks: {
     async jwt({ token, user }) {
       // If user exists, it means successful login, add user info to token
       if (user) {
         token.id = user.id;
+        token.userid = user.id;
         token.email = user.email;
         token.name = user.name;
       }
       return token;
     },
     async session({ session, token }) {
-      // Add token details to the session object
       session.user.id = token.id;
+      session.user.userid = token.userid;
       session.user.email = token.email;
       session.user.name = token.name;
       return session;
     },
-  },
+    async signIn({ user, account }) {
+      if (account.provider === 'google') {
+        const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [user.email]);
+
+        if (rows.length === 0) {
+          const result = await db.query(
+            'INSERT INTO users (email, fullname, type, total_loggins, signedupdate) VALUES (?, ?, ?, ?, NOW())',
+            [user.email, user.name, account.provider, 0]
+          );
+
+          const sendAdminMail = await sendMail({
+            to:process.env.NEXT_PUBLIC_ADMIN_MAIL,
+            subject:'New User Signup',
+            text:"",
+            html:`
+              <h2>New User Signup</h2>
+              <p>Congratulations, A new user has signed up to KSA.</p>
+              <p>Here are the details:</p>
+              <p><strong>Full Name:</strong> ${user.name}</p>
+              <p><strong>Email:</strong> ${user.email}</p>
+              <p><strong>Signup Type:</strong> Google Signin</p>
+            `,
+          })
+          if(!sendAdminMail){
+            console.warn('Failed to send the mail to Admin.');
+          }
+
+        }
+        else {
+          await db.query(
+            'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
+            [user.email]
+          );
+        }
+      }
+
+      return true; 
+    },
+  }, 
   pages: {
-    signIn: '/auth/signin', // Custom sign-in page
-    error: '/auth/error', // Error page
+    signIn: '/auth/signin', 
+    error: '/auth/error',
   },
-  secret: JWT_SECRET, // Add a secret for signing JWTs
+  secret: JWT_SECRET, 
 });
 
 

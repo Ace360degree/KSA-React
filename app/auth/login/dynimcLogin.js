@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
+import { FaGoogle } from "react-icons/fa";
 import Link from 'next/link';
 import DarkTheme from '@/app/components/body/darkTheme';
 import NavbarIntroPage from '@/app/components/NavbarIntroPage';
@@ -90,6 +91,7 @@ export default function DynamicLogin() {
                      <input 
                      className="theme-input" 
                      value={email}
+                     
                      onChange={(e) => setEmail(e.target.value)} 
                      required/>
                  </div>
@@ -125,7 +127,7 @@ export default function DynamicLogin() {
                       :''}
 
                     <div>
-                    <button type='button' className="login-with-google-btn mt-4 w-100" onClick={handleGoogleSignIn}>Sign in with Google</button>
+                    <button type='button' className="btn btn-dark mt-4 w-100 rounded-pill d-flex align-items-center justify-content-center" onClick={handleGoogleSignIn}> <FaGoogle className='me-3'/> Sign in with Google</button>
                     </div>  
 
                     {error && <p className="text-danger text-center">{error}</p>}

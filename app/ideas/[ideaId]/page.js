@@ -10,6 +10,8 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css'; // Import Splide styles
 import dynamic from "next/dynamic";
 import LightTheme from "@/app/components/body/lightTheme";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setIdeaId } from "@/app/redux/slices/ideasSlices";
 
 const SliderCursor = dynamic(() => import('@/app/components/commons/sliderCursor'), {
     ssr: false,
@@ -22,6 +24,10 @@ const ScrollifyDisabled = dynamic(() => import('@/app/components/commons/disable
 
 
 export default function IdeasPage(){
+
+    const {image} = useSelector((state)=>state.ideas);
+    const dispatch = useDispatch();
+
     const params = useParams()
     const ideasSlug = params.ideaId;
     const [loaded,setLoaded] = useState(false); 
@@ -31,13 +37,18 @@ export default function IdeasPage(){
     const [redirected,setDirected] = useState(false);
 
     const Searchparams = useSearchParams();
-    const paramImageQuery = Searchparams.get('image');
+    const paramImageQuery = image??null;
+
+    const [selected,setSelected] =  useState('');
+    
+
     
 
     useEffect(()=>{
         if(paramImageQuery){
             setDirected(true);
             setParamImage(paramImageQuery);
+            setSelected(Searchparams.get('selected'));
         }
     },[])
 
@@ -50,6 +61,8 @@ export default function IdeasPage(){
             setIdea(getIdeas.idea);
             setIdeasSections(getIdeas.ideasContent);
             setLoaded(true);
+            console.log(idea);
+            // dispatch()
         }
 
         fetchIdeasAPI();
@@ -57,6 +70,10 @@ export default function IdeasPage(){
     },[])
 
 
+    useEffect(()=>{
+        dispatch(setCategory(idea.category));
+        dispatch(setIdeaId(idea.id));
+    },[idea]);
 
 
 
@@ -125,7 +142,14 @@ export default function IdeasPage(){
             </div>
         </div>
         
-        <Link href={`/ideas?id=${idea.id}`}><div className="close-projects">
+    {/* <Link href={
+            `/ideas?id=${idea.id}&category=${idea.category}` + 
+            (selected ? `&selected=${selected}` : "")
+    }> */}
+    <Link href={
+            `/ideas`
+    }>
+    <div className="close-projects">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="12" r="10" stroke="#1C274C" stroke-width="0.576"></circle> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#1C274C" stroke-width="0.576" stroke-linecap="round"></path> </g></svg>
         </div></Link>
     </>)

@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 
 export default function CheckNavTransparent() {
-    
     useEffect(() => {
         const navbar = document.getElementById('navbar');
         const heroImages = document.querySelectorAll('.hero-image');
@@ -10,16 +9,14 @@ export default function CheckNavTransparent() {
         const allSections = document.querySelectorAll('section');
         const SVGIcons = document.querySelectorAll('.change-svg');
         const transparentClass = 'transparent';
-        const underlinedClass = 'underlined';
+        const underlinedClass = 'underline-nav';
     
         function checkNavbarPosition() {
             let shouldAddTransparent = false;
             let shouldAddUnderlined = false;
     
-            // Recalculate navbar's position in every check
             const navbarRect = navbar.getBoundingClientRect();
     
-            // Check against all hero images for transparency
             heroImages.forEach(heroImage => {
                 const heroRect = heroImage.getBoundingClientRect();
                 if (navbarRect.bottom > heroRect.top && navbarRect.top < heroRect.bottom) {
@@ -27,7 +24,6 @@ export default function CheckNavTransparent() {
                 }
             });
     
-            // Check against project sections to remove transparency
             projectSections.forEach(projectSection => {
                 const projectRect = projectSection.getBoundingClientRect();
                 if (navbarRect.bottom > projectRect.top && navbarRect.top < projectRect.bottom) {
@@ -35,14 +31,12 @@ export default function CheckNavTransparent() {
                 }
             });
     
-            // Add or remove the transparent class based on the conditions
             if (shouldAddTransparent) {
                 navbar.classList.add(transparentClass);
             } else {
                 navbar.classList.remove(transparentClass);
             }
     
-            // Check all sections to manage `light` class on the navbar and SVG icons
             allSections.forEach(section => {
                 const sectionRect = section.getBoundingClientRect();
     
@@ -59,14 +53,6 @@ export default function CheckNavTransparent() {
                 }
             });
     
-            // Update underlined class on the navbar
-            if (shouldAddUnderlined) {
-                navbar.classList.add(underlinedClass);
-            } else {
-                navbar.classList.remove(underlinedClass);
-            }
-    
-            // Separate check for SVGIcons colliding with hero images
             SVGIcons.forEach((curr) => {
                 let svgShouldAddLight = false;
                 heroImages.forEach(heroImage => {
@@ -78,7 +64,6 @@ export default function CheckNavTransparent() {
                     }
                 });
     
-                // Add or remove `light` class on individual SVG icons based on collision
                 if (svgShouldAddLight) {
                     curr.classList.add('light');
                 } else {
@@ -86,18 +71,15 @@ export default function CheckNavTransparent() {
                 }
             });
         }
-    
-        // Initial check in case the page is loaded at a scroll position
-        checkNavbarPosition();
+
+            checkNavbarPosition();
+
         window.addEventListener('scroll', checkNavbarPosition);
-    
-        // Cleanup event listener on component unmount
+
         return () => {
             window.removeEventListener('scroll', checkNavbarPosition);
         };
     }, []);
     
-
-
     return null;
 }

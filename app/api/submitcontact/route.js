@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { pool } from "../db";
 import nodemailer from "nodemailer";
+import { sendMail } from "../mail/sendMail";
 
 export async function POST(req) {
   try {
@@ -19,7 +20,7 @@ export async function POST(req) {
     connection.release(); // Release the connection back to the pool
 
     // Send email to admin
-    const adminEmail = "customercare@a360pl.com"; // Replace with the admin's email address
+    const adminEmail = process.env.NEXT_PUBLIC_ADMIN_MAIL; // Replace with the admin's email address
     const adminSubject = "KSA Website Submissions";
     const adminMessage = `
       <h1>New Contact Submission</h1>
@@ -40,30 +41,39 @@ export async function POST(req) {
 
     // Create a transporter
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", // Replace with your SMTP server
-      port: 587, // Replace with your SMTP port
-      secure: false, // Set to true if using 465
+      host: "admin.kuwalsanamarchitekts.com", 
+      port: 587, 
+      secure: false, 
       auth: {
-        user: "customercare@a360pl.com", // Replace with your email
-        pass: "AceCars24@123#@!", // Replace with your email password
+        user: "mailer@admin.kuwalsanamarchitekts.com", 
+        pass: "dDqV$s_q*tM!", 
       },
     });
-
-    // Send email to admin
-    await transporter.sendMail({
-      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>', // Replace with your email
+    
+     // Send email to admin
+    const sendAdminMail = await sendMail({
+      from: `"Kuwal Sanam Architekts" <${process.env.NEXT_PUBLIC_ADMIN_MAIL}>`, 
       to: adminEmail,
       subject: adminSubject,
       html: adminMessage,
-    });
+    })
+
+    if(!sendAdminMail){
+      console.warn('Admin mail not sent');
+    }
+   
 
     // Send email to user
-    await transporter.sendMail({
-      from: '"Kuwal Sanam Architekts" <customercare@a360pl.com>', // Replace with your email
+    const senduserMail  = await sendMail({
+      from: `"Kuwal Sanam Architekts" <${process.env.NEXT_PUBLIC_ADMIN_MAIL}>`, 
       to: email,
       subject: userSubject,
       html: userMessage,
     });
+    
+    if(!sendAdminMail){
+      console.warn('User mail not sent');
+    }
 
     return NextResponse.json({ message: 'Form submitted successfully and emails sent!' }, { status: 200 });
   } catch (err) {

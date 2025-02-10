@@ -2,7 +2,8 @@
 import { useEffect,useRef,useState } from "react";
 import LightTheme from "../components/body/lightTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
-import gsap from "gsap";
+// import gsap from "gsap";
+import gsap from "gsap/all";
 import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import Link from "next/link";
 import Image from "next/image";
@@ -15,23 +16,26 @@ import dynamic from "next/dynamic";
 import $ from "jquery";
 import "jquery-scrollify";
 import CommonLoader from "../components/commons/loaderCommon";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setIdeaId, setImage, setSelected } from "../redux/slices/ideasSlices";
 
 
-const ScrollifyDisabled = dynamic(() => import('../components/commons/disableScrollify'), {
-    ssr: false,
-  })
-
-  gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
+  gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
 export default function IdeasComponent(){
 
-    
+    const {ideaid,selected,category} = useSelector((state)=>state.ideas);
+    const dispatch = useDispatch();
     const {visited,setIdeasVisited } = useVisitedIdeasStore();
-    console.log(visited);
 
+    const ideasRefs = useRef([]);
+    const [initIdeaScroll,setInitIdeaScroll] = useState(true);
+    const [initCatagoryScroll,setInitCategoryScroll] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
-    const ideasSearchId = searchParams.get('id');
+    const ideasSearchId = ideaid??null;
+    const ideasCategoryId = category?? null;
+    const filterSelected = selected?? null;
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [initScroll,setInitScroll]=useState(false);
     const [ideas, setIdeas] = useState([]);
@@ -44,7 +48,9 @@ export default function IdeasComponent(){
     const IdeasCovers = useRef([]);
     const IdeasSnapSection = useRef([]);
 
-
+    console.log('selected:',selected);
+    console.log('category:',category);
+    console.log('Indea Id:',ideaid);
 
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
@@ -64,10 +70,6 @@ export default function IdeasComponent(){
                     setLoading(false);
                     if(ideasSearchId){
                         const allData = data.ideas;
-                        const filterIndex = allData.findIndex(k=> k.id == ideasSearchId);
-                        const toFilterTop = allData[filterIndex];
-                        const filteredCut = allData.splice(filterIndex,1);
-                        const rearrageFilter = allData.unshift(toFilterTop);
                         setFilteredIdeas(allData);            
                     }
                     //setIsLoaded(true); // Mark content as loaded
@@ -80,57 +82,57 @@ export default function IdeasComponent(){
             fetchIdeasAPI();
         }, []);
     
-    useEffect(()=>{
+    // useEffect(()=>{
         
-        if(!visited){
-        document.querySelector('body').classList.add('loading')
-        let projectHeadTitles = document.querySelectorAll('.project-head-title');
+    //     if(!visited){
+    //     document.querySelector('body').classList.add('loading')
+    //     let projectHeadTitles = document.querySelectorAll('.project-head-title');
         
-        projectHeadTitles.forEach(function(title,index){
+    //     projectHeadTitles.forEach(function(title,index){
             
-            let projectHeadTl = gsap.timeline({ delay: index * 1.1 });
+    //         let projectHeadTl = gsap.timeline({ delay: index * 1.1 });
             
-            projectHeadTl.fromTo(title,
-                {rotateX:"-90",opacity:1},
-                {rotateX:"0", delay:0.4,duration:0.4,}
-                );
+    //         projectHeadTl.fromTo(title,
+    //             {rotateX:"-90",opacity:1},
+    //             {rotateX:"0", delay:0.4,duration:0.4,}
+    //             );
                 
-            projectHeadTl.to(title,{height:"auto",y:"0", delay:0.3,duration:0.4}) 
-        });
+    //         projectHeadTl.to(title,{height:"auto",y:"0", delay:0.3,duration:0.4}) 
+    //     });
         
     
-    setTimeout(function(){
-         projectHeadTitles.forEach(function(title,index){
-             gsap.to(title,{
-                 opacity:0,
-                 duration:0.6,
-             });
-         });
-    },4000)    
+    // setTimeout(function(){
+    //      projectHeadTitles.forEach(function(title,index){
+    //          gsap.to(title,{
+    //              opacity:0,
+    //              duration:0.6,
+    //          });
+    //      });
+    // },4000)    
     
     
-    let headAnim = document.querySelector('.head-anim');
-    // let headAnimTl= gsap.timeline();
-        setTimeout(function() {
+    // let headAnim = document.querySelector('.head-anim');
+    // // let headAnimTl= gsap.timeline();
+    //     setTimeout(function() {
         
-        gsap.fromTo(headAnim,{
-            background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
-        },{
-            background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
-            duration:1.5,
-            ease: "power3.inOut",
-            delay:0, 
-        });
+    //     gsap.fromTo(headAnim,{
+    //         background:'conic-gradient(from 0deg, transparent 0%, black 0% )',
+    //     },{
+    //         background:'conic-gradient(from 0deg, transparent 100% , black 100% )',
+    //         duration:1.5,
+    //         ease: "power3.inOut",
+    //         delay:0, 
+    //     });
         
         
-        setTimeout(function(){
-            document.querySelector('.project-heads').style.display='none';
-            document.querySelector('body').classList.remove('loading');
-        },2000)
+    //     setTimeout(function(){
+    //         document.querySelector('.project-heads').style.display='none';
+    //         document.querySelector('body').classList.remove('loading');
+    //     },2000)
         
-    }, 5000);
-    }
-    },[]);
+    // }, 5000);
+    // }
+    // },[]);
 
     useEffect(()=>{
 
@@ -212,15 +214,14 @@ export default function IdeasComponent(){
 
     useEffect(()=>{
         setTimeout(function(){
-            setIdeasVisited();
             console.log(visited);
             ScrollTrigger.normalizeScroll(false);
         },20000);
-    },[])
+    },[]);
 
 
     useEffect(() => {
-        
+
         $(document).ready(function () {
             // Initialize Scrollify
             $.scrollify.enable();
@@ -229,7 +230,7 @@ export default function IdeasComponent(){
                 sectionName: "snap-section",
                 interstitialSection: "",
                 easing: "easeOutExpo",
-                scrollSpeed: isTouchDevice?100:1000,
+                scrollSpeed: isTouchDevice ? 100 : 1000,
                 offset: 0,
                 scrollbars: true,
                 standardScrollElements: "",
@@ -238,11 +239,38 @@ export default function IdeasComponent(){
                 updateHash: false,
                 touchScroll: true,
             });
+            
+            if(initCatagoryScroll && initIdeaScroll && ideasSearchId && ideasCategoryId){
+                const targetIdea = ideasRefs.current[ideasSearchId];
+                        $.scrollify.disable();
+                        gsap.to(window, {
+                            scrollTo: { y: targetIdea, offsetY: 0 },
+                            duration: 0,
+                            ease: "power3.inOut",
+                            onComplete: () => {
+                                $.scrollify.enable();
+                            }
+                });
+            }
+            else{
+                console.log('status State:','Default Scroll behaviour');
+                $.scrollify.disable();
+                // gsap.to(window, {
+                //     scrollTo: { y: 0, offsetY: 0 }, 
+                //     duration: 0.5, 
+                //     ease: "power3.inOut", 
+                //     onComplete:()=>{
+                        $.scrollify.enable();
+                        $.scrollify.instantMove(0);
+                    // }
+                // }); 
+            }
+    
             ScrollTrigger.refresh();
-                 
-        });   
-
-        return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+        });
+    
+        // Cleanup Scrollify on component unmount
+        return () => $.scrollify.disable();
     }, [filteredIdeas]);
 
 
@@ -263,24 +291,43 @@ export default function IdeasComponent(){
       }, [filteredIdeas]);
 
 
-
+    useEffect(()=>{        
+        handleFilter(category);
+    },[ideas]);
     
 
     const handleFilter = (category) => {
+        
         setSelectedCategory(category);
         setMobileFilter(false);
         if (category === 'All') {
-            setFilteredIdeas(ideas); // Show all ideas
+            setFilteredIdeas(ideas); 
         } else {
             const filtered = ideas.filter(idea => idea.category === category);
-            setFilteredIdeas(filtered); // Show filtered ideas based on category
+            setFilteredIdeas(filtered); 
         }
     };
 
-
     
- 
+    const changeFilter = (category) => {
+        setInitIdeaScroll(false);
+        setInitCategoryScroll(false);
+        handleFilter(category);
+        dispatch(setSelected(category));
+    }
 
+    const redirectToInnerPage = (url,id,category,image)=>{
+        if(
+        dispatch(setIdeaId(id)),
+        dispatch(setCategory(category)),
+        dispatch(setImage(image))
+        ){
+            router.push(`/ideas/${url}`);
+        }
+    }
+
+
+      
 
 
     return(
@@ -288,16 +335,7 @@ export default function IdeasComponent(){
             {/* <ScrollifyDisabled/> */}
             <LightTheme/>
             <NavbarIntroPage heading={'Research'} active={true} lgheight={true}/>
-        {visited? '':    
-        <div class="project-heads">
-            <div class="head-anim-control">
-                <div class="head-anim"></div>
-            </div>
-            <h2 class="project-head-title lg-text-title"><i>RESEARCH</i></h2>
-            <h2 class="project-head-title sm-text-title">That makes us</h2>
-            <h2 class="project-head-title lg-text-title"><i>Awe</i></h2>
-        </div>
-        } 
+   
         
 
 
@@ -310,13 +348,13 @@ export default function IdeasComponent(){
            <div class="filter-box signifier">
                <li data-filter="All" 
                className={selectedCategory === 'All' ? 'selected' : ''}
-               onClick={() => handleFilter('All')}
+               onClick={() => changeFilter('All')}
                >All</li>
 
                {categories.map((cat,index)=>(
                <li key={index} data-filter={cat.id}
                className={selectedCategory === cat.id ? 'selected' : ''}
-               onClick={() => handleFilter(cat.id)}
+               onClick={() =>{ changeFilter(cat.id)}}
                >{cat.category}</li>
                 ))}
                
@@ -331,19 +369,19 @@ export default function IdeasComponent(){
         <div className={visited? "snap-parent-ideas":"snap-parent-anim"}>
             
         {filteredIdeas.map((idea, index) => (
-                            <div className="snap-section filter-main-box active" ref={(el)=>{IdeasSnapSection.current[index]=el}} key={index} data-filter={idea.id}>
+                            <div className="snap-section filter-main-box active"  ref={(el)=>{IdeasSnapSection.current[index]=el;ideasRefs.current[idea.id] = el}} key={index} data-filter={idea.id}>
                                 <div className={visited? 'scale-up-idea visited' :'scale-up-idea'}>
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover" ref={(el)=>{IdeasCovers.current[index]=el}}></div>
-                                            <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&image=${idea.image}`}>
-                                            <div>
-                                            <img
+                                            {/* <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&selected=${selectedCategory}&image=${idea.image}`}> */}
+                                                <div onClick={()=>redirectToInnerPage(idea.url_slug,idea.id,selectedCategory,idea.image)}>
+                                                <img
                                                 className={`ideas-thumbnail ideas-img-${idea.url_slug}`}
                                                 src={process.env.NEXT_PUBLIC_SITE_URL+idea.image}
                                                 alt={idea.title}                                            />
                                                 </div>
-                                            </Link>
+                                            {/* </Link> */}
                                         </div>
                                         <h2 className="title-tohide signifier">{idea.title}</h2>
                                         <h5 className="title-tohide signifier">{idea.description}</h5>

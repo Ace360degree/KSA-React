@@ -11,11 +11,16 @@ import DarkTheme from '@/app/components/body/darkTheme';
 import NavbarIntroPage from '@/app/components/NavbarIntroPage';
 
 export default function SignUpPage() {
+  const [fullname, setFullname] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
+
+  const[Disabled,setDisabled] = useState(false);
+
   const router = useRouter();
 
   // Add animation on component mount
@@ -29,7 +34,7 @@ export default function SignUpPage() {
     setError('');
 
     try {
-      const response = await axios.post('/api/auth/signup', { email, password });
+      const response = await axios.post('/api/auth/signup', { fullname,phone,email,password });
       if (response.data.error) {
         setError(response.data.error);
       } else {
@@ -42,6 +47,26 @@ export default function SignUpPage() {
     }
   };
 
+
+  
+  const checkEmailValid = async()=>{
+    try {
+      if(email!=''){
+      // Send POST request using axios
+      const response = await axios.post('/api/auth/checkEmail', { email });
+      
+      // Check response and update disabled state
+      if (response.data.account === true) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+    }
+    } catch (err) {
+      console.error('Error checking email:', err);
+    }
+  }
+
   return (
     <>
           <DarkTheme/>
@@ -52,14 +77,57 @@ export default function SignUpPage() {
              <div>
                 <h2 className="text-center">Sign Up</h2>
                  <div className="form-row">
+                     <label>Fullname*</label>
+                     <input 
+                     className="theme-input" 
+                     type="text"
+                     value={fullname}
+                     onChange={(e) => setFullname(e.target.value)}
+                     required/>
+                 </div>
+
+                 {/* <div className="form-row">
+                     <label>Phone No*</label>
+                     <input 
+                     className="theme-input" 
+                     value={phone}
+                     onChange={(e) => setPhone(e.target.value)}
+                     required/>
+                 </div> */}
+
+                  <div className="form-row">
+                    <label>Phone No*</label>
+                    <input
+                      className="theme-input"
+                      type="text"
+                      value={phone}
+                      onChange={(e) => {
+                        // Remove any non-digit characters
+                        const value = e.target.value.replace(/\D/g, '');
+                        // Allow only up to 12 digits
+                        if (value.length <= 12) {
+                          setPhone(value);
+                        }
+                      }}
+                      required
+                    />
+                    {/* Custom error message if phone number is not 12 digits */}
+                    {phone && phone.length < 6 && (
+                      <span className='text-danger'>Please enter Valid Number.</span>
+                    )}
+                  </div>
+
+                 <div className="form-row">
                      <label>Email*</label>
                      <input 
                      className="theme-input" 
                      type='email'
                      value={email}
+                     onKeyUp={checkEmailValid()}
                      onChange={(e) => setEmail(e.target.value)}
                      required/>
-                 </div>
+                     {Disabled? <p className='text-danger'>Email Already registered</p>:'' }
+                 </div> 
 
                  <div className="form-row">
                      <label>Password*</label>
@@ -72,6 +140,8 @@ export default function SignUpPage() {
                  </div>
 
                  <div className="form-row">
+
+                    {!Disabled?
                     <button
                       type="submit"
                       className="btn-theme"
@@ -87,6 +157,8 @@ export default function SignUpPage() {
                         </>
                       )}
                     </button>
+                    :<button type="submit" className="btn-theme" disabled={true}> Submit </button>}
+
                     {error && <p className="text-danger text-center">{error}</p>}
                     <div className="text-center mt-3 text-secondary">
                       Already a member? <Link href={'/auth/login'} className="text-white fw-bold">Sign In</Link>
