@@ -13,8 +13,10 @@ const handler = NextAuth({
   providers: [
     // Google Provider
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+      // clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      // clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+      clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
+      clientSecret: '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',
       async profile(profile) {
         return {
           id: profile.sub,
@@ -24,7 +26,6 @@ const handler = NextAuth({
       },
     }),
 
-    // Credentials Provider
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -34,13 +35,11 @@ const handler = NextAuth({
       async authorize(credentials) {
         const { email, password } = credentials;
 
-        // Check if the email is blacklisted
         const [blacklistRows] = await db.query('SELECT * FROM blacklisted_users WHERE email = ?', [email]);
         if (blacklistRows.length > 0) {
           throw new Error('Error: Something went wrong! Please try again.');
         }
 
-        // Fetch user from the database
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (rows.length === 0) {
@@ -108,7 +107,8 @@ const handler = NextAuth({
       // Check if the email is blacklisted
       const [blacklistRows] = await db.query('SELECT * FROM blacklisted_users WHERE email = ?', [email]);
       if (blacklistRows.length > 0) {
-        throw new Error('Your email has been blacklisted. Please contact support.');
+        // throw new Error('Your email has been blacklisted. Please contact support.');
+        return `/auth/error`;
       }
 
       if (account.provider === 'google') {
