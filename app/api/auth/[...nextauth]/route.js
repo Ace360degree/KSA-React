@@ -13,10 +13,10 @@ const handler = NextAuth({
   providers: [
     // Google Provider
     GoogleProvider({
-      // clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      // clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-      clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+      // clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
+      // clientSecret: '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',
       async profile(profile) {
         return {
           id: profile.sub,
