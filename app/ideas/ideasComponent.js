@@ -16,24 +16,26 @@ import dynamic from "next/dynamic";
 import $ from "jquery";
 import "jquery-scrollify";
 import CommonLoader from "../components/commons/loaderCommon";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setIdeaId, setImage, setSelected } from "../redux/slices/ideasSlices";
 
 
-  gsap.registerPlugin(ScrollTrigger,ScrollToPlugin )
+  gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
 export default function IdeasComponent(){
 
-    
+    const {ideaid,selected,category} = useSelector((state)=>state.ideas);
+    const dispatch = useDispatch();
     const {visited,setIdeasVisited } = useVisitedIdeasStore();
-    console.log(visited);
 
     const ideasRefs = useRef([]);
     const [initIdeaScroll,setInitIdeaScroll] = useState(true);
     const [initCatagoryScroll,setInitCategoryScroll] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
-    const ideasSearchId = searchParams.get('id');
-    const ideasCategoryId = searchParams.get('category')?? null;
-    const filterSelected = searchParams.get('selected')?? null;
+    const ideasSearchId = ideaid??null;
+    const ideasCategoryId = category?? null;
+    const filterSelected = selected?? null;
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const [initScroll,setInitScroll]=useState(false);
     const [ideas, setIdeas] = useState([]);
@@ -46,7 +48,9 @@ export default function IdeasComponent(){
     const IdeasCovers = useRef([]);
     const IdeasSnapSection = useRef([]);
 
-
+    console.log('selected:',selected);
+    console.log('category:',category);
+    console.log('Indea Id:',ideaid);
 
     const toggleMobileFilter = () =>{
         setMobileFilter(!mobileFilter);
@@ -288,13 +292,7 @@ export default function IdeasComponent(){
 
 
     useEffect(()=>{        
-        if(ideasCategoryId && filterSelected && filterSelected!='All'){
-            handleFilter(parseInt(ideasCategoryId));
-        }else if(filterSelected && filterSelected=='All' ){
-            handleFilter('All');
-        }else if(!ideasCategoryId){
-            handleFilter('All');
-        }
+        handleFilter(category);
     },[ideas]);
     
 
@@ -315,6 +313,17 @@ export default function IdeasComponent(){
         setInitIdeaScroll(false);
         setInitCategoryScroll(false);
         handleFilter(category);
+        dispatch(setSelected(category));
+    }
+
+    const redirectToInnerPage = (url,id,category,image)=>{
+        if(
+        dispatch(setIdeaId(id)),
+        dispatch(setCategory(category)),
+        dispatch(setImage(image))
+        ){
+            router.push(`/ideas/${url}`);
+        }
     }
 
 
@@ -365,14 +374,14 @@ export default function IdeasComponent(){
                                     <div className="ideas-item">
                                         <div className="ideas-img-section">
                                             <div className="ideas-cover" ref={(el)=>{IdeasCovers.current[index]=el}}></div>
-                                            <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&selected=${selectedCategory}&image=${idea.image}`}>
-                                            <div>
-                                            <img
+                                            {/* <Link href={`/ideas/${idea.url_slug}?id=${idea.id}&selected=${selectedCategory}&image=${idea.image}`}> */}
+                                                <div onClick={()=>redirectToInnerPage(idea.url_slug,idea.id,selectedCategory,idea.image)}>
+                                                <img
                                                 className={`ideas-thumbnail ideas-img-${idea.url_slug}`}
                                                 src={process.env.NEXT_PUBLIC_SITE_URL+idea.image}
                                                 alt={idea.title}                                            />
                                                 </div>
-                                            </Link>
+                                            {/* </Link> */}
                                         </div>
                                         <h2 className="title-tohide signifier">{idea.title}</h2>
                                         <h5 className="title-tohide signifier">{idea.description}</h5>

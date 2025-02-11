@@ -17,7 +17,10 @@ export default function NavbarIntroPageUnderline({heading,subheading,subheadingL
                     <div className="nav-logo">
                         <Link href={'/'}><div className="logo-main">KSA<span>{subHeading}</span></div></Link>
                         {smallHeading!=''? 
-                            <Link href={`/expertise?category=${subheadingLink?subheadingLink:smallHeading}&project=${projectId}`}><div className="header-content signifier text-capitalize">{smallHeading}</div></Link>
+                            // <Link href={`/expertise?category=${subheadingLink?subheadingLink:smallHeading}&project=${projectId}`}>
+                            <Link href={'/expertise'}>
+                                <div className="header-content signifier text-capitalize">{smallHeading}</div>
+                            </Link>
                         : ''}
                     </div>
                     <div className="nav-img-logo">

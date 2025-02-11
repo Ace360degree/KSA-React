@@ -18,6 +18,7 @@ export default function SignUpPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const[disabledtext,setDisabledtext] = useState('');
 
   const[Disabled,setDisabled] = useState(false);
 
@@ -58,8 +59,13 @@ export default function SignUpPage() {
       // Check response and update disabled state
       if (response.data.account === true) {
         setDisabled(false);
+      }
+      else if(response.data.message=='Email is blacklisted'){
+        setDisabled(true);
+        setDisabledtext('Cannot use Email.')
       } else {
         setDisabled(true);
+        setDisabledtext('Email Already Registered.')
       }
     }
     } catch (err) {
@@ -126,7 +132,7 @@ export default function SignUpPage() {
                      onKeyUp={checkEmailValid()}
                      onChange={(e) => setEmail(e.target.value)}
                      required/>
-                     {Disabled? <p className='text-danger'>Email Already registered</p>:'' }
+                     {Disabled? <p className='text-danger'>{disabledtext}</p>:'' }
                  </div> 
 
                  <div className="form-row">

@@ -7,6 +7,7 @@ import CheckCookie from "./components/commons/checkCookie";
 import SessionWrapper from "./components/nextauth/wrapper";
 import { HomeTextProvider } from "./components/commons/getHomeTexts";
 import UserActivity from "./components/users/UserActivity";
+import Reduxprovider from "./redux/stateProvider";
 
 
 
@@ -42,16 +43,18 @@ export default function RootLayout({ children }) {
 
       </Head> 
       <body className="">
-        <SessionWrapper>
-        <CursorAudio/>
-        <CheckCookie/>
-        <HomeTextProvider>
-        <UserActivity/>  
-        <AnimatePresence mode="wait">
-          {children}
-        </AnimatePresence>
-        </HomeTextProvider>
-        </SessionWrapper>
+        <Reduxprovider>
+          <SessionWrapper>
+          <CursorAudio/>
+          <CheckCookie/>
+          <HomeTextProvider>
+          <UserActivity/>  
+          <AnimatePresence mode="wait">
+            {children}
+          </AnimatePresence>
+          </HomeTextProvider>
+          </SessionWrapper>
+        </Reduxprovider>
       </body>
     </html>
   );
