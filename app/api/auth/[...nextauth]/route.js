@@ -48,6 +48,10 @@ const handler = NextAuth({
 
         const user = rows[0];
 
+        if(!user.status){
+          throw new Error('Email ID not Verified.');
+        }
+
         // Compare the provided password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.hashedPassword);
         if (!isMatch) {
@@ -116,7 +120,7 @@ const handler = NextAuth({
 
         if (rows.length === 0) {
           await db.query(
-            'INSERT INTO users (email, fullname, type, total_loggins, signedupdate) VALUES (?, ?, ?, ?, NOW())',
+            'INSERT INTO users (email, fullname, type, total_loggins, signedupdate,status) VALUES (?, ?, ?, ?, NOW(),1)',
             [email, user.name, account.provider, 0]
           );
 

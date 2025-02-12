@@ -78,7 +78,7 @@ export default function SignUpPage() {
           <DarkTheme/>
           <NavbarIntroPage active={true}/>
           <div className='auth-full'>
-           <form className='w-100' onSubmit={handleSubmit}>
+           <form className='w-100' onSubmit={handleSubmit} autoComplete='off'>
           <div className="contact-form-box">
              <div>
                 <h2 className="text-center">Sign Up</h2>
