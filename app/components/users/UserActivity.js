@@ -42,15 +42,28 @@ export default function UserActivity() {
         return `${deviceType} - ${deviceModel}`;
     };
 
-    // Function to fetch IP and location
+    // Function to fetch IP and location (with retry)
     const fetchIPandLocation = async () => {
-        try {
-            const response = await fetch('https://ipapi.co/json/');
-            const data = await response.json();
-            setUserIP(data.ip);
-            setUserLocation(`${data.city}, ${data.region}, ${data.country_name}`);
-        } catch (error) {
-            console.error("Error fetching IP/location:", error);
+        const apiEndpoints = [
+            'https://ipapi.co/json/',
+            'https://freegeoip.app/json/',
+            'https://api.ipify.org?format=json' // Fallback just for IP
+        ];
+
+        for (const api of apiEndpoints) {
+            try {
+                const response = await fetch(api);
+                const data = await response.json();
+                if (data.ip) {
+                    setUserIP(data.ip);
+                }
+                if (data.city && data.region && data.country_name) {
+                    setUserLocation(`${data.city}, ${data.region}, ${data.country_name}`);
+                }
+                break; // Exit loop if success
+            } catch (error) {
+                console.warn(`Failed to fetch location from ${api}, trying next...`);
+            }
         }
     };
 
@@ -60,6 +73,11 @@ export default function UserActivity() {
 
         const durationInSeconds = Math.round(durationInMillis / 1000);
         if (durationInSeconds > 86400) return;
+
+        if (!userIP || !userLocation || !deviceInfo) {
+            console.warn("Waiting for IP, location, or device info before logging...");
+            return;
+        }
 
         const form = new FormData();
         form.append('user_id', session.user.email);
@@ -88,8 +106,12 @@ export default function UserActivity() {
     };
 
     useEffect(() => {
-        fetchIPandLocation();
-        setDeviceInfo(getDeviceDetails()); // Fetch device info
+        Promise.all([
+            fetchIPandLocation(),
+            setDeviceInfo(getDeviceDetails()) // Fetch device info
+        ]).then(() => {
+            console.log("User location and device info fetched.");
+        });
     }, []);
 
     useEffect(() => {
@@ -100,7 +122,7 @@ export default function UserActivity() {
                 hasLoggedEntry.current = false;
             }
 
-            if (!hasLoggedEntry.current) {
+            if (!hasLoggedEntry.current && userIP && userLocation && deviceInfo) {
                 sendUserData(location, 0);
                 hasLoggedEntry.current = true;
             }
@@ -125,10 +147,10 @@ export default function UserActivity() {
                 document.removeEventListener('visibilitychange', handlePageExit);
             };
         }
-    }, [session]);
+    }, [session, userIP, userLocation, deviceInfo]);
 
     useEffect(() => {
-        if (session) {
+        if (session && userIP && userLocation && deviceInfo) {
             if (entryTime.current && previousPath.current && !hasLoggedExit.current) {
                 const exitTime = Date.now();
                 const timeSpent = exitTime - entryTime.current;
@@ -139,7 +161,7 @@ export default function UserActivity() {
             previousPath.current = location;
             hasLoggedExit.current = false;
         }
-    }, [location]);
+    }, [location, userIP, userLocation, deviceInfo]);
 
     return null;
 }
