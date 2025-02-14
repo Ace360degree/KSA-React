@@ -19,6 +19,7 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
   const[disabledtext,setDisabledtext] = useState('');
+  const[showAlert,setShowAlert] = useState(false);
 
   const[Disabled,setDisabled] = useState(false);
 
@@ -39,7 +40,13 @@ export default function SignUpPage() {
       if (response.data.error) {
         setError(response.data.error);
       } else {
-        router.push('/auth/login'); // Redirect to the login page after successful sign-up
+        setFullname('');
+        setPhone('');
+        setEmail('');
+        setPassword('');
+        setDisabled(false);
+        setDisabledtext('');
+        setShowAlert(true);
       }
     } catch (error) {
       setError('An unexpected error occurred');
@@ -75,6 +82,8 @@ export default function SignUpPage() {
 
   return (
     <>
+        {!showAlert?
+        <>
           <DarkTheme/>
           <NavbarIntroPage active={true}/>
           <div className='auth-full'>
@@ -91,15 +100,6 @@ export default function SignUpPage() {
                      onChange={(e) => setFullname(e.target.value)}
                      required/>
                  </div>
-
-                 {/* <div className="form-row">
-                     <label>Phone No*</label>
-                     <input 
-                     className="theme-input" 
-                     value={phone}
-                     onChange={(e) => setPhone(e.target.value)}
-                     required/>
-                 </div> */}
 
                   <div className="form-row">
                     <label>Phone No*</label>
@@ -174,6 +174,14 @@ export default function SignUpPage() {
           </div>
           </form> 
           </div>
+          </>
+          :<>
+            <div className='signifier w-100 container d-flex flex-column align-items-center text-white justify-content-center text-center' style={{minHeight:'100vh'}}>
+               <h1>Account Created Successfully.</h1>
+               <h4>Please Verify your Account with the link sent to your email.</h4>
+               <Link href={'/auth/login'}><button className='mt-4 btn btn-light rounded-2 px-4'>Login Now</button></Link>
+            </div>
+          </>}
     </>
   );
 }
