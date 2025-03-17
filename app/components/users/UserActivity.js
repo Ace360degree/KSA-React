@@ -19,7 +19,7 @@ export default function UserActivity() {
     const getDeviceDetails = () => {
         const userAgent = navigator.userAgent;
         let deviceType = "Unknown";
-        
+
         if (/android/i.test(userAgent)) {
             deviceType = "Android";
         } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
@@ -42,12 +42,45 @@ export default function UserActivity() {
         return `${deviceType} - ${deviceModel}`;
     };
 
-    // Function to fetch IP and location (with retry)
-    const fetchIPandLocation = async () => {
+    // Function to fetch user's location using GPS
+    const fetchUserLocation = async () => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    console.log(`User's GPS Location: Lat ${latitude}, Lon ${longitude}`);
+
+                    // Reverse Geocode to get city, state, country
+                    try {
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+                        const data = await response.json();
+                        if (data.address) {
+                            const { city, state, country } = data.address;
+                            setUserLocation(`${city || "Unknown"}, ${state || "Unknown"}, ${country || "Unknown"}`);
+                        } else {
+                            setUserLocation(`Lat: ${latitude}, Lon: ${longitude}`);
+                        }
+                    } catch (error) {
+                        console.error("Reverse geocoding failed:", error);
+                        setUserLocation(`Lat: ${latitude}, Lon: ${longitude}`);
+                    }
+                },
+                (error) => {
+                    console.warn("Geolocation permission denied or failed:", error);
+                    fetchIPBasedLocation(); // Fallback to IP-based location
+                }
+            );
+        } else {
+            console.warn("Geolocation API not available.");
+            fetchIPBasedLocation(); // Fallback if Geolocation API is not available
+        }
+    };
+
+    // Function to fetch IP-based location (fallback)
+    const fetchIPBasedLocation = async () => {
         const apiEndpoints = [
             'https://ipapi.co/json/',
-            'https://freegeoip.app/json/',
-            'https://api.ipify.org?format=json' // Fallback just for IP
+            'https://freegeoip.app/json/'
         ];
 
         for (const api of apiEndpoints) {
@@ -107,7 +140,7 @@ export default function UserActivity() {
 
     useEffect(() => {
         Promise.all([
-            fetchIPandLocation(),
+            fetchUserLocation(), // Get accurate location
             setDeviceInfo(getDeviceDetails()) // Fetch device info
         ]).then(() => {
             console.log("User location and device info fetched.");
