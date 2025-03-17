@@ -13,10 +13,10 @@ const handler = NextAuth({
   providers: [
     // Google Provider
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-      // clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
-      // clientSecret: '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',
+      // clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      // clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+      clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
+      clientSecret: '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',
       async profile(profile) {
         return {
           id: profile.sub,
@@ -63,6 +63,17 @@ const handler = NextAuth({
           'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE id = ?',
           [user.id]
         );
+
+        await sendMail({
+          to:process.env.NEXT_PUBLIC_ADMIN_MAIL_TEST,
+          subject:'Activity: Website Login',
+          html:`
+              <h2>User Activity: User Logged in</h2>
+              <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
+              <p>The user <strong>${user.fullname}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong>.</p>  
+              <p>Please review if any further action is required.</p>
+          `,
+        });
 
         return {
           id: user.id,
@@ -140,6 +151,16 @@ const handler = NextAuth({
             'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
             [email]
           );
+          await sendMail({
+            to:process.env.NEXT_PUBLIC_ADMIN_MAIL_TEST,
+            subject:'Activity: Website Login',
+            html:`
+                <h2>User Activity: User Logged in</h2>
+                <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
+                <p>The user <strong>${user.name}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong>.</p>  
+                <p>Please review if any further action is required.</p>
+            `,
+          });
         }
       }
 
