@@ -157,7 +157,7 @@ const handler = NextAuth({
             html:`
                 <h2>User Activity: User Logged in</h2>
                 <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
-                <p>The user <strong>${user.name}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong>.</p>  
+                <p>The user <strong>${user.name}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong> via Google Login.</p>  
                 <p>Please review if any further action is required.</p>
             `,
           });
