@@ -13,10 +13,10 @@ const handler = NextAuth({
   providers: [
     // Google Provider
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-      // clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
-      // clientSecret: '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',
+      // clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      // clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+      clientId: '470557745983-j6mbjmj8g78nbsfjfnojtqmrg7odsn6e.apps.googleusercontent.com',
+      clientSecret: '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',
       async profile(profile) {
         return {
           id: profile.sub,
@@ -37,6 +37,14 @@ const handler = NextAuth({
 
         const [blacklistRows] = await db.query('SELECT * FROM blacklisted_users WHERE email = ?', [email]);
         if (blacklistRows.length > 0) {
+          await sendMail({
+            to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
+            subject: 'Blacklisted Login Attempt',
+            html: `
+              <h2>Blacklisted user login</h2>
+              <p><strong>${email}</strong> has attempted login through prohibited Email through Credential Login.</p>
+            `,
+          });
           throw new Error('Error: Something went wrong! Please try again.');
         }
 
@@ -123,6 +131,14 @@ const handler = NextAuth({
       const [blacklistRows] = await db.query('SELECT * FROM blacklisted_users WHERE email = ?', [email]);
       if (blacklistRows.length > 0) {
         // throw new Error('Your email has been blacklisted. Please contact support.');
+        await sendMail({
+          to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
+          subject: 'Blacklisted Login Attempt',
+          html: `
+            <h2>Blacklisted user login</h2>
+            <p><strong>${email}</strong> has attempted login through prohibited Email through Google Login.</p>
+          `,
+        });
         return `/auth/error`;
       }
 
