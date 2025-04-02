@@ -14,7 +14,8 @@ export default function CheckUserStatus(){
                 })
 
                 const userStatus = await getStatus.json();
-                if(userStatus.data.status!=1){
+                console.log(userStatus.data.length);
+                if(userStatus.data.length>0){
                     signOut();
                 }
             }
