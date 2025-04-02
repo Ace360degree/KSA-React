@@ -8,6 +8,7 @@ import SessionWrapper from "./components/nextauth/wrapper";
 import { HomeTextProvider } from "./components/commons/getHomeTexts";
 import UserActivity from "./components/users/UserActivity";
 import Reduxprovider from "./redux/stateProvider";
+import CheckUserStatus from "./components/users/checkStatus";
 
 
 
@@ -48,6 +49,7 @@ export default function RootLayout({ children }) {
           <CursorAudio/>
           <CheckCookie/>
           <HomeTextProvider>
+          <CheckUserStatus/>  
           <UserActivity/>  
           <AnimatePresence mode="wait">
             {children}

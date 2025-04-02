@@ -132,7 +132,7 @@ const handler = NextAuth({
         if (rows.length === 0) {
           await db.query(
             'INSERT INTO users (email, fullname, type, total_loggins, signedupdate,status) VALUES (?, ?, ?, ?, NOW(),1)',
-            [email, user.name, account.provider, 0]
+            [email, user.name, account.provider, 1]
           );
 
           await sendMail({
