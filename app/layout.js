@@ -10,6 +10,7 @@ import UserActivity from "./components/users/UserActivity";
 import Reduxprovider from "./redux/stateProvider";
 import CheckUserStatus from "./components/users/checkStatus";
 import Script from "next/script";
+import DisclaimerWindow from "./components/commons/disclaimerWindow";
 
 
 
