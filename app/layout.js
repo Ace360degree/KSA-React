@@ -9,6 +9,7 @@ import { HomeTextProvider } from "./components/commons/getHomeTexts";
 import UserActivity from "./components/users/UserActivity";
 import Reduxprovider from "./redux/stateProvider";
 import CheckUserStatus from "./components/users/checkStatus";
+import Script from "next/script";
 
 
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
+       
          
       <meta name="viewport" content="width=device-width"/> 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -42,7 +44,24 @@ export default function RootLayout({ children }) {
       <link rel="preload" href="./fonts/signifier/TestSignifier-Bold.otf" as="font" type="font/otf" crossorigin="anonymous"/>
       <link rel="preload" href="./fonts/signifier/TestSignifier-Black.otf" as="font" type="font/otf" crossorigin="anonymous"/>
 
+
+
       </Head> 
+      <Script
+          id="hotjar-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function (c, s, q, u, a, r, e) {
+                c.hj = c.hj || function(){ (c.hj.q = c.hj.q || []).push(arguments) };
+                c._hjSettings = { hjid: a };
+                r = s.getElementsByTagName('head')[0];
+                e = s.createElement('script');
+                e.async = true;
+                e.src = q + c._hjSettings.hjid + u;
+                r.appendChild(e);
+            })(window, document, 'https://static.hj.contentsquare.net/c/csq-', '.js', 6368561);`
+          }}
+        /> 
       <body className="">
         <Reduxprovider>
           <SessionWrapper>

@@ -49,7 +49,7 @@ export default function SignUpPage() {
         setShowAlert(true);
       }
     } catch (error) {
-      setError('An unexpected error occurred');
+      setError('An unexpected error occurred.');
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ export default function SignUpPage() {
   
   const checkEmailValid = async()=>{
     try {
-      if(email!=''){
+      if(email!=null){
       // Send POST request using axios
       const response = await axios.post('/api/auth/checkEmail', { email });
       
@@ -129,7 +129,7 @@ export default function SignUpPage() {
                      className="theme-input" 
                      type='email'
                      value={email}
-                     onKeyUp={checkEmailValid()}
+                     onKeyUp={checkEmailValid}
                      onChange={(e) => setEmail(e.target.value)}
                      required/>
                      {Disabled? <p className='text-danger'>{disabledtext}</p>:'' }

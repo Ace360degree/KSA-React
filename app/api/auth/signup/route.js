@@ -12,6 +12,8 @@ export async function POST(req) {
     const { fullname,phone,email, password } = await req.json(); // Ensure you parse the request properly
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const currDate = new Date().toLocaleString();
+
 
 
     // Perform the database query with await
