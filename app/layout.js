@@ -67,7 +67,7 @@ export default function RootLayout({ children }) {
         <Reduxprovider>
           <SessionWrapper>
           <CursorAudio/>
-          <CheckCookie/>
+          {/* <CheckCookie/> */}
           <HomeTextProvider>
           <CheckUserStatus/>  
           <UserActivity/>  
