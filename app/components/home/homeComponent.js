@@ -643,7 +643,7 @@ export default function HomeComponent(){
                         <img className="hero-image mobile-home-banner" src={process.env.NEXT_PUBLIC_SITE_URL+banner.mobile_images}/>
                     </div>
                     {banner.bottom_title && banner.bottom_title!=null?
-                      <div class="home-banner-desc-box signifier"><h4 style={{textAlign:'left'}}>{banner.bottom_title}</h4></div>
+                      <div class="home-banner-desc-box signifier"><h4>{banner.bottom_title}</h4></div>
                     :''}
                     </>
                     ))}
