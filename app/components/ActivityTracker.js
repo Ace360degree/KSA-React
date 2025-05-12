@@ -82,7 +82,7 @@ const ActivityTracker = () => {
                     // alert('Hello User');
                     updateActivity();
                 }
-            }, 5000);
+            }, 15000);
         };
 
         // Add event listeners
