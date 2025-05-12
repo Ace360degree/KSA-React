@@ -9,5 +9,5 @@ export const pool = mysql.createPool({
   connectionLimit: 100,  // A more reasonable connection limit
   multipleStatements: true,  
   waitForConnections: true,
-  queueLimit: 10000,  
+  queueLimit: 10000,
 });
