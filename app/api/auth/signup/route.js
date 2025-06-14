@@ -1,50 +1,50 @@
 import bcrypt from 'bcrypt';
-import { pool as db } from '../../db'; // Database connection
+import { pool as db } from '../../db'; // Adjust the path to your db file
 import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
-import { sendMail } from '../../mail/sendMail'; // Email utility
+import { sendMail } from '../../mail/sendMail';
 
 export async function POST(req) {
   try {
-    console.log("✅ Received signup request");
+    console.log("Received signup request", req);
 
     const { fullname, phone, email, password } = await req.json();
-    console.log("📥 Parsed request body:", { fullname, phone, email });
+    console.log("Parsed request body:", { fullname, phone, email });
 
-    // 🔐 Validate required fields
     if (!fullname || !phone || !email || !password) {
-      console.warn("⚠️ Missing required fields");
+      console.warn("Missing required fields");
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // 🔐 Hash password before storing
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("🔐 Password hashed");
+    console.log("Password hashed");
 
     const currDate = new Date().toLocaleString();
     let insertId;
 
     try {
-      // 🚀 Insert new user into DB
+      // const [result] = await db.query(
+      //   'INSERT INTO users (fullname, phone, email, type, hashedPassword, total_loggins, signedupdate, status) VALUES (?, ?, ?, ?, ?, ?, NOW(), 1)',
+      //   [fullname, phone, email, 'website-signup', hashedPassword, 0]
+      // );
       const [result] = await db.query(
-        `INSERT INTO users (fullname, phone, email, type, hashedPassword, total_loggins, signedupdate, status, last_seen_at, is_online)
-         VALUES (?, ?, ?, ?, ?, ?, NOW(), 1, ?, ?)`,
-        [fullname, phone, email, 'website-signup', hashedPassword, 0, new Date(), 0]
-      );
+  `INSERT INTO users (fullname, phone, email, type, hashedPassword, total_loggins, signedupdate, status, last_seen_at, is_online)
+   VALUES (?, ?, ?, ?, ?, ?, NOW(), 1, ?, ?)`,
+  [fullname, phone, email, 'website-signup', hashedPassword, 0, new Date(), 0]
+);
+
       insertId = result.insertId;
-      console.log("✅ User inserted into DB with ID:", insertId);
+      console.log("User inserted into DB with ID:", insertId);
     } catch (dbError) {
-      // ❌ Log detailed DB error
-      console.error("❌ Database insertion failed:", dbError.message, dbError.stack);
+      console.error("Database insertion failed:", dbError.message, dbError.stack);
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
-    // ✉️ Send welcome email to user
     try {
       const emailSent = await sendMail({
         to: email,
         subject: 'Welcome to Kuwal Sanam Architekts',
-        text: '',
+        text: ``,
         html: `
           <h4>Hi ${fullname},</h4>
           <p>Thank you for signing up. We're excited to have you on board!</p>
@@ -52,18 +52,16 @@ export async function POST(req) {
           <p>Explore our projects and gain deeper insights into our work.<br>
           Should you have any questions or wish to discuss potential collaborations with one of our experts, please don't hesitate to contact us.</p>
           <br/>
-          <p><strong>Please verify your email by clicking the following link: 
-            <a href="https://visit.kuwalsanamarchitekts.com/api/verify.php?user_id=${insertId}">Verify Now</a></strong></p>
+          <p><strong>Please verify your email by clicking the following link: <a href="https://visit.kuwalsanamarchitekts.com/api/verify.php?user_id=${insertId}">Verify Now</a></strong></p>
         `,
       });
-      console.log("📤 Welcome email sent:", emailSent);
+      console.log("Welcome email sent:", emailSent);
     } catch (mailError) {
-      console.error("❌ Error sending welcome email:", mailError.message);
+      console.error("Error sending welcome email:", mailError.message);
     }
 
-    // 👨‍💼 Notify admin if configured
     if (!process.env.NEXT_PUBLIC_ADMIN_MAIL) {
-      console.warn("⚠️ Environment variable NEXT_PUBLIC_ADMIN_MAIL is missing.");
+      console.warn("Environment variable NEXT_PUBLIC_ADMIN_MAIL is missing.");
     } else {
       try {
         const adminSend = await sendMail({
@@ -80,17 +78,16 @@ export async function POST(req) {
             <p><strong>Date:</strong> ${currDate}</p>
           `,
         });
-        console.log("📥 Admin email sent:", adminSend);
+        console.log("Admin email sent:", adminSend);
       } catch (adminMailError) {
-        console.error("❌ Error sending admin email:", adminMailError.message);
+        console.error("Error sending admin email:", adminMailError.message);
       }
     }
 
-    // ✅ Final success response
     return NextResponse.json({ message: 'User created', userId: insertId });
 
   } catch (error) {
-    console.error('❌ Unexpected error in signup route:', error.message, error.stack);
+    console.error('Unexpected error in signup route:', error.message, error.stack);
     return NextResponse.json({ error: 'Error creating user' }, { status: 500 });
   }
 }

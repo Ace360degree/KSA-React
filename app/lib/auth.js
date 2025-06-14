@@ -105,31 +105,30 @@ export const authOptions = {
     },
   },
   callbacks: {
-    // async jwt({ token, user }) {
-    //   if (user) {
-    //     token.id = user.id;
-    //     token.userid = user.id;
-    //     token.email = user.email;
-    //     token.name = user.name;
-    //   }
-    //   return token;
-    // }, commented by pranav
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.userid = user.id;
         token.email = user.email;
         token.name = user.name;
-      } else if (token?.email && !token.id) {
-        const [rows] = await db.query('SELECT id FROM users WHERE email = ?', [token.email]);
-        if (rows.length > 0) {
-          token.id = rows[0].id;
-          token.userid = rows[0].id;
-        }
       }
       return token;
     },
+    // async jwt({ token, user }) {
+    //   if (user) {
+    //     token.id = user.id;
+    //     token.userid = user.id;
+    //     token.email = user.email;
+    //     token.name = user.name;
+    //   } else if (token?.email && !token.id) {
+    //     const [rows] = await db.query('SELECT id FROM users WHERE email = ?', [token.email]);
+    //     if (rows.length > 0) {
+    //       token.id = rows[0].id;
+    //       token.userid = rows[0].id;
+    //     }
+    //   }
+    //   return token;
+    // },
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.userid = token.userid;
