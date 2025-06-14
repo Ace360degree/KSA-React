@@ -14,7 +14,7 @@ export const authOptions = {
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
       async profile(profile) {
         return {
-          id: profile.sub,
+          // id: profile.sub,
           name: profile.name,
           email: profile.email,
         };
@@ -85,21 +85,22 @@ export const authOptions = {
   },
 
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
+    async jwt({ token, user, account }) {
+    if (user) {
+      const [rows] = await db.query('SELECT id FROM users WHERE email = ?', [user.email]);
+      if (rows.length > 0) {
+        token.id = rows[0].id;
+        token.userid = rows[0].id;
+      } else {
+        token.id = user.id; // fallback to Google ID
         token.userid = user.id;
-        token.email = user.email;
-        token.name = user.name;
-      } else if (token?.email && !token.id) {
-        const [rows] = await db.query('SELECT id FROM users WHERE email = ?', [token.email]);
-        if (rows.length > 0) {
-          token.id = rows[0].id;
-          token.userid = rows[0].id;
-        }
       }
-      return token;
-    },
+      token.email = user.email;
+      token.name = user.name;
+    }
+    return token;
+  },
+
 
     async session({ session, token }) {
       session.user.id = token.id;
@@ -108,6 +109,7 @@ export const authOptions = {
       session.user.name = token.name;
       return session;
     },
+
 
     async signIn({ user, account }) {
       const email = user.email;
