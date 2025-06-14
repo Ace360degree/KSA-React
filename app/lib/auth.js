@@ -155,12 +155,14 @@ export const authOptions = {
 
       if (account.provider === 'google') {
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+        let dbId;
 
         if (rows.length === 0) {
-          await db.query(
+          const [result] = await db.query(
             'INSERT INTO users (email, fullname, type, total_loggins, last_loggedin, signedupdate,status) VALUES (?, ?, ?, ?,NOW(),NOW(),1)',
             [email, user.name, account.provider, 1]
           );
+          dbId = result.insertId;
 
           await sendMail({
             to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
@@ -174,6 +176,7 @@ export const authOptions = {
             `,
           });
         } else {
+          dbId = rows[0].id;
           await db.query(
             'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
             [email]
@@ -184,11 +187,14 @@ export const authOptions = {
             html:`
                 <h2>User Activity: User Logged in</h2>
                 <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
-                <p>The user <strong>${user.name}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong> via Google Login.</p>  
+                <p>The user <strong>${user.name}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong> via Google Login.</p>
                 <p>Please review if any further action is required.</p>
             `,
           });
         }
+
+        // Ensure the user object contains the numeric database ID
+        user.id = dbId;
       }
 
       return true;
