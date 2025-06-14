@@ -14,7 +14,7 @@ export const authOptions = {
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
       async profile(profile) {
         return {
-          // id: profile.sub,
+          id: profile.sub,
           name: profile.name,
           email: profile.email,
         };
