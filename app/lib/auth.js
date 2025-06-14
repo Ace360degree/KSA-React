@@ -5,12 +5,10 @@ import bcrypt from 'bcrypt';
 import { pool as db } from '../api/db';
 import { sendMail } from '../api/mail/sendMail';
 
-// Secret key for signing JWT, store this in your environment variables
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
 export const authOptions = {
   providers: [
-    // Google Provider
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
@@ -37,47 +35,26 @@ export const authOptions = {
           await sendMail({
             to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
             subject: 'Blacklisted Login Attempt',
-            html: `
-              <h2>Blacklisted user login</h2>
-              <p><strong>${email}</strong> has attempted login through prohibited Email through Credential Login.</p>
-            `,
+            html: `<h2>Blacklisted user login</h2><p><strong>${email}</strong> attempted login through credential method.</p>`,
           });
           throw new Error('Error: Something went wrong! Please try again.');
         }
 
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
-
-        if (rows.length === 0) {
-          throw new Error('No user found with this email');
-        }
+        if (rows.length === 0) throw new Error('No user found with this email');
 
         const user = rows[0];
+        if (!user.status) throw new Error('Email ID not Verified.');
 
-        if(!user.status){
-          throw new Error('Email ID not Verified.');
-        }
-
-        // Compare the provided password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.hashedPassword);
-        if (!isMatch) {
-          throw new Error('Invalid credentials');
-        }
+        if (!isMatch) throw new Error('Invalid credentials');
 
-        // Update logged-in details
-        await db.query(
-          'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE id = ?',
-          [user.id]
-        );
+        await db.query('UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE id = ?', [user.id]);
 
         await sendMail({
-          to:process.env.NEXT_PUBLIC_ADMIN_MAIL,
-          subject:'Activity: Website Login',
-          html:`
-              <h2>User Activity: User Logged in</h2>
-              <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
-              <p>The user <strong>${user.fullname}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong>.</p>  
-              <p>Please review if any further action is required.</p>
-          `,
+          to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
+          subject: 'Activity: Website Login',
+          html: `<h2>User Activity: Login</h2><p><strong>${user.fullname}</strong> logged in via credentials.</p>`,
         });
 
         return {
@@ -88,11 +65,13 @@ export const authOptions = {
       },
     }),
   ],
+
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60,
     updateAge: 0,
   },
+
   cookies: {
     sessionToken: {
       name: 'next-auth.session-token',
@@ -104,16 +83,8 @@ export const authOptions = {
       },
     },
   },
+
   callbacks: {
-    // async jwt({ token, user }) {
-    //   if (user) {
-    //     token.id = user.id;
-    //     token.userid = user.id;
-    //     token.email = user.email;
-    //     token.name = user.name;
-    //   }
-    //   return token;
-    // },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -129,6 +100,7 @@ export const authOptions = {
       }
       return token;
     },
+
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.userid = token.userid;
@@ -136,107 +108,69 @@ export const authOptions = {
       session.user.name = token.name;
       return session;
     },
+
     async signIn({ user, account }) {
       const email = user.email;
 
-      // Check if the email is blacklisted
       const [blacklistRows] = await db.query('SELECT * FROM blacklisted_users WHERE email = ?', [email]);
       if (blacklistRows.length > 0) {
         await sendMail({
           to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
           subject: 'Blacklisted Login Attempt',
-          html: `
-            <h2>Blacklisted user login</h2>
-            <p><strong>${email}</strong> has attempted login through prohibited Email through Google Login.</p>
-          `,
+          html: `<h2>Blacklisted user login</h2><p><strong>${email}</strong> attempted Google login.</p>`,
         });
-        return `/auth/error`;
+        return '/auth/error';
       }
 
       if (account.provider === 'google') {
         const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (rows.length === 0) {
-          await db.query(
-            'INSERT INTO users (email, fullname, type, total_loggins, last_loggedin, signedupdate,status) VALUES (?, ?, ?, ?,NOW(),NOW(),1)',
+          const [result] = await db.query(
+            'INSERT INTO users (email, fullname, type, total_loggins, last_loggedin, signedupdate, status) VALUES (?, ?, ?, ?, NOW(), NOW(), 1)',
             [email, user.name, account.provider, 1]
           );
-
-          await sendMail({
-            to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
-            subject: 'New User Signup',
-            html: `
-              <h2>New User Signup</h2>
-              <p>A new user has signed up.</p>
-              <p><strong>Full Name:</strong> ${user.name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Signup Type:</strong> Google Signin</p>
-            `,
-          });
+          user.id = result.insertId;
         } else {
+          user.id = rows[0].id;
           await db.query(
             'UPDATE users SET last_loggedin = NOW(), total_loggins = total_loggins + 1 WHERE email = ?',
             [email]
           );
-          await sendMail({
-            to:process.env.NEXT_PUBLIC_ADMIN_MAIL,
-            subject:'Activity: Website Login',
-            html:`
-                <h2>User Activity: User Logged in</h2>
-                <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
-                <p>The user <strong>${user.name}</strong> has successfully logged into the website. Their registered email address is <strong>${email}</strong> via Google Login.</p>  
-                <p>Please review if any further action is required.</p>
-            `,
-          });
         }
+
+        await sendMail({
+          to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
+          subject: 'Activity: Website Login',
+          html: `<h2>User Activity: Login</h2><p><strong>${user.name}</strong> logged in via Google.</p>`,
+        });
       }
 
       return true;
     },
-    async signOut({ token }) {
-      try {
-        if (token?.id) {
-          // Update user's online status to 0
-          await db.query(
-            'UPDATE users SET is_online = 0 WHERE id = ?',
-            [token.id]
-          );
-          
-          // Send logout notification email
-          await sendMail({
-            to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
-            subject: 'Activity: User Logged Out',
-            html: `
-              <h2>User Activity: User Logged Out</h2>
-              <p>Hi, ${process.env.NEXT_PUBLIC_ADMIN_NAME}.</p>
-              <p>The user <strong>${token.name}</strong> has logged out of the website.</p>
-              <p>Their email address is <strong>${token.email}</strong>.</p>
-            `,
-          });
-        }
-      } catch (error) {
-        console.error('Error during signOut:', error);
-      }
-      return true;
-    },
   },
+
   events: {
     async signOut({ token }) {
       try {
         if (token?.id) {
-          await db.query(
-            'UPDATE users SET is_online = 0 WHERE id = ?',
-            [token.id]
-          );
+          await db.query('UPDATE users SET is_online = 0 WHERE id = ?', [token.id]);
+          await sendMail({
+            to: process.env.NEXT_PUBLIC_ADMIN_MAIL,
+            subject: 'Activity: User Logged Out',
+            html: `<h2>User Activity: Logout</h2><p><strong>${token.name}</strong> logged out of the website.</p>`,
+          });
         }
       } catch (error) {
         console.error('Error in signOut event:', error);
       }
     },
   },
+
   pages: {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
+
   secret: JWT_SECRET,
-}; 
+};
