@@ -7,15 +7,16 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
     const name = formData.get('name');
+    const phone = formData.get('phone');
     const email = formData.get('email');
     const description = formData.get('description');
 
     const formStatus = 1;
-    const sql = 'INSERT INTO contact_submissions (name, email, description, status) VALUES (?, ?, ?, ?)';
+    const sql = 'INSERT INTO contact_submissions (name, phone, email, description, status) VALUES (?, ?, ?, ?, ?)';
 
     // Use a connection from the pool and release it automatically after the query
     const connection = await pool.getConnection(); // Get a connection from the pool
-    await connection.query(sql, [name, email, description, formStatus]);
+    await connection.query(sql, [name, phone, email, description, formStatus]);
 
     connection.release(); // Release the connection back to the pool
 

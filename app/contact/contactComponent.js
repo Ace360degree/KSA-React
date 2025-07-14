@@ -1,11 +1,16 @@
-'use client';
+"use client";
 import Image from "next/image";
 import DarkTheme from "../components/body/darkTheme";
 import NavbarIntroPage from "../components/NavbarIntroPage";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { FaFacebook, FaInstagram, FaSquareXTwitter, FaLinkedin } from "react-icons/fa6";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaSquareXTwitter,
+  FaLinkedin,
+} from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
@@ -17,332 +22,469 @@ import { IoCloseOutline } from "react-icons/io5";
 import ScrollifyDisabled from "../components/commons/disableScrollify";
 import { useRouter } from "next/navigation";
 
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css"; // default styling
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactComponent() {
-    const [showTabs, setShowTabs] = useState('All');
-    const formTitle = useRef(null);
-    const [mobileFilter,setMobileFilter] =useState(false);
-    const[submitting,setSubmitting] = useState(false);
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const officeSection = useRef(null);
-    const formsection = useRef(null);
+  const [showTabs, setShowTabs] = useState("All");
+  const formTitle = useRef(null);
+  const [mobileFilter, setMobileFilter] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const isTouchDevice =
+    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const officeSection = useRef(null);
+  const formsection = useRef(null);
 
-    const animationTitle = useRef(null);
-    const [fileName, setFileName] = useState('No File Chosen');
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        description: '',
+  const animationTitle = useRef(null);
+  const [fileName, setFileName] = useState("No File Chosen");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    description: "",
+    countryCode: "+91", // <-- Add this
+    phone: "", // <-- Add this
+    //file: null
+  });
+
+  const [phoneError, setPhoneError] = useState("");
+  const [activeContact, setActiveContact] = useState(true);
+  const [activeOffices, setActiveOffices] = useState(false);
+
+  const [showAlert, setshowAlert] = useState(false);
+  const [showAlertError, setshowAlertError] = useState(false);
+
+  const toggleMobileFilter = () => {
+    setMobileFilter(!mobileFilter);
+  };
+
+  function scrollSmoothTo() {
+    if (formsection.current) {
+      formsection.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (!isTouchDevice) {
+      // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
+      ScrollTrigger.normalizeScroll(true);
+    }
+
+    return () => {
+      if (!isTouchDevice) {
+        ScrollTrigger.normalizeScroll(false);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (officeSection.current) {
+      function initActiveNow() {
+        setActiveContact(false);
+        setActiveOffices(true);
+      }
+
+      function removeActiveNow() {
+        setActiveContact(true);
+        setActiveOffices(false);
+      }
+
+      ScrollTrigger.create({
+        trigger: officeSection.current,
+        start: "top 50%",
+        end: "bottom 0%",
+        onEnter: initActiveNow,
+        onEnterBack: initActiveNow,
+        onLeave: removeActiveNow,
+        onLeaveBack: removeActiveNow,
+      });
+    }
+  }, [activeContact, activeOffices, showTabs]);
+
+  // const handleFileChange = (event) => {
+  //     const file = event.target.files[0];
+  //     setFileName(file ? file.name : 'No file chosen');
+  //     setFormData({
+  //         ...formData,
+  //         file: file
+  //     });
+  // };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Phone validation for Indian numbers
+    if (formData.countryCode === "+91") {
+      // Indian phone numbers: 10 digits, start with 6-9
+      const indianPhoneRegex = /^[6-9]\d{9}$/;
+      if (!indianPhoneRegex.test(formData.phone)) {
+        setPhoneError("Please enter a valid 10-digit Indian mobile number starting with 6-9.");
+        return;
+      }
+    } else {
+      setPhoneError("");
+    }
+
+    const form = new FormData();
+    form.append("name", formData.name);
+    // Combine country code and phone for submission
+    form.append("phone", `${formData.countryCode} ${formData.phone}`);
+    form.append("email", formData.email);
+    form.append("description", formData.description);
+
+    // if (formData.file) {
+    //     form.append('file', formData.file);
+    // }
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/submitcontact", {
+        method: "POST",
+        body: form,
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // Handle successful submission (e.g., show a success message)
+      setshowAlert(true);
+      setSubmitting(false);
+      setFormData({
+        name: "",
+        email: "",
+        description: "",
+        countryCode: "+91",
+        phone: "",
         //file: null
+      });
+      setPhoneError("");
+      setFileName("No File Chosen");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setshowAlertError(true);
+    }
+  };
+
+  useEffect(() => {
+    document.querySelector("body").classList.remove("loading");
+    if (animationTitle.current) {
+      let animationPageTitleSpans = document.querySelectorAll(
+        ".page-title-animation span"
+      );
+
+      animationPageTitleSpans.forEach(function (title, index) {
+        let pageTitleAnimation = gsap.timeline({ delay: index * 0.6 });
+
+        pageTitleAnimation.fromTo(
+          title,
+          { rotateX: "-90", opacity: 1 },
+          { rotateX: "0", delay: 0.4, duration: 0.4 }
+        );
+
+        pageTitleAnimation.to(title, {
+          height: "auto",
+          y: "0",
+          delay: 0.3,
+          duration: 0.4,
+        });
+      });
+    }
+
+    setTimeout(() => {
+      document.querySelector("body").classList.remove("loading");
+      document.querySelector(".scrollbanner").classList.add("active");
+    }, 2000);
+
+    if (formTitle.current) {
+      gsap.fromTo(
+        formTitle.current,
+        { opacity: 0, y: "150px" },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: formTitle.current,
+            start: "top 90%",
+            end: "bottom 60%",
+            scrub: true,
+          },
+        }
+      );
+    }
+  }, [showTabs]);
+
+  // useEffect(() => {
+  //     $(document).ready(function () {
+  //         // Initialize Scrollify
+  //         // $.scrollify.enable();
+  //         $.scrollify({
+  //             section: ".contact-snap",
+  //             sectionName: "contact-snap",
+  //             interstitialSection: "",
+  //             easing: "easeOutExpo",
+  //             scrollSpeed: isTouchDevice?100:1500,
+  //             offset: 0,
+  //             scrollbars: true,
+  //             standardScrollElements: "",
+  //             setHeights: true,
+  //             overflowScroll: true,
+  //             updateHash: false,
+  //             touchScroll: true,
+  //         });
+
+  //         $.scrollify.disable();
+  //         gsap.to(window, {
+  //             scrollTo: { y: 0, offsetY: 0 },
+  //             duration: 0,
+  //             ease: "power3.inOut",
+  //             onComplete: () => {
+  //                 $.scrollify.enable();
+  //             }
+  //         });
+
+  //         ScrollTrigger.refresh();
+  //     });
+
+  //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
+  // }, [showTabs]);
+
+  useEffect(() => {
+    let isTouchpad = false;
+
+    // Detect if the input is from a touchpad
+    const detectTouchpad = (event) => {
+      if (event.deltaY !== 0 && Math.abs(event.deltaY) < 30) {
+        isTouchpad = true;
+      }
+    };
+
+    window.addEventListener("wheel", detectTouchpad);
+
+    $(document).ready(function () {
+      // Initialize Scrollify
+      $.scrollify({
+        section: ".contact-snap",
+        sectionName: "contact-snap",
+        interstitialSection: "",
+        easing: "easeOutExpo",
+        scrollSpeed: isTouchpad ? 800 : 1500, // Adjust scroll speed for touchpads
+        offset: 0,
+        scrollbars: true,
+        standardScrollElements: "",
+        setHeights: true,
+        overflowScroll: false, // Prevent conflicts with touchpad scrolling
+        updateHash: false,
+        touchScroll: true,
+        before: (index) => {
+          console.log(`Scrolling to section ${index}`);
+        },
+        after: (index) => {
+          console.log(`Scrolled to section ${index}`);
+        },
+      });
+
+      // Start with Scrollify disabled and GSAP animation to scroll to top
+      $.scrollify.disable();
+      gsap.to(window, {
+        scrollTo: { y: 0, offsetY: 0 },
+        duration: 0,
+        ease: "power3.inOut",
+        onComplete: () => {
+          $.scrollify.enable();
+          ScrollTrigger.refresh();
+        },
+      });
     });
 
-    
-    const[activeContact,setActiveContact] = useState(true);
-    const[activeOffices,setActiveOffices] =useState(false);
-
-    const [showAlert,setshowAlert] = useState(false);
-    const [showAlertError,setshowAlertError] = useState(false);
-
-    const toggleMobileFilter = () =>{
-        setMobileFilter(!mobileFilter);
-    }
-
-    function scrollSmoothTo() {
-        if (formsection.current) {
-            formsection.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-        }
-    }
-
-    useEffect(() => {
-  
-        if (!isTouchDevice) {
-          // Apply ScrollTrigger normalization only on non-touch devices (like desktops)
-          ScrollTrigger.normalizeScroll(true);
-        }
-      
-        return () => {
-          if (!isTouchDevice) {
-            ScrollTrigger.normalizeScroll(false);
-          }
-        };
-      }, []);
-
-    useEffect(()=>{
-        if(officeSection.current){
-            
-            function initActiveNow(){
-                setActiveContact(false);
-                setActiveOffices(true);
-                
-            }
-
-            function removeActiveNow(){
-                setActiveContact(true);
-                setActiveOffices(false);
-            }
-
-            ScrollTrigger.create({
-                trigger:officeSection.current,
-                start:'top 50%',
-                end:'bottom 0%',
-                onEnter:initActiveNow,
-                onEnterBack:initActiveNow,
-                onLeave:removeActiveNow,
-                onLeaveBack:removeActiveNow,
-            })
-        }
-    },[activeContact,activeOffices,showTabs])
-
-    // const handleFileChange = (event) => {
-    //     const file = event.target.files[0];
-    //     setFileName(file ? file.name : 'No file chosen');
-    //     setFormData({
-    //         ...formData,
-    //         file: file
-    //     });
-    // };
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+    return () => {
+      // Cleanup Scrollify and event listeners
+      $.scrollify.disable();
+      window.removeEventListener("wheel", detectTouchpad);
     };
+  }, [showTabs]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const router = useRouter();
+  const redirectToLegal = () => {
+    router.push("/policies");
+  };
 
-        const form = new FormData();
-        form.append('name', formData.name);
-        form.append('email', formData.email);
-        form.append('description', formData.description);
-        // if (formData.file) {
-        //     form.append('file', formData.file);
-        // }
-        setSubmitting(true);
-        try {
-            const response = await fetch('/api/submitcontact', {
-                method: 'POST',
-                body: form
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            // Handle successful submission (e.g., show a success message)
-            setshowAlert(true);
-            setSubmitting(false);
-            setFormData({
-                name: '',
-                email: '',
-                description: '',
-                //file: null
-            });
-            setFileName('No File Chosen');
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            setshowAlertError(true);
+  return (
+    <>
+      <DarkTheme />
+      <NavbarIntroPage heading={"Contact"} active={true} />
+      <div class="filter-launch" onClick={toggleMobileFilter}>
+        {mobileFilter ? <IoCloseOutline /> : <BsThreeDots />}
+      </div>
+      <div
+        className={
+          mobileFilter
+            ? "contact-menu signifier active"
+            : "contact-menu signifier"
         }
-    };
+      >
+        <li
+          className={showTabs === "contact" || activeContact ? "active" : ""}
+          onClick={() => {
+            setShowTabs("contact");
+            setMobileFilter(false);
+          }}
+        >
+          Contact
+        </li>
+        <li
+          className={showTabs === "offices" || activeOffices ? "active" : ""}
+          onClick={() => {
+            setShowTabs("offices");
+            setMobileFilter(false);
+          }}
+        >
+          Offices
+        </li>
+      </div>
 
-    useEffect(() => {
-        document.querySelector('body').classList.remove('loading');
-        if (animationTitle.current) {
-            
-            let animationPageTitleSpans = document.querySelectorAll('.page-title-animation span');
+      {showTabs === "All" || showTabs === "contact" ? (
+        <div className="contact-accordion active" id="contact">
+          <div className="contact-title contact-snap">
+            <h2
+              className="page-title-animation signifier fw-normal"
+              ref={animationTitle}
+            >
+              <span className="">
+                <i>Hey,</i>
+              </span>
+              <span className="sm-sm">we were</span>
+              <span className="text-uppercase ">Expecting</span>
+              <span className="text-uppercase">You</span>
+            </h2>
 
-            animationPageTitleSpans.forEach(function (title, index) {
-                let pageTitleAnimation = gsap.timeline({ delay: index * 0.6 });
-
-                pageTitleAnimation.fromTo(title,
-                    { rotateX: "-90", opacity: 1 },
-                    { rotateX: "0", delay: 0.4, duration: 0.4 }
-                );
-
-                pageTitleAnimation.to(title, { height: "auto", y: "0", delay: 0.3, duration: 0.4 });
-            });
-        }
-
-        setTimeout(() => {
-            document.querySelector('body').classList.remove('loading');
-            document.querySelector('.scrollbanner').classList.add('active');
-        }, 2000);
-
-        if (formTitle.current) {
-            gsap.fromTo(formTitle.current, { opacity: 0, y: '150px' },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scrollTrigger: {
-                        trigger: formTitle.current,
-                        start: 'top 90%',
-                        end: 'bottom 60%',
-                        scrub: true,
-                    },
-                });
-        }
-
-    }, [showTabs]);
-
-    // useEffect(() => {
-    //     $(document).ready(function () {
-    //         // Initialize Scrollify
-    //         // $.scrollify.enable();
-    //         $.scrollify({
-    //             section: ".contact-snap",
-    //             sectionName: "contact-snap",
-    //             interstitialSection: "",
-    //             easing: "easeOutExpo",
-    //             scrollSpeed: isTouchDevice?100:1500,
-    //             offset: 0,
-    //             scrollbars: true,
-    //             standardScrollElements: "",
-    //             setHeights: true,
-    //             overflowScroll: true,
-    //             updateHash: false,
-    //             touchScroll: true,
-    //         });
-
-    //         $.scrollify.disable();
-    //         gsap.to(window, {
-    //             scrollTo: { y: 0, offsetY: 0 },
-    //             duration: 0,
-    //             ease: "power3.inOut",
-    //             onComplete: () => {
-    //                 $.scrollify.enable();
-    //             }
-    //         });
-
-    //         ScrollTrigger.refresh();
-    //     });
-
-    //     return () => $.scrollify.disable(); // Cleanup Scrollify when component unmounts
-    // }, [showTabs]);
-
-    
-    useEffect(() => {
-        let isTouchpad = false;
-
-        // Detect if the input is from a touchpad
-        const detectTouchpad = (event) => {
-            if (event.deltaY !== 0 && Math.abs(event.deltaY) < 30) {
-                isTouchpad = true;
-            }
-        };
-
-        window.addEventListener('wheel', detectTouchpad);
-
-        $(document).ready(function () {
-            // Initialize Scrollify
-            $.scrollify({
-                section: ".contact-snap",
-                sectionName: "contact-snap",
-                interstitialSection: "",
-                easing: "easeOutExpo",
-                scrollSpeed: isTouchpad ? 800 : 1500, // Adjust scroll speed for touchpads
-                offset: 0,
-                scrollbars: true,
-                standardScrollElements: "",
-                setHeights: true,
-                overflowScroll: false, // Prevent conflicts with touchpad scrolling
-                updateHash: false,
-                touchScroll: true,
-                before: (index) => {
-                    console.log(`Scrolling to section ${index}`);
-                },
-                after: (index) => {
-                    console.log(`Scrolled to section ${index}`);
-                },
-            });
-
-            // Start with Scrollify disabled and GSAP animation to scroll to top
-            $.scrollify.disable();
-            gsap.to(window, {
-                scrollTo: { y: 0, offsetY: 0 },
-                duration: 0,
-                ease: "power3.inOut",
-                onComplete: () => {
-                    $.scrollify.enable();
-                    ScrollTrigger.refresh();
-                }
-            });
-        });
-
-        return () => {
-            // Cleanup Scrollify and event listeners
-            $.scrollify.disable();
-            window.removeEventListener('wheel', detectTouchpad);
-        };
-    }, [showTabs]);
-
-
-    const router = useRouter();
-    const redirectToLegal = ()=>{
-        router.push('/policies');
-    }
-
-
-    return (
-        <>
-            <DarkTheme />
-            <NavbarIntroPage heading={'Contact'} active={true} />
-            <div class="filter-launch" onClick={toggleMobileFilter}>
-                {mobileFilter?<IoCloseOutline />:<BsThreeDots />}
-            </div> 
-            <div className={mobileFilter?'contact-menu signifier active':'contact-menu signifier'}>
-                <li className={showTabs === 'contact' || activeContact ? 'active' : ''} onClick={() => { setShowTabs('contact');setMobileFilter(false) }}>Contact</li>
-                <li className={showTabs === 'offices' || activeOffices ? 'active' : ''} onClick={() => { setShowTabs('offices');setMobileFilter(false) }}>Offices</li>
+            <div>
+              <a onClick={scrollSmoothTo}>
+                <div className="scroll-downlink"></div>
+              </a>
+              <div className="scrollbanner">
+                <div className="scrollbanner-box"></div>
+              </div>
             </div>
+          </div>
 
-            {showTabs === 'All' || showTabs === 'contact' ?
-                <div className="contact-accordion active" id="contact">
+          <div
+            className="contact-main-section contact-snap"
+            id="contact-form-section"
+            ref={formsection}
+          >
+            <h3 className="form-legend-title signifier" ref={formTitle}>
+              <span>DONT BE SHY,</span> <span>SAY HI !!!</span>
+            </h3>
 
-                    <div className="contact-title contact-snap">
-                        <h2 className="page-title-animation signifier fw-normal" ref={animationTitle}>
-                            <span className=""><i>Hey,</i></span>
-                            <span className="sm-sm">we were</span>
-                            <span className="text-uppercase ">Expecting</span>
-                            <span className="text-uppercase">You</span>
-                        </h2>
+            <form
+              onSubmit={handleSubmit}
+              className="contact-form-box signifier"
+            >
+              <div>
+                <div className="form-row">
+                  <label>Name*</label>
+                  <input
+                    className="theme-input"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Type here"
+                    required
+                  />
+                </div>
 
-                        <div>
-                           <a onClick={scrollSmoothTo}><div className="scroll-downlink">
-                            </div></a>
-                            <div className="scrollbanner">
-                                <div className="scrollbanner-box"></div>
-                                
-                            </div>
-                        </div>
+                <div className="form-row">
+                  <label>Phone*</label>
 
-                    </div>
+                  <div className="flex w-full" style={{display: 'flex', width: '100%'}}>
+                    {/* Country Code Dropdown */}
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          countryCode: e.target.value,
+                        })
+                      }
+                      className="theme-input text-left"
+                      style={{
+                        width: '6rem',
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                        borderRight: 'none',
+                        marginRight: '-1px',
+                      }}
+                      required
+                    >
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+44">🇬🇧 +44 (UK)</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+61">🇦🇺 +61</option>
+                      <option value="+81">🇯🇵 +81</option>
+                    </select>
 
-                    <div className="contact-main-section contact-snap" id="contact-form-section" ref={formsection}>
-                        <h3 className="form-legend-title signifier" ref={formTitle}><span>DONT BE SHY,</span> <span>SAY HI !!!</span></h3>
+                    {/* Phone Number Input */}
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      className="theme-input flex-1"
+                      style={{
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                      }}
+                      placeholder="Enter phone number"
+                      required
+                    />
+                  </div>
+                  {phoneError && (
+                    <div style={{ color: 'red', fontSize: '0.9em', marginTop: '0.25rem' }}>{phoneError}</div>
+                  )}
+                </div>
 
-                        <form onSubmit={handleSubmit} className="contact-form-box signifier">
-                            <div>
-                                <div className="form-row">
-                                    <label>Name*</label>
-                                    <input className="theme-input" name="name" value={formData.name} onChange={handleChange} placeholder="Type here" required />
-                                </div>
+                <div className="form-row">
+                  <label>Email*</label>
+                  <input
+                    type="email"
+                    className="theme-input"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Type here"
+                    required
+                  />
+                </div>
 
-                                <div className="form-row">
-                                    <label>Email*</label>
-                                    <input type="email" className="theme-input" name="email" value={formData.email} onChange={handleChange} placeholder="Type here" required />
-                                </div>
+                <div className="form-row mt-lg-5 mt-4">
+                  <label>Description*</label>
+                  <textarea
+                    className="theme-input"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Type here"
+                    rows="3"
+                    required
+                  ></textarea>
+                </div>
 
-                                <div className="form-row mt-lg-5 mt-4">
-                                    <label>Description*</label>
-                                    <textarea className="theme-input" name="description" value={formData.description} onChange={handleChange} placeholder="Type here" rows="3" required></textarea>
-                                </div>
-
-                                {/* <div className="form-row d-none">
+                {/* <div className="form-row d-none">
                                     <label>Attach File</label>
                                     <div className="file-upload-container ">
                                         <label htmlFor="fileInput" className="input-file-label w-100">Upload</label>
@@ -356,83 +498,147 @@ export default function ContactComponent() {
                                     </div>
                                 </div> */}
 
-                                <div className="form-row mt-5">
-                                    {submitting?
-                                        <button type="submit" className="btn-theme  w-100" disabled><div className="btn-content">Please Wait...</div></button>
-                                    :
-                                    <button type="submit" className="btn-theme w-100"><div className="btn-content">Submit</div></button>
-                                    }
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div className="form-row mt-5">
+                  {submitting ? (
+                    <button type="submit" className="btn-theme  w-100" disabled>
+                      <div className="btn-content">Please Wait...</div>
+                    </button>
+                  ) : (
+                    <button type="submit" className="btn-theme w-100">
+                      <div className="btn-content">Submit</div>
+                    </button>
+                  )}
                 </div>
-                : ''}
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
 
-            {showTabs === 'All' || showTabs === 'offices' ?
-                <div className="contact-section-tab contact-snap overflow-hidden" ref={officeSection} id="offices">
-                    <div className="map-section active">
-                        <div className="office-section ">
-                            <div className="image-mapped">
-                                <div className="map-line london">
-                                    <div className="location-tag london text-start">
-                                        <h4>UNITED KINGDOM</h4>
-                                        <h6>LONDON</h6>
-                                        <h6>19-21 Cunningham House,<br/>
-                                        Westfield Lane, Harrow, HA3 9ED</h6>
-                                    </div>
-                                </div>
-                                <div className="map-line mumbai">
-                                    <div className="location-tag mumbai text-start">
-                                        
-                                        <h6>MUMBAI</h6>
-                                        <h4>INDIA</h4>
-                                    </div>
-                                </div>
+      {showTabs === "All" || showTabs === "offices" ? (
+        <div
+          className="contact-section-tab contact-snap overflow-hidden"
+          ref={officeSection}
+          id="offices"
+        >
+          <div className="map-section active">
+            <div className="office-section ">
+              <div className="image-mapped">
+                <div className="map-line london">
+                  <div className="location-tag london text-start">
+                    <h4>UNITED KINGDOM</h4>
+                    <h6>LONDON</h6>
+                    <h6>
+                      19-21 Cunningham House,
+                      <br />
+                      Westfield Lane, Harrow, HA3 9ED
+                    </h6>
+                  </div>
+                </div>
+                <div className="map-line mumbai">
+                  <div className="location-tag mumbai text-start">
+                    <h6>MUMBAI</h6>
+                    <h4>INDIA</h4>
+                  </div>
+                </div>
 
-                                <Image width={1000} height={600} style={{ width: '100%', height: 'auto', userSelect: 'none' }} alt="World Map" className="w-100" src="/images/map/2021-07-03213high-detail-white-world-map.png" />
-                            </div>
-                        </div>
-                    </div>
+                <Image
+                  width={1000}
+                  height={600}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    userSelect: "none",
+                  }}
+                  alt="World Map"
+                  className="w-100"
+                  src="/images/map/2021-07-03213high-detail-white-world-map.png"
+                />
+              </div>
+            </div>
+          </div>
 
-                    <div className="contact-footer">
-                        <div className="footer-brand">
-                            <span class="cursor-pointer" onClick={()=>{redirectToLegal()}}>Legal and policies</span> © 2024 KSA. All Rights Reserved.
-                        </div>
-                        <div className="social-links">
-                            <a href=''  target="_blank"><FaFacebookF className="footer-icon" size={22} /></a>
-                            <a href='https://www.youtube.com/@kuwalsanamarchitekts4285' target="_blank"><FaYoutube className="footer-icon" size={22} /></a>
-                            <a href='https://www.linkedin.com/feed/' target="_blank"><FaLinkedinIn className="footer-icon" size={22} /></a>
-                            <a href='https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1' target="_blank"><FaInstagram className="footer-icon" size={22} /></a>
-                        </div>
-                        {/* <div className="footer-policy-box">
+          <div className="contact-footer">
+            <div className="footer-brand">
+              <span
+                class="cursor-pointer"
+                onClick={() => {
+                  redirectToLegal();
+                }}
+              >
+                Legal and policies
+              </span>{" "}
+              © 2024 KSA. All Rights Reserved.
+            </div>
+            <div className="social-links">
+              <a href="" target="_blank">
+                <FaFacebookF className="footer-icon" size={22} />
+              </a>
+              <a
+                href="https://www.youtube.com/@kuwalsanamarchitekts4285"
+                target="_blank"
+              >
+                <FaYoutube className="footer-icon" size={22} />
+              </a>
+              <a href="https://www.linkedin.com/feed/" target="_blank">
+                <FaLinkedinIn className="footer-icon" size={22} />
+              </a>
+              <a
+                href="https://www.instagram.com/kuwalsanamarchitekts/?utm_source=qr&igsh=dTgzM2hlOG82aTV1"
+                target="_blank"
+              >
+                <FaInstagram className="footer-icon" size={22} />
+              </a>
+            </div>
+            {/* <div className="footer-policy-box">
                             <Link ><div className="policies-launcher">Policies</div></Link>
                         </div> */}
-                    </div>
-                </div>
-                : ''}
-            <ScrollifyDisabled />
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      <ScrollifyDisabled />
 
-            {showAlert?
-            <div className="contact-alert-box">
-                <div className="contact-alert">
-                    <h1>Your Form has been submitted Successfully!</h1>
-                    <p></p>
-                    <button className="btn btn-light d-block mx-auto" onClick={()=>{setshowAlert(false)}}>Close</button>
-                </div>
-            </div>
-            :''}
+      {showAlert ? (
+        <div className="contact-alert-box">
+          <div className="contact-alert">
+            <h1>Your Form has been submitted Successfully!</h1>
+            <p></p>
+            <button
+              className="btn btn-light d-block mx-auto"
+              onClick={() => {
+                setshowAlert(false);
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
 
-            {showAlertError?
-            <div className="contact-alert-box">
-                <div className="contact-alert">
-                    <h1>Something went Wrong! Please try again</h1>
-                    <p></p>
-                    <button className="btn btn-light d-block mx-auto" onClick={()=>{setshowAlertError(false)}}>Close</button>
-                </div>
-            </div>
-            :''}
-
-        </>
-    );
+      {showAlertError ? (
+        <div className="contact-alert-box">
+          <div className="contact-alert">
+            <h1>Something went Wrong! Please try again</h1>
+            <p></p>
+            <button
+              className="btn btn-light d-block mx-auto"
+              onClick={() => {
+                setshowAlertError(false);
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
+  );
 }
