@@ -338,7 +338,7 @@ function changeText() {
             <div ref={aboutSection} className="full-section about-pinned-anim px-4 overflow-hidden" >
                 <div className=" billy-text">
                     <div className="mx-auto ab-width">
-                    <h3 className="ab-2-head signifier">KSA aims to transform every aspect of human life.</h3>
+                    <h3 className="ab-2-head signifier">KSA aims to transform every aspect of human life and nature.</h3>
                     <p className="about-para mx-auto signifier">KSA has grown from a founder to a big family. 
                         A dynamic and evolving practice that responds to the shifting and advancing social, cultural, political economic and technological conditions of modern life. 
                         Interdisciplinary Research and Design practice with projects of various scales ranging from Architecture, Landscape, Urban Design and Planning, Design Management and Interiors.</p>
