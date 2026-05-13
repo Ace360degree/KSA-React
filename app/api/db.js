@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 
 // Create a connection pool
 export const pool = mysql.createPool({
-host: 'localhost', // Usually 'localhost' works on cPanel
+host: '66.116.237.145', // Usually 'localhost' works on cPanel
 user: 'kuwalsan_kuwalsanam',
 password: 'KSA@admin1',
 database: 'kuwalsan_maindb', // Must match the backend!
