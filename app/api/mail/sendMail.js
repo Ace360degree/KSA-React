@@ -5,22 +5,22 @@ export async function sendMail({ to, subject, text, html }) {
   try {
     // Configure the mail transporter
     const transporter = nodemailer.createTransport({
-      host: 'admin.kuwalsanamarchitekts.com', // Replace with your SMTP server
-      port: 587, // Common SMTP port
-      secure: false, // true for 465, false for other ports
+      host: 'mail.admin.kuwalsanamarchitekts.com', // Replace with your SMTP server
+      port: 465, // Common SMTP port
+      secure: true, // true for 465, false for other ports
       auth: {
         user: 'mailer@admin.kuwalsanamarchitekts.com', // Replace with your email
-        pass: 'dDqV$s_q*tM!', // Replace with your email password
+        pass: 'touRtjOLXa37L=O.', // Replace with your email password
       },
     });
 
     // Define the mail options
     const mailOptions = {
       from: '"Kuwal Sanam Architekts" mailer@admin.kuwalsanamarchitekts.com', // Replace with your sender email
-      to, 
-      subject, 
-      text, 
-      html, 
+      to,
+      subject,
+      text,
+      html,
     };
 
     // Send the email
