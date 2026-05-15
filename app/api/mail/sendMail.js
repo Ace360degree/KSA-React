@@ -48,7 +48,7 @@ export async function sendContactNotification({ userName, userEmail, message }) 
 
   // 2️⃣ Notify admin
   await sendMail({
-    to: "customercare@a360pl.com", // Replace with your admin email
+    to: "Office@ksarchitekts.com", // Replace with your admin email
     subject: "New Contact Form Submission",
     text: `New message received from ${userName} (${userEmail}):\n\n${message}`,
     html: `<p><strong>New Contact Form Submission:</strong></p>
