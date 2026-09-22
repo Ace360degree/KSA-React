@@ -13,9 +13,14 @@ import DisclaimerWindow from "./components/commons/disclaimerWindow";
 import ActivityTracker from "./components/ActivityTracker";
 
 export const metadata = {
-  title: "KSA | Kuwal Sanam Architekts",
-  description: "Bringing imagination to life.",
+  title: "Untitled",
+  description: "Untitled",
   viewport: "width=device-width",
+  openGraph: {
+    title: "Untitled",
+    siteName: "Untitled",
+    description: "Untitled",
+  },
 };
 
 
@@ -25,29 +30,29 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="preload" href="./fonts/cg-times/Times CG.woff" as="font" type="font/woff" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/cg-times/Times CG Italic.woff" as="font" type="font/woff" crossOrigin="anonymous"/>   
-        <link rel="preload" href="./fonts/cg-times/Times CG Bold.woff" as="font" type="font/woff" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/cg-times/Times CG Bold Italic.woff" as="font" type="font/woff" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/avelir/AVELIRE.ttf" as="font" type="font/ttf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/Billie Eilish/billie_eilish-webfont.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/Billie Eilish/billie_eilish-webfont.woff" as="font" type="font/woff" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Extralight.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Thin.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Light.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Regular.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Medium.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Bold.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
-        <link rel="preload" href="./fonts/signifier/TestSignifier-Black.otf" as="font" type="font/otf" crossOrigin="anonymous"/>
+        <link rel="preload" href="./fonts/cg-times/Times CG.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/cg-times/Times CG Italic.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/cg-times/Times CG Bold.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/cg-times/Times CG Bold Italic.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/avelir/AVELIRE.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/Billie Eilish/billie_eilish-webfont.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/Billie Eilish/billie_eilish-webfont.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Extralight.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Thin.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Light.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Regular.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Medium.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Bold.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="./fonts/signifier/TestSignifier-Black.otf" as="font" type="font/otf" crossOrigin="anonymous" />
       </head>
       <body className="">
         <Reduxprovider>
           <SessionWrapper>
-            <CursorAudio/>
+            <CursorAudio />
             {/* <CheckCookie/> */}
             <HomeTextProvider>
-              <CheckUserStatus/>  
-              <UserActivity/>
+              <CheckUserStatus />
+              <UserActivity />
               <ActivityTracker />
               <AnimatePresence mode="wait">
                 {children}
