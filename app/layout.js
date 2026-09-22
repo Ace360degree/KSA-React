@@ -19,7 +19,7 @@ export const metadata = {
   openGraph: {
     title: "Untitled",
     siteName: "Untitled",
-    description: "Untitled",
+    description: "untitled",
   },
 };
 
