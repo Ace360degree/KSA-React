@@ -570,7 +570,7 @@ export default function ContactComponent() {
               >
                 Legal and policies
               </span>{" "}
-              © 2024 KSA. All Rights Reserved.
+              © {new Date().getFullYear()} KSA. All Rights Reserved.
             </div>
             <div className="social-links">
               <a href="" target="_blank">
