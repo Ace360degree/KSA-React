@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { pool as db } from '../../db'; // Adjust the path to your db file
 import { NextResponse } from 'next/server';
+console.log('LOGIN2 MODULE INITIALIZED');
 export const dynamic = 'force-dynamic';
 import jwt from 'jsonwebtoken';
 
